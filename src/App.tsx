@@ -1,12 +1,29 @@
-import React from 'react';
-import {Button} from 'antd'
+import React from 'react'
+import {BrowserRouter as Router, Link} from 'react-router-dom'
+import RouterConfig from './router'
 
 function App() {
   return (
-    <div className="App">
-      <Button type="primary">Hello</Button>
-    </div>
-  );
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Application</Link>
+            </li>
+            <li>
+              <Link to="/job">Job</Link>
+            </li>
+            <li>
+              <Link to="/user">User</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <RouterConfig/>
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
