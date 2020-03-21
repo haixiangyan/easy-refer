@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter as Router, Link} from 'react-router-dom'
-import RouterConfig from './router'
+import RouterConfig from './router/RouterConfig'
 
 function App() {
   return (
