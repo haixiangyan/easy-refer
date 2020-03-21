@@ -9,7 +9,10 @@ function App() {
         <nav>
           <ul>
             <li>
-              <Link to="/">Application</Link>
+              <Link to="/public">Public</Link>
+            </li>
+            <li>
+              <Link to="/application">Application</Link>
             </li>
             <li>
               <Link to="/job">Job</Link>
