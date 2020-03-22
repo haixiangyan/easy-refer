@@ -2,7 +2,8 @@ import Mock from 'mockjs'
 
 Mock.mock(
   '/login',
-  () => {
-    return true
-  }
+  (): ILoginData => ({
+    success: true,
+    message: '登录成功'
+  })
 )

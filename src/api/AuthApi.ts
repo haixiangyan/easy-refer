@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 
 const AuthApi = {
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<AxiosResponse<ILoginData>> {
     return await axios.post('/login', {
       email,
       password
