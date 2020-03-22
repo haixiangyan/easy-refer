@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {Route, Redirect, RouteProps} from 'react-router'
-import fakeAuth from './auth'
+import AuthApi from '../api/AuthApi'
 
 interface Props extends RouteProps {
 }
@@ -10,7 +10,7 @@ const PrivateRoute: React.FC<Props> = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={({location}) =>
-        fakeAuth.isAuthenticated ? (
+        AuthApi.authenticated ? (
           children
         ) : (
           <Redirect
