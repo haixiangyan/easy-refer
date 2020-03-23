@@ -4,7 +4,10 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import 'view-design/dist/styles/iview.css';
+
+// 基础样式
+import './assets/styles/global.scss'
+import 'view-design/dist/styles/iview.css'
 
 // 测试使用 mockjs
 if (process.env.NODE_ENV === 'development') {

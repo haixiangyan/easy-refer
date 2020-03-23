@@ -1,6 +1,8 @@
 <template>
     <div class="home">
-        Public
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-facebook"></use>
+        </svg>
     </div>
 </template>
 
