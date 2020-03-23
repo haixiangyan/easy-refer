@@ -1,7 +1,6 @@
 <template>
     <div class="home">
-        {{msg}}
-        <Button type="primary">Primary</Button>
+        Public
     </div>
 </template>
 
