@@ -6,7 +6,10 @@ import router from './router'
 import store from './store'
 import 'view-design/dist/styles/iview.css';
 
-import './mock/MockAuthService'
+// 测试使用 mockjs
+if (process.env.NODE_ENV === 'development') {
+  require('./mock/')
+}
 
 Vue.config.productionTip = false
 
