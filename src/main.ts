@@ -6,6 +6,8 @@ import router from './router'
 import store from './store'
 import 'view-design/dist/styles/iview.css';
 
+import './mock/MockAuthService'
+
 Vue.config.productionTip = false
 
 Vue.use(ViewUI)
