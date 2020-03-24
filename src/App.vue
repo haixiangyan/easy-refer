@@ -1,31 +1,31 @@
 <template>
-    <div id="app">
-        <ReMenu v-if="$route.name !== 'Login'"/>
-        <main>
+    <el-row class="app">
+        <el-col class="pane" :span="3">
+            <Menu v-if="$route.name !== 'Login'"/>
+        </el-col>
+        <el-col class="pane" :span="21">
             <router-view/>
-        </main>
-    </div>
+        </el-col>
+    </el-row>
 </template>
 
 <script lang="ts">
     import Vue from 'vue'
     import {Component} from 'vue-property-decorator'
-    import ReMenu from "@/components/ReMenu.vue"
+    import Menu from "@/components/Menu.vue"
 
     @Component({
-      components: {ReMenu},
+      components: {Menu},
     })
     export default class App extends Vue {
     }
 </script>
 
 <style lang="scss">
-    #app {
+    .app {
         height: 100vh;
-        display: flex;
-    }
-    main {
-        flex-grow: 1;
-        padding: 40px;
+        .pane {
+            height: 100%;
+        }
     }
 </style>

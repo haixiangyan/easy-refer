@@ -1,26 +1,30 @@
 <template>
     <div class="login">
-        <Card class="login-card">
-            <Form class="login-form" ref="loginForm" :model="loginForm" :rules="loginRules">
+        <el-card class="login-card">
+            <el-form class="login-form" ref="loginForm" :model="loginForm" :rules="loginRules">
                 <div class="login-form-header">
                     <img class="login-logo" src="../assets/img/logo.png" alt="logo">
                 </div>
-                <FormItem prop="email">
-                    <Input type="email" v-model="loginForm.email" placeholder="输入邮箱">
-                        <Icon type="md-mail" slot="prepend"></Icon>
-                    </Input>
-                </FormItem>
-                <FormItem prop="password">
-                    <Input type="password" v-model="loginForm.password" placeholder="输入密码">
-                        <Icon type="md-key" slot="prepend"></Icon>
-                    </Input>
-                </FormItem>
-                <FormItem class="login-form-footer">
-                    <Button @click="register" class="register-button" type="text">创建账号</Button>
-                    <Button type="primary" @click="login">登录</Button>
-                </FormItem>
-            </Form>
-        </Card>
+                <el-form-item prop="email">
+                    <el-input type="email" v-model="loginForm.email" placeholder="输入邮箱">
+                        <template slot="prepend">
+                            <i class="el-icon-message"></i>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop="password">
+                    <el-input type="password" v-model="loginForm.password" placeholder="输入密码">
+                        <template slot="prepend">
+                            <i class="el-icon-key"></i>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item class="login-form-footer">
+                    <el-button @click="register" class="register-button" type="text">创建账号</el-button>
+                    <el-button type="primary" @click="login">登录</el-button>
+                </el-form-item>
+            </el-form>
+        </el-card>
     </div>
 </template>
 
@@ -28,7 +32,7 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import AuthService from "@/services/AuthService"
-  import {Form} from "view-design"
+  import {ElForm} from 'element-ui/types/form'
 
   @Component
   export default class Login extends Vue {
@@ -49,7 +53,7 @@
     }
 
     async register() {
-      (<Form>this.$refs.loginForm).validate(valid => {
+      (<ElForm>this.$refs.loginForm).validate(valid => {
         if (!valid) return
 
         AuthService.register(this.loginForm)
@@ -57,31 +61,31 @@
             if (data.success) {
               this.login()
             } else {
-              this.$Message.error(data.message)
+              this.$message.error(data.message)
             }
           })
           .catch(error => {
-            this.$Message.error(error.message)
+            this.$message.error(error.message)
           })
       })
     }
 
     async login() {
-      (<Form>this.$refs.loginForm).validate(valid => {
+      (<ElForm>this.$refs.loginForm).validate(valid => {
         if (!valid) return
 
         AuthService.login(this.loginForm)
           .then(({data}) => {
             if (data.success) {
               this.$store.commit('auth/setAuth', data.success)
-              this.$Message.success(data.message)
+              this.$message.success(data.message)
               this.$router.push("/public")
             } else {
-              this.$Message.error(data.message)
+              this.$message.error(data.message)
             }
           })
           .catch(error => {
-            this.$Message.error(error.message)
+            this.$message.error(error.message)
           })
       })
     }
