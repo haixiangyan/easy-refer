@@ -73,7 +73,7 @@
         AuthService.login(this.loginForm)
           .then(({data}) => {
             if (data.success) {
-              AuthService.isLogin = data.success
+              this.$store.commit('auth/setAuth', data.success)
               this.$Message.success(data.message)
               this.$router.push("/public")
             } else {

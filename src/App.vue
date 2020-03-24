@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <ReMenu v-if="isLogin"/>
+        <ReMenu v-if="$route.name !== 'Login'"/>
         <main>
             <router-view/>
         </main>
@@ -11,15 +11,9 @@
     import Vue from 'vue'
     import {Component} from 'vue-property-decorator'
     import ReMenu from "@/components/ReMenu.vue"
-    import AuthService from "@/services/AuthService"
 
     @Component({
       components: {ReMenu},
-      computed: {
-        isLogin() {
-          return AuthService.isLogin
-        }
-      }
     })
     export default class App extends Vue {
     }

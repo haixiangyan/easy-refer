@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/index'
 import Public from '../views/Public.vue'
 import Application from '@/views/Application.vue'
 import Job from '@/views/Job.vue'
 import User from '@/views/User.vue'
 import NotFound from '@/views/NotFound.vue'
-import AuthService from '@/services/AuthService'
 import Login from '@/views/Login.vue'
 
 Vue.use(VueRouter)
@@ -23,17 +23,20 @@ const routes = [
   {
     path: '/application',
     name: 'Application',
-    component: Application
+    component: Application,
+    meta: {requireAuth: true}
   },
   {
     path: '/job',
     name: 'Job',
-    component: Job
+    component: Job,
+    meta: {requireAuth: true}
   },
   {
     path: '/user',
     name: 'User',
-    component: User
+    component: User,
+    meta: {requireAuth: true}
   },
   {
     path: '/login',
@@ -53,12 +56,10 @@ const router = new VueRouter({
   routes
 })
 
-const privateRouteNames: string[] = ['Application', 'Job', 'User']
-
 router.beforeEach((to, from, next) => {
   if (!to.name) return next(new Error('No route name'))
-
-  if (!AuthService.isLogin && privateRouteNames.indexOf(to.name) >= 0) {
+  if (!store.state.auth.isLogin && to.meta.requireAuth) {
+    console.log('ll')
     next('/login')
   } else {
     next()
