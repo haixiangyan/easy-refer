@@ -4,7 +4,6 @@
             <Form class="login-form" ref="loginForm" :model="loginForm" :rules="ruleInline">
                 <div class="login-form-header">
                     <img class="login-logo" src="../assets/img/logo.png" alt="logo">
-                    <p>请先登录</p>
                 </div>
                 <FormItem prop="user">
                     <Input type="text" v-model="loginForm.email" placeholder="输入邮箱">
@@ -39,7 +38,7 @@
       password: ""
     }
     ruleInline = {
-      user: [
+      email: [
         {required: true, message: "请输入邮箱", trigger: "blur"},
         {type: "email", message: "邮箱格式不正确", trigger: "blur"}
       ],
