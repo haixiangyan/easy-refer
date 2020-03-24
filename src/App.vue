@@ -1,5 +1,5 @@
 <template>
-    <div class="app">
+    <div class="app" :class="screenClass">
         <Menu v-if="$route.name !== 'Login'"/>
         <router-view/>
     </div>
@@ -13,8 +13,8 @@
   @Component({
     components: {Menu},
     computed: {
-      menuWidth() {
-        return this.$route.name === "Login" ? 0 : 3
+      screenClass() {
+        return this.$route.name === 'Login' ? 'full-screen' : 'normal-screen'
       }
     }
   })
@@ -25,7 +25,13 @@
 <style lang="scss">
     .app {
         margin: 0 auto;
+    }
+    .normal-screen {
         min-width: 600px;
         max-width: 1100px;
+    }
+    .full-screen {
+        height: 100vh;
+        width: 100vw;
     }
 </style>
