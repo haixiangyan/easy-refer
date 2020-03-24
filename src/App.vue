@@ -2,7 +2,7 @@
     <div class="app" :class="screenClass">
         <Menu v-if="$route.name !== 'Login'"/>
         <router-view/>
-        <footer></footer>
+        <Footer></Footer>
     </div>
 </template>
 
@@ -10,9 +10,10 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import Menu from "@/components/Menu.vue"
+  import Footer from '@/components/Footer.vue'
 
   @Component({
-    components: {Menu},
+    components: {Menu, Footer},
     computed: {
       screenClass() {
         return this.$route.name === 'Login' ? 'full-screen' : 'normal-screen'

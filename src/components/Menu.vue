@@ -35,7 +35,7 @@
   @Component({
     computed: {
       authText() {
-        return this.$store.state.auth.isLogin ? '个人' : '登录'
+        return this.$store.state.auth.isLogin ? '我' : '登录'
       }
     }
   })
@@ -45,6 +45,7 @@
 </script>
 
 <style scoped lang="scss">
+    @import "~@/assets/styles/variables.scss";
     nav {
         display: flex;
         align-items: center;
@@ -53,7 +54,7 @@
         top: 0;
         left: 50%;
         width: 1100px;
-        border-bottom: 1px solid rgb(230, 230, 230);
+        border-bottom: 1px solid $border-color;
         transform: translateX(-50%);
         z-index: 1500;
         background: white;
