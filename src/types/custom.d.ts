@@ -4,9 +4,14 @@ interface IData {
   content?: any
 }
 
-interface ILoginData extends IData{ }
+interface ILoginResponseData extends IData{ }
+interface IRegisterResponseData extends IData {
+  content: LoginForm
+}
 
 type LoginForm = {
   email: string
   password: string
 }
+
+type RegisterForm = LoginForm & { }

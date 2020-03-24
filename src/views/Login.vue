@@ -49,7 +49,21 @@
     }
 
     async register() {
+      (<Form>this.$refs.loginForm).validate(valid => {
+        if (!valid) return
 
+        AuthService.register(this.loginForm)
+          .then(({data}) => {
+            if (data.success) {
+              this.login()
+            } else {
+              this.$Message.error(data.message)
+            }
+          })
+          .catch(error => {
+            this.$Message.error(error.message)
+          })
+      })
     }
 
     async login() {
@@ -60,7 +74,8 @@
           .then(({data}) => {
             if (data.success) {
               AuthService.isLogin = data.success
-              this.$router.replace("/public")
+              this.$Message.success(data.message)
+              this.$router.push("/public")
             } else {
               this.$Message.error(data.message)
             }
