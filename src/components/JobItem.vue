@@ -28,6 +28,10 @@
         display: flex;
         padding: 15px 0 20px;
         border-bottom: 1px solid rgb(232, 234, 236);
+        &:last-child {
+            border-bottom: none;
+        }
+
         .avatar {
             margin-right: 24px;
             img {
