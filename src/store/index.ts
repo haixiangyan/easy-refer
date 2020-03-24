@@ -5,13 +5,7 @@ import auth, {AuthStore} from './modules/auth'
 
 Vue.use(Vuex)
 
-type GlobalStore = {
-  state: {
-    auth: AuthStore
-  }
-}
-
-const store: GlobalStore = new Vuex.Store({
+const store = new Vuex.Store({
   modules: {
     auth
   }
