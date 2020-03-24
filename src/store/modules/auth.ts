@@ -5,7 +5,7 @@ export type AuthStore = {
 const auth = {
   namespaced: true,
   state: {
-    isLogin: false
+    isLogin: true
   },
   mutations: {
     setAuth: (state: AuthStore, payload: boolean) => {
