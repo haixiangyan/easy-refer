@@ -1,7 +1,7 @@
 <template>
     <div class="job-item">
         <router-link class="avatar" to="/public">
-            <img src="../assets/img/facebook.png" alt="avatar">
+            <img :src="item.imageUrl" alt="avatar">
         </router-link>
         <div class="content">
             <router-link class="title" to="/public">{{item.title}}</router-link>
@@ -17,16 +17,9 @@
   import Vue from "vue"
   import {Component, Prop} from "vue-property-decorator"
 
-  type Item = {
-    id: number
-    title: string
-    content: string
-    company: string
-  }
-
   @Component
   export default class JobItem extends Vue {
-    @Prop({required: true}) item!: Item
+    @Prop({required: true}) item!: Job
   }
 </script>
 

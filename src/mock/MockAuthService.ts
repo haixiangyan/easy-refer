@@ -1,11 +1,11 @@
 import Mock from 'mockjs'
 
-Mock.mock('/login', {
+Mock.mock('/login', 'post', {
   success: true,
   message: '欢迎回来！'
 })
 
-Mock.mock('/register', {
+Mock.mock('/register', 'post', {
   success: true,
   message: '注册成功',
   content: {
