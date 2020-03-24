@@ -1,7 +1,10 @@
 <template>
     <div class="app" :class="screenClass">
         <Menu v-if="$route.name !== 'Login'"/>
-        <router-view/>
+        <main>
+            <router-view/>
+        </main>
+        <footer></footer>
     </div>
 </template>
 
@@ -25,6 +28,9 @@
 <style lang="scss">
     .app {
         margin: 0 auto;
+        main {
+            margin-top: 80px;
+        }
     }
     .normal-screen {
         min-width: 600px;

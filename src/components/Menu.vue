@@ -49,7 +49,14 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        width: 1100px;
         border-bottom: 1px solid rgb(230, 230, 230);
+        transform: translateX(-50%);
+        z-index: 1500;
+        background: white;
         .menu {
             border-bottom: none;
             .logo-menu-item {
