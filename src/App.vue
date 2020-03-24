@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <ReMenu/>
+        <ReMenu v-if="isLogin"/>
         <main>
             <router-view/>
         </main>
@@ -11,12 +11,17 @@
     import Vue from 'vue'
     import {Component} from 'vue-property-decorator'
     import ReMenu from "@/components/ReMenu.vue"
+    import AuthService from "@/services/AuthService"
 
     @Component({
-      components: {ReMenu}
+      components: {ReMenu},
+      computed: {
+        isLogin() {
+          return AuthService.isLogin
+        }
+      }
     })
     export default class App extends Vue {
-
     }
 </script>
 
@@ -24,5 +29,8 @@
     #app {
         height: 100vh;
         display: flex;
+    }
+    main {
+        flex-grow: 1;
     }
 </style>
