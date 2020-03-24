@@ -5,3 +5,8 @@ interface IData {
 }
 
 interface ILoginData extends IData{ }
+
+type LoginForm = {
+  email: string
+  password: string
+}
