@@ -28,3 +28,10 @@
         ]
     }
 </script>
+
+<style lang="scss">
+    .public {
+        margin: 0 auto;
+        max-width: 640px;
+    }
+</style>

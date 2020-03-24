@@ -1,12 +1,8 @@
 <template>
-    <el-row class="app">
-        <el-col class="pane" :span="menuWidth">
-            <Menu v-if="$route.name !== 'Login'"/>
-        </el-col>
-        <el-col class="pane" :span="24 - menuWidth">
-            <router-view/>
-        </el-col>
-    </el-row>
+    <div class="app">
+        <Menu v-if="$route.name !== 'Login'"/>
+        <router-view/>
+    </div>
 </template>
 
 <script lang="ts">
@@ -26,12 +22,4 @@
   }
 </script>
 
-<style lang="scss">
-    .app {
-        height: 100vh;
-
-        .pane {
-            height: 100%;
-        }
-    }
-</style>
+<style lang="scss"></style>

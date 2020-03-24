@@ -1,11 +1,12 @@
 <template>
     <el-menu
         :default-active="$route.path"
+        mode="horizontal"
         :router="true"
         class="menu">
-        <div class="logo-menu-item">
+        <el-menu-item class="logo-menu-item">
             <img src="../assets/img/logo.png" alt="logo">
-        </div>
+        </el-menu-item>
         <el-menu-item index="/public">
             <i class="el-icon-s-home"></i>
             <span slot="title">内推广场</span>
@@ -36,14 +37,11 @@
 </script>
 
 <style scoped lang="scss">
-    .menu {
-        height: 100%;
-    }
     .logo-menu-item {
         text-align: center;
         > img {
-            width: 10em;
-            height: 10em;
+            width: 4em;
+            height: 4em;
         }
     }
 </style>
