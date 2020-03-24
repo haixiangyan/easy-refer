@@ -1,12 +1,12 @@
 <template>
     <div class="login">
         <Card class="login-card">
-            <Form class="login-form" ref="loginForm" :model="loginForm" :rules="ruleInline">
+            <Form class="login-form" ref="loginForm" :model="loginForm" :rules="loginRules">
                 <div class="login-form-header">
                     <img class="login-logo" src="../assets/img/logo.png" alt="logo">
                 </div>
-                <FormItem prop="user">
-                    <Input type="text" v-model="loginForm.email" placeholder="输入邮箱">
+                <FormItem prop="email">
+                    <Input type="email" v-model="loginForm.email" placeholder="输入邮箱">
                         <Icon type="md-mail" slot="prepend"></Icon>
                     </Input>
                 </FormItem>
@@ -37,7 +37,7 @@
       email: "",
       password: ""
     }
-    ruleInline = {
+    loginRules = {
       email: [
         {required: true, message: "请输入邮箱", trigger: "blur"},
         {type: "email", message: "邮箱格式不正确", trigger: "blur"}
