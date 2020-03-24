@@ -6,6 +6,9 @@
         <div class="content">
             <router-link class="title" to="/public">{{item.title}}</router-link>
             <p>{{item.content}}</p>
+            <div class="footer">
+                <el-button type="text">开始内推</el-button>
+            </div>
         </div>
     </div>
 </template>
@@ -33,7 +36,7 @@
         padding: 15px 0 20px;
         border-bottom: 1px solid rgb(232, 234, 236);
         .avatar {
-            margin-right: 8px;
+            margin-right: 24px;
             img {
                 height: 100px;
                 width: 100px;

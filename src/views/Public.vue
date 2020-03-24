@@ -32,6 +32,6 @@
 <style lang="scss">
     .public {
         margin: 0 auto;
-        max-width: 640px;
+        width: 80%;
     }
 </style>

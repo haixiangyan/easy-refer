@@ -22,4 +22,10 @@
   }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+    .app {
+        margin: 0 auto;
+        min-width: 600px;
+        max-width: 1100px;
+    }
+</style>
