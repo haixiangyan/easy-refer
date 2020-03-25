@@ -10,7 +10,7 @@ Mock.mock(/\/jobs\?page\d*/, 'get', {
       'id|+1': 1,
       title: '@CSENTENCE',
       content: '@CPARAGRAPH',
-      'company|10': companies,
+      'company|1': companies,
       imageUrl: "@DATAIMAGE('50x50','@company')",
     }],
     totalPages: 60

@@ -40,8 +40,6 @@
 
         if (!data.success) return this.$message.error(data.message)
 
-        console.log(data.content)
-
         this.publicJobs = data.content.jobs
         this.totalPages = data.content.totalPages
       } catch (error) {
