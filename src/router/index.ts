@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index'
 import Public from '../views/Public.vue'
-import Application from '@/views/Application.vue'
+import Refer from '@/views/Refer.vue'
 import Job from '@/views/Job.vue'
 import User from '@/views/User.vue'
 import NotFound from '@/views/NotFound.vue'
@@ -21,9 +21,9 @@ const routes = [
     component: Public
   },
   {
-    path: '/application',
-    name: 'Application',
-    component: Application,
+    path: '/refer',
+    name: 'Refer',
+    component: Refer,
     meta: {requireAuth: true}
   },
   {

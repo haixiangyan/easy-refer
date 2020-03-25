@@ -13,7 +13,7 @@
                 <i class="el-icon-s-home"></i>
                 <span slot="title">内推广场</span>
             </el-menu-item>
-            <el-menu-item index="/application">
+            <el-menu-item index="/refer">
                 <i class="el-icon-s-order"></i>
                 <span slot="title">申请内推</span>
             </el-menu-item>
