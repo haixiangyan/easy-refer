@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
 
-Mock.mock(/\/jobs\?page\d*/, 'get', {
+Mock.mock(/\/jobs\?page=\d*&userId=[a-zA-Z]*/, 'get', {
   success: true,
   message: '成功获取数据',
   'content|10': {
