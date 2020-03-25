@@ -32,7 +32,7 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import AuthService from "@/services/AuthService"
-  import {ElForm} from 'element-ui/types/form'
+  import {ElForm} from "element-ui/types/form"
 
   @Component
   export default class Login extends Vue {
@@ -77,8 +77,8 @@
         AuthService.login(this.loginForm)
           .then(({data}) => {
             if (data.success) {
-              this.$store.commit('auth/setAuth', data.success)
-              this.$message.success(data.message)
+              this.$store.commit("auth/setAuth", data.success)
+              this.$notify({title: "登录成功", message: data.message, type: "success"})
               this.$router.push("/public")
             } else {
               this.$message.error(data.message)
