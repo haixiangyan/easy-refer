@@ -1,7 +1,7 @@
 <template>
     <div class="app" :class="screenClass">
         <Menu v-if="$route.name !== 'Login'"/>
-        <el-row>
+        <el-row class="main">
             <el-col :span="16">
                 <router-view class="router-view"/>
             </el-col>
@@ -46,8 +46,11 @@
         min-width: 600px;
         max-width: 1100px;
     }
-    .router-view {
-        padding: 0 12px 0 24px;
+    .main {
+        padding-bottom: 80px;
+        .router-view {
+            padding: 0 12px 0 24px;
+        }
     }
     .full-screen {
         padding-top: 0;
