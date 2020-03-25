@@ -24,10 +24,11 @@
 </script>
 
 <style scoped lang="scss">
+    @import '~@/assets/styles/variables.scss';
     .job-item {
         display: flex;
-        padding: 15px 0 20px;
-        border-bottom: 1px solid rgb(232, 234, 236);
+        padding: 20px 0;
+        border-bottom: 1px solid $border-color;
         &:last-child {
             border-bottom: none;
         }
@@ -39,19 +40,19 @@
                 width: 100px;
             }
         }
-        .title {
-            margin-bottom: 7px;
-            font-size: 18px;
-            color: black;
-            font-weight: bold;
-            &:hover {
-                text-decoration: underline;
-            }
-        }
         .content {
-            font-size: 13px;
+            font-size: 14px;
             color: #999;
             line-height: 24px;
+            .title {
+                margin-bottom: 7px;
+                font-size: 20px;
+                color: black;
+                font-weight: bold;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 </style>
