@@ -8,7 +8,7 @@
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
-                :total="1000">
+                :total="totalPages">
             </el-pagination>
         </div>
     </div>
@@ -23,14 +23,13 @@
   @Component({
     components: {JobItem}
   })
-  export default class Home extends Vue {
+  export default class Public extends Vue {
     publicJobs: Job[] = []
     page: number = 1
+    totalPages: number = 0
 
     mounted() {
-      setTimeout(() => {
-        this.loadJobs(this.page)
-      }, 3000)
+      this.loadJobs(this.page)
     }
 
     async loadJobs(page: number) {
@@ -41,13 +40,16 @@
 
         if (!data.success) return this.$message.error(data.message)
 
-        this.publicJobs = data.content
+        console.log(data.content)
+
+        this.publicJobs = data.content.jobs
+        this.totalPages = data.content.totalPages
       } catch (error) {
         this.$message.error(error.message)
       }
     }
 
-    @Watch('page')
+    @Watch("page")
     onPageChange(page: number) {
       this.loadJobs(page)
     }
@@ -59,6 +61,7 @@
         margin: 0 auto;
         width: 80%;
     }
+
     .pages {
         text-align: center;
         padding: 20px 0;

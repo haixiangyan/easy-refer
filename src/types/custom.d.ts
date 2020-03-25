@@ -10,7 +10,10 @@ interface IRegisterResponseData extends IData {
 }
 
 interface IJobsResponseData extends IData {
-  content: Job[]
+  content: {
+    totalPages: number
+    jobs: Job[]
+  }
 }
 
 type LoginForm = {
