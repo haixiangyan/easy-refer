@@ -1,15 +1,15 @@
 <template>
     <div class="app" :class="screenClass">
-        <Menu v-if="$route.name !== 'Login'"/>
+        <Menu v-if="!isLoginPage"/>
         <el-row class="main">
-            <el-col :span="16">
+            <el-col :span="isLoginPage ? 24 : 16" class="view-wrapper">
                 <router-view class="router-view"/>
             </el-col>
-            <el-col :span="8">
-                <Intro/>
+            <el-col :span="isLoginPage ? 0 : 8">
+                <Intro v-if="!isLoginPage"/>
             </el-col>
         </el-row>
-        <Footer v-if="$route.name !== 'Login'"/>
+        <Footer v-if="!isLoginPage"/>
     </div>
 </template>
 
@@ -25,6 +25,9 @@
     computed: {
       screenClass() {
         return this.$route.name === 'Login' ? 'full-screen' : 'normal-screen'
+      },
+      isLoginPage() {
+        return this.$route.name === 'Login'
       }
     }
   })
@@ -45,11 +48,15 @@
         padding-top: 80px;
         min-width: 600px;
         max-width: 1100px;
+        padding-bottom: 80px;
     }
     .main {
-        padding-bottom: 80px;
-        .router-view {
-            padding: 0 12px 0 24px;
+        height: 100%;
+        .view-wrapper {
+            height: 100%;
+            .router-view {
+                padding: 0 12px 0 24px;
+            }
         }
     }
     .full-screen {
