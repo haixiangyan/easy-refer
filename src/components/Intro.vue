@@ -16,13 +16,21 @@
                 <p class="rate">{{resumeRate}}%</p>
             </div>
         </div>
+        <div class="function">
+            <router-link to="/public" tag="div">
+                <el-button class="button" type="success" :round="true">查看所有内推信息</el-button>
+            </router-link>
+            <router-link to="/job" tag="div">
+                <el-button class="button" type="primary" :round="true">发布一个内推职位</el-button>
+            </router-link>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
   import Vue from "vue"
-  import {Component} from "vue-property-decorator"
   import UserService from "@/services/UserService"
+  import {Component} from 'vue-property-decorator'
 
   @Component
   export default class Intro extends Vue {
@@ -34,8 +42,8 @@
       finishedResumes: 0,
       totalResumes: 0,
     }
-    referRate = '0'
-    resumeRate = '0'
+    referRate = "0"
+    resumeRate = "0"
 
     mounted() {
       this.loadIntro()
@@ -43,7 +51,7 @@
 
     async loadIntro() {
       try {
-        const {data} = await UserService.getIntro('1')
+        const {data} = await UserService.getIntro("1")
 
         if (!data.success) return this.$message.error(data.message)
 
@@ -56,7 +64,7 @@
     }
 
     calculateRate(current: number, total: number): string {
-      return total === 0 ? '0' : (current / total * 100).toFixed(2)
+      return total === 0 ? "0" : (current / total * 100).toFixed(2)
     }
   }
 </script>
@@ -113,6 +121,19 @@
 
         .check {
             margin-top: 20px;
+        }
+
+        .function {
+            margin-top: 20px;
+
+            > div {
+                margin-bottom: 10px;
+                text-align: center;
+
+                .button {
+                    width: 90%;
+                }
+            }
         }
     }
 </style>
