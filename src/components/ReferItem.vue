@@ -1,25 +1,26 @@
 <template>
     <el-row class="refer-item">
         <el-col :span="6">
-            <p class="status" :class="'submitted'">已提交</p>
-            <p class="update-date">2019年2月10号</p>
+            <p class="status" :class="'submitted'">{{refer.status}}</p>
+            <p class="updated-date">{{refer.updatedDate}}</p>
         </el-col>
         <el-col :span="18" class="content">
             <div class="post">
-                <el-link type="primary" href="/">xxxxxxxxxxx</el-link>
+                <el-link type="primary" :href="refer.postUrl">{{refer.postTitle}}</el-link>
             </div>
-            <div class="company">Facebook</div>
-            <div class="referer">yyyyy正在处理</div>
+            <div class="company">{{refer.company}}</div>
+            <div class="referer">{{refer.referer}}正在处理</div>
         </el-col>
     </el-row>
 </template>
 
 <script lang="ts">
   import Vue from "vue"
-  import {Component} from "vue-property-decorator"
+  import {Component, Prop} from "vue-property-decorator"
 
   @Component
   export default class ReferItem extends Vue {
+    @Prop({required: true}) refer!: TRefer
   }
 </script>
 
@@ -35,11 +36,12 @@
 
         .status {
             font-weight: bold;
+            font-size: 1.1em;
             &.submitted {
                 color: black;
             }
         }
-        .update-date {
+        .updated-date {
             font-size: .9em;
             color: #303133;
         }
@@ -51,7 +53,7 @@
             }
             .post a {
                 margin-bottom: 4px;
-                font-size: 20px;
+                font-size: 1.1em;
                 font-weight: bold;
             }
         }

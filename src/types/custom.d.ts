@@ -20,6 +20,12 @@ interface IJobsResponseData extends IData {
   }
 }
 
+interface IRefersResponseData extends IData {
+  content: {
+    refers: TRefer[]
+  }
+}
+
 type TLoginForm = {
   email: string
   password: string
@@ -42,4 +48,14 @@ type TIntro = {
   totalRefers: number
   finishedResumes: number
   totalResumes: number
+}
+
+type TRefer = {
+  id: string
+  postTitle: string
+  postUrl: string
+  status: string
+  updatedDate: string
+  company: string
+  referer: string
 }
