@@ -2,10 +2,10 @@
     <div class="app" :class="screenClass">
         <Menu v-if="$route.name !== 'Login'"/>
         <el-row>
-            <el-col :span="18">
+            <el-col :span="16">
                 <router-view class="router-view"/>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="8">
                 <Intro/>
             </el-col>
         </el-row>
