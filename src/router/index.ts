@@ -59,7 +59,6 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (!to.name) return next(new Error('No route name'))
   if (!(store.state as any).auth.isLogin as boolean && to.meta.requireAuth) {
-    console.log('ll')
     next('/login')
   } else {
     next()
