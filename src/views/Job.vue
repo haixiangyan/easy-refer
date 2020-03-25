@@ -1,17 +1,67 @@
 <template>
-    <div>Job</div>
+    <div class="job">
+        <div class="jobs">
+            <JobItem v-for="job in postedJobs" :job="job" :key="job.id"></JobItem>
+        </div>
+        <div class="pages">
+            <el-pagination
+                :current-page.sync="page"
+                background
+                layout="prev, pager, next"
+                :total="totalPages">
+            </el-pagination>
+        </div>
+    </div>
 </template>
 
 <script lang="ts">
   import Vue from "vue"
-  import {Component} from "vue-property-decorator"
+  import {Component, Watch} from "vue-property-decorator"
+  import JobItem from "@/components/JobItem.vue"
+  import JobService from '@/services/JobService'
 
-  @Component
+  @Component({
+    components: {JobItem}
+  })
   export default class Job extends Vue {
+    postedJobs: Job[] = []
+    page: number = 1
+    totalPages: number = 0
 
+    mounted() {
+      this.loadJobs(this.page)
+    }
+
+    async loadJobs(page: number) {
+      this.page = page
+
+      try {
+        const {data} = await JobService.getJobs(this.page, 'public')
+
+        if (!data.success) return this.$message.error(data.message)
+
+        this.postedJobs = data.content.jobs
+        this.totalPages = data.content.totalPages
+      } catch (error) {
+        this.$message.error(error.message)
+      }
+    }
+
+    @Watch("page")
+    onPageChange(page: number) {
+      this.loadJobs(page)
+    }
   }
 </script>
 
 <style scoped lang="scss">
+.job {
+    margin: 0 auto;
+    width: 80%;
+}
 
+.pages {
+    text-align: center;
+    padding: 20px 0;
+}
 </style>

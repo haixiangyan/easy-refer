@@ -1,11 +1,11 @@
 <template>
     <div class="job-item">
         <router-link class="avatar" to="/public">
-            <img :src="item.imageUrl" alt="avatar">
+            <img :src="job.imageUrl" alt="avatar">
         </router-link>
         <div class="content">
-            <router-link class="title" to="/public">{{item.title}}</router-link>
-            <p>{{item.content}}</p>
+            <router-link class="title" to="/public">{{job.title}}</router-link>
+            <p>{{job.content}}</p>
             <div class="footer">
                 <el-button type="text">开始内推</el-button>
             </div>
@@ -19,7 +19,7 @@
 
   @Component
   export default class JobItem extends Vue {
-    @Prop({required: true}) item!: Job
+    @Prop({required: true}) job!: Job
   }
 </script>
 
