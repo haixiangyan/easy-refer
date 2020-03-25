@@ -9,6 +9,10 @@ interface IRegisterResponseData extends IData {
   content: TLoginForm
 }
 
+interface IIntroResponseData extends IData {
+  content: TIntro
+}
+
 interface IJobsResponseData extends IData {
   content: {
     totalPages: number
@@ -29,4 +33,13 @@ type TJob = {
   title: string
   content: string
   company: string
+}
+
+type TIntro = {
+  avatarUrl: string
+  name: string
+  finishedRefers: number
+  totalRefers: number
+  finishedResumes: number
+  totalResumes: number
 }
