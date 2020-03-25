@@ -1,7 +1,14 @@
 <template>
     <div class="app" :class="screenClass">
         <Menu v-if="$route.name !== 'Login'"/>
-        <router-view class="main"/>
+        <el-row>
+            <el-col :span="18">
+                <router-view class="router-view"/>
+            </el-col>
+            <el-col :span="6">
+                <Intro/>
+            </el-col>
+        </el-row>
         <Footer v-if="$route.name !== 'Login'"/>
     </div>
 </template>
@@ -10,10 +17,11 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import Menu from "@/components/Menu.vue"
+  import Intro from "@/components/Intro.vue"
   import Footer from '@/components/Footer.vue'
 
   @Component({
-    components: {Menu, Footer},
+    components: {Menu, Intro, Footer},
     computed: {
       screenClass() {
         return this.$route.name === 'Login' ? 'full-screen' : 'normal-screen'
@@ -38,8 +46,8 @@
         min-width: 600px;
         max-width: 1100px;
     }
-    .main {
-        padding-bottom: 80px;
+    .router-view {
+        padding: 0 12px 0 24px;
     }
     .full-screen {
         padding-top: 0;

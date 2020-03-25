@@ -55,11 +55,6 @@
 </script>
 
 <style scoped lang="scss">
-.job {
-    margin: 0 auto;
-    width: 80%;
-}
-
 .pages {
     text-align: center;
     padding: 20px 0;

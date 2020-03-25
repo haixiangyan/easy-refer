@@ -55,11 +55,6 @@
 </script>
 
 <style lang="scss">
-    .public {
-        margin: 0 auto;
-        width: 80%;
-    }
-
     .pages {
         text-align: center;
         padding: 20px 0;
