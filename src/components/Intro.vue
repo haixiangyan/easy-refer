@@ -73,7 +73,7 @@
     @import '~@/assets/styles/variables.scss';
 
     .intro {
-        padding: 0 24px 0 12px;
+        padding: 0 24px 0;
 
         .avatar {
             text-align: center;

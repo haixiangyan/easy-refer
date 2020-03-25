@@ -2,11 +2,11 @@
     <div class="app" :class="screenClass">
         <Menu v-if="!isLoginPage"/>
         <el-row class="main">
-            <el-col :span="isLoginPage ? 24 : 16" class="view-wrapper">
+            <el-col :span="showIntro ? 16 : 24" class="view-wrapper">
                 <router-view class="router-view"/>
             </el-col>
-            <el-col :span="isLoginPage ? 0 : 8">
-                <Intro v-if="!isLoginPage"/>
+            <el-col :span="showIntro ? 8 : 0">
+                <Intro v-if="showIntro"/>
             </el-col>
         </el-row>
         <Footer v-if="!isLoginPage"/>
@@ -22,16 +22,17 @@
 
   @Component({
     components: {Menu, Intro, Footer},
-    computed: {
-      screenClass() {
-        return this.$route.name === 'Login' ? 'full-screen' : 'normal-screen'
-      },
-      isLoginPage() {
-        return this.$route.name === 'Login'
-      }
-    }
   })
   export default class App extends Vue {
+    get screenClass(): string {
+      return this.$route.name === "Login" ? "full-screen" : "normal-screen"
+    }
+    get isLoginPage(): boolean {
+      return this.$route.name === "Login"
+    }
+    get showIntro() {
+      return !this.isLoginPage && this.$store.state.auth.isLogin
+    }
   }
 </script>
 
@@ -44,21 +45,26 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+
     .normal-screen {
         padding-top: 80px;
         min-width: 600px;
         max-width: 1100px;
         padding-bottom: 80px;
     }
+
     .main {
         height: 100%;
+
         .view-wrapper {
             height: 100%;
+
             .router-view {
-                padding: 0 12px 0 24px;
+                padding: 0 24px;
             }
         }
     }
+
     .full-screen {
         padding-top: 0;
         height: 100vh;
