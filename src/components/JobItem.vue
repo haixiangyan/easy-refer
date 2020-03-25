@@ -19,7 +19,7 @@
 
   @Component
   export default class JobItem extends Vue {
-    @Prop({required: true}) job!: Job
+    @Prop({required: true}) job!: TJob
   }
 </script>
 

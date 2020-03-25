@@ -37,7 +37,7 @@
   @Component
   export default class Login extends Vue {
     show = true
-    loginForm: LoginForm = {
+    loginForm: TLoginForm = {
       email: "",
       password: ""
     }

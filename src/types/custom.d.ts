@@ -6,24 +6,24 @@ interface IData {
 
 interface ILoginResponseData extends IData{ }
 interface IRegisterResponseData extends IData {
-  content: LoginForm
+  content: TLoginForm
 }
 
 interface IJobsResponseData extends IData {
   content: {
     totalPages: number
-    jobs: Job[]
+    jobs: TJob[]
   }
 }
 
-type LoginForm = {
+type TLoginForm = {
   email: string
   password: string
 }
 
-type RegisterForm = LoginForm & { }
+type TRegisterForm = TLoginForm & { }
 
-type Job = {
+type TJob = {
   id: string,
   imageUrl: string,
   title: string

@@ -1,10 +1,10 @@
 import axios, {AxiosResponse} from 'axios'
 
 const AuthService = {
-  login: async (loginForm: LoginForm): Promise<AxiosResponse<ILoginResponseData>> => {
+  login: async (loginForm: TLoginForm): Promise<AxiosResponse<ILoginResponseData>> => {
     return await axios.post('/login', loginForm)
   },
-  register: async (registerForm: RegisterForm): Promise<AxiosResponse<ILoginResponseData>> => {
+  register: async (registerForm: TRegisterForm): Promise<AxiosResponse<ILoginResponseData>> => {
     return await axios.post('/register', registerForm)
   }
 }

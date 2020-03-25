@@ -24,7 +24,7 @@
     components: {JobItem}
   })
   export default class Public extends Vue {
-    publicJobs: Job[] = []
+    publicJobs: TJob[] = []
     page: number = 1
     totalPages: number = 0
 
