@@ -1,8 +1,8 @@
 <template>
     <div class="app" :class="screenClass">
         <Menu v-if="$route.name !== 'Login'"/>
-        <router-view/>
-        <Footer></Footer>
+        <router-view class="main"/>
+        <Footer v-if="$route.name !== 'Login'"/>
     </div>
 </template>
 
@@ -26,8 +26,10 @@
 
 <style lang="scss">
     .app {
+        position: relative;
         margin: 0 auto;
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        min-height: 100%;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
@@ -35,6 +37,9 @@
         padding-top: 80px;
         min-width: 600px;
         max-width: 1100px;
+    }
+    .main {
+        padding-bottom: 80px;
     }
     .full-screen {
         padding-top: 0;

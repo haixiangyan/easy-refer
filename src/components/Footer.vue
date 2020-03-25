@@ -19,6 +19,11 @@
     @import "~@/assets/styles/variables.scss";
     footer {
         padding: 20px 0;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 100%;
+        transform: translateX(-50%);
         text-align: center;
         border-top: 1px solid $border-color;
         color: #303133;

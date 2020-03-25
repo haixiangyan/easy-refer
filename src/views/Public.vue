@@ -28,7 +28,9 @@
     page: number = 1
 
     mounted() {
-      this.loadJobs(this.page)
+      setTimeout(() => {
+        this.loadJobs(this.page)
+      }, 3000)
     }
 
     async loadJobs(page: number) {
