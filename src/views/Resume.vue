@@ -36,7 +36,7 @@
       this.page = page
 
       try {
-        const {data} = await ResumeService.getResumes('1', this.page)
+        const {data} = await ResumeService.getResumes('1', page)
 
         if (!data.success) return this.$message.error(data.message)
 

@@ -36,7 +36,7 @@
       this.page = page
 
       try {
-        const {data} = await JobService.getJobs(this.page, 'public')
+        const {data} = await JobService.getJobs('public', page)
 
         if (!data.success) return this.$message.error(data.message)
 
