@@ -14,7 +14,8 @@ Mock.mock(/\/refers\?userId=\S*&page=\d*/, 'get', {
       'company|1': companies,
       'status|1': status,
       updatedDate: "@date('yyyy年MM月dd日')",
-      referer: '@CNAME'
+      referer: '@CNAME',
+      source: '@URL'
     }],
     totalPages: 60
   }

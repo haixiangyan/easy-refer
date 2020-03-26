@@ -6,7 +6,10 @@
         </el-col>
         <el-col :span="14" class="content">
             <div class="post">
-                <el-link :href="refer.postUrl">{{refer.postTitle}}</el-link>
+                <el-link :href="refer.source">
+                    原贴
+                    <i class="el-icon-top-right"></i>
+                </el-link>
             </div>
             <div class="company">{{refer.company}}</div>
             <div class="referer">{{refer.referer}}正在处理</div>
