@@ -1,7 +1,7 @@
 <template>
     <footer>
         有任何问题或者新想法，可以联系：
-        <el-link href="haixiang6123@gmail.com">haixiang6123@gmail.com</el-link>
+        <el-link href="mailto:haixiang6123@gmail.com">haixiang6123@gmail.com</el-link>
     </footer>
 </template>
 
