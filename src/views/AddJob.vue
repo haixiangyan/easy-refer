@@ -1,7 +1,7 @@
 <template>
-    <el-form ref="form" :model="addJobForm" label-width="120px" label-position="left" class="add-job-form">
+    <el-form ref="addJobForm" :model="addJobForm" label-width="120px" label-position="left" class="add-job-form" :rules="rules">
         <el-divider>内推信息</el-divider>
-        <el-form-item required label="内推公司">
+        <el-form-item prop="company" required label="内推公司">
             <el-input v-model="addJobForm.company" placeholder="内推的公司"></el-input>
         </el-form-item>
         <el-form-item required label="内推人">
@@ -55,7 +55,9 @@
   import {Component} from "vue-property-decorator"
   import dayjs from 'dayjs'
   import {REQUIRED_REFER_FIELD_VALUES, REFER_FIELDS} from "@/contents/refer"
+  import {ADD_JOB_RULES} from "@/contents/rules"
   import JobService from "@/services/JobService"
+  import {ElForm} from "element-ui/types/form"
 
   @Component
   export default class AddJob extends Vue {
@@ -83,18 +85,22 @@
         return cellDate.isBefore(today) || cellDate.isAfter(afterOneYear)
       }
     }
+    rules = ADD_JOB_RULES
 
-    async publish() {
-      try {
-        const {data} = await JobService.addJob(this.userId, this.addJobForm)
+    publish() {
+      (<ElForm>this.$refs.addJobForm).validate(async (valid) => {
+        if (!valid) return this.$message.error('填写不正确')
+        try {
+          const {data} = await JobService.addJob(this.userId, this.addJobForm)
 
-        if (!data.success) return this.$message.error(data.message)
+          if (!data.success) return this.$message.error(data.message)
 
-        this.$message.success(data.message)
-        await this.$router.push('/public')
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+          this.$message.success(data.message)
+          await this.$router.push('/public')
+        } catch (error) {
+          this.$message.error(error.message)
+        }
+      })
     }
   }
 </script>
