@@ -1,0 +1,113 @@
+<template>
+    <el-form class="edit-form"
+             ref="form" :model="editUserForm"
+             label-width="120px"
+             label-position="left"
+             :rules="editUserRules">
+        <el-form-item label="个人姓名">
+            <el-input v-model="editUserForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="联系邮箱">
+            <el-input type="email" disabled v-model="editUserForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="联系电话">
+            <el-input type="tel" v-model="editUserForm.phone"></el-input>
+        </el-form-item>
+        <el-form-item label="工作经验">
+            <el-select v-model="editUserForm.experience" placeholder="请选择">
+                <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="个人简介">
+            <el-input type="textarea" :rows="4" v-model="editUserForm.intro"></el-input>
+        </el-form-item>
+        <el-form-item label="第三人称">
+            <el-input type="textarea" :autosize="true" :rows="4" v-model="editUserForm.thirdPersonIntro"></el-input>
+        </el-form-item>
+        <el-form-item label="LeetCode">
+            <el-input type="url" v-model="editUserForm.leetCodeUrl"></el-input>
+        </el-form-item>
+        <el-form-item label="简历链接">
+            <el-input type="url" v-model="editUserForm.resumeUrl"></el-input>
+        </el-form-item>
+
+        <el-form-item class="edit-form-submit">
+            <el-button class="submit-button" round type="primary" @click="save">保存</el-button>
+            <router-link tag="span" to="/user">
+                <el-button round>返回</el-button>
+            </router-link>
+        </el-form-item>
+    </el-form>
+</template>
+
+<script lang="ts">
+  import Vue from "vue"
+  import {Component} from "vue-property-decorator"
+  import UserService from "@/services/UserService"
+  import {LEVEL_MAPPER} from "@/contents/level"
+
+  @Component
+  export default class EditUser extends Vue {
+    editUserForm: TUser = {
+      email: "",
+      name: "",
+      experience: 0,
+      intro: "",
+      phone: "",
+      leetCodeUrl: "",
+      thirdPersonIntro: "",
+      resumeUrl: ""
+    }
+    editUserRules = {
+      name: [
+        {required: true, message: "请输入姓名", trigger: "blur"},
+      ],
+    }
+    userId: string = "1"
+
+    get levels() {
+      return Object.entries(LEVEL_MAPPER)
+    }
+
+    mounted() {
+      this.loadUser()
+    }
+
+    async loadUser() {
+      try {
+        const {data} = await UserService.getUser(this.userId)
+
+        if (!data.success) return this.$message.error(data.message)
+
+        this.editUserForm = data.content
+      } catch (error) {
+        this.$message.error(error.message)
+      }
+    }
+
+    async save() {
+      try {
+        const {data} = await UserService.editUser(this.editUserForm)
+
+        if (!data.success) return this.$message.error(data.message)
+
+        this.$message.success(data.message)
+        await this.$router.push('/user')
+      } catch (error) {
+        this.$message.error(error.message)
+      }
+    }
+  }
+</script>
+
+<style scoped lang="scss">
+    .edit-form {
+        &-submit {
+            text-align: right;
+
+            .submit-button {
+                margin-right: 8px;
+            }
+        }
+    }
+</style>

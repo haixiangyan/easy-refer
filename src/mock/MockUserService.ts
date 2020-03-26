@@ -23,8 +23,16 @@ Mock.mock(/\/user\/info\?userId=\S*/, 'get', {
     intro: '@CPARAGRAPH',
     phone: '949341111',
     referLinks: ['@URL', '@URL'],
-    leetCodeLink: '@URL',
+    leetCodeUrl: '@URL',
     thirdPersonIntro: '@CPARAGRAPH',
     resumeUrl: '@URL'
+  }
+})
+
+Mock.mock('/user/info', 'post', (options: any) => {
+  return {
+    success: true,
+    message: '修改成功',
+    content: JSON.parse(options.body)
   }
 })

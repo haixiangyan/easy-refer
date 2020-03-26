@@ -7,6 +7,7 @@ import Resume from '@/views/Resume.vue'
 import User from '@/views/User.vue'
 import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
+import EditUser from '@/views/EditUser.vue'
 
 Vue.use(VueRouter)
 
@@ -14,6 +15,11 @@ const routes = [
   {
     path: '/',
     redirect: '/public',
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/public',
@@ -39,9 +45,10 @@ const routes = [
     meta: {requireAuth: true}
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: '/edit-user',
+    name: 'EditUser',
+    component: EditUser,
+    meta: {requireAuth: true}
   },
   {
     path: '*',

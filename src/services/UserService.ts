@@ -10,6 +10,9 @@ const UserService = {
     return await axios.get('/user/info', {
       params: {userId}
     })
+  },
+  editUser: async (user: TUser): Promise<AxiosResponse<IUserResponseData>> => {
+    return await axios.post('/user/info', user)
   }
 }
 

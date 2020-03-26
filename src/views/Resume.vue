@@ -34,7 +34,7 @@
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
   import ResumeService from "@/services/ResumeService"
-  import {getLevel} from "@/utils/generator"
+  import {LEVEL_MAPPER} from "@/contents/level"
 
   @Component
   export default class Resume extends Vue {
@@ -48,7 +48,7 @@
     }
 
     getLevel(experience: number) {
-      return getLevel(experience)
+      return LEVEL_MAPPER[experience]
     }
 
     async loadResumes(page: number) {
@@ -64,7 +64,7 @@
       }
     }
 
-    showResume(x) {
+    showResume(x: any) {
       console.log(x)
     }
 

@@ -37,6 +37,11 @@ interface IRefersResponseData extends IData {
   }
 }
 
+type mapper = {
+  [key: string]: string
+}
+
+
 type TLoginForm = {
   email: string
   password: string
@@ -84,8 +89,7 @@ type TUser = {
   experience: number
   intro?: string
   phone?: string
-  referLinks?: string[]
-  leetCodeLink?: string
+  leetCodeUrl?: string
   thirdPersonIntro?: string
   resumeUrl?: string
 }
