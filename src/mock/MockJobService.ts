@@ -11,6 +11,7 @@ Mock.mock(/\/jobs\?userId=[a-zA-Z]*&page=\d*/, 'get', {
       title: '@CSENTENCE',
       content: '@CPARAGRAPH',
       'company|1': companies,
+      referer: '@CNAME',
       imageUrl: "@DATAIMAGE('50x50','@company')",
     }],
     totalPages: 60

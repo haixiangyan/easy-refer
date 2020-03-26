@@ -59,6 +59,7 @@ type TJob = {
   title: string
   content: string
   company: string
+  referer: string
 }
 
 type TRefer = {

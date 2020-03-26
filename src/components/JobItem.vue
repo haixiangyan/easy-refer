@@ -4,8 +4,8 @@
             <img :src="job.imageUrl" alt="avatar">
         </router-link>
         <div class="content">
-            <el-link class="title" href="/public">{{job.title}}</el-link>
-            <p>{{job.content}}</p>
+            <el-link class="title" href="/public">{{job.company}}</el-link>
+            <p>内推人：{{job.referer}}</p>
             <div class="footer">
                 <el-button type="text">开始内推</el-button>
             </div>
