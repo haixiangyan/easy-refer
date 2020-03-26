@@ -1,33 +1,25 @@
 <template>
     <el-form ref="form" :model="addJobForm" label-width="120px" label-position="left" class="add-job-form">
-        <el-divider>内推表单预览</el-divider>
-        <el-form-item
-            v-for="addedReferItem in addedReferItems"
-            :key="addedReferItem.value"
-            :label="addedReferItem.label">
-            <el-col :span="21">
-                <el-input disabled/>
-            </el-col>
-            <el-col class="delete-refer-item" :span="3">
-                <el-button type="danger" plain circle icon="el-icon-delete"></el-button>
-            </el-col>
+        <el-divider>内推信息</el-divider>
+        <el-form-item label="内推公司">
+            <el-input v-model="addJobForm.company" placeholder="内推的公司"></el-input>
         </el-form-item>
-        <div class="add-form-item">
-            <el-dropdown placement="bottom" @command="onSelectReferItem">
-                <el-button icon="el-icon-plus" type="primary" circle></el-button>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item
-                        v-for="referItem in referItems"
-                        :key="referItem.value"
-                        :command="referItem"
-                        :disabled="!!addedReferItems.find(i => i.value === referItem.value)">
-                        {{referItem.label}}
-                    </el-dropdown-item>
-                </el-dropdown-menu>
-            </el-dropdown>
-        </div>
-
-        <el-divider>原贴链接（可选，用于追踪内推）</el-divider>
+        <el-form-item label="内推人">
+            <el-input v-model="addJobForm.referer" placeholder="请输入你的名字"></el-input>
+        </el-form-item>
+        <el-form-item label="必填内容">
+            <el-select
+                class="required-fields-select"
+                v-model="addJobForm.requiredFields"
+                multiple placeholder="选择候选人要填的信息">
+                <el-option
+                    v-for="field in referFields"
+                    :key="field.value"
+                    :label="field.label"
+                    :value="field.value"
+                    :disabled="requiredReferFieldValues.includes(field.value)"/>
+            </el-select>
+        </el-form-item>
         <el-form-item label="一亩三分地原贴">
             <el-input type="url" v-model="addJobForm.source"></el-input>
         </el-form-item>
@@ -42,33 +34,43 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
-  import {DEFAULT_ADDED_REFER_ITEMS, REFER_ITEMS} from "@/contents/refer"
+  import {REQUIRED_REFER_FIELD_VALUES, REFER_FIELDS} from "@/contents/refer"
 
   @Component
   export default class AddJob extends Vue {
-    addJobForm = {
-      title: "",
-      content: "",
-      source: '',
+    addJobForm: TJob = {
+      id: "",
+      company: "",
+      source: "",
+      imageUrl: "",
+      referer: "",
+      requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
+      tags: []
     }
-
-    referItems = REFER_ITEMS
-    addedReferItems: TItem[] = DEFAULT_ADDED_REFER_ITEMS
-
-    onSelectReferItem(referItem: TItem) {
-      this.addedReferItems.push(referItem)
-    }
+    requiredReferFieldValues = REQUIRED_REFER_FIELD_VALUES
+    referFields = REFER_FIELDS
   }
 </script>
 
+<style lang="scss">
+    .add-job-form {
+        .required-fields-select {
+            .el-tag__close.el-icon-close {
+                display: none;
+            }
+        }
+    }
+</style>
+
 <style scoped lang="scss">
     .add-job-form {
-        .delete-refer-item {
-            text-align: right;
+        .required-fields-select {
+            width: 100%;
+            .el-tag__close.el-icon-close {
+                display: none;
+            }
         }
-        .add-form-item {
-            text-align: center;
-        }
+
         .publish {
             text-align: center;
         }

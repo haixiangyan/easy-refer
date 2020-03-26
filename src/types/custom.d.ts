@@ -58,6 +58,7 @@ type TJob = {
   tags: TTag[]
   company: string
   referer: string
+  requiredFields: string[]
   imageUrl?: string,
   source?: string
 }
@@ -65,10 +66,6 @@ type TJob = {
 type TRefer = TJob & {
   status: string
   updatedDate: string
-}
-
-type TApplication = TRefer & TUser & {
-  referLinks: string[]
 }
 
 type TUser = {
@@ -80,6 +77,10 @@ type TUser = {
   leetCodeUrl?: string
   thirdPersonIntro?: string
   resumeUrl?: string
+}
+
+type TApplication = TRefer & TUser & {
+  referLinks: string[]
 }
 
 type TTag = {
