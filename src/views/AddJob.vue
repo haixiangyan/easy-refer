@@ -5,7 +5,7 @@
             <el-input v-model="addJobForm.company" placeholder="内推的公司"></el-input>
         </el-form-item>
         <el-form-item required label="内推人">
-            <el-input v-model="addJobForm.referer" placeholder="请输入你的名字"></el-input>
+            <el-input disabled v-model="addJobForm.referer" placeholder="请输入你的名字"></el-input>
         </el-form-item>
         <el-form-item required label="必填内容">
             <el-select
@@ -65,7 +65,7 @@
       company: "",
       source: "",
       imageUrl: "",
-      referer: "",
+      referer: this.$store.state.user.name,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
       deadline: new Date(dayjs().add(1, 'month').toISOString()),
       expiration: 3,
