@@ -4,12 +4,16 @@
             <p class="status" :class="refer.status">{{statusName}}</p>
             <p class="updated-date">{{refer.updatedDate}}</p>
         </el-col>
-        <el-col :span="18" class="content">
+        <el-col :span="14" class="content">
             <div class="post">
-                <el-link type="primary" :href="refer.postUrl">{{refer.postTitle}}</el-link>
+                <el-link :href="refer.postUrl">{{refer.postTitle}}</el-link>
             </div>
             <div class="company">{{refer.company}}</div>
             <div class="referer">{{refer.referer}}正在处理</div>
+        </el-col>
+        <el-col :span="4">
+            <el-link class="edit-button" type="primary" icon="el-icon-edit">修改</el-link>
+            <el-link type="danger" icon="el-icon-close">撤销</el-link>
         </el-col>
     </el-row>
 </template>
@@ -74,6 +78,9 @@
                 font-size: 1.1em;
                 font-weight: bold;
             }
+        }
+        .edit-button {
+            margin-right: 4px;
         }
     }
 </style>
