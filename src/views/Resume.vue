@@ -5,6 +5,7 @@
         </div>
         <div class="pages">
             <el-pagination
+                v-show="totalPages !== 0"
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
