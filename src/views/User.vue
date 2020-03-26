@@ -1,42 +1,47 @@
 <template>
     <div class="user">
-        <div v-if="user.name" class="name">
-            <h3>姓名</h3>
+        <div v-if="user.name" class="name user-item">
+            <h3>
+                <span>姓名</span>
+                <el-button type="primary" size="small">编辑</el-button>
+            </h3>
             <p>{{user.name}}</p>
         </div>
-        <div v-if="user.name" class="email">
+        <div v-if="user.name" class="email user-item">
             <h3>Email</h3>
             <p>{{user.email}}</p>
         </div>
-        <div v-if="user.phone" class="phone">
+        <div v-if="user.phone" class="phone user-item">
             <h3>电话</h3>
             <p>{{user.phone}}</p>
         </div>
-        <div v-if="user.experience" class="experience">
+        <div v-if="user.experience" class="experience user-item">
             <h3>工作经验</h3>
             <p>{{user.experience}}</p>
         </div>
-        <div v-if="user.leetCodeLink" class="leetcode-link">
+        <div v-if="user.leetCodeLink" class="leetcode-link user-item">
             <h3>LeetCode链接</h3>
             <p>
                 <el-link :href="user.leetCodeLink">{{user.leetCodeLink}}</el-link>
             </p>
         </div>
-        <div v-if="user.intro" class="intro">
+        <div v-if="user.intro" class="intro user-item">
             <h3>个人简介</h3>
             <p>{{user.intro}}</p>
         </div>
-        <div class="third-person-intro">
+        <div class="third-person-intro user-item">
             <h3>第三人称介绍</h3>
             <p>{{user.thirdPersonIntro}}</p>
         </div>
-        <div v-if="user.referLinks" class="refer-links">
+        <div v-if="user.referLinks" class="refer-links user-item">
             <h3>内推链接</h3>
-            <p v-for="link in user.referLinks" :key="link">
-                <el-link :href="link">{{link}}</el-link>
-            </p>
+            <ul>
+                <li v-for="link in user.referLinks" :key="link">
+                    <el-link :href="link">{{link}}</el-link>
+                </li>
+            </ul>
         </div>
-        <div v-if="user.resumeUrl" class="resume">
+        <div v-if="user.resumeUrl" class="resume user-item">
             <h3>简历</h3>
             <p>{{user.resumeUrl}}</p>
         </div>
@@ -74,12 +79,22 @@
 
         this.user = data.content
       } catch (error) {
-          this.$message.error(error.message)
+        this.$message.error(error.message)
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
+    .user {
+        .name > h3 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
+        &-item {
+            margin-bottom: 10px;
+        }
+    }
 </style>
