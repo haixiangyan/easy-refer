@@ -25,3 +25,17 @@ export const REGISTER_RULES = {
     {type: 'string', min: 6, message: '密码至少6位以上', trigger: 'blur'}
   ]
 }
+
+export const EDIT_USER_RULES = {
+  email: [
+    {required: true, message: '请输入邮箱', trigger: 'blur'},
+    {type: 'email', message: '邮箱格式不正确', trigger: 'blur'}
+  ],
+  name: [
+    {required: true, message: "请输入姓名", trigger: "blur"},
+  ],
+  phone: [
+    {required: true, message: "请输入姓名", trigger: "blur"},
+    {type: 'number', message: '电话格式不正确', trigger: 'blur'}
+  ],
+}

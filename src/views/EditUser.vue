@@ -1,19 +1,19 @@
 <template>
     <el-form class="edit-form"
-             ref="form" :model="editUserForm"
+             ref="editUserForm" :model="editUserForm"
              label-width="120px"
              label-position="left"
-             :rules="editUserRules">
-        <el-form-item label="个人姓名">
+             :rules="rules">
+        <el-form-item required prop="name" label="个人姓名">
             <el-input v-model="editUserForm.name"></el-input>
         </el-form-item>
-        <el-form-item label="联系邮箱">
+        <el-form-item required label="联系邮箱">
             <el-input type="email" disabled v-model="editUserForm.email"></el-input>
         </el-form-item>
-        <el-form-item label="联系电话">
-            <el-input type="tel" v-model="editUserForm.phone"></el-input>
+        <el-form-item prop="phone" label="联系电话">
+            <el-input type="tel" v-model.number="editUserForm.phone"></el-input>
         </el-form-item>
-        <el-form-item label="工作经验">
+        <el-form-item required label="工作经验">
             <el-select v-model="editUserForm.experience" placeholder="请选择">
                 <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
             </el-select>
@@ -32,7 +32,7 @@
         </el-form-item>
 
         <el-form-item class="edit-form-submit">
-            <el-button class="submit-button" round type="primary" @click="save">保存</el-button>
+            <el-button class="submit-button" round type="primary" @click="saveChange">保存</el-button>
             <router-link tag="span" to="/user">
                 <el-button round>返回</el-button>
             </router-link>
@@ -45,6 +45,8 @@
   import {Component} from "vue-property-decorator"
   import UserService from "@/services/UserService"
   import {LEVEL_MAPPER} from "@/contents/level"
+  import {EDIT_USER_RULES} from "@/contents/rules"
+  import {ElForm} from 'element-ui/types/form'
 
   @Component
   export default class EditUser extends Vue {
@@ -58,11 +60,7 @@
       thirdPersonIntro: "",
       resumeUrl: ""
     }
-    editUserRules = {
-      name: [
-        {required: true, message: "请输入姓名", trigger: "blur"},
-      ],
-    }
+    rules = EDIT_USER_RULES
 
     get userId() {
       return this.$store.state.user.userId
@@ -87,17 +85,21 @@
       }
     }
 
-    async save() {
-      try {
-        const {data} = await UserService.editUser(this.editUserForm)
+    saveChange() {
+      (<ElForm>this.$refs.editUserForm).validate(async valid => {
+        if (!valid) return this.$message.error('填写不正确')
 
-        if (!data.success) return this.$message.error(data.message)
+        try {
+          const {data} = await UserService.editUser(this.editUserForm)
 
-        this.$message.success(data.message)
-        await this.$router.push('/user')
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+          if (!data.success) return this.$message.error(data.message)
+
+          this.$message.success(data.message)
+          await this.$router.push('/user')
+        } catch (error) {
+          this.$message.error(error.message)
+        }
+      })
     }
   }
 </script>

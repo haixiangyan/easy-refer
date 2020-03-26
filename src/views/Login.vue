@@ -46,7 +46,7 @@
 
     register() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
-        if (!valid) return
+        if (!valid) return this.$message.error('填写不正确')
 
         try {
           const {data} = await AuthService.register(this.loginForm)
@@ -64,7 +64,7 @@
 
     login() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
-        if (!valid) return
+        if (!valid) return this.$message.error('填写不正确')
 
         try {
           const {data} = await AuthService.login(this.loginForm)
