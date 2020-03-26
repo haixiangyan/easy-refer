@@ -55,25 +55,36 @@ type TRegisterForm = TLoginForm & { }
 
 type TJob = {
   id: string,
-  imageUrl: string,
-  title: string
-  content: string
+  tags: TTag[]
   company: string
   referer: string
+  imageUrl?: string,
+  source?: string
 }
 
-type TRefer = {
-  id: string
-  postTitle: string
-  postUrl: string
+type TRefer = TJob & {
   status: string
   updatedDate: string
-  company: string
-  referer: string
 }
 
-type TJobPost = TRefer & TUser & {
+type TApplication = TRefer & TUser & {
   referLinks: string[]
+}
+
+type TUser = {
+  email: string
+  name: string
+  experience: number
+  intro?: string
+  phone?: string
+  leetCodeUrl?: string
+  thirdPersonIntro?: string
+  resumeUrl?: string
+}
+
+type TTag = {
+  type: 'success' | 'danger' | 'warning' | 'info' | 'primary'
+  text: string
 }
 
 type TResume = {
@@ -90,15 +101,4 @@ type TIntro = {
   totalRefers: number
   finishedResumes: number
   totalResumes: number
-}
-
-type TUser = {
-  email: string
-  name: string
-  experience: number
-  intro?: string
-  phone?: string
-  leetCodeUrl?: string
-  thirdPersonIntro?: string
-  resumeUrl?: string
 }
