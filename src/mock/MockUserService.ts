@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 
-Mock.mock(/\/user\/intro\?userId=[a-zA-Z]*/, 'get', {
+Mock.mock(/\/user\/intro\?userId=\S*/, 'get', {
   success: true,
   message: '成功获取用户介绍',
   content: {
