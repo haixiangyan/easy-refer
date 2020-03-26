@@ -1,5 +1,5 @@
 <template>
-    <el-form ref="form" :model="addJobForm" label-width="122px" label-position="left" class="add-job-form">
+    <el-form ref="form" :model="addJobForm" label-width="120px" label-position="left" class="add-job-form">
         <el-divider>内推信息</el-divider>
         <el-form-item required label="内推公司">
             <el-input v-model="addJobForm.company" placeholder="内推的公司"></el-input>
@@ -39,12 +39,12 @@
             <el-input-number v-model="addJobForm.limit" :min="20" :max="1000" :step="100" label="描述文字"/>
             <p class="limit-hint">上限范围：20~1000 请合理安排你的内推计划</p>
         </el-form-item>
-        <el-form-item required label="一亩三分地原贴">
+        <el-form-item label="一亩三分地原贴">
             <el-input type="url" v-model="addJobForm.source" placeholder="添加原帖更方便追踪哦"/>
         </el-form-item>
 
         <div class="publish">
-            <el-button type="primary" round>发布内推</el-button>
+            <el-button @click="publish" type="primary" round>发布内推</el-button>
             <el-button type="danger" round>放弃编辑</el-button>
         </div>
     </el-form>
@@ -55,11 +55,13 @@
   import {Component} from "vue-property-decorator"
   import dayjs from 'dayjs'
   import {REQUIRED_REFER_FIELD_VALUES, REFER_FIELDS} from "@/contents/refer"
+  import JobService from "@/services/JobService"
 
   @Component
   export default class AddJob extends Vue {
+    userId = '1'
     addJobForm: TJob = {
-      id: "",
+      id: "undefined",
       company: "",
       source: "",
       imageUrl: "",
@@ -79,6 +81,19 @@
         const afterOneYear = today.add(1, 'year')
 
         return cellDate.isBefore(today) || cellDate.isAfter(afterOneYear)
+      }
+    }
+
+    async publish() {
+      try {
+        const {data} = await JobService.addJob(this.userId, this.addJobForm)
+
+        if (!data.success) return this.$message.error(data.message)
+
+        this.$message.success(data.message)
+        await this.$router.push('/public')
+      } catch (error) {
+        this.$message.error(error.message)
       }
     }
   }

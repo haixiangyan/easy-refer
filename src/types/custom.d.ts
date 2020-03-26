@@ -4,33 +4,36 @@ interface IData {
   content?: any
 }
 
-interface ILoginResponseData extends IData{ }
-interface IRegisterResponseData extends IData {
+interface ILogin extends IData{ }
+interface IRegister extends IData {
   content: TLoginForm
 }
 
-interface IIntroResponseData extends IData {
+interface IIntro extends IData {
   content: TIntro
 }
-interface IUserResponseData extends IData {
+interface IUser extends IData {
   content: TUser
 }
 
-interface IJobsResponseData extends IData {
+interface IGetJobs extends IData {
   content: {
     totalPages: number
     jobs: TJob[]
   }
 }
+interface IAddJob extends IData {
+  content: TJob
+}
 
-interface IResumesResponseData extends IData {
+interface IGetResumes extends IData {
   content: {
     totalPages: number
     resumes: TResume[]
   }
 }
 
-interface IRefersResponseData extends IData {
+interface IGetRefers extends IData {
   content: {
     totalPages: number
     refers: TRefer[]

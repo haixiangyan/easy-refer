@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
 
-Mock.mock(/\/resumes\?userId=\S*&page=\d*/, 'get', {
+Mock.mock(/\/resume\?userId=\S*&page=\d*/, 'get', {
   success: true,
   message: '成功获取数据',
   content: {

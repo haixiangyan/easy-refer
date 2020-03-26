@@ -1,8 +1,8 @@
 import axios, {AxiosResponse} from 'axios'
 
 const ResumeService = {
-  getResumes: async (userId: string, page: number): Promise<AxiosResponse<IResumesResponseData>> => {
-    return await axios.get('/resumes', {
+  getResumes: async (userId: string, page: number): Promise<AxiosResponse<IGetResumes>> => {
+    return await axios.get('/resume', {
       params: {userId, page}
     })
   },

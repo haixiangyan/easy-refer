@@ -3,7 +3,7 @@ import Mock from 'mockjs'
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
 const types = ['success', 'warning', 'danger', 'info', 'primary']
 
-Mock.mock(/\/jobs\?userId=[a-zA-Z]*&page=\d*/, 'get', {
+Mock.mock(/\/job\?userId=[a-zA-Z]*&page=\d*/, 'get', {
   success: true,
   message: '成功获取数据',
   content: {
@@ -21,5 +21,13 @@ Mock.mock(/\/jobs\?userId=[a-zA-Z]*&page=\d*/, 'get', {
       source: '@URL'
     }],
     totalPages: 60
+  }
+})
+
+Mock.mock('/job', 'post', (options: any) => {
+  return {
+    success: true,
+    message: '发布成功',
+    content: JSON.parse(options.body)
   }
 })
