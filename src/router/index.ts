@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import store from '../store/index'
 import Public from '../views/Public.vue'
 import Refer from '@/views/Refer.vue'
-import Job from '@/views/Job.vue'
+import Resume from '@/views/Resume.vue'
 import User from '@/views/User.vue'
 import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
@@ -27,9 +27,9 @@ const routes = [
     meta: {requireAuth: true}
   },
   {
-    path: '/job',
-    name: 'Job',
-    component: Job,
+    path: '/resume',
+    name: 'Resume',
+    component: Resume,
     meta: {requireAuth: true}
   },
   {

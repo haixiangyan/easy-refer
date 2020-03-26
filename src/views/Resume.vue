@@ -1,7 +1,7 @@
 <template>
     <div class="job">
         <div class="jobs">
-            <JobItem v-for="job in postedJobs" :job="job" :key="job.id"></JobItem>
+            <ResumeItem v-for="resume in resumes" :resume="resume" :key="resume.id"></ResumeItem>
         </div>
         <div class="pages">
             <el-pagination
@@ -17,14 +17,14 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
-  import JobItem from "@/components/JobItem.vue"
-  import JobService from '@/services/JobService'
+  import ResumeItem from "@/components/ResumeItem.vue"
+  import ResumeService from "@/services/ResumeService"
 
   @Component({
-    components: {JobItem}
+    components: {ResumeItem}
   })
-  export default class Job extends Vue {
-    postedJobs: TJob[] = []
+  export default class Resume extends Vue {
+    resumes: TResume[] = []
     page: number = 1
     totalPages: number = 0
 
@@ -36,11 +36,11 @@
       this.page = page
 
       try {
-        const {data} = await JobService.getJobs(this.page, 'public')
+        const {data} = await ResumeService.getResumes('1', this.page)
 
         if (!data.success) return this.$message.error(data.message)
 
-        this.postedJobs = data.content.jobs
+        this.resumes = data.content.resumes
         this.totalPages = data.content.totalPages
       } catch (error) {
         this.$message.error(error.message)

@@ -15,11 +15,11 @@
             </el-menu-item>
             <el-menu-item index="/refer">
                 <i class="el-icon-s-order"></i>
-                <span slot="title">申请内推</span>
+                <span slot="title">内推进度</span>
             </el-menu-item>
-            <el-menu-item index="/job">
+            <el-menu-item index="/resume">
                 <i class="el-icon-s-cooperation"></i>
-                <span slot="title">发布职位</span>
+                <span slot="title">处理内推</span>
             </el-menu-item>
         </el-menu>
         <router-link to="/user" tag="span">

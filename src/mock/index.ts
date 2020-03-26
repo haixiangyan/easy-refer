@@ -1,4 +1,5 @@
 import './MockAuthService'
-import './MockJobSerice'
+import './MockJobService'
 import './MockUserService'
 import './MockReferService'
+import './MockResumeService'

@@ -20,6 +20,13 @@ interface IJobsResponseData extends IData {
   }
 }
 
+interface IResumesResponseData extends IData {
+  content: {
+    totalPages: number
+    resumes: TResume[]
+  }
+}
+
 interface IRefersResponseData extends IData {
   content: {
     refers: TRefer[]
@@ -41,15 +48,6 @@ type TJob = {
   company: string
 }
 
-type TIntro = {
-  avatarUrl: string
-  name: string
-  finishedRefers: number
-  totalRefers: number
-  finishedResumes: number
-  totalResumes: number
-}
-
 type TRefer = {
   id: string
   postTitle: string
@@ -58,4 +56,17 @@ type TRefer = {
   updatedDate: string
   company: string
   referer: string
+}
+
+type TResume = {
+  id: string
+}
+
+type TIntro = {
+  avatarUrl: string
+  name: string
+  finishedRefers: number
+  totalRefers: number
+  finishedResumes: number
+  totalResumes: number
 }
