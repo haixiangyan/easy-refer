@@ -1,13 +1,5 @@
 <template>
     <el-form ref="form" :model="addJobForm" label-width="120px" label-position="left" class="add-job-form">
-        <el-divider></el-divider>
-        <el-form-item label="标题">
-            <el-input v-model="addJobForm.title"></el-input>
-        </el-form-item>
-        <el-form-item label="内容">
-            <el-input type="textarea" autosize v-model="addJobForm.content"></el-input>
-        </el-form-item>
-
         <el-divider>内推表单预览</el-divider>
         <el-form-item
             v-for="addedReferItem in addedReferItems"
@@ -35,7 +27,11 @@
             </el-dropdown>
         </div>
 
-        <el-divider></el-divider>
+        <el-divider>原贴链接（可选，用于追踪内推）</el-divider>
+        <el-form-item label="一亩三分地原贴">
+            <el-input type="url" v-model="addJobForm.source"></el-input>
+        </el-form-item>
+
         <div class="publish">
             <el-button type="primary" round>发布内推</el-button>
             <el-button type="danger" round>放弃编辑</el-button>
@@ -53,6 +49,7 @@
     addJobForm = {
       title: "",
       content: "",
+      source: '',
     }
 
     referItems = REFER_ITEMS
