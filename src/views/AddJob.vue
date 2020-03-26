@@ -1,15 +1,15 @@
 <template>
-    <el-form ref="form" :model="addJobForm" label-width="120px" label-position="left" class="add-job-form">
+    <el-form ref="form" :model="addJobForm" label-width="122px" label-position="left" class="add-job-form">
         <el-divider>内推信息</el-divider>
-        <el-form-item label="内推公司">
+        <el-form-item required label="内推公司">
             <el-input v-model="addJobForm.company" placeholder="内推的公司"></el-input>
         </el-form-item>
-        <el-form-item label="内推人">
+        <el-form-item required label="内推人">
             <el-input v-model="addJobForm.referer" placeholder="请输入你的名字"></el-input>
         </el-form-item>
-        <el-form-item label="必填内容">
+        <el-form-item required label="必填内容">
             <el-select
-                class="required-fields-select"
+                class="full-width"
                 v-model="addJobForm.requiredFields"
                 multiple placeholder="选择候选人要填的信息">
                 <el-option
@@ -20,8 +20,27 @@
                     :disabled="requiredReferFieldValues.includes(field.value)"/>
             </el-select>
         </el-form-item>
-        <el-form-item label="一亩三分地原贴">
-            <el-input type="url" v-model="addJobForm.source"></el-input>
+        <el-form-item required label="截止日期">
+            <el-date-picker
+                class="full-width"
+                v-model="addJobForm.deadline"
+                type="date"
+                format="yyyy年MM月dd日"
+                :picker-options="deadlineOptions"
+                placeholder="选择截止日期">
+            </el-date-picker>
+        </el-form-item>
+        <el-form-item required label="X天默拒">
+            <el-radio v-model="addJobForm.expiration" :label="3">3 天</el-radio>
+            <el-radio v-model="addJobForm.expiration" :label="5">5 天</el-radio>
+            <el-radio v-model="addJobForm.expiration" :label="7">7 天</el-radio>
+        </el-form-item>
+        <el-form-item required label="内推上限">
+            <el-input-number v-model="addJobForm.limit" :min="20" :max="1000" :step="100" label="描述文字"/>
+            <p class="limit-hint">上限范围：20~1000 请合理安排你的内推计划</p>
+        </el-form-item>
+        <el-form-item required label="一亩三分地原贴">
+            <el-input type="url" v-model="addJobForm.source" placeholder="添加原帖更方便追踪哦"/>
         </el-form-item>
 
         <div class="publish">
@@ -34,6 +53,7 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
+  import dayjs from 'dayjs'
   import {REQUIRED_REFER_FIELD_VALUES, REFER_FIELDS} from "@/contents/refer"
 
   @Component
@@ -45,10 +65,22 @@
       imageUrl: "",
       referer: "",
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
+      deadline: new Date(dayjs().add(1, 'month').toISOString()),
+      expiration: 3,
+      limit: 100,
       tags: []
     }
     requiredReferFieldValues = REQUIRED_REFER_FIELD_VALUES
     referFields = REFER_FIELDS
+    deadlineOptions = {
+      disabledDate(date: Date) {
+        const today = dayjs()
+        const cellDate = dayjs(date)
+        const afterOneYear = today.add(1, 'year')
+
+        return cellDate.isBefore(today) || cellDate.isAfter(afterOneYear)
+      }
+    }
   }
 </script>
 
@@ -63,12 +95,14 @@
 </style>
 
 <style scoped lang="scss">
+    @import '~@/assets/styles/variables.scss';
     .add-job-form {
-        .required-fields-select {
+        .full-width {
             width: 100%;
-            .el-tag__close.el-icon-close {
-                display: none;
-            }
+        }
+
+        .limit-hint {
+            color: $warning-color;
         }
 
         .publish {

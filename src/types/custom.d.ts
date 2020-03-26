@@ -59,6 +59,9 @@ type TJob = {
   company: string
   referer: string
   requiredFields: string[]
+  deadline: Date,
+  expiration: 3 | 5 | 7
+  limit: number
   imageUrl?: string,
   source?: string
 }
