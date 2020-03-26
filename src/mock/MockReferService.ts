@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
-const status = ['已提交', '已内推', '不内推']
+const status = ['processing', 'rejected', 'referred']
 
 Mock.mock(/\/refers\?page=\d*&userId=[a-zA-Z]*/, 'get', {
   success: true,
