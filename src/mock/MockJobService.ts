@@ -5,7 +5,7 @@ const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'Br
 Mock.mock(/\/jobs\?userId=[a-zA-Z]*&page=\d*/, 'get', {
   success: true,
   message: '成功获取数据',
-  'content|10': {
+  content: {
     'jobs|10': [{
       'id|+1': 1,
       title: '@CSENTENCE',

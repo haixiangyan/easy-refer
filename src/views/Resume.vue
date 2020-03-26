@@ -1,7 +1,22 @@
 <template>
-    <div class="job">
-        <div class="jobs">
-            <ResumeItem v-for="resume in resumes" :resume="resume" :key="resume.id"></ResumeItem>
+    <div class="resume">
+        <div class="resumes">
+            <el-table
+                :data="resumes"
+                style="width: 100%">
+                <el-table-column prop="name" label="姓名" width="180"/>
+                <el-table-column prop="createdAt" label="提交日期" width="180"/>
+                <el-table-column label="经验">
+                    <template slot-scope="scope">
+                        <span>{{getExperience(scope.row.experience)}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column fixed="right" label="操作" width="100">
+                    <template slot-scope="scope">
+                        <el-button @click="showResume(scope.row)" type="text">查看</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
         </div>
         <div class="pages">
             <el-pagination
@@ -34,6 +49,10 @@
       this.loadResumes(this.page)
     }
 
+    getExperience(experience: number) {
+      return experience === 0 ? '应届生' : `${experience}年工作经验`
+    }
+
     async loadResumes(page: number) {
       try {
         const {data} = await ResumeService.getResumes(this.userId, page)
@@ -45,6 +64,10 @@
       } catch (error) {
         this.$message.error(error.message)
       }
+    }
+
+    showResume(x) {
+      console.log(x)
     }
 
     @Watch("page")

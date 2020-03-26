@@ -6,7 +6,7 @@ const status = ['processing', 'rejected', 'referred']
 Mock.mock(/\/refers\?userId=\S*&page=\d*/, 'get', {
   success: true,
   message: '成功获取数据',
-  'content|10': {
+  content: {
     'refers|10': [{
       'id|+1': 1,
       postTitle: '@CSENTENCE',

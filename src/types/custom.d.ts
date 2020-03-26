@@ -61,6 +61,9 @@ type TRefer = {
 
 type TResume = {
   id: string
+  name: string
+  createdAt: string
+  experience: number
 }
 
 type TIntro = {
