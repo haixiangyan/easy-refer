@@ -29,6 +29,7 @@ interface IResumesResponseData extends IData {
 
 interface IRefersResponseData extends IData {
   content: {
+    totalPages: number
     refers: TRefer[]
   }
 }

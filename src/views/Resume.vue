@@ -28,16 +28,15 @@
     resumes: TResume[] = []
     page: number = 1
     totalPages: number = 0
+    userId: string = '1'
 
     mounted() {
-      this.loadJobs(this.page)
+      this.loadResumes(this.page)
     }
 
-    async loadJobs(page: number) {
-      this.page = page
-
+    async loadResumes(page: number) {
       try {
-        const {data} = await ResumeService.getResumes('1', page)
+        const {data} = await ResumeService.getResumes(this.userId, page)
 
         if (!data.success) return this.$message.error(data.message)
 
@@ -50,7 +49,7 @@
 
     @Watch("page")
     onPageChange(page: number) {
-      this.loadJobs(page)
+      this.loadResumes(page)
     }
   }
 </script>

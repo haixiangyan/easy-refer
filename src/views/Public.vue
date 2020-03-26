@@ -34,8 +34,6 @@
     }
 
     async loadJobs(page: number) {
-      this.page = page
-
       try {
         const {data} = await JobService.getJobs('public', page)
 
