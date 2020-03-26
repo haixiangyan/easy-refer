@@ -31,7 +31,7 @@
     userId: string = '1'
 
     mounted() {
-      this.loadRefers('1', 1)
+      this.loadRefers(1)
     }
 
     async loadRefers(page: number) {
