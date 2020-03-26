@@ -8,6 +8,7 @@ import User from '@/views/User.vue'
 import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
 import EditUser from '@/views/EditUser.vue'
+import AddJob from '@/views/AddJob.vue'
 
 Vue.use(VueRouter)
 
@@ -48,6 +49,12 @@ const routes = [
     path: '/edit-user',
     name: 'EditUser',
     component: EditUser,
+    meta: {requireAuth: true}
+  },
+  {
+    path: '/add-job',
+    name: 'AddJob',
+    component: AddJob,
     meta: {requireAuth: true}
   },
   {

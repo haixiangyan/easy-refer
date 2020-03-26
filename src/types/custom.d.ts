@@ -37,10 +37,14 @@ interface IRefersResponseData extends IData {
   }
 }
 
-type mapper = {
+type TMapper = {
   [key: string]: string
 }
 
+type TItem = {
+  value: string
+  label: string
+}
 
 type TLoginForm = {
   email: string
@@ -65,6 +69,10 @@ type TRefer = {
   updatedDate: string
   company: string
   referer: string
+}
+
+type TJobPost = TRefer & TUser & {
+  referLinks: string[]
 }
 
 type TResume = {

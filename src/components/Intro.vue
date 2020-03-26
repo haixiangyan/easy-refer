@@ -20,7 +20,7 @@
             <router-link to="/refer" tag="div">
                 <el-button class="button" type="success" :round="true">查看内推状态</el-button>
             </router-link>
-            <router-link to="/job" tag="div">
+            <router-link to="/add-job" tag="div">
                 <el-button class="button" type="primary" :round="true">发布内推职位</el-button>
             </router-link>
         </div>
