@@ -8,7 +8,7 @@
                 <el-table-column prop="createdAt" label="提交日期" width="180"/>
                 <el-table-column label="经验">
                     <template slot-scope="scope">
-                        <span>{{getExperience(scope.row.experience)}}</span>
+                        <span>{{getLevel(scope.row.experience)}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" width="100">
@@ -33,12 +33,10 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
-  import ResumeItem from "@/components/ResumeItem.vue"
   import ResumeService from "@/services/ResumeService"
+  import {getLevel} from "@/utils/generator"
 
-  @Component({
-    components: {ResumeItem}
-  })
+  @Component
   export default class Resume extends Vue {
     resumes: TResume[] = []
     page: number = 1
@@ -49,8 +47,8 @@
       this.loadResumes(this.page)
     }
 
-    getExperience(experience: number) {
-      return experience === 0 ? '应届生' : `${experience}年工作经验`
+    getLevel(experience: number) {
+      return getLevel(experience)
     }
 
     async loadResumes(page: number) {

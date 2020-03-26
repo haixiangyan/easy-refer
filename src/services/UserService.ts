@@ -6,6 +6,11 @@ const UserService = {
       params: {userId}
     })
   },
+  getUser: async (userId: string): Promise<AxiosResponse<IUserResponseData>> => {
+    return await axios.get('/user/info', {
+      params: {userId}
+    })
+  }
 }
 
 export default UserService

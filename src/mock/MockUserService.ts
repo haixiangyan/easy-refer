@@ -12,3 +12,19 @@ Mock.mock(/\/user\/intro\?userId=\S*/, 'get', {
     totalResumes: '@INTEGER(20,300)'
   }
 })
+
+Mock.mock(/\/user\/info\?userId=\S*/, 'get', {
+  success: true,
+  message: '成功获取用户介绍',
+  content: {
+    email: '@EMAIL',
+    name: '@CNAME',
+    experience: '@INTEGER(0,4)',
+    intro: '@CPARAGRAPH',
+    phone: '949341111',
+    referLinks: ['@URL', '@URL'],
+    leetCodeLink: '@URL',
+    thirdPersonIntro: '@CPARAGRAPH',
+    resumeUrl: '@URL'
+  }
+})

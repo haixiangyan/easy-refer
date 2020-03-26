@@ -12,6 +12,9 @@ interface IRegisterResponseData extends IData {
 interface IIntroResponseData extends IData {
   content: TIntro
 }
+interface IUserResponseData extends IData {
+  content: TUser
+}
 
 interface IJobsResponseData extends IData {
   content: {
@@ -73,4 +76,16 @@ type TIntro = {
   totalRefers: number
   finishedResumes: number
   totalResumes: number
+}
+
+type TUser = {
+  email: string
+  name: string
+  experience: number
+  intro?: string
+  phone?: string
+  referLinks?: string[]
+  leetCodeLink?: string
+  thirdPersonIntro?: string
+  resumeUrl?: string
 }
