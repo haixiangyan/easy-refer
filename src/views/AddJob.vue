@@ -88,7 +88,7 @@
     rules = ADD_JOB_RULES
 
     publish() {
-      (<ElForm>this.$refs.addJobForm).validate(async (valid) => {
+      (<ElForm>this.$refs.addJobForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
         try {
           const {data} = await JobService.addJob(this.userId, this.addJobForm)

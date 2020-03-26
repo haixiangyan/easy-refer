@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <el-card class="login-card">
-            <el-form class="login-form" ref="loginForm" :model="loginForm" :rules="loginRules">
+            <el-form class="login-form" ref="loginForm" :model="loginForm" :rules="rules">
                 <div class="login-form-header">
                     <img class="login-logo" src="../assets/img/logo.png" alt="logo">
                 </div>
@@ -33,63 +33,54 @@
   import {Component} from "vue-property-decorator"
   import AuthService from "@/services/AuthService"
   import {ElForm} from "element-ui/types/form"
+  import {LOGIN_RULES} from "@/contents/rules"
 
   @Component
   export default class Login extends Vue {
-    show = true
     loginForm: TLoginForm = {
       email: "",
       password: ""
     }
-    loginRules = {
-      email: [
-        {required: true, message: "请输入邮箱", trigger: "blur"},
-        {type: "email", message: "邮箱格式不正确", trigger: "blur"}
-      ],
-      password: [
-        {required: true, message: "请输入密码", trigger: "blur"},
-        {type: "string", min: 6, message: "密码至少6位以上", trigger: "blur"}
-      ]
-    }
 
-    async register() {
-      (<ElForm>this.$refs.loginForm).validate(valid => {
+    rules = LOGIN_RULES
+
+    register() {
+      (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return
 
-        AuthService.register(this.loginForm)
-          .then(({data}) => {
-            if (data.success) {
-              this.login()
-            } else {
-              this.$message.error(data.message)
-            }
-          })
-          .catch(error => {
-            this.$message.error(error.message)
-          })
+        try {
+          const {data} = await AuthService.register(this.loginForm)
+
+          if (data.success) {
+            this.login()
+          } else {
+            this.$message.error(data.message)
+          }
+        } catch (error) {
+          this.$message.error(error.message)
+        }
       })
     }
 
-    async login() {
-      (<ElForm>this.$refs.loginForm).validate(valid => {
+    login() {
+      (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return
 
-        AuthService.login(this.loginForm)
-          .then(({data}) => {
-            if (data.success) {
-              this.$store.commit('auth/setAuth', data.success)
-              this.$store.commit('user/setUser', data.content)
+        try {
+          const {data} = await AuthService.login(this.loginForm)
+          if (data.success) {
+            this.$store.commit("auth/setAuth", data.success)
+            this.$store.commit("user/setUser", data.content)
 
-              this.$notify({title: "登录成功", message: data.message, type: "success"})
+            this.$notify({title: "登录成功", message: data.message, type: "success"})
 
-              this.$router.push("/public")
-            } else {
-              this.$message.error(data.message)
-            }
-          })
-          .catch(error => {
-            this.$message.error(error.message)
-          })
+            await this.$router.push("/public")
+          } else {
+            this.$message.error(data.message)
+          }
+        } catch(error) {
+          this.$message.error(error.message)
+        }
       })
     }
   }
