@@ -18,6 +18,7 @@ Mock.mock(/\/jobs\?userId=[a-zA-Z]*&page=\d*/, 'get', {
       }],
       referer: '@CNAME',
       imageUrl: "@DATAIMAGE('50x50','@company')",
+      source: '@URL'
     }],
     totalPages: 60
   }

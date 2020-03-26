@@ -12,7 +12,11 @@
                 </el-tag>
             </p>
             <div class="footer">
-                <el-button type="text">开始内推</el-button>
+                <el-button class="start-refer" round type="primary" plain size="small">申请内推</el-button>
+                <el-link v-if="job.source" :href="job.source">
+                    原贴
+                    <i class="el-icon-top-right"></i>
+                </el-link>
             </div>
         </div>
     </div>
@@ -57,6 +61,12 @@
                 font-size: .9em;
             }
             .tags > .tag {
+                margin-right: 8px;
+            }
+        }
+        .footer {
+            margin-top: 8px;
+            .start-refer {
                 margin-right: 8px;
             }
         }
