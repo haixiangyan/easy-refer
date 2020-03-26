@@ -17,7 +17,7 @@
         </div>
         <div v-if="user.experience" class="experience user-item">
             <h3>工作经验</h3>
-            <p>{{user.experience}}</p>
+            <p>{{level}}</p>
         </div>
         <div v-if="user.leetCodeLink" class="leetcode-link user-item">
             <h3>LeetCode链接</h3>
