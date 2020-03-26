@@ -63,8 +63,10 @@
         {required: true, message: "请输入姓名", trigger: "blur"},
       ],
     }
-    userId: string = "1"
 
+    get userId() {
+      return this.$store.state.user.userId
+    }
     get levels() {
       return Object.entries(LEVEL_MAPPER)
     }

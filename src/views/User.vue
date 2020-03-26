@@ -53,7 +53,10 @@
       name: "",
       experience: 0
     }
-    userId: string = "1"
+
+    get userId() {
+      return this.$store.state.user.userId
+    }
 
     get level() {
       return LEVEL_MAPPER[this.user.experience]

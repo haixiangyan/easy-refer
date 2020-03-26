@@ -41,7 +41,10 @@
     resumes: TResume[] = []
     page: number = 1
     totalPages: number = 0
-    userId: string = '1'
+
+    get userId() {
+      return this.$store.state.user.userId
+    }
 
     mounted() {
       this.loadResumes(this.page)
