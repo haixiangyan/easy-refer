@@ -4,7 +4,7 @@
             <img :src="job.imageUrl" alt="avatar">
         </router-link>
         <div class="content">
-            <router-link class="title" to="/public">{{job.title}}</router-link>
+            <el-link class="title" href="/public">{{job.title}}</el-link>
             <p>{{job.content}}</p>
             <div class="footer">
                 <el-button type="text">开始内推</el-button>
@@ -41,17 +41,15 @@
             }
         }
         .content {
-            font-size: 14px;
             color: #999;
             line-height: 24px;
             .title {
                 margin-bottom: 7px;
-                font-size: 20px;
-                color: black;
+                font-size: 1.1em;
                 font-weight: bold;
-                &:hover {
-                    text-decoration: underline;
-                }
+            }
+            p, div {
+                font-size: .9em;
             }
         }
     }
