@@ -7,7 +7,9 @@
             <el-link class="title" href="/public">{{job.company}}</el-link>
             <p>内推人：{{job.referer}}</p>
             <p class="tags">
-                <el-tag size="mini" class="tag" v-for="tag in job.tags" :type="tag.type" :key="tag.text">{{tag.text}}</el-tag>
+                <el-tag size="mini" class="tag" v-for="tag in job.tags" :type="tag.type" :key="tag.text">
+                    {{tag.text}}
+                </el-tag>
             </p>
             <div class="footer">
                 <el-button type="text">开始内推</el-button>
