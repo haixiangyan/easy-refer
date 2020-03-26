@@ -4,7 +4,13 @@ interface IData {
   content?: any
 }
 
-interface ILogin extends IData{ }
+interface ILogin extends IData{
+  content: {
+    userId: string
+    email: string
+    name: string
+  }
+}
 interface IRegister extends IData {
   content: TLoginForm
 }

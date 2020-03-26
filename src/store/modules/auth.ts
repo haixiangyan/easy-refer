@@ -1,4 +1,4 @@
-export type AuthStore = {
+type TAuthStore = {
   isLogin: boolean
 }
 
@@ -8,7 +8,7 @@ const auth = {
     isLogin: false
   },
   mutations: {
-    setAuth: (state: AuthStore, payload: boolean) => {
+    setAuth: (state: TAuthStore, payload: boolean) => {
       state.isLogin = payload
     }
   }

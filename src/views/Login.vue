@@ -77,8 +77,11 @@
         AuthService.login(this.loginForm)
           .then(({data}) => {
             if (data.success) {
-              this.$store.commit("auth/setAuth", data.success)
+              this.$store.commit('auth/setAuth', data.success)
+              this.$store.commit('user/setUser', data.content)
+
               this.$notify({title: "登录成功", message: data.message, type: "success"})
+
               this.$router.push("/public")
             } else {
               this.$message.error(data.message)

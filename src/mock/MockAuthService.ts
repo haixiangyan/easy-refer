@@ -2,7 +2,12 @@ import Mock from 'mockjs'
 
 Mock.mock('/login', 'post', {
   success: true,
-  message: '欢迎回来！'
+  message: '欢迎回来',
+  content: {
+    userId: '@ID',
+    email: '@EMAIL',
+    name: '@CNAME'
+  }
 })
 
 Mock.mock('/register', 'post', {
