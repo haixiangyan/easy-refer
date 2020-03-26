@@ -17,11 +17,11 @@
             </div>
         </div>
         <div class="function">
-            <router-link to="/public" tag="div">
-                <el-button class="button" type="success" :round="true">查看所有内推信息</el-button>
+            <router-link to="/refer" tag="div">
+                <el-button class="button" type="success" :round="true">查看内推状态</el-button>
             </router-link>
             <router-link to="/job" tag="div">
-                <el-button class="button" type="primary" :round="true">发布一个内推职位</el-button>
+                <el-button class="button" type="primary" :round="true">发布内推职位</el-button>
             </router-link>
         </div>
     </div>
