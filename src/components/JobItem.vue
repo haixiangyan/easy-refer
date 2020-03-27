@@ -4,13 +4,13 @@
             <img :src="job.imageUrl" alt="avatar">
         </router-link>
         <div class="content">
-            <el-link class="title" href="/public">{{job.company}}</el-link>
-            <p>内推人：{{job.referer}}</p>
-            <p class="tags">
-                <el-tag size="mini" class="tag" v-for="tag in job.tags" :type="tag.type" :key="tag.text">
-                    {{tag.text}}
-                </el-tag>
+            <p class="title">
+                {{job.company}}
+                <el-divider direction="vertical"></el-divider>
+                {{job.referer}}内推
             </p>
+            <p><strong>{{job.deadline}}</strong>截止</p>
+            <p><strong>{{job.expiration}}</strong>天内必推</p>
             <div class="footer">
                 <el-button class="start-refer" round type="primary" plain size="small">申请内推</el-button>
                 <el-link v-if="job.source" :href="job.source">
@@ -50,7 +50,6 @@
             }
         }
         .content {
-            color: #999;
             line-height: 24px;
             .title {
                 margin-bottom: 7px;

@@ -68,13 +68,13 @@ type TRegisterForm = TLoginForm & { }
 
 type TJob = {
   id: string,
-  tags: TTag[]
   company: string
   referer: string
   requiredFields: string[]
   deadline: Date,
   expiration: 3 | 5 | 7
-  limit: number
+  referredCount: number
+  referTotal: number
   imageUrl?: string,
   source?: string
 }
@@ -98,11 +98,6 @@ type TUser = {
 
 type TApplication = TRefer & TUser & {
   referLinks: string[]
-}
-
-type TTag = {
-  type: 'success' | 'danger' | 'warning' | 'info' | 'primary'
-  text: string
 }
 
 type TResume = {
