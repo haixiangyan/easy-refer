@@ -9,7 +9,7 @@ Mock.mock(/\/job\?userId=\S*&page=\d*/, 'get', {
   message: '成功获取数据',
   content: {
     'jobs|10': [{
-      'id|+1': 1,
+      'jobId|+1': 1,
       title: '@CSENTENCE',
       content: '@CPARAGRAPH',
       'company|1': companies,
@@ -30,7 +30,7 @@ Mock.mock(/\/job\?userId=\S*&jobId=\S*/, 'get', {
   success: true,
   message: '成功获取数据',
   content: {
-    'id|+1': 1,
+    'jobId|+1': 1,
     title: '@CSENTENCE',
     content: '@CPARAGRAPH',
     'company|1': companies,

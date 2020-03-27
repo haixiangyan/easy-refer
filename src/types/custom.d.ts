@@ -67,7 +67,7 @@ type TLoginForm = {
 type TRegisterForm = TLoginForm & { }
 
 type TJob = {
-  id: string,
+  jobId: string,
   company: string
   referer: string
   requiredFields: string[]
@@ -80,11 +80,13 @@ type TJob = {
 }
 
 type TRefer = TJob & {
+  referId: string
   status: string
   updatedDate: string
 }
 
 type TUser = {
+  userId: string
   email: string
   name: string
   experience: number
@@ -101,7 +103,7 @@ type TApplication = TRefer & TUser & {
 }
 
 type TResume = {
-  id: string
+  resumeId: string
   name: string
   createdAt: string
   experience: number

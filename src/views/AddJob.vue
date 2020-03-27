@@ -63,7 +63,7 @@
   export default class AddJob extends Vue {
     userId = '1'
     addJobForm: TJob = {
-      id: "undefined",
+      jobId: "undefined",
       company: "",
       source: "",
       imageUrl: "",

@@ -8,7 +8,7 @@ Mock.mock(/\/refer\?userId=\S*&page=\d*/, 'get', {
   message: '成功获取数据',
   content: {
     'refers|10': [{
-      'id|+1': 1,
+      'referId|+1': 1,
       postTitle: '@CSENTENCE',
       postUrl: "@URL",
       'company|1': companies,

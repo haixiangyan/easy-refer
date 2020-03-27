@@ -50,13 +50,10 @@
   @Component
   export default class User extends Vue {
     user: TUser = {
+      userId: this.$store.state.user.userId,
       email: "",
       name: "",
       experience: 0
-    }
-
-    get userId() {
-      return this.$store.state.user.userId
     }
 
     get level() {
@@ -69,7 +66,7 @@
 
     async loadUser() {
       try {
-        const {data} = await UserService.getUser(this.userId)
+        const {data} = await UserService.getUser(this.user.userId)
 
         if (!data.success) return this.$message.error(data.message)
 

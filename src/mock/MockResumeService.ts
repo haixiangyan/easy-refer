@@ -5,7 +5,7 @@ Mock.mock(/\/resume\?userId=\S*&page=\d*/, 'get', {
   message: '成功获取数据',
   content: {
     'resumes|20': [{
-      'id|+1': 1,
+      'resumeId|+1': 1,
       name: '@CNAME',
       createdAt: "@date('yyyy年MM月dd日')",
       experience: '@INTEGER(0,7)'

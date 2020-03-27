@@ -17,6 +17,7 @@ Mock.mock(/\/user\/info\?userId=\S*/, 'get', {
   success: true,
   message: '成功获取用户介绍',
   content: {
+    userId: '@ID',
     email: '@EMAIL',
     name: '@CNAME',
     experience: '@INTEGER(0,4)',
