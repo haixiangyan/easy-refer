@@ -52,7 +52,13 @@ const routes = [
     meta: {requireAuth: true}
   },
   {
-    path: '/add-job/:jobId',
+    path: '/add-job',
+    name: 'EditJob',
+    component: AddJob,
+    meta: {requireAuth: true}
+  },
+  {
+    path: '/edit-job/:jobId',
     name: 'AddJob',
     component: AddJob,
     meta: {requireAuth: true}

@@ -22,7 +22,7 @@
                    查看内推状态
                 </el-button>
             </router-link>
-            <router-link :to="toAddJobLink" tag="div">
+            <router-link :to="jobId ? `/edit-job/${jobId}` : '/add-job'" tag="div">
                 <el-button class="button"
                            type="primary"
                            :icon="jobId ? 'el-icon-edit' : 'el-icon-plus'"
@@ -54,10 +54,6 @@
 
     get jobId() {
       return this.$store.state.user.jobId
-    }
-
-    get toAddJobLink() {
-      return this.jobId ? `/add-job/${this.$store.state.user.jobId}` : "/add-job"
     }
 
     mounted() {
