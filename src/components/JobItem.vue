@@ -1,17 +1,21 @@
 <template>
-    <div class="job-item">
-        <router-link class="avatar" to="/public">
-            <img :src="job.imageUrl" alt="avatar">
-        </router-link>
-        <div class="content">
+    <el-row class="job-item">
+        <el-col :span="3">
+            <router-link class="avatar" to="/public">
+                <img :src="job.imageUrl" alt="avatar">
+            </router-link>
+        </el-col>
+        <el-col class="content" :span="21">
             <p class="title">
                 {{job.company}}
                 <el-divider direction="vertical"></el-divider>
                 {{job.referer}}内推
             </p>
-            <p><strong>{{job.deadline}}</strong>截止</p>
-            <p><strong>{{job.expiration}}</strong>天内必推</p>
-            <el-progress :percentage="referredPercentage" :color="referredProgress"/>
+            <div class="tags">
+                <el-tag size="mini" type="primary">{{job.deadline}}截止</el-tag>
+                <el-tag size="mini" type="danger">{{job.expiration}}天必推</el-tag>
+            </div>
+            <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
             <div class="footer">
                 <el-link class="start-refer" type="primary">申请内推</el-link>
                 <el-link v-if="job.source" :href="job.source">
@@ -19,8 +23,8 @@
                     <i class="el-icon-top-right"></i>
                 </el-link>
             </div>
-        </div>
-    </div>
+        </el-col>
+    </el-row>
 </template>
 
 <script lang="ts">
@@ -54,26 +58,29 @@
         .avatar {
             margin-right: 24px;
             img {
-                height: 100px;
-                width: 100px;
+                width: 80%;
             }
         }
         .content {
             line-height: 24px;
             .title {
-                margin-bottom: 7px;
+                margin-bottom: 8px;
                 font-size: 1.1em;
                 font-weight: bold;
             }
-            p, div {
-                font-size: .9em;
+            .tags {
+                margin-bottom: 8px;
+                > span {
+                    margin-right: 8px;
+                }
             }
-            .tags > .tag {
-                margin-right: 8px;
+            .progress {
+                max-width: 240px;
+                display: flex;
+                align-items: center;
             }
         }
         .footer {
-            margin-top: 8px;
             .start-refer {
                 margin-right: 8px;
             }
