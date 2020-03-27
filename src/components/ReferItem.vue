@@ -8,7 +8,7 @@
             <div class="post">
                 <el-link :href="refer.source">
                     原贴
-                    <i class="el-icon-top-right"></i>
+                    <i class="el-icon-paperclip"></i>
                 </el-link>
             </div>
             <div class="company">{{refer.company}}</div>
