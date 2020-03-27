@@ -11,8 +11,9 @@
             </p>
             <p><strong>{{job.deadline}}</strong>截止</p>
             <p><strong>{{job.expiration}}</strong>天内必推</p>
+            <el-progress :percentage="referredPercentage" :color="referredProgress"/>
             <div class="footer">
-                <el-button class="start-refer" round type="primary" plain size="small">申请内推</el-button>
+                <el-link class="start-refer" type="primary">申请内推</el-link>
                 <el-link v-if="job.source" :href="job.source">
                     原贴
                     <i class="el-icon-top-right"></i>
@@ -25,10 +26,18 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Prop} from "vue-property-decorator"
+  import {getReferProgress} from "@/utils/refer"
 
   @Component
   export default class JobItem extends Vue {
     @Prop({required: true}) job!: TJob
+
+    get referredPercentage() {
+      return parseFloat((this.job.referredCount / this.job.referTotal * 100).toFixed(2))
+    }
+    get referredProgress() {
+      return getReferProgress(this.referredPercentage)
+    }
   }
 </script>
 
