@@ -9,6 +9,7 @@ interface ILogin extends IData{
     userId: string
     email: string
     name: string
+    jobId?: string
   }
 }
 interface IRegister extends IData {
@@ -84,6 +85,7 @@ type TUser = {
   email: string
   name: string
   experience: number
+  jobId?: string
   intro?: string
   phone?: string
   leetCodeUrl?: string

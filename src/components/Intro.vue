@@ -18,10 +18,17 @@
         </div>
         <div class="function">
             <router-link to="/refer" tag="div">
-                <el-button class="button" type="success" :round="true">查看内推状态</el-button>
+                <el-button class="button" type="success" :round="true" icon="el-icon-view">
+                   查看内推状态
+                </el-button>
             </router-link>
-            <router-link to="/add-job" tag="div">
-                <el-button class="button" type="primary" :round="true">发布内推职位</el-button>
+            <router-link :to="toAddJobLink" tag="div">
+                <el-button class="button"
+                           type="primary"
+                           :icon="jobId ? 'el-icon-edit' : 'el-icon-plus'"
+                           :round="true">
+                    {{jobId ? '修改' : '发布'}}内推职位
+                </el-button>
             </router-link>
         </div>
     </div>
@@ -30,7 +37,7 @@
 <script lang="ts">
   import Vue from "vue"
   import UserService from "@/services/UserService"
-  import {Component} from 'vue-property-decorator'
+  import {Component} from "vue-property-decorator"
 
   @Component
   export default class Intro extends Vue {
@@ -44,6 +51,14 @@
     }
     referRate = "0"
     resumeRate = "0"
+
+    get jobId() {
+      return this.$store.state.user.jobId
+    }
+
+    get toAddJobLink() {
+      return this.jobId ? `/add-job/${this.$store.state.user.jobId}` : "/add-job"
+    }
 
     mounted() {
       this.loadIntro()

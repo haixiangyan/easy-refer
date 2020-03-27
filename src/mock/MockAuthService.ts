@@ -6,7 +6,8 @@ Mock.mock('/login', 'post', {
   content: {
     userId: '@ID',
     email: '@EMAIL',
-    name: '@CNAME'
+    name: '@CNAME',
+    jobId: '@ID'
   }
 })
 
