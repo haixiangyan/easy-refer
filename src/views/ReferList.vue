@@ -24,7 +24,7 @@
   @Component({
     components: {ReferItem}
   })
-  export default class Refer extends Vue {
+  export default class ReferList extends Vue {
     refers: TRefer[] = []
     page: number = 0
     totalPages: number = 0

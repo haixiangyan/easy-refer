@@ -74,7 +74,7 @@
 
             this.$notify({title: "登录成功", message: data.message, type: "success"})
 
-            await this.$router.push("/public")
+            await this.$router.push("/job-list")
           } else {
             this.$message.error(data.message)
           }

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index'
-import Public from '../views/Public.vue'
-import Refer from '@/views/Refer.vue'
-import Resume from '@/views/Resume.vue'
+import JobList from '../views/JobList.vue'
+import ReferList from '@/views/ReferList.vue'
+import ResumeList from '@/views/ResumeList.vue'
 import User from '@/views/User.vue'
 import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
@@ -15,7 +15,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/public',
+    redirect: '/job-list',
   },
   {
     path: '/login',
@@ -23,20 +23,20 @@ const routes = [
     component: Login
   },
   {
-    path: '/public',
-    name: 'Public',
-    component: Public
+    path: '/job-list',
+    name: 'JobList',
+    component: JobList
   },
   {
-    path: '/refer',
-    name: 'Refer',
-    component: Refer,
+    path: '/refer-list',
+    name: 'ReferList',
+    component: ReferList,
     meta: {requireAuth: true}
   },
   {
-    path: '/resume',
-    name: 'Resume',
-    component: Resume,
+    path: '/resume-list',
+    name: 'ResumeList',
+    component: ResumeList,
     meta: {requireAuth: true}
   },
   {

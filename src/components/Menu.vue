@@ -9,15 +9,15 @@
             <el-menu-item class="logo-menu-item" index="/">
                 <img src="../assets/img/logo.png" alt="logo">
             </el-menu-item>
-            <el-menu-item index="/public">
+            <el-menu-item index="/job-list">
                 <i class="el-icon-s-home"></i>
                 <span slot="title">内推广场</span>
             </el-menu-item>
-            <el-menu-item index="/refer">
+            <el-menu-item index="/refer-list">
                 <i class="el-icon-s-order"></i>
                 <span slot="title">内推进度</span>
             </el-menu-item>
-            <el-menu-item index="/resume">
+            <el-menu-item index="/resume-list">
                 <i class="el-icon-s-cooperation"></i>
                 <span slot="title">处理内推</span>
             </el-menu-item>

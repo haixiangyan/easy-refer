@@ -37,7 +37,7 @@
   import {LEVEL_MAPPER} from "@/contents/level"
 
   @Component
-  export default class Resume extends Vue {
+  export default class ResumeList extends Vue {
     resumes: TResume[] = []
     page: number = 1
     totalPages: number = 0
