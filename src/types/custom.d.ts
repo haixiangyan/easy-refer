@@ -29,6 +29,9 @@ interface IGetJobs extends IData {
     jobs: TJob[]
   }
 }
+interface IGetJob extends IData {
+  content: TJob
+}
 interface IAddJob extends IData {
   content: TJob
 }

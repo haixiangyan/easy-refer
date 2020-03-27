@@ -87,6 +87,24 @@
     }
     rules = ADD_JOB_RULES
 
+    mounted() {
+      if (this.$route.params.jobId) {
+        this.load(this.$route.params.jobId)
+      }
+    }
+
+    async load(jobId: string) {
+      try {
+        const {data} = await JobService.getJob(this.userId, jobId)
+
+        if (!data.success) return this.$message.error(data.message)
+
+        this.addJobForm = data.content
+      } catch (error) {
+        this.$message.error(error.message)
+      }
+    }
+
     publish() {
       (<ElForm>this.$refs.addJobForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
