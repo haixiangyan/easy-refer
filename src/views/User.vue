@@ -1,5 +1,6 @@
 <template>
     <div class="user">
+        <el-divider>个人信息</el-divider>
         <div v-if="user.name" class="name user-item">
             <h3>
                 <span>姓名</span>

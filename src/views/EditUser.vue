@@ -4,6 +4,7 @@
              label-width="120px"
              label-position="left"
              :rules="rules">
+        <el-divider>修改个人信息</el-divider>
         <el-form-item required prop="name" label="个人姓名">
             <el-input v-model="editUserForm.name"></el-input>
         </el-form-item>
