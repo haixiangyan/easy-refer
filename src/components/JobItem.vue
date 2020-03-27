@@ -1,11 +1,11 @@
 <template>
     <el-row class="job-item">
-        <el-col :span="3">
+        <el-col :span="4">
             <router-link class="avatar" to="/public">
                 <img :src="job.imageUrl" alt="avatar">
             </router-link>
         </el-col>
-        <el-col class="content" :span="21">
+        <el-col class="content" :span="20">
             <p class="title">
                 {{job.company}}
                 <el-divider direction="vertical"></el-divider>
