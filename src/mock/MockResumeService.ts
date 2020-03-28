@@ -13,3 +13,11 @@ Mock.mock(/\/resume\?userId=\S*&page=\d*/, 'get', {
     totalPages: 60
   }
 })
+
+Mock.mock('/resume', 'post', (options: any) => {
+  return {
+    success: true,
+    message: '信息已提交',
+    content: JSON.parse(options.body)
+  }
+})

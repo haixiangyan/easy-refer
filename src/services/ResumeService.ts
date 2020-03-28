@@ -6,6 +6,9 @@ const ResumeService = {
       params: {userId, page}
     })
   },
+  applyForRefer: async (application: TApplication): Promise<AxiosResponse<IApply>> => {
+    return await axios.post('/resume', application)
+  }
 }
 
 export default ResumeService

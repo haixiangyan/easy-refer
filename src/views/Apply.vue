@@ -40,7 +40,7 @@
             </el-form-item>
 
             <div class="submit">
-                <el-button @click="submit" type="primary" round>提交</el-button>
+                <el-button @click="apply" type="primary" round>提交</el-button>
             </div>
         </el-form>
     </div>
@@ -52,6 +52,7 @@
   import JobItem from "@/components/JobItem.vue"
   import JobService from "@/services/JobService"
   import {LEVEL_MAPPER} from '@/contents/level'
+  import ResumeService from "@/services/ResumeService"
 
   @Component({
     components: {JobItem}
@@ -124,8 +125,17 @@
       }
     }
 
-    async submit() {
-      console.log(this.application)
+    async apply() {
+      try {
+        const {data} = await ResumeService.applyForRefer(this.application)
+
+        if (!data.success) return this.$message.error(data.message)
+
+        this.$message.success(data.message)
+        await this.$router.push('/resume-list')
+      } catch (error) {
+        this.$message.error(error.message)
+      }
     }
   }
 </script>

@@ -37,6 +37,9 @@ interface IGetResumes extends IData {
     resumes: TResume[]
   }
 }
+interface IApply extends IData {
+  content: TApplication
+}
 
 interface IGetRefers extends IData {
   content: {
