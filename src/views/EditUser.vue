@@ -8,16 +8,18 @@
         <el-form-item required prop="name" label="个人姓名">
             <el-input v-model="editUserForm.name"></el-input>
         </el-form-item>
-        <el-form-item required label="联系邮箱">
-            <el-input type="email" disabled v-model="editUserForm.email"></el-input>
-        </el-form-item>
-        <el-form-item prop="phone" label="联系电话">
-            <el-input type="tel" v-model.number="editUserForm.phone"></el-input>
-        </el-form-item>
+        <!--必填-->
         <el-form-item required label="工作经验">
             <el-select v-model="editUserForm.experience" placeholder="请选择">
                 <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
             </el-select>
+        </el-form-item>
+        <el-form-item required label="联系邮箱">
+            <el-input type="email" disabled v-model="editUserForm.email"></el-input>
+        </el-form-item>
+        <!--选填-->
+        <el-form-item prop="phone" label="联系电话">
+            <el-input type="tel" v-model.number="editUserForm.phone"></el-input>
         </el-form-item>
         <el-form-item label="个人简介">
             <el-input type="textarea" :rows="4" v-model="editUserForm.intro"></el-input>

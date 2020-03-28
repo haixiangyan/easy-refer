@@ -11,18 +11,18 @@
             <el-form-item required prop="name" label="姓名">
                 <el-input v-model="application.name"></el-input>
             </el-form-item>
-            <el-form-item required prop="email" label="邮箱">
-                <el-input type="email" :disabled="isLogin" v-model="application.email"></el-input>
-            </el-form-item>
-            <el-form-item required prop="phone" label="电话">
-                <el-input type="tel" v-model.number="application.phone"></el-input>
-            </el-form-item>
             <el-form-item required prop="experience" label="工作经验">
                 <el-select v-model="application.experience" placeholder="请选择">
                     <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item required prop="email" label="邮箱">
+                <el-input type="email" :disabled="isLogin" v-model="application.email"></el-input>
+            </el-form-item>
             <!--选填-->
+            <el-form-item required prop="phone" label="电话">
+                <el-input type="tel" v-model.number="application.phone"></el-input>
+            </el-form-item>
             <el-form-item required prop="intro" label="个人简介">
                 <el-input type="textarea" autosize v-model="application.intro"></el-input>
             </el-form-item>
@@ -68,14 +68,16 @@
       requiredFields: []
     }
     application: TApplication = {
+      // 必填
       applicationId: "undefined",
       jobId: "",
       userId: "",
       email: "",
+      name: "",
       experience: 0,
+      // 选填
       intro: "",
       leetCodeUrl: "",
-      name: "",
       phone: "",
       referLinks: '',
       resumeUrl: "",
