@@ -70,7 +70,6 @@
           const {data} = await AuthService.login(this.loginForm)
           if (data.success) {
             this.$store.commit("auth/setAuth", data.success)
-            console.log(data.content)
             this.$store.commit("user/setUser", data.content)
 
             this.$notify({title: "登录成功", message: data.message, type: "success"})

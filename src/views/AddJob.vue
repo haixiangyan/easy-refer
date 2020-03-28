@@ -89,13 +89,13 @@
 
     mounted() {
       if (this.$route.params.jobId) {
-        this.load(this.$route.params.jobId)
+        this.loadJob(this.$route.params.jobId)
       }
     }
 
-    async load(jobId: string) {
+    async loadJob(jobId: string) {
       try {
-        const {data} = await JobService.getJob(this.userId, jobId)
+        const {data} = await JobService.getJob(jobId)
 
         if (!data.success) return this.$message.error(data.message)
 

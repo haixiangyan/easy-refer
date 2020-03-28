@@ -105,7 +105,6 @@
       if (!this.isLogin) return
 
       this.application = {...this.application, ...this.$store.state.user}
-      console.log(this.application)
     }
 
     async loadJob() {
