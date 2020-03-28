@@ -13,6 +13,11 @@ const ResumeService = {
   },
   applyForRefer: async (application: TApplication): Promise<AxiosResponse<IApply>> => {
     return await axios.post('/resume', application)
+  },
+  updateResumeStatus: async(resumeId: string, status: string): Promise<AxiosResponse<IData>> => {
+    return await axios.patch('/resume', {
+      resumeId, status
+    })
   }
 }
 

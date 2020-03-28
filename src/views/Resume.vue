@@ -13,6 +13,11 @@
                 <p v-if="field === 'experience'">{{levelMapper[application[field]]}}</p>
             </div>
         </div>
+
+        <div class="buttons">
+            <el-button @click="updateStatus('referred')" round type="primary">推完了</el-button>
+            <el-button @click="updateStatus('rejected')" round type="danger">不推了</el-button>
+        </div>
     </div>
 </template>
 
@@ -89,7 +94,20 @@
         if (!data.success) return this.$message.error(data.message)
 
         this.application = data.content
-        console.log(this.application)
+      } catch (error) {
+        this.$message.error(error.message)
+      }
+    }
+
+    async updateStatus(status: string) {
+      try {
+        const {data} = await ResumeService.updateResumeStatus(this.resumeId, status)
+
+        if (!data.success) return this.$message.error(data.message)
+
+        this.$message.success(data.message)
+
+        await this.$router.push('/resume-list')
       } catch (error) {
         this.$message.error(error.message)
       }
@@ -100,5 +118,9 @@
 <style scoped lang="scss">
     .apply-item {
         margin-bottom: 10px;
+    }
+    .buttons {
+        margin-top: 16px;
+        text-align: center;
     }
 </style>

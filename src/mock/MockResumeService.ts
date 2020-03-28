@@ -42,3 +42,10 @@ Mock.mock('/resume', 'post', (options: any) => {
     content: JSON.parse(options.body)
   }
 })
+
+Mock.mock('/resume', 'patch', (options: any) => {
+  const body = JSON.parse(options.body)
+  const success = body.status === 'referred'
+  const message = success ? '完成内推' : '已回绝'
+  return { success, message }
+})
