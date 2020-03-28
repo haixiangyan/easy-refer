@@ -13,6 +13,6 @@
     
 * Apply -> /apply:jobId 申请内推时用的组件
 
-* Resume -> /resume:resumeId 查看投递信息用的组件
+* Application -> /application:applicationId 查看投递信息用的组件
 
 * AddJob 用于添加和修改 Job 的组件
