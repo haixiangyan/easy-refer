@@ -49,3 +49,11 @@ Mock.mock('/resume', 'patch', (options: any) => {
   const message = success ? '完成内推' : '已回绝'
   return { success, message }
 })
+
+Mock.mock('/resume', 'delete', (options: any) => {
+  return {
+    success: true,
+    message: '已撤回',
+    content: JSON.parse(options.body)
+  }
+})

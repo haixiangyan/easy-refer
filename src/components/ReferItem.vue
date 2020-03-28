@@ -18,7 +18,7 @@
             <router-link :to="`/apply/${refer.jobId}`" tag="span">
                 <el-link class="edit-button" type="primary" icon="el-icon-edit">修改</el-link>
             </router-link>
-            <el-link type="danger" icon="el-icon-close">撤销</el-link>
+            <el-link @click="withdraw" type="danger" icon="el-icon-close">撤销</el-link>
         </el-col>
     </el-row>
 </template>
@@ -27,6 +27,7 @@
   import Vue from "vue"
   import {Component, Prop} from "vue-property-decorator"
   import {STATUS_NAMES_MAPPER} from "@/contents/status"
+  import ResumeService from "@/services/ResumeService"
 
   @Component
   export default class ReferItem extends Vue {
@@ -34,6 +35,32 @@
 
     get statusName() {
       return STATUS_NAMES_MAPPER[this.refer.status]
+    }
+
+    async withdraw() {
+      this.$alert('确定撤回该内推？', '撤回内推', {
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '撤回吧',
+        cancelButtonText: '再想想',
+        callback: action => {
+          if (action === 'confirm') {
+            this.confirmWithdraw()
+          }
+        }
+      });
+    }
+
+    async confirmWithdraw() {
+      try {
+        const {data} = await ResumeService.withdrawResume(this.refer.referId)
+
+        if (!data.success) return this.$message.error(data.message)
+
+        this.$message.success('已撤回')
+      } catch (error) {
+        this.$message.error(error.message)
+      }
     }
   }
 </script>
@@ -84,6 +111,7 @@
                 font-weight: bold;
             }
         }
+
         .edit-button {
             margin-right: 4px;
         }

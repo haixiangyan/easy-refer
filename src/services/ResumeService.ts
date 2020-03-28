@@ -18,6 +18,11 @@ const ResumeService = {
     return await axios.patch('/resume', {
       resumeId, status
     })
+  },
+  withdrawResume: async(resumeId: string): Promise<AxiosResponse<IData>> => {
+    return await axios.delete('/resume', {
+      data: {resumeId}
+    })
   }
 }
 
