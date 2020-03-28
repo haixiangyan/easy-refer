@@ -1,5 +1,5 @@
 <template>
-    <div class="resume">
+    <div class="resume-list">
         <div class="resumes">
             <el-table
                 :data="resumes"
@@ -13,7 +13,9 @@
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" width="100">
                     <template slot-scope="scope">
-                        <el-button @click="showResume(scope.row)" type="text">查看</el-button>
+                        <router-link tag="span" :to="`/resume/${scope.row.resumeId}`">
+                            <el-link type="primary">查看</el-link>
+                        </router-link>
                     </template>
                 </el-table-column>
             </el-table>

@@ -10,7 +10,7 @@ import Login from '@/views/Login.vue'
 import EditUser from '@/views/EditUser.vue'
 import AddJob from '@/views/AddJob.vue'
 import Apply from '@/views/Apply.vue'
-import Application from '@/views/Application.vue'
+import Resume from '@/views/Resume.vue'
 
 Vue.use(VueRouter)
 
@@ -71,9 +71,9 @@ const routes = [
     component: Apply
   },
   {
-    path: '/application/:applicationId',
-    name: 'Application',
-    component: Application,
+    path: '/resume/:resumeId',
+    name: 'Resume',
+    component: Resume,
     meta: {requireAuth: true}
   },
   {
