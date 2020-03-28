@@ -6,7 +6,7 @@
 
         <el-divider>填写你的信息</el-divider>
 
-        <el-form ref="referForm" :model="application" label-width="120px" label-position="left">
+        <el-form ref="applyForm" :model="application" label-width="120px" label-position="left">
             <!--必填-->
             <el-form-item required prop="name" label="姓名">
                 <el-input :disabled="isLogin" v-model="application.name"></el-input>
@@ -53,6 +53,7 @@
   import JobService from "@/services/JobService"
   import {LEVEL_MAPPER} from '@/contents/level'
   import ResumeService from "@/services/ResumeService"
+  import {ElForm} from 'element-ui/types/form'
 
   @Component({
     components: {JobItem}
@@ -126,16 +127,20 @@
     }
 
     async apply() {
-      try {
-        const {data} = await ResumeService.applyForRefer(this.application)
+      (<ElForm>this.$refs.applyForm).validate(async valid => {
+        if (!valid) return this.$message.error('填写不正确')
 
-        if (!data.success) return this.$message.error(data.message)
+        try {
+          const {data} = await ResumeService.applyForRefer(this.application)
 
-        this.$message.success(data.message)
-        await this.$router.push('/resume-list')
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+          if (!data.success) return this.$message.error(data.message)
+
+          this.$message.success(data.message)
+          await this.$router.push('/resume-list')
+        } catch (error) {
+          this.$message.error(error.message)
+        }
+      })
     }
   }
 </script>
