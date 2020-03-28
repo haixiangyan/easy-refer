@@ -17,8 +17,8 @@
             </div>
             <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
             <div class="footer">
-                <router-link :to="`/apply/${job.jobId}`" tag="span">
-                    <el-link class="start-refer" type="primary" >申请内推</el-link>
+                <router-link v-if="showApply" :to="`/apply/${job.jobId}`" tag="span">
+                    <el-link class="start-refer" type="primary">申请内推</el-link>
                 </router-link>
                 <el-link v-if="job.source" :href="job.source">
                     原贴
@@ -44,6 +44,9 @@
     }
     get referredProgress() {
       return getReferProgress(this.referredPercentage)
+    }
+    get showApply() {
+      return this.$route.name !== 'Apply'
     }
   }
 </script>
