@@ -15,7 +15,7 @@ const ResumeService = {
     return await axios.post('/resume', application)
   },
   updateResumeStatus: async(resumeId: string, status: string): Promise<AxiosResponse<IData>> => {
-    return await axios.patch('/resume', {
+    return await axios.put('/resume', {
       resumeId, status
     })
   }
