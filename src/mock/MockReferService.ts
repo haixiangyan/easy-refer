@@ -9,6 +9,7 @@ Mock.mock(/\/refer\?userId=\S*&page=\d*/, 'get', {
   content: {
     'refers|10': [{
       'referId|+1': 1,
+      jobId: '@ID',
       postTitle: '@CSENTENCE',
       postUrl: "@URL",
       'company|1': companies,

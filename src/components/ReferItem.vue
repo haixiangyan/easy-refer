@@ -15,7 +15,9 @@
             <div class="referer">{{refer.referer}}正在处理</div>
         </el-col>
         <el-col :span="4">
-            <el-link class="edit-button" type="primary" icon="el-icon-edit">修改</el-link>
+            <router-link :to="`/apply/${refer.jobId}`" tag="span">
+                <el-link class="edit-button" type="primary" icon="el-icon-edit">修改</el-link>
+            </router-link>
             <el-link type="danger" icon="el-icon-close">撤销</el-link>
         </el-col>
     </el-row>
