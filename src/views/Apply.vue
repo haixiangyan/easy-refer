@@ -9,7 +9,7 @@
         <el-form ref="referForm" :model="application" label-width="120px" label-position="left">
             <!--必填-->
             <el-form-item required prop="name" label="姓名">
-                <el-input v-model="application.name"></el-input>
+                <el-input :disabled="isLogin" v-model="application.name"></el-input>
             </el-form-item>
             <el-form-item required prop="experience" label="工作经验">
                 <el-select v-model="application.experience" placeholder="请选择">
@@ -86,11 +86,7 @@
     rules = {}
 
     mounted() {
-      if (this.isLogin) {
-        const {email} = this.$store.state.user
-        this.application.userId = email
-        this.application.email = email
-      }
+      this.initApplication()
 
       this.loadJob()
     }
@@ -103,6 +99,13 @@
     }
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
+    }
+
+    initApplication() {
+      if (!this.isLogin) return
+
+      this.application = {...this.application, ...this.$store.state.user}
+      console.log(this.application)
     }
 
     async loadJob() {

@@ -5,9 +5,16 @@ Mock.mock('/login', 'post', {
   message: '欢迎回来',
   content: {
     userId: '@ID',
+    jobId: '@ID',
     email: '@EMAIL',
     name: '@CNAME',
-    jobId: '@ID'
+    experience: '@INTEGER(0,4)',
+    intro: '@CPARAGRAPH',
+    phone: '9493467358',
+    referLinks: ['@URL', '@URL'].join(','),
+    leetCodeUrl: '@URL',
+    thirdPersonIntro: '@CPARAGRAPH',
+    resumeUrl: '@URL'
   }
 })
 

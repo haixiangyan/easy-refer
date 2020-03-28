@@ -5,12 +5,7 @@ interface IData {
 }
 
 interface ILogin extends IData{
-  content: {
-    userId: string
-    email: string
-    name: string
-    jobId?: string
-  }
+  content: TUser
 }
 interface IRegister extends IData {
   content: TLoginForm
@@ -52,6 +47,9 @@ interface IGetRefers extends IData {
 
 type TMapper = {
   [key: string]: string
+}
+type TNumMapper = {
+  [key: number]: string
 }
 
 type TItem = {

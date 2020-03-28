@@ -23,7 +23,7 @@ Mock.mock(/\/user\/info\?userId=\S*/, 'get', {
     experience: '@INTEGER(0,4)',
     intro: '@CPARAGRAPH',
     phone: '9493467358',
-    referLinks: ['@URL', '@URL'],
+    referLinks: ['@URL', '@URL'].join(','),
     leetCodeUrl: '@URL',
     thirdPersonIntro: '@CPARAGRAPH',
     resumeUrl: '@URL'
