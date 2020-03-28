@@ -6,10 +6,37 @@
 
         <el-divider>填写你的信息</el-divider>
 
-        <el-form ref="referForm" :model="application" label-width="120px">
-            <el-form-item label="活动名称">
-                <el-input v-model="application.email"></el-input>
+        <el-form ref="referForm" :model="application" label-width="120px" label-position="left">
+            <el-form-item required prop="name" label="个人姓名">
+                <el-input v-model="application.name"></el-input>
             </el-form-item>
+            <el-form-item required prop="email" label="联系邮箱">
+                <el-input type="email" :disabled="isLogin" v-model="application.email"></el-input>
+            </el-form-item>
+            <el-form-item required prop="phone" label="联系电话">
+                <el-input type="tel" v-model.number="application.phone"></el-input>
+            </el-form-item>
+            <el-form-item required prop="experience" label="工作经验">
+                <el-select v-model="application.experience" placeholder="请选择">
+                    <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item required prop="intro" label="个人简介">
+                <el-input type="textarea" autosize v-model="application.intro"></el-input>
+            </el-form-item>
+            <el-form-item required prop="thirdPersonIntro" label="第三人称">
+                <el-input type="textarea" autosize v-model="application.thirdPersonIntro"></el-input>
+            </el-form-item>
+            <el-form-item required prop="leetCodeUrl" label="LeetCode">
+                <el-input type="url" v-model="application.leetCodeUrl"></el-input>
+            </el-form-item>
+            <el-form-item required prop="resumeUrl" label="简历链接">
+                <el-input type="url" v-model="application.resumeUrl"></el-input>
+            </el-form-item>
+
+            <div class="submit">
+                <el-button @click="submit" type="primary" round>提交</el-button>
+            </div>
         </el-form>
     </div>
 </template>
@@ -19,6 +46,7 @@
   import {Component} from "vue-property-decorator"
   import JobItem from "@/components/JobItem.vue"
   import JobService from "@/services/JobService"
+  import {LEVEL_MAPPER} from '@/contents/level'
 
   @Component({
     components: {JobItem}
@@ -34,23 +62,40 @@
       referer: "",
       requiredFields: []
     }
-
     application: TApplication = {
       applicationId: "undefined",
-      jobId: '',
+      jobId: "",
       userId: "",
       email: "",
       experience: 0,
+      intro: "",
+      leetCodeUrl: "",
       name: "",
+      phone: "",
       referLinks: [],
+      resumeUrl: "",
+      thirdPersonIntro: "",
     }
+    rules = {}
 
     mounted() {
+      if (this.isLogin) {
+        const {email} = this.$store.state.user
+        this.application.userId = email
+        this.application.email = email
+      }
+
       this.loadJob()
     }
 
     get jobId() {
       return this.$route.params.jobId
+    }
+    get isLogin() {
+      return this.$store.state.auth.isLogin
+    }
+    get levels() {
+      return Object.entries(LEVEL_MAPPER)
     }
 
     async loadJob() {
@@ -69,5 +114,9 @@
 </script>
 
 <style scoped lang="scss">
-
+.apply {
+    .submit {
+        text-align: center;
+    }
+}
 </style>
