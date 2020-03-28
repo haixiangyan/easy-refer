@@ -20,22 +20,22 @@
                 <el-input type="email" :disabled="isLogin" v-model="application.email"></el-input>
             </el-form-item>
             <!--选填-->
-            <el-form-item required prop="phone" label="电话">
+            <el-form-item v-if="isShowField('phone')" required prop="phone" label="电话">
                 <el-input type="tel" v-model.number="application.phone"></el-input>
             </el-form-item>
-            <el-form-item required prop="intro" label="个人简介">
+            <el-form-item v-if="isShowField('intro')" required prop="intro" label="个人简介">
                 <el-input type="textarea" autosize v-model="application.intro"></el-input>
             </el-form-item>
-            <el-form-item required prop="thirdPersonIntro" label="第三人称介绍">
+            <el-form-item v-if="isShowField('thirdPersonIntro')" required prop="thirdPersonIntro" label="第三人称介绍">
                 <el-input type="textarea" autosize v-model="application.thirdPersonIntro"></el-input>
             </el-form-item>
-            <el-form-item required prop="referLinks" label="内推链接">
+            <el-form-item v-if="isShowField('referLinks')" required prop="referLinks" label="内推链接">
                 <el-input type="textarea" autosize v-model="application.referLinks"></el-input>
             </el-form-item>
-            <el-form-item required prop="leetCodeUrl" label="LeetCode">
+            <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" label="LeetCode">
                 <el-input type="url" v-model="application.leetCodeUrl"></el-input>
             </el-form-item>
-            <el-form-item required prop="resumeUrl" label="简历链接">
+            <el-form-item v-if="isShowField('resumeUrl')" required prop="resumeUrl" label="简历链接">
                 <el-input type="url" v-model="application.resumeUrl"></el-input>
             </el-form-item>
 
@@ -99,6 +99,10 @@
     }
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
+    }
+
+    isShowField(fieldName: string) {
+      return this.job.requiredFields.includes(fieldName)
     }
 
     initApplication() {

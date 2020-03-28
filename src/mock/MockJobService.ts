@@ -1,8 +1,15 @@
 import Mock from 'mockjs'
-import {REFER_FIELDS} from '@/contents/refer'
+import {REFER_FIELDS, REQUIRED_REFER_FIELD_VALUES} from '@/contents/refer'
 
 const expiration = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
+
+const randomRequiredFields = () => {
+  return [
+    ...REQUIRED_REFER_FIELD_VALUES,
+    ...REFER_FIELDS.map(item => item.value).filter(() => Math.random() >= 0.5)
+  ]
+}
 
 Mock.mock(/\/job\?userId=\S*&page=\d*/, 'get', {
   success: true,
@@ -13,7 +20,7 @@ Mock.mock(/\/job\?userId=\S*&page=\d*/, 'get', {
       title: '@CSENTENCE',
       content: '@CPARAGRAPH',
       'company|1': companies,
-      requiredFields: REFER_FIELDS.map(item => item.value),
+      requiredFields: randomRequiredFields(),
       deadline: '@DATE',
       'expiration|1': expiration,
       referTotal: '@INTEGER(100, 500)',
@@ -34,7 +41,7 @@ Mock.mock(/\/job\?jobId=\S*/, 'get', {
     title: '@CSENTENCE',
     content: '@CPARAGRAPH',
     'company|1': companies,
-    requiredFields: REFER_FIELDS.map(item => item.value),
+    requiredFields: randomRequiredFields(),
     deadline: '@DATE',
     'expiration|1': expiration,
     referTotal: '@INTEGER(100, 500)',
