@@ -67,8 +67,7 @@ const routes = [
   {
     path: '/apply/:jobId',
     name: 'Apply',
-    component: Apply,
-    meta: {requireAuth: true}
+    component: Apply
   },
   {
     path: '*',

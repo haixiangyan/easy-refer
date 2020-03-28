@@ -26,7 +26,7 @@ Mock.mock(/\/job\?userId=\S*&page=\d*/, 'get', {
   }
 })
 
-Mock.mock(/\/job\?userId=\S*&jobId=\S*/, 'get', {
+Mock.mock(/\/job\?jobId=\S*/, 'get', {
   success: true,
   message: '成功获取数据',
   content: {

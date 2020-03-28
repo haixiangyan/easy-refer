@@ -71,11 +71,11 @@ type TJob = {
   company: string
   referer: string
   requiredFields: string[]
-  deadline: Date,
+  deadline: Date
   expiration: 3 | 5 | 7
   referredCount: number
   referTotal: number
-  imageUrl?: string,
+  imageUrl?: string
   source?: string
 }
 
@@ -98,7 +98,9 @@ type TUser = {
   resumeUrl?: string
 }
 
-type TApplication = TRefer & TUser & {
+type TApplication = TUser & {
+  applicationId: string
+  jobId: string
   referLinks: string[]
 }
 
