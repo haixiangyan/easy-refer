@@ -114,7 +114,7 @@
           if (!data.success) return this.$message.error(data.message)
 
           this.$message.success(data.message)
-          await this.$router.push('/public')
+          await this.$router.push('/job-list')
         } catch (error) {
           this.$message.error(error.message)
         }

@@ -1,7 +1,7 @@
 <template>
     <el-row class="job-item">
         <el-col :span="4">
-            <router-link class="avatar" to="/public">
+            <router-link class="avatar" to="/job-list">
                 <img :src="job.imageUrl" alt="avatar">
             </router-link>
         </el-col>

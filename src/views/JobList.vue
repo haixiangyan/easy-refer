@@ -1,5 +1,5 @@
 <template>
-    <div class="public">
+    <div class="job-list">
         <div class="jobs">
             <JobItem v-for="job in publicJobs" :job="job" :key="job.id"></JobItem>
         </div>
