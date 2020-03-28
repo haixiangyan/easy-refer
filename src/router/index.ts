@@ -9,6 +9,7 @@ import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
 import EditUser from '@/views/EditUser.vue'
 import AddJob from '@/views/AddJob.vue'
+import Apply from '@/views/Apply.vue'
 
 Vue.use(VueRouter)
 
@@ -61,6 +62,12 @@ const routes = [
     path: '/edit-job/:jobId',
     name: 'AddJob',
     component: AddJob,
+    meta: {requireAuth: true}
+  },
+  {
+    path: '/apply/:jobId',
+    name: 'Apply',
+    component: Apply,
     meta: {requireAuth: true}
   },
   {
