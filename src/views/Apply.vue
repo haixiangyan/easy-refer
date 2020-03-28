@@ -7,13 +7,14 @@
         <el-divider>填写你的信息</el-divider>
 
         <el-form ref="referForm" :model="application" label-width="120px" label-position="left">
-            <el-form-item required prop="name" label="个人姓名">
+            <!--必填-->
+            <el-form-item required prop="name" label="姓名">
                 <el-input v-model="application.name"></el-input>
             </el-form-item>
-            <el-form-item required prop="email" label="联系邮箱">
+            <el-form-item required prop="email" label="邮箱">
                 <el-input type="email" :disabled="isLogin" v-model="application.email"></el-input>
             </el-form-item>
-            <el-form-item required prop="phone" label="联系电话">
+            <el-form-item required prop="phone" label="电话">
                 <el-input type="tel" v-model.number="application.phone"></el-input>
             </el-form-item>
             <el-form-item required prop="experience" label="工作经验">
@@ -21,11 +22,15 @@
                     <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
                 </el-select>
             </el-form-item>
+            <!--选填-->
             <el-form-item required prop="intro" label="个人简介">
                 <el-input type="textarea" autosize v-model="application.intro"></el-input>
             </el-form-item>
-            <el-form-item required prop="thirdPersonIntro" label="第三人称">
+            <el-form-item required prop="thirdPersonIntro" label="第三人称介绍">
                 <el-input type="textarea" autosize v-model="application.thirdPersonIntro"></el-input>
+            </el-form-item>
+            <el-form-item required prop="referLinks" label="内推链接">
+                <el-input type="textarea" autosize v-model="application.referLinks"></el-input>
             </el-form-item>
             <el-form-item required prop="leetCodeUrl" label="LeetCode">
                 <el-input type="url" v-model="application.leetCodeUrl"></el-input>
@@ -72,7 +77,7 @@
       leetCodeUrl: "",
       name: "",
       phone: "",
-      referLinks: [],
+      referLinks: '',
       resumeUrl: "",
       thirdPersonIntro: "",
     }

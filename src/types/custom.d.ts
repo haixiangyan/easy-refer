@@ -101,7 +101,7 @@ type TUser = {
 type TApplication = TUser & {
   applicationId: string
   jobId: string
-  referLinks: string[]
+  referLinks: string
 }
 
 type TResume = {
