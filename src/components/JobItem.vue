@@ -39,7 +39,8 @@
     @Prop({required: true}) job!: TJob
 
     get referredPercentage() {
-      return parseFloat((this.job.referredCount / this.job.referTotal * 100).toFixed(2))
+      const {referredCount, referTotal} = this.job
+      return referTotal === 0 ? 0 : parseFloat((referredCount / referTotal * 100).toFixed(2))
     }
     get referredProgress() {
       return getReferProgress(this.referredPercentage)
