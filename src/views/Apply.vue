@@ -100,7 +100,7 @@
       return this.$store.state.auth.isLogin
     }
     get levels() {
-      return Object.entries(LEVEL_MAPPER)
+      return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }
 
     async loadJob() {
@@ -114,6 +114,10 @@
       } catch (error) {
         this.$message.error(error.message)
       }
+    }
+
+    async submit() {
+      console.log(this.application)
     }
   }
 </script>

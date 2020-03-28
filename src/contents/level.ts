@@ -1,4 +1,4 @@
-export const LEVEL_MAPPER: TMapper = {
+export const LEVEL_MAPPER = {
   0: '应届生',
   1: '1年工作经验',
   2: '2年工作经验',

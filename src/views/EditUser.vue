@@ -68,7 +68,7 @@
       return this.$store.state.user.userId
     }
     get levels() {
-      return Object.entries(LEVEL_MAPPER)
+      return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }
 
     mounted() {
