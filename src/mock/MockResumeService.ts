@@ -14,6 +14,27 @@ Mock.mock(/\/resume\?userId=\S*&page=\d*/, 'get', {
   }
 })
 
+Mock.mock(/\/resume\?resumeId=\S*/, 'get', {
+  success: true,
+  message: '成功获取数据',
+  content: {
+    // 必填
+    applicationId: "@ID",
+    jobId: "@ID",
+    userId: "@ID",
+    email: "@EMAIL",
+    name: "@CNAME",
+    experience: '@INTEGER(0,8)',
+    // 选填
+    intro: '@CPARAGRAPH',
+    leetCodeUrl: '@URL',
+    phone: '9493467287',
+    referLinks: '@URL',
+    resumeUrl: "@URL",
+    thirdPersonIntro: "@CPARAGRAPH",
+  }
+})
+
 Mock.mock('/resume', 'post', (options: any) => {
   return {
     success: true,

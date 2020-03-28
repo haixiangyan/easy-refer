@@ -6,6 +6,11 @@ const ResumeService = {
       params: {userId, page}
     })
   },
+  getResume: async (resumeId: string): Promise<AxiosResponse<IGetResume>> => {
+    return await axios.get('/resume', {
+      params: {resumeId}
+    })
+  },
   applyForRefer: async (application: TApplication): Promise<AxiosResponse<IApply>> => {
     return await axios.post('/resume', application)
   }

@@ -5,10 +5,13 @@ const expiration = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
 
 const randomRequiredFields = () => {
-  return [
-    ...REQUIRED_REFER_FIELD_VALUES,
-    ...REFER_FIELDS.map(item => item.value).filter(() => Math.random() >= 0.5)
-  ]
+  const fields = new Set(REQUIRED_REFER_FIELD_VALUES)
+  REFER_FIELDS.map(item => item.value).forEach(item =>{
+    if (Math.random() >= 0.5) {
+      fields.add(item)
+    }
+  })
+  return Array.from(fields)
 }
 
 Mock.mock(/\/job\?userId=\S*&page=\d*/, 'get', {
