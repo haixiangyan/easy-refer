@@ -4704,6 +4704,10 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
+faker@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-4.1.0.tgz#1e45bbbecc6774b3c195fad2835109c6d748cc3f"
+
 fast-deep-equal@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.1.tgz#545145077c501491e33b15ec408c294376e94ae4"
@@ -5228,7 +5232,6 @@ graphql-subscriptions@^1.0.0, graphql-subscriptions@^1.1.0:
 graphql-tag@2.10.3, graphql-tag@^2.10.1, graphql-tag@^2.9.0, graphql-tag@^2.9.2:
   version "2.10.3"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.10.3.tgz#ea1baba5eb8fc6339e4c4cf049dabe522b0edf03"
-  integrity sha512-4FOv3ZKfA4WdOKJeHdz6B3F/vxBLSgmBcGeAFPf4n1F64ltJUvOOerNj0rsJxONQGdhUMynQIvd6LzB+1J5oKA==
 
 graphql-tools@^4.0.0, graphql-tools@^4.0.5:
   version "4.0.7"
@@ -5243,7 +5246,6 @@ graphql-tools@^4.0.0, graphql-tools@^4.0.5:
 graphql-type-json@^0.2.1:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.2.4.tgz#545af27903e40c061edd30840a272ea0a49992f9"
-  integrity sha512-/tq02ayMQjrG4oDFDRLLrPk0KvJXue0nVXoItBe7uAdbNXjQUu+HYCBdAmPLQoseVzUKKMzrhq2P/sfI76ON6w==
 
 graphql-upload@^8.0.2:
   version "8.1.0"
@@ -9087,7 +9089,6 @@ sentence-case@^2.1.0:
 serialize-javascript@^2.1.0, serialize-javascript@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-2.1.2.tgz#ecec53b0e0317bdc95ef76ab7074b7384785fa61"
-  integrity sha512-rs9OggEUF0V4jUSecXazOYsLfu7OGK2qIn3c7IPBiffz32XniEp/TX9Xmc9LQfK2nQ2QKHvZ2oygKUGU0lG4jQ==
 
 serve-index@^1.9.1:
   version "1.9.1"
@@ -9800,7 +9801,6 @@ throttle-debounce@^1.0.1:
 throttle-debounce@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-2.1.0.tgz#257e648f0a56bd9e54fe0f132c4ab8611df4e1d5"
-  integrity sha512-AOvyNahXQuU7NN+VVvOOX+uW6FPaWdAOdRP5HfwYxAfCzXTFKRMoIMk+n+po318+ktcChx+F1Dd91G3YHeMKyg==
 
 through2@^2.0.0:
   version "2.0.5"
@@ -10335,7 +10335,6 @@ vscode-uri@^1.0.6:
 vue-apollo@^3.0.0-beta.11:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/vue-apollo/-/vue-apollo-3.0.3.tgz#7f29558df76eec0f03251847eef153816a261827"
-  integrity sha512-WJaQ1v/i46/oIPlKv7J0Tx6tTlbuaeCdhrAbL06h+Zca2gzr5ywjUFpl8ijMTGJsQ+Ph/U4xEpBFBOMxQmL+7g==
   dependencies:
     chalk "^2.4.2"
     serialize-javascript "^2.1.0"
@@ -10348,7 +10347,6 @@ vue-class-component@^7.1.0, vue-class-component@^7.2.2:
 vue-cli-plugin-apollo@~0.21.3:
   version "0.21.3"
   resolved "https://registry.yarnpkg.com/vue-cli-plugin-apollo/-/vue-cli-plugin-apollo-0.21.3.tgz#520d336db0e88b26fe854833a555e2e29fe26571"
-  integrity sha512-8CzRVrAsFkB9lpl600cRCNR9OUnrSYYAIVF9/qW4pP0TMXbhrd1F1wEAAN6E0CPimjTLB+qSt6zWS4vb2wC8Wg==
   dependencies:
     apollo "^2.20.0"
     apollo-cache-inmemory "^1.6.3"

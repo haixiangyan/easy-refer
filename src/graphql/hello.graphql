@@ -1,5 +1,3 @@
 query fuck($eee: String) {
-    hello(name: $eee) {
-        name
-    }
+    hello(name: $eee)
 }

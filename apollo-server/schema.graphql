@@ -2,6 +2,8 @@
 scalar JSON
 scalar Upload
 
+scalar Phone
+
 type User {
     userId: String!
     name: String!
@@ -9,7 +11,7 @@ type User {
 
 type Query {
     "Test query with a parameter"
-    hello(name: String): User!
+    hello(name: String): String!
     getUserById(userId: String): User!
 }
 
