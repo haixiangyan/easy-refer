@@ -1,24 +1,28 @@
 import GraphQLJSON from 'graphql-type-json'
-
+import Mock from "mockjs"
 
 export default {
-  JSON: GraphQLJSON,
+    JSON: GraphQLJSON,
 
-  Query: {
-    // hello: (root, { name }) => `Hello ${name || 'World'}!`,
-  },
+    Query: {},
 
-  Mutation: {
-    myMutation: (root, args, context) => {
-      const message = 'My mutation completed!'
-      context.pubsub.publish('hey', { mySub: message })
-      return message
+    Mutation: {
+        login: (root, args, context) => {
+            return Mock.mock({
+                userId: '@ID',
+                jobId: '@ID',
+                email: '@EMAIL',
+                name: '@CNAME',
+                experience: '@INTEGER(0,4)',
+                intro: '@CPARAGRAPH',
+                phone: '9493467358',
+                referLinks: ['@URL', '@URL'].join(','),
+                leetCodeUrl: '@URL',
+                thirdPersonIntro: '@CPARAGRAPH',
+                resumeUrl: '@URL'
+            })
+        }
     },
-  },
 
-  Subscription: {
-    mySub: {
-      subscribe: (parent, args, { pubsub }) => pubsub.asyncIterator('hey'),
-    },
-  },
+    Subscription: {},
 }

@@ -1,5 +1,0 @@
-#query getUserById($userId: String) {
-#    user(userId: $userId) {
-#
-#    }
-#}

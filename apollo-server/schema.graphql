@@ -1,26 +1,54 @@
-"Included scalars"
-scalar JSON
-scalar Upload
+# This file was generated based on ".graphqlconfig". Do not edit manually.
 
-scalar Phone
-
-type User {
-    userId: String!
-    name: String!
-}
-
-type Query {
-    "Test query with a parameter"
-    hello(name: String): String!
-    getUserById(userId: String): User!
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
 }
 
 type Mutation {
+    login(loginForm: LoginForm): User!
+    register(registerForm: RegisterForm): User!
     myMutation: String!
+}
 
+type Query {
+    hello: String!
 }
 
 type Subscription {
     mySub: String!
-
 }
+
+type User {
+    email: String!
+    experience: Int!
+    intro: String
+    jobId: String!
+    leetCodeUrl: String
+    name: String!
+    phone: String
+    resumeUrl: String
+    thirdPersonIntro: String
+    userId: String!
+}
+
+
+input LoginForm {
+    email: String!
+    password: String!
+}
+
+input RegisterForm {
+    email: String!
+    password: String!
+}
+
+
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar JSON
+
+scalar Phone
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload

@@ -1,0 +1,5 @@
+mutation register($registerForm: RegisterForm) {
+    register(registerForm: $registerForm) {
+        email
+    }
+}
