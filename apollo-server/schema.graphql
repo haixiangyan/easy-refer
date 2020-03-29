@@ -1,23 +1,15 @@
-# This file was generated based on ".graphqlconfig". Do not edit manually.
-
 schema {
     query: Query
     mutation: Mutation
-    subscription: Subscription
 }
 
 type Mutation {
-    login(loginForm: LoginForm): User!
-    register(registerForm: RegisterForm): User!
-    myMutation: String!
+    login(loginForm: LoginForm!): User!
+    register(registerForm: RegisterForm!): User!
 }
 
 type Query {
-    hello: String!
-}
-
-type Subscription {
-    mySub: String!
+    user(userId: String!): User!
 }
 
 type User {
