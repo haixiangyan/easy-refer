@@ -9,7 +9,7 @@ type User {
 
 type Query {
     "Test query with a parameter"
-    hello(name: String): String!
+    hello(name: String): User!
     getUserById(userId: String): User!
 }
 

@@ -2,5 +2,9 @@
 // Customize mocking: https://www.apollographql.com/docs/graphql-tools/mocking.html#Customizing-mocks
 export default {
     // Mock resolvers here
-    String: () => 'fuck'
+    String: () => 'fuck',
+    User: () => ({
+        userId: '1',
+        name: 'Jack'
+    })
 }
