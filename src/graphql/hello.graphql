@@ -1,3 +1,3 @@
-{
-    hello
+query fuck($eee: String) {
+    hello(name: $eee)
 }

@@ -21,7 +21,12 @@
 
         async load() {
             try {
-                const {data} = await this.$apollo.query({query: xxx})
+                const {data} = await this.$apollo.query({
+                    query: xxx,
+                    variables: {
+                        eee: 'fuck'
+                    }
+                })
                 console.log(data)
             } catch (error) {
                 this.$message.error(error.message)
