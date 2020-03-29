@@ -4,11 +4,8 @@ import GraphQLJSON from 'graphql-type-json'
 export default {
   JSON: GraphQLJSON,
 
-
-
   Query: {
-    hello: (root, { name }) => `Hello ${name || 'World'}!`,
-
+    // hello: (root, { name }) => `Hello ${name || 'World'}!`,
   },
 
   Mutation: {
@@ -17,13 +14,11 @@ export default {
       context.pubsub.publish('hey', { mySub: message })
       return message
     },
-
   },
 
   Subscription: {
     mySub: {
       subscribe: (parent, args, { pubsub }) => pubsub.asyncIterator('hey'),
     },
-
   },
 }
