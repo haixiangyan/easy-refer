@@ -74,7 +74,7 @@
           this.$store.commit("auth/setAuth", true)
           this.$store.commit("user/setUser", data.user)
 
-          this.$notify({title: "登录成功", message: data.message, type: "success"})
+          this.$notify({title: "登录成功", message: '欢迎回来', type: "success"})
 
           await this.$router.push("/job-list")
         } catch (error) {
