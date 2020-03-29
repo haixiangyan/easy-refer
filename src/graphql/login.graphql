@@ -1,4 +1,4 @@
-mutation login($loginForm: LoginForm) {
+mutation login($loginForm: LoginForm!) {
     user: login(loginForm: $loginForm) {
         userId
         jobId
