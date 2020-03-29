@@ -11,6 +11,7 @@ import EditUser from '@/views/EditUser.vue'
 import AddJob from '@/views/AddJob.vue'
 import Apply from '@/views/Apply.vue'
 import Resume from '@/views/Resume.vue'
+import XXXX from '@/views/XXXX.vue'
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,11 @@ const routes = [
   {
     path: '/',
     redirect: '/job-list',
+  },
+  {
+    path: '/xxxx',
+    name: 'XXXX',
+    component: XXXX
   },
   {
     path: '/login',

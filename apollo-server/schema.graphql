@@ -2,20 +2,23 @@
 scalar JSON
 scalar Upload
 
-
+type User {
+    userId: String!
+    name: String!
+}
 
 type Query {
-  "Test query with a parameter"
-  hello(name: String): String!
-
+    "Test query with a parameter"
+    hello(name: String): String!
+    getUserById(userId: String): User!
 }
 
 type Mutation {
-  myMutation: String!
+    myMutation: String!
 
 }
 
 type Subscription {
-  mySub: String!
+    mySub: String!
 
 }
