@@ -25,7 +25,7 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import JobItem from "@/components/JobItem.vue"
-  import JobService from '@/services/JobService'
+  import GetJobByIdGQL from '@/graphql/GetJobById.graphql'
   import {REFER_FIELDS_MAPPER} from "@/contents/refer"
   import {LEVEL_MAPPER} from "@/contents/level"
   import ResumeService from "@/services/ResumeService"
@@ -77,11 +77,12 @@
 
     async loadJob() {
       try {
-        const {data} = await JobService.getJob(this.jobId)
+        const {data} = await this.$apollo.query({
+          query: GetJobByIdGQL,
+          variables: {jobId: this.jobId}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.job = data.content
+        this.job = data.job
       } catch (error) {
         this.$message.error(error.message)
       }

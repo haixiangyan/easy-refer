@@ -11,6 +11,7 @@ type Mutation {
 type Query {
     user(userId: String!): User!
     getJobs(page: Int!): JobsPage!
+    getJobById(jobId: String!): Job!
 }
 
 type JobsPage {

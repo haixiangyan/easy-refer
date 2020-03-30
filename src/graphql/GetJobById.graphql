@@ -1,0 +1,14 @@
+query GetJobById($jobId: String!) {
+    job: getJobById(jobId: $jobId) {
+        jobId
+        company
+        referer
+        requiredFields
+        deadline
+        expiration
+        referredCount
+        referTotal
+        imageUrl
+        source
+    }
+}
