@@ -15,4 +15,12 @@
 
 * Resume -> /resume:resumeId 查看投递信息用的组件
 
+* Refer -> 相当于提交 Resume 后生成的一个 Receipt
+
 * AddJob 用于添加和修改 Job 的组件
+
+## 关系
+
+1 个 Job -> n 个 Resume -> n 个 Refer
+
+1 个 Resume <-> 1 个 Refer
