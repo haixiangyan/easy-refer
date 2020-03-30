@@ -71,10 +71,19 @@ const mocks = {
     }),
     Resume: () => ({
         resumeId: faker.random.uuid(),
+        refereeId: faker.random.uuid(),
         jobId: faker.random.uuid(),
-        createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
+        name: faker.name.findName(),
+        email: faker.internet.email(),
+        experience: faker.random.number(7),
+        intro: faker.lorem.paragraph(),
+        phone: faker.phone.phoneNumberFormat(),
+        leetCodeUrl: faker.internet.url(),
+        thirdPersonIntro: faker.lorem.paragraph(),
+        resumeUrl: faker.internet.url(),
         referLinks: faker.internet.url(),
-        ...mocks.User()
+        // meta
+        createdAt: new Date().toISOString()
     }),
     ResumesPage: () => ({
         resumes: [...Array(20)].map(() => mocks.Resume()),

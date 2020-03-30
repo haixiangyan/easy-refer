@@ -57,6 +57,7 @@ Resume
 | leetCodeUrl      | string |          |      |      | LeetCode链接   |
 | thirdPersonIntro | string |          |      |      | 第三人称介绍   |
 | resumeUrl        | string |          |      |      | 简历链接       |
+| referLinks        | string |          |      |      | 内推链接       |
 
 Refer
 当提交内推后，生成一个 Refer，提交人可以查看、修改或撤销这个 Refer。注意，这个 Refer 

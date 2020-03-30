@@ -9,8 +9,8 @@
         <div class="apply">
             <div class="apply-item" v-for="field in job.requiredFields" :key="field">
                 <h3>{{referFieldsMapper[field]}}</h3>
-                <p v-if="field !== 'experience'">{{application[field]}}</p>
-                <p v-if="field === 'experience'">{{levelMapper[application[field]]}}</p>
+                <p v-if="field !== 'experience'">{{resume[field]}}</p>
+                <p v-if="field === 'experience'">{{levelMapper[resume[field]]}}</p>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
   export default class Resume extends Vue {
     job: TJob = {
       jobId: "",
-      refererId: this.user.userId,
+      refererId: '',
       company: "",
       deadline: new Date().toISOString(),
       expiration: 3,
@@ -48,15 +48,14 @@
       imageUrl: '',
       source: ''
     }
-    application: TApplication = {
+    resume: TResume = {
       // 必填
       resumeId: "undefined",
       jobId: "",
-      userId: "",
+      refereeId: this.user.userId,
       email: "",
       name: "",
       experience: 0,
-      createdAt: new Date().toISOString(),
       // 选填
       intro: "",
       leetCodeUrl: "",
@@ -100,7 +99,7 @@
           variables: {resumeId: this.resumeId}
         })
 
-        this.application = data.resume
+        this.resume = data.resume
       } catch (error) {
         this.$message.error(error.message)
       }

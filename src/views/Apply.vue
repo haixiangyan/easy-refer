@@ -6,37 +6,37 @@
 
         <el-divider>填写你的信息</el-divider>
 
-        <el-form ref="applyForm" :model="application" label-width="120px" label-position="left">
+        <el-form ref="applyForm" :model="resume" label-width="120px" label-position="left">
             <!--必填-->
             <el-form-item required prop="name" label="姓名">
-                <el-input :disabled="isLogin" v-model="application.name"></el-input>
+                <el-input :disabled="isLogin" v-model="resume.name"></el-input>
             </el-form-item>
             <el-form-item required prop="experience" label="工作经验">
-                <el-select v-model="application.experience" placeholder="请选择">
+                <el-select v-model="resume.experience" placeholder="请选择">
                     <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item required prop="email" label="邮箱">
-                <el-input type="email" :disabled="isLogin" v-model="application.email"></el-input>
+                <el-input type="email" :disabled="isLogin" v-model="resume.email"></el-input>
             </el-form-item>
             <!--选填-->
             <el-form-item v-if="isShowField('phone')" required prop="phone" label="电话">
-                <el-input type="tel" v-model.number="application.phone"></el-input>
+                <el-input type="tel" v-model.number="resume.phone"></el-input>
             </el-form-item>
             <el-form-item v-if="isShowField('intro')" required prop="intro" label="个人简介">
-                <el-input type="textarea" autosize v-model="application.intro"></el-input>
+                <el-input type="textarea" autosize v-model="resume.intro"></el-input>
             </el-form-item>
             <el-form-item v-if="isShowField('thirdPersonIntro')" required prop="thirdPersonIntro" label="第三人称介绍">
-                <el-input type="textarea" autosize v-model="application.thirdPersonIntro"></el-input>
+                <el-input type="textarea" autosize v-model="resume.thirdPersonIntro"></el-input>
             </el-form-item>
             <el-form-item v-if="isShowField('referLinks')" required prop="referLinks" label="内推链接">
-                <el-input type="textarea" autosize v-model="application.referLinks"></el-input>
+                <el-input type="textarea" autosize v-model="resume.referLinks"></el-input>
             </el-form-item>
             <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" label="LeetCode">
-                <el-input type="url" v-model="application.leetCodeUrl"></el-input>
+                <el-input type="url" v-model="resume.leetCodeUrl"></el-input>
             </el-form-item>
             <el-form-item v-if="isShowField('resumeUrl')" required prop="resumeUrl" label="简历链接">
-                <el-input type="url" v-model="application.resumeUrl"></el-input>
+                <el-input type="url" v-model="resume.resumeUrl"></el-input>
             </el-form-item>
 
             <div class="submit">
@@ -72,15 +72,14 @@
       imageUrl: '',
       source: '',
     }
-    application: TApplication = {
+    resume: TResume = {
       // 必填
       resumeId: "undefined",
       jobId: "",
-      userId: "",
+      refereeId: "",
       email: "",
       name: "",
       experience: 0,
-      createdAt: new Date().toISOString(),
       // 选填
       intro: "",
       leetCodeUrl: "",
@@ -117,7 +116,7 @@
     initApplication() {
       if (!this.isLogin) return
 
-      this.application = {...this.application, ...this.user}
+      this.resume = {...this.resume, ...this.user}
     }
 
     async loadJob() {
@@ -128,7 +127,7 @@
         })
 
         this.job = data.job
-        this.application.jobId = data.job.jobId
+        this.resume.jobId = data.job.jobId
       } catch (error) {
         this.$message.error(error.message)
       }
@@ -141,7 +140,7 @@
         try {
           await this.$apollo.mutate({
             mutation: AddResumeGQL,
-            variables: {resumeForm: this.application}
+            variables: {resumeForm: this.resume}
           })
 
           this.$message.success('已提交内推信息')

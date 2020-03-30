@@ -79,7 +79,7 @@
       referTotal: 100,
       createdAt: new Date().toISOString(),
       source: "",
-      imageUrl: "",
+      imageUrl: ""
     }
     requiredReferFieldValues = REQUIRED_REFER_FIELD_VALUES
     referFields = REFER_FIELDS

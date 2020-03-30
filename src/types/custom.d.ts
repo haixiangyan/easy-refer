@@ -30,7 +30,7 @@ type TJob = {
   imageUrl?: string
   source?: string
   // meta
-  refererName: string
+  refererName?: string
 }
 
 type TRefer = {
@@ -60,18 +60,20 @@ type TUser = {
   resumeUrl?: string
 }
 
-type TApplication = TUser & {
-  resumeId: string
-  jobId: string
-  createdAt: string
-  referLinks?: string
-}
-
 type TResume = {
   resumeId: string
+  refereeId: string
+  jobId: string
+  email: string
   name: string
-  createdAt: string
   experience: number
+  intro?: string
+  phone?: string
+  leetCodeUrl?: string
+  thirdPersonIntro?: string
+  resumeUrl?: string
+  referLinks?: string
+  // meta
 }
 
 type TIntro = {

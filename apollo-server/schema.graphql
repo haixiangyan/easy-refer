@@ -84,11 +84,8 @@ type Refer {
 
 type Resume {
     resumeId: String!
+    refereeId: String!
     jobId: String!
-    createdAt: String!
-    referLinks: String
-
-    userId: String!
     name: String!
     email: String!
     experience: Int!
@@ -97,6 +94,9 @@ type Resume {
     leetCodeUrl: String
     thirdPersonIntro: String
     resumeUrl: String
+    referLinks: String
+    # meta
+    createdAt: String
 }
 
 type UserIntro {
@@ -130,10 +130,9 @@ input ReferForm {
 
 input ResumeForm {
     resumeId: String!
+    refereeId: String!
     jobId: String!
     createdAt: String!
-    referLinks: String
-
     userId: String!
     name: String!
     email: String!
@@ -143,6 +142,7 @@ input ResumeForm {
     leetCodeUrl: String
     thirdPersonIntro: String
     resumeUrl: String
+    referLinks: String
 }
 
 input UserForm {
