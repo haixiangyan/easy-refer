@@ -28,18 +28,18 @@ const mocks = {
     }),
     Job: () => ({
         jobId: faker.random.uuid(),
-        company: companies[0],
+        company: companies[faker.random.number(companies.length - 1)],
         referer: faker.name.findName(),
         requiredFields: randomRequiredFields(),
         deadline: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
-        expiration: expiration[0],
+        expiration: expiration[faker.random.number(expiration.length - 1)],
         referredCount: faker.random.number({min: 10, max: 100}),
         referTotal: faker.random.number({min: 200, max: 300}),
         imageUrl: faker.image.avatar(),
         source: faker.internet.url()
     }),
     JobsPage: () => ({
-        jobs: [...Array(10)].map(i => mocks.Job()),
+        jobs: [...Array(10)].map(() => mocks.Job()),
         totalPages: 100
     }),
     UserIntro: () => ({
@@ -57,7 +57,7 @@ const mocks = {
         ...mocks.Job()
     }),
     RefersPage: () => ({
-        refers: [...Array(10)].map(i => mocks.Refer()),
+        refers: [...Array(10)].map(() => mocks.Refer()),
         totalPages: 100
     })
 }
