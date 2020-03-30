@@ -6,6 +6,7 @@ schema {
 type Mutation {
     login(loginForm: LoginForm!): User!
     register(registerForm: RegisterForm!): User!
+    addJob(userId: String!, jobForm: JobForm!): Job!
 }
 
 type Query {
@@ -54,6 +55,19 @@ input LoginForm {
 input RegisterForm {
     email: String!
     password: String!
+}
+
+input JobForm {
+    jobId: String!
+    company: String!
+    referer: String!
+    requiredFields: [String!]!
+    deadline: Date!
+    expiration: Int!
+    referredCount: Int!
+    referTotal: Int!
+    imageUrl: String
+    source: String
 }
 
 

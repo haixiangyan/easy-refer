@@ -56,7 +56,8 @@
   import dayjs from 'dayjs'
   import {REQUIRED_REFER_FIELD_VALUES, REFER_FIELDS} from "@/contents/refer"
   import {ADD_JOB_RULES} from "@/contents/rules"
-  import JobService from "@/services/JobService"
+  import GetJobById from '@/graphql/GetJobById.graphql'
+  import AddJobGQL from '@/graphql/AddJob.graphql'
   import {ElForm} from "element-ui/types/form"
 
   @Component
@@ -65,14 +66,14 @@
     addJobForm: TJob = {
       jobId: "undefined",
       company: "",
-      source: "",
-      imageUrl: "",
       referer: this.$store.state.user.name,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
       deadline: new Date(dayjs().add(1, 'month').toISOString()),
       expiration: 3,
       referredCount: 0,
       referTotal: 100,
+      source: "",
+      imageUrl: "",
     }
     requiredReferFieldValues = REQUIRED_REFER_FIELD_VALUES
     referFields = REFER_FIELDS
@@ -95,11 +96,12 @@
 
     async loadJob(jobId: string) {
       try {
-        const {data} = await JobService.getJob(jobId)
+        const {data} = await this.$apollo.query({
+          query: GetJobById,
+          variables: {jobId}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.addJobForm = data.content
+        this.addJobForm = data.job
       } catch (error) {
         this.$message.error(error.message)
       }
@@ -109,11 +111,12 @@
       (<ElForm>this.$refs.addJobForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
         try {
-          const {data} = await JobService.addJob(this.userId, this.addJobForm)
+          await this.$apollo.mutate({
+            mutation: AddJobGQL,
+            variables: {userId: this.userId, jobForm: this.addJobForm}
+          })
 
-          if (!data.success) return this.$message.error(data.message)
-
-          this.$message.success(data.message)
+          this.$message.success('该职位已添加')
           await this.$router.push('/job-list')
         } catch (error) {
           this.$message.error(error.message)
