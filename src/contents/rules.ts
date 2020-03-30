@@ -22,7 +22,7 @@ export const APPLICATION_RULES = {
   ],
   phone: [
     {required: true, message: "请输入姓名", trigger: "blur"},
-    {pattern: /^\d{9,11}$/, message: '电话格式不正确', trigger: 'blur'}
+    {pattern: /[\d\-]{9,11}/, message: '电话格式不正确', trigger: 'blur'}
   ]
 }
 
@@ -47,6 +47,6 @@ export const EDIT_USER_RULES = {
   ],
   phone: [
     {required: true, message: "请输入姓名", trigger: "blur"},
-    {pattern: /^\d{9,11}$/, message: '电话格式不正确', trigger: 'blur'}
+    {pattern: /[\d\-]{9,11}/, message: '电话格式不正确', trigger: 'blur'}
   ],
 }
