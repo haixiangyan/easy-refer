@@ -30,8 +30,8 @@
 
 <script lang="ts">
   import Vue from "vue"
-  import loginGQL from "@/graphql/login.graphql"
-  import registerGQL from "@/graphql/register.graphql"
+  import LoginGQL from "@/graphql/Login.graphql"
+  import RegisterGQL from "@/graphql/Register.graphql"
   import {Component} from "vue-property-decorator"
   import {ElForm} from "element-ui/types/form"
   import {LOGIN_RULES} from "@/contents/rules"
@@ -51,7 +51,7 @@
 
         try {
           await this.$apollo.mutate({
-            mutation: registerGQL,
+            mutation: RegisterGQL,
             variables: {registerForm: this.loginForm}
           })
 
@@ -68,7 +68,7 @@
 
         try {
           const {data} = await this.$apollo.mutate({
-            mutation: loginGQL,
+            mutation: LoginGQL,
             variables: {loginForm: this.loginForm}
           })
           this.$store.commit("auth/setAuth", true)
