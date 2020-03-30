@@ -34,9 +34,21 @@
   import {Component, Prop} from "vue-property-decorator"
   import {getReferProgress} from "@/utils/refer"
 
+  type TJobItem = {
+    jobId: string
+    refererName: string
+    company: string
+    referredCount: number
+    referTotal: number
+    deadline: string
+    expiration: 3 | 5 | 7
+    imageUrl: string
+    source: string
+  }
+
   @Component
   export default class JobItem extends Vue {
-    @Prop({required: true}) job!: TJob
+    @Prop({required: true}) job!: TJobItem
 
     get referredPercentage() {
       const {referredCount, referTotal} = this.job
