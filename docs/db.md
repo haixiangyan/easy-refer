@@ -70,5 +70,5 @@ Refer
 | jobId       | string | !        |      | yes  | 该内推对应的职位ID |
 | resumeId       | string | !        |      | yes  | 该内推对应的简历ID |
 | status      | string | !        |      |      | 内推状态           |
-| createdDate | Date   | !        |      |      | 提交内推日期       |
+| createdAt | Date   | !        |      |      | 提交内推日期       |
 

@@ -31,10 +31,18 @@ type TJob = {
   source?: string
 }
 
-type TRefer = TJob & {
+type TRefer = {
   referId: string
+  refereeId: string
+  refererId: string
+  jobId: string
+  resumeId: string
   status: string
-  updatedDate: string
+  updatedAt: string
+  // meta
+  company: string
+  refererName: string
+  source?: string
 }
 
 type TUser = {

@@ -2,18 +2,15 @@ query GetRefers($userId: String!, $page: Int!) {
     refersPage: getRefers(userId: $userId, page: $page) {
         refers {
             referId
-            status
-            updatedDate
-
+            refereeId
+            refererId
             jobId
-            company
-            referer
-            requiredFields
-            deadline
-            expiration
-            referredCount
-            referTotal
-            imageUrl
+            resumeId
+            status
+            updatedAt
+            # meta
+            compnay
+            refererName
             source
         }
         totalPages

@@ -2,7 +2,7 @@
     <el-row class="refer-item">
         <el-col :span="6">
             <p class="status" :class="refer.status">{{statusName}}</p>
-            <p class="updated-date">{{refer.updatedDate}}</p>
+            <p class="updated-date">{{refer.updatedAt}}</p>
         </el-col>
         <el-col :span="14" class="content">
             <div class="post">
@@ -12,7 +12,7 @@
                 </el-link>
             </div>
             <div class="company">{{refer.company}}</div>
-            <div class="referer">{{refer.referer}}正在处理</div>
+            <div class="referer">{{refer.refererName}}正在处理</div>
         </el-col>
         <el-col :span="4">
             <router-link :to="`/apply/${refer.jobId}`" tag="span">

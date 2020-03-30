@@ -52,9 +52,16 @@ const mocks = {
     }),
     Refer: () => ({
         referId: faker.random.uuid(),
+        refererId: faker.random.uuid(),
+        refereeId: faker.random.uuid(),
+        jobId: faker.random.uuid(),
+        resumeId: faker.random.uuid(),
         status: status[faker.random.number(status.length - 1)],
         updatedDate: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
-        ...mocks.Job()
+        // meta
+        company: companies[faker.random.number(companies.length - 1)],
+        refererName: faker.name.findName(),
+        source: faker.internet.url()
     }),
     RefersPage: () => ({
         refers: [...Array(10)].map(() => mocks.Refer()),

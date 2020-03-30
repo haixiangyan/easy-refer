@@ -68,18 +68,15 @@ type User {
 
 type Refer {
     referId: String!
-    status: String!
-    updatedDate: String
-
+    refereeId: String!
+    refererId: String!
     jobId: String!
-    company: String!
-    referer: String!
-    requiredFields: [String!]!
-    deadline: Date
-    expiration: Int!
-    referredCount: Int!
-    referTotal: Int!
-    imageUrl: String
+    resumeId: String!
+    status: String!
+    updatedAt: String!
+    # meta
+    compnay: String!
+    refererName: String!
     source: String
 }
 
@@ -120,20 +117,13 @@ input RegisterForm {
 }
 
 input ReferForm {
-    referId: String
-    status: String
-    updatedDate: String
-
+    referId: String!
+    refereeId: String!
+    refererId: String
     jobId: String
-    company: String
-    referer: String
-    requiredFields: [String!]
-    deadline: Date
-    expiration: Int
-    referredCount: Int
-    referTotal: Int
-    imageUrl: String
-    source: String
+    resumeId: String
+    status: String
+    updatedAt: String
 }
 
 input ResumeForm {

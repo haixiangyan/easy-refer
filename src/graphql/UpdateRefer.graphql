@@ -1,18 +1,15 @@
 mutation UpdateRefer($referForm: ReferForm!) {
     refer: updateRefer(referForm: $referForm) {
         referId
-        status
-        updatedDate
-
+        refereeId
+        refererId
         jobId
-        company
-        referer
-        requiredFields
-        deadline
-        expiration
-        referredCount
-        referTotal
-        imageUrl
+        resumeId
+        status
+        updatedAt
+        # meta
+        compnay
+        refererName
         source
     }
 }
