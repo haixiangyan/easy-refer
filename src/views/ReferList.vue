@@ -19,7 +19,7 @@
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
   import ReferItem from '@/components/ReferItem.vue'
-  import RefersService from '@/services/ReferService'
+  import GetRefersGQL from '@/graphql/GetRefers.graphql'
 
   @Component({
     components: {ReferItem}
@@ -39,12 +39,13 @@
 
     async loadRefers(page: number) {
       try {
-        const {data} = await RefersService.getRefers(this.userId, page)
+        const {data} = await this.$apollo.query({
+          query: GetRefersGQL,
+          variables: {userId: this.userId, page}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.refers = data.content.refers
-        this.totalPages = data.content.totalPages
+        this.refers = data.refersPage.refers
+        this.totalPages = data.refersPage.totalPages
       } catch (error) {
         this.$message.error(error.message)
       }

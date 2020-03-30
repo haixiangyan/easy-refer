@@ -12,15 +12,20 @@ type Mutation {
 }
 
 type Query {
-    user(userId: String!): User!
     getJobs(page: Int!): JobsPage!
     getJobById(jobId: String!): Job!
     getUser(userId: String!): User!
     getUserIntro(userId: String!): UserIntro!
+    getRefers(userId: String!, page: Int!): RefersPage!
 }
 
 type JobsPage {
     jobs: [Job!]!
+    totalPages: Int!
+}
+
+type RefersPage {
+    refers: [Refer!]!
     totalPages: Int!
 }
 
@@ -48,6 +53,23 @@ type User {
     phone: String
     resumeUrl: String
     thirdPersonIntro: String
+}
+
+type Refer {
+    referId: String!
+    status: String!
+    updatedDate: String
+
+    jobId: String!
+    company: String!
+    referer: String!
+    requiredFields: [String!]!
+    deadline: Date
+    expiration: Int!
+    referredCount: Int!
+    referTotal: Int!
+    imageUrl: String
+    source: String
 }
 
 type UserIntro {

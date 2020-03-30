@@ -6,6 +6,8 @@ import dayjs from 'dayjs'
 const expiration = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
 
+const status = ['processing', 'rejected', 'referred']
+
 const randomRequiredFields = () => ([
     'name', 'email', 'experience', 'referLinks'
 ])
@@ -47,6 +49,16 @@ const mocks = {
         totalRefers: faker.random.number({min: 200, max: 400}),
         finishedResumes: faker.random.number({min: 20, max: 100}),
         totalResumes: faker.random.number({min: 300, max: 500})
+    }),
+    Refer: () => ({
+        referId: faker.random.uuid(),
+        status: status[faker.random.number(status.length - 1)],
+        updatedDate: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
+        ...mocks.Job()
+    }),
+    RefersPage: () => ({
+        refers: [...Array(10)].map(i => mocks.Refer()),
+        totalPages: 100
     })
 }
 
