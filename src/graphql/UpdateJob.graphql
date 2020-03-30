@@ -1,0 +1,14 @@
+mutation UpdateJob($userId: String!, $jobForm: JobForm!) {
+    updateJob(userId: $userId, jobForm: $jobForm) {
+        jobId
+        company
+        referer
+        requiredFields
+        deadline
+        expiration
+        referredCount
+        referTotal
+        imageUrl
+        source
+    }
+}

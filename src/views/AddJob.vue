@@ -1,5 +1,6 @@
 <template>
-    <el-form ref="addJobForm" :model="addJobForm" label-width="120px" label-position="left" class="add-job-form" :rules="rules">
+    <el-form ref="addJobForm" :model="addJobForm" label-width="120px" label-position="left" class="add-job-form"
+             :rules="rules">
         <el-divider>内推信息</el-divider>
         <el-form-item prop="company" required label="内推公司">
             <el-input v-model="addJobForm.company" placeholder="内推的公司"></el-input>
@@ -44,8 +45,12 @@
         </el-form-item>
 
         <div class="publish">
-            <el-button @click="publish" type="primary" round>发布内推</el-button>
-            <el-button type="danger" round>放弃编辑</el-button>
+            <el-button class="publish-button" @click="publish" type="primary" round>
+                {{jobId ? '修改内推' : '发布内推'}}
+            </el-button>
+            <router-link to="/job-list" tag="span">
+                <el-button type="danger" round>放弃编辑</el-button>
+            </router-link>
         </div>
     </el-form>
 </template>
@@ -53,22 +58,23 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
-  import dayjs from 'dayjs'
+  import dayjs from "dayjs"
   import {REQUIRED_REFER_FIELD_VALUES, REFER_FIELDS} from "@/contents/refer"
   import {ADD_JOB_RULES} from "@/contents/rules"
-  import GetJobById from '@/graphql/GetJobById.graphql'
-  import AddJobGQL from '@/graphql/AddJob.graphql'
+  import GetJobByIdGQL from "@/graphql/GetJobById.graphql"
+  import AddJobGQL from "@/graphql/AddJob.graphql"
+  import UpdateJobGQL from "@/graphql/UpdateJob.graphql"
   import {ElForm} from "element-ui/types/form"
 
   @Component
   export default class AddJob extends Vue {
-    userId = '1'
+    userId = "1"
     addJobForm: TJob = {
       jobId: "undefined",
       company: "",
       referer: this.$store.state.user.name,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
-      deadline: new Date(dayjs().add(1, 'month').toISOString()),
+      deadline: new Date(dayjs().add(1, "month").toISOString()),
       expiration: 3,
       referredCount: 0,
       referTotal: 100,
@@ -81,24 +87,26 @@
       disabledDate(date: Date) {
         const today = dayjs()
         const cellDate = dayjs(date)
-        const afterOneYear = today.add(1, 'year')
+        const afterOneYear = today.add(1, "year")
 
         return cellDate.isBefore(today) || cellDate.isAfter(afterOneYear)
       }
     }
     rules = ADD_JOB_RULES
 
-    mounted() {
-      if (this.$route.params.jobId) {
-        this.loadJob(this.$route.params.jobId)
-      }
+    get jobId() {
+      return this.$route.params.jobId
     }
 
-    async loadJob(jobId: string) {
+    mounted() {
+      this.jobId && this.loadJob()
+    }
+
+    async loadJob() {
       try {
         const {data} = await this.$apollo.query({
-          query: GetJobById,
-          variables: {jobId}
+          query: GetJobByIdGQL,
+          variables: {jobId: this.jobId}
         })
 
         this.addJobForm = data.job
@@ -109,15 +117,16 @@
 
     publish() {
       (<ElForm>this.$refs.addJobForm).validate(async valid => {
-        if (!valid) return this.$message.error('填写不正确')
+        if (!valid) return this.$message.error("填写不正确")
+
         try {
           await this.$apollo.mutate({
-            mutation: AddJobGQL,
+            mutation: this.jobId ? UpdateJobGQL : AddJobGQL,
             variables: {userId: this.userId, jobForm: this.addJobForm}
           })
 
-          this.$message.success('该职位已添加')
-          await this.$router.push('/job-list')
+          this.$message.success(this.jobId ? "已修改加该职位" : "已添加该职位")
+          await this.$router.push("/job-list")
         } catch (error) {
           this.$message.error(error.message)
         }
@@ -138,6 +147,7 @@
 
 <style scoped lang="scss">
     @import '~@/assets/styles/variables.scss';
+
     .add-job-form {
         .full-width {
             width: 100%;
@@ -149,6 +159,10 @@
 
         .publish {
             text-align: center;
+
+            &-button {
+                margin-right: 8px;
+            }
         }
     }
 </style>
