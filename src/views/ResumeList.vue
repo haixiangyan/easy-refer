@@ -70,10 +70,6 @@
       }
     }
 
-    showResume(x: any) {
-      console.log(x)
-    }
-
     @Watch("page")
     onPageChange(page: number) {
       this.loadResumes(page)

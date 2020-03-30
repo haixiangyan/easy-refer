@@ -37,7 +37,7 @@
   export default class Resume extends Vue {
     job: TJob = {
       jobId: "",
-      refererId: this.userId,
+      refererId: this.user.userId,
       company: "",
       deadline: new Date().toISOString(),
       expiration: 3,
@@ -71,11 +71,8 @@
     get resumeId() {
       return this.$route.params.resumeId
     }
-    get jobId() {
-      return this.$store.state.user.jobId
-    }
-    get userId() {
-      return this.$store.state.user.userId
+    get user() {
+      return this.$store.state.user
     }
 
     mounted() {
@@ -87,7 +84,7 @@
       try {
         const {data} = await this.$apollo.query({
           query: GetJobByIdGQL,
-          variables: {jobId: this.jobId}
+          variables: {jobId: this.user.jobId}
         })
 
         this.job = data.job

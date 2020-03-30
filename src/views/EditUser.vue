@@ -56,6 +56,7 @@
   export default class EditUser extends Vue {
     editUserForm: TUser = {
       userId: "",
+      jobId: "",
       email: "",
       name: "",
       experience: 0,

@@ -39,10 +39,10 @@ type TRefer = TJob & {
 
 type TUser = {
   userId: string
+  jobId: string
   email: string
   name: string
   experience: number
-  jobId?: string
   intro?: string
   phone?: string
   leetCodeUrl?: string

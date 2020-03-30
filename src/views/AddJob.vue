@@ -68,7 +68,6 @@
 
   @Component
   export default class AddJob extends Vue {
-    userId = "1"
     addJobForm: TJob = {
       jobId: "undefined",
       company: "",
@@ -97,6 +96,9 @@
 
     get jobId() {
       return this.$route.params.jobId
+    }
+    get userId() {
+      return this.$store.state.user.userId
     }
 
     mounted() {

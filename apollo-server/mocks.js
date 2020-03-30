@@ -21,7 +21,6 @@ const mocks = {
         experience: faker.random.number(7),
         intro: faker.lorem.paragraph(),
         phone: faker.phone.phoneNumberFormat(),
-        referLinks: [faker.internet.url(), faker.internet.url()].join(','),
         leetCodeUrl: faker.internet.url(),
         thirdPersonIntro: faker.lorem.paragraph(),
         resumeUrl: faker.internet.url()

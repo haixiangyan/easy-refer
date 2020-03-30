@@ -61,7 +61,7 @@
   export default class Apply extends Vue {
     job: TJob = {
       jobId: "",
-      refererId: this.userId,
+      refererId: this.user.userId,
       company: "",
       deadline: new Date().toISOString(),
       expiration: 3,
@@ -100,8 +100,8 @@
     get jobId() {
       return this.$route.params.jobId
     }
-    get userId() {
-      return this.$store.state.user.userId
+    get user() {
+      return this.$store.state.user
     }
     get isLogin() {
       return this.$store.state.auth.isLogin
@@ -117,7 +117,7 @@
     initApplication() {
       if (!this.isLogin) return
 
-      this.application = {...this.application, ...this.$store.state.user}
+      this.application = {...this.application, ...this.user}
     }
 
     async loadJob() {

@@ -51,6 +51,7 @@
   export default class User extends Vue {
     user: TUser = {
       userId: this.$store.state.user.userId,
+      jobId: "",
       email: "",
       name: "",
       experience: 0
