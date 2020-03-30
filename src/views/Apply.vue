@@ -51,8 +51,8 @@
   import {Component} from "vue-property-decorator"
   import JobItem from "@/components/JobItem.vue"
   import GetJobByIdGQL from '@/graphql/GetJobById.graphql'
+  import AddResumeGQL from '@/graphql/AddResume.graphql'
   import {LEVEL_MAPPER} from '@/contents/level'
-  import ResumeService from "@/services/ResumeService"
   import {ElForm} from 'element-ui/types/form'
 
   @Component({
@@ -71,12 +71,13 @@
     }
     application: TApplication = {
       // 必填
-      applicationId: "undefined",
+      resumeId: "undefined",
       jobId: "",
       userId: "",
       email: "",
       name: "",
       experience: 0,
+      createdAt: new Date().toISOString(),
       // 选填
       intro: "",
       leetCodeUrl: "",
@@ -132,11 +133,12 @@
         if (!valid) return this.$message.error('填写不正确')
 
         try {
-          const {data} = await ResumeService.applyForRefer(this.application)
+          await this.$apollo.mutate({
+            mutation: AddResumeGQL,
+            variables: {resumeForm: this.application}
+          })
 
-          if (!data.success) return this.$message.error(data.message)
-
-          this.$message.success(data.message)
+          this.$message.success('已提交内推信息')
           await this.$router.push('/resume-list')
         } catch (error) {
           this.$message.error(error.message)

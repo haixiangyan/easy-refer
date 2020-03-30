@@ -101,8 +101,9 @@ type TUser = {
 }
 
 type TApplication = TUser & {
-  applicationId: string
+  resumeId: string
   jobId: string
+  createdAt: string
   referLinks?: string
 }
 

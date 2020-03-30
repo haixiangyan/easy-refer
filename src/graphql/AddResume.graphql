@@ -1,0 +1,18 @@
+mutation AddResume($resumeForm: ResumeForm!) {
+    resume: addResume(resumeForm: $resumeForm) {
+        resumeId
+        jobId
+        createdAt
+        referLinks
+
+        userId
+        name
+        email
+        experience
+        intro
+        phone
+        leetCodeUrl
+        thirdPersonIntro
+        resumeUrl
+    }
+}

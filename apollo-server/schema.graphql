@@ -9,6 +9,7 @@ type Mutation {
     addJob(userId: String!, jobForm: JobForm!): Job!
     updateJob(userId: String!, jobForm: JobForm!): Job!
     updateUser(userForm: UserForm!): User!
+    addResume(resumeForm: ResumeForm!): Resume!
 }
 
 type Query {
@@ -113,6 +114,23 @@ input LoginForm {
 input RegisterForm {
     email: String!
     password: String!
+}
+
+input ResumeForm {
+    resumeId: String!
+    jobId: String!
+    createdAt: String!
+    referLinks: String
+
+    userId: String!
+    name: String!
+    email: String!
+    experience: Int!
+    intro: String
+    phone: String
+    leetCodeUrl: String
+    thirdPersonIntro: String
+    resumeUrl: String
 }
 
 input UserForm {
