@@ -17,6 +17,7 @@ type Query {
     getUser(userId: String!): User!
     getUserIntro(userId: String!): UserIntro!
     getRefers(userId: String!, page: Int!): RefersPage!
+    getResumes(userId: String!, page: Int!): ResumesPage!
 }
 
 type JobsPage {
@@ -26,6 +27,11 @@ type JobsPage {
 
 type RefersPage {
     refers: [Refer!]!
+    totalPages: Int!
+}
+
+type ResumesPage {
+    resumes: [Resume!]!
     totalPages: Int!
 }
 
@@ -70,6 +76,13 @@ type Refer {
     referTotal: Int!
     imageUrl: String
     source: String
+}
+
+type Resume {
+    resumeId: String!
+    name: String!
+    createdAt: String!
+    experience: Int!
 }
 
 type UserIntro {

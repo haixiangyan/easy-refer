@@ -59,6 +59,16 @@ const mocks = {
     RefersPage: () => ({
         refers: [...Array(10)].map(() => mocks.Refer()),
         totalPages: 100
+    }),
+    Resume: () => ({
+        resumeId: faker.random.uuid(),
+        name: faker.name.findName(),
+        createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
+        experience: faker.random.number(8)
+    }),
+    ResumesPage: () => ({
+        resumes: [...Array(20)].map(() => mocks.Resume()),
+        totalPages: 100
     })
 }
 

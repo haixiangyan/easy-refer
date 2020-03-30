@@ -35,7 +35,7 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
-  import ResumeService from "@/services/ResumeService"
+  import GetResumesGQL from '@/graphql/GetResumes.graphql'
   import {LEVEL_MAPPER} from "@/contents/level"
 
   @Component
@@ -58,12 +58,13 @@
 
     async loadResumes(page: number) {
       try {
-        const {data} = await ResumeService.getResumes(this.userId, page)
+        const {data} = await this.$apollo.query({
+          query: GetResumesGQL,
+          variables: {userId: this.userId, page}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.resumes = data.content.resumes
-        this.totalPages = data.content.totalPages
+        this.resumes = data.resumesPage.resumes
+        this.totalPages = data.resumesPage.totalPages
       } catch (error) {
         this.$message.error(error.message)
       }
