@@ -47,6 +47,7 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import GetUserGQL from '@/graphql/GetUser.graphql'
+  import UpdateUserGQL from '@/graphql/UpdateUser.graphql'
   import {LEVEL_MAPPER} from "@/contents/level"
   import {EDIT_USER_RULES} from "@/contents/rules"
   import {ElForm} from 'element-ui/types/form'
@@ -96,11 +97,12 @@
         if (!valid) return this.$message.error('填写不正确')
 
         try {
-          const {data} = await UserService.editUser(this.editUserForm)
+          await this.$apollo.mutate({
+            mutation: UpdateUserGQL,
+            variables: {userForm: this.editUserForm}
+          })
 
-          if (!data.success) return this.$message.error(data.message)
-
-          this.$message.success(data.message)
+          this.$message.success('已更新用户信息')
           await this.$router.push('/user')
         } catch (error) {
           this.$message.error(error.message)

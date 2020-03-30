@@ -1,0 +1,14 @@
+mutation UpdateUser($userForm: UserForm!) {
+    user: updateUser(userForm: $userForm) {
+        userId
+        jobId
+        email
+        experience
+        intro
+        leetCodeUrl
+        name
+        phone
+        resumeUrl
+        thirdPersonIntro
+    }
+}

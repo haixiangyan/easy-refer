@@ -8,6 +8,7 @@ type Mutation {
     register(registerForm: RegisterForm!): User!
     addJob(userId: String!, jobForm: JobForm!): Job!
     updateJob(userId: String!, jobForm: JobForm!): Job!
+    updateUser(userForm: UserForm!): User!
 }
 
 type Query {
@@ -37,16 +38,16 @@ type Job {
 }
 
 type User {
+    userId: String!
+    jobId: String!
     email: String!
     experience: Int!
     intro: String
-    jobId: String!
     leetCodeUrl: String
     name: String!
     phone: String
     resumeUrl: String
     thirdPersonIntro: String
-    userId: String!
 }
 
 type UserIntro {
@@ -66,6 +67,19 @@ input LoginForm {
 input RegisterForm {
     email: String!
     password: String!
+}
+
+input UserForm {
+    userId: String!
+    jobId: String!
+    email: String!
+    experience: Int!
+    intro: String
+    leetCodeUrl: String
+    name: String!
+    phone: String
+    resumeUrl: String
+    thirdPersonIntro: String
 }
 
 input JobForm {
