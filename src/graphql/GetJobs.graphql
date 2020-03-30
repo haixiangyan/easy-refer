@@ -1,0 +1,17 @@
+query GetJobs($page: Int!) {
+    jobsPage: getJobs(page: $page) {
+        jobs {
+            jobId
+            company
+            referer
+            requiredFields
+            deadline
+            expiration
+            referredCount
+            referTotal
+            imageUrl
+            source
+        }
+        totalPages
+    }
+}

@@ -10,6 +10,25 @@ type Mutation {
 
 type Query {
     user(userId: String!): User!
+    getJobs(page: Int!): JobsPage!
+}
+
+type JobsPage {
+    jobs: [Job!]!
+    totalPages: Int!
+}
+
+type Job {
+    jobId: String!
+    company: String!
+    referer: String!
+    requiredFields: [String!]!
+    deadline: Date!
+    expiration: Int!
+    referredCount: Int!
+    referTotal: Int!
+    imageUrl: String
+    source: String
 }
 
 type User {
@@ -39,7 +58,7 @@ input RegisterForm {
 
 "The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
 scalar JSON
-
+scalar Date
 scalar Phone
 
 "The `Upload` scalar type represents a file upload."
