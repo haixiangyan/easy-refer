@@ -75,12 +75,3 @@ type TResume = {
   referLinks?: string
   // meta
 }
-
-type TIntro = {
-  avatarUrl: string
-  name: string
-  finishedRefers: number
-  totalRefers: number
-  finishedResumes: number
-  totalResumes: number
-}
