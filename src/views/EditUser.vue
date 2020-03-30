@@ -51,7 +51,6 @@
   import {LEVEL_MAPPER} from "@/contents/level"
   import {EDIT_USER_RULES} from "@/contents/rules"
   import {ElForm} from 'element-ui/types/form'
-  import UserService from '@/services/UserService'
 
   @Component
   export default class EditUser extends Vue {
