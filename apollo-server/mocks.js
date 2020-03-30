@@ -1,8 +1,7 @@
 // Enable mocking in vue.config.js with `"pluginOptions": { "enableMocks": true }`
 // Customize mocking: https://www.apollographql.com/docs/graphql-tools/mocking.html#Customizing-mocks
-
-import Mock from "mockjs"
 import faker from 'faker'
+import dayjs from 'dayjs'
 
 const expiration = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
@@ -12,7 +11,7 @@ const randomRequiredFields = () => ([
 ])
 
 const mocks = {
-    User: () => Mock.mock({
+    User: () => ({
         userId: faker.random.uuid(),
         jobId: faker.random.uuid(),
         email: faker.internet.email(),
@@ -30,7 +29,7 @@ const mocks = {
         company: companies[0],
         referer: faker.name.findName(),
         requiredFields: randomRequiredFields(),
-        deadline: new Date(),
+        deadline: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
         expiration: expiration[0],
         referredCount: faker.random.number({min: 10, max: 100}),
         referTotal: faker.random.number({min: 200, max: 300}),
