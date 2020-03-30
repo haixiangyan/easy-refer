@@ -46,10 +46,11 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
-  import UserService from "@/services/UserService"
+  import GetUserGQL from '@/graphql/GetUser.graphql'
   import {LEVEL_MAPPER} from "@/contents/level"
   import {EDIT_USER_RULES} from "@/contents/rules"
   import {ElForm} from 'element-ui/types/form'
+  import UserService from '@/services/UserService'
 
   @Component
   export default class EditUser extends Vue {
@@ -79,11 +80,12 @@
 
     async loadUser() {
       try {
-        const {data} = await UserService.getUser(this.userId)
+        const {data} = await this.$apollo.query({
+          query: GetUserGQL,
+          variables: {userId: this.userId}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.editUserForm = data.content
+        this.editUserForm = data.user
       } catch (error) {
         this.$message.error(error.message)
       }

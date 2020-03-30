@@ -14,6 +14,7 @@ type Query {
     user(userId: String!): User!
     getJobs(page: Int!): JobsPage!
     getJobById(jobId: String!): Job!
+    getUser(userId: String!): User!
 }
 
 type JobsPage {
