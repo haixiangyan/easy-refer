@@ -2,7 +2,7 @@
 // Customize mocking: https://www.apollographql.com/docs/graphql-tools/mocking.html#Customizing-mocks
 
 import Mock from "mockjs"
-import casual from 'casual'
+import faker from 'faker'
 
 const expiration = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
@@ -13,35 +13,33 @@ const randomRequiredFields = () => ([
 
 const mocks = {
     User: () => Mock.mock({
-        userId: casual.uuid,
-        jobId: casual.uuid,
-        email: casual.email,
-        name: casual.name,
-        experience: casual.integer(0, 4),
-        intro: casual.text,
-        phone: casual.phone,
-        referLinks: [casual.url, casual.url].join(','),
-        leetCodeUrl: casual.url,
-        thirdPersonIntro: casual.text,
-        resumeUrl: casual.text
+        userId: faker.random.uuid(),
+        jobId: faker.random.uuid(),
+        email: faker.internet.email(),
+        name: faker.name.findName(),
+        experience: faker.random.number(),
+        intro: faker.lorem.paragraph(),
+        phone: faker.phone.phoneNumber(),
+        referLinks: [faker.internet.url(), faker.internet.url()].join(','),
+        leetCodeUrl: faker.internet.url(),
+        thirdPersonIntro: faker.lorem.paragraph(),
+        resumeUrl: faker.internet.url()
     }),
     Job: () => ({
-        jobId: casual.uuid,
-        title: casual.sentence,
-        content: casual.text,
+        jobId: faker.random.uuid(),
         company: companies[0],
+        referer: faker.name.findName(),
         requiredFields: randomRequiredFields(),
         deadline: new Date(),
         expiration: expiration[0],
-        referredCount: casual.integer(10, 100),
-        referTotal: casual.integer(100, 300),
-        referer: casual.name,
-        imageUrl: casual.url,
-        source: casual.url
+        referredCount: faker.random.number({min: 10, max: 100}),
+        referTotal: faker.random.number({min: 200, max: 300}),
+        imageUrl: faker.image.avatar(),
+        source: faker.internet.url()
     }),
     JobsPage: () => ({
         jobs: [...Array(10)].map(i => mocks.Job()),
-        totalPages: 10
+        totalPages: 100
     })
 }
 

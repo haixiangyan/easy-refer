@@ -40,8 +40,6 @@
           variables: {page}
         })
 
-        console.log(data)
-
         this.publicJobs = data.jobsPage.jobs
         this.totalPages = data.jobsPage.totalPages
       } catch (error) {
