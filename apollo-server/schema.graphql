@@ -18,6 +18,7 @@ type Query {
     getUserIntro(userId: String!): UserIntro!
     getRefers(userId: String!, page: Int!): RefersPage!
     getResumes(userId: String!, page: Int!): ResumesPage!
+    getResumeById(resumeId: String!): Resume!
 }
 
 type JobsPage {
@@ -80,9 +81,19 @@ type Refer {
 
 type Resume {
     resumeId: String!
-    name: String!
+    jobId: String!
     createdAt: String!
+    referLinks: String
+
+    userId: String!
+    name: String!
+    email: String!
     experience: Int!
+    intro: String
+    phone: String
+    leetCodeUrl: String
+    thirdPersonIntro: String
+    resumeUrl: String
 }
 
 type UserIntro {

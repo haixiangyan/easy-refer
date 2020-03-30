@@ -18,7 +18,7 @@ const mocks = {
         jobId: faker.random.uuid(),
         email: faker.internet.email(),
         name: faker.name.findName(),
-        experience: faker.random.number(),
+        experience: faker.random.number(7),
         intro: faker.lorem.paragraph(),
         phone: faker.phone.phoneNumberFormat(),
         referLinks: [faker.internet.url(), faker.internet.url()].join(','),
@@ -62,9 +62,10 @@ const mocks = {
     }),
     Resume: () => ({
         resumeId: faker.random.uuid(),
-        name: faker.name.findName(),
+        jobId: faker.random.uuid(),
         createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
-        experience: faker.random.number(8)
+        referLinks: faker.internet.url(),
+        ...mocks.User()
     }),
     ResumesPage: () => ({
         resumes: [...Array(20)].map(() => mocks.Resume()),
