@@ -36,7 +36,9 @@ const mocks = {
         referTotal: faker.random.number({min: 200, max: 300}),
         createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
         imageUrl: faker.image.avatar(),
-        source: faker.internet.url()
+        source: faker.internet.url(),
+        // meta
+        refererName: faker.name.findName()
     }),
     JobsPage: () => ({
         jobs: [...Array(10)].map(() => mocks.Job()),

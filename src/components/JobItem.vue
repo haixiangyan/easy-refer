@@ -9,7 +9,7 @@
             <p class="title">
                 {{job.company}}
                 <el-divider direction="vertical"></el-divider>
-                {{job.referer}}内推
+                {{job.refererName}}内推
             </p>
             <div class="tags">
                 <el-tag size="mini" type="primary">{{job.deadline}}截止</el-tag>

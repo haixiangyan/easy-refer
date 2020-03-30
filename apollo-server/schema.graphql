@@ -51,6 +51,8 @@ type Job {
     createdAt: String!
     imageUrl: String
     source: String
+    # meta
+    refererName: String!
 }
 
 type User {

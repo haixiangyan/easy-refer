@@ -29,6 +29,8 @@ type TJob = {
   createdAt: string
   imageUrl?: string
   source?: string
+  // meta
+  refererName: string
 }
 
 type TRefer = {

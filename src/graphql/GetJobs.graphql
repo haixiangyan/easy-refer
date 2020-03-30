@@ -12,6 +12,8 @@ query GetJobs($page: Int!) {
             createdAt
             imageUrl
             source
+            # meta
+            refererName
         }
         totalPages
     }
