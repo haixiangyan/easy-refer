@@ -41,7 +41,9 @@ const defaultOptions = {
   // link: myLink
 
   // Override default cache
-  // cache: myCache
+  cache: new InMemoryCache({
+    addTypename: false
+  })
 
   // Override the way the Authorization header is set
   // getAuth: (tokenName) => ...
