@@ -17,8 +17,22 @@ type TLoginForm = {
 
 type TRegisterForm = TLoginForm & { }
 
-type TJob = {
-  jobId: string,
+type TJobItem = {
+  jobId: string
+  refererName: string
+  company: string
+  referredCount: number
+  referTotal: number
+  deadline: string
+  expiration: 3 | 5 | 7
+  imageUrl?: string
+  source?: string
+}
+type TJobInResume = TJobItem & {
+  requiredFields: string[]
+}
+type TJobForm = {
+  jobId?: string
   refererId: string,
   company: string
   requiredFields: string[]
@@ -29,8 +43,6 @@ type TJob = {
   createdAt: string
   imageUrl?: string
   source?: string
-  // meta
-  refererName?: string
 }
 
 type TRefer = {

@@ -68,8 +68,8 @@
 
   @Component
   export default class AddJob extends Vue {
-    addJobForm: TJob = {
-      jobId: "undefined",
+    addJobForm: TJobForm = {
+      jobId: undefined,
       company: "",
       refererId: this.userId,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],

@@ -59,18 +59,17 @@
     components: {JobItem}
   })
   export default class Apply extends Vue {
-    job: TJob = {
+    job: TJobInResume = {
       jobId: "",
-      refererId: this.user.userId,
       company: "",
+      refererName: "",
       deadline: new Date().toISOString(),
       expiration: 3,
       referredCount: 0,
       referTotal: 0,
       requiredFields: [],
-      createdAt: new Date().toISOString(),
       imageUrl: '',
-      source: '',
+      source: ''
     }
     resume: TResume = {
       // 必填

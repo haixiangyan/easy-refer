@@ -159,7 +159,7 @@ input UserForm {
 }
 
 input JobForm {
-    jobId: String!
+    jobId: String
     refererId: String!
     company: String
     requiredFields: [String!]

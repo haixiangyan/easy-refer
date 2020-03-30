@@ -35,16 +35,15 @@
     components: {JobItem}
   })
   export default class Resume extends Vue {
-    job: TJob = {
+    job: TJobInResume = {
       jobId: "",
-      refererId: '',
       company: "",
+      refererName: "",
       deadline: new Date().toISOString(),
       expiration: 3,
       referredCount: 0,
       referTotal: 0,
       requiredFields: [],
-      createdAt: new Date().toISOString(),
       imageUrl: '',
       source: ''
     }
