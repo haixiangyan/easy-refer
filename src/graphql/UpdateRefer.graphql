@@ -1,0 +1,18 @@
+mutation UpdateRefer($referForm: ReferForm!) {
+    refer: updateRefer(referForm: $referForm) {
+        referId
+        status
+        updatedDate
+
+        jobId
+        company
+        referer
+        requiredFields
+        deadline
+        expiration
+        referredCount
+        referTotal
+        imageUrl
+        source
+    }
+}

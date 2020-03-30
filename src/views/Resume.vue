@@ -27,9 +27,9 @@
   import JobItem from "@/components/JobItem.vue"
   import GetJobByIdGQL from '@/graphql/GetJobById.graphql'
   import GetResumeByIdGQL from '@/graphql/GetResumeById.graphql'
+  import UpdateReferGQL from '@/graphql/UpdateRefer.graphql'
   import {REFER_FIELDS_MAPPER} from "@/contents/refer"
   import {LEVEL_MAPPER} from "@/contents/level"
-  import ResumeService from "@/services/ResumeService"
 
   @Component({
     components: {JobItem}
@@ -47,12 +47,13 @@
     }
     application: TApplication = {
       // 必填
-      applicationId: "undefined",
+      resumeId: "undefined",
       jobId: "",
       userId: "",
       email: "",
       name: "",
       experience: 0,
+      createdAt: new Date().toISOString(),
       // 选填
       intro: "",
       leetCodeUrl: "",
@@ -104,11 +105,12 @@
 
     async updateStatus(status: string) {
       try {
-        const {data} = await ResumeService.updateResumeStatus(this.resumeId, status)
+        await this.$apollo.mutate({
+          mutation: UpdateReferGQL,
+          variables: {referForm: {status}}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.$message.success(data.message)
+        this.$message.success('已修改该内推信息')
 
         await this.$router.push('/resume-list')
       } catch (error) {
