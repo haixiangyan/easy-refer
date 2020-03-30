@@ -1,13 +1,14 @@
 mutation AddJob($userId: String!, $jobForm: JobForm!) {
     addJob(userId: $userId, jobForm: $jobForm) {
         jobId
+        refererId
         company
-        referer
         requiredFields
         deadline
         expiration
         referredCount
         referTotal
+        createdAt
         imageUrl
         source
     }

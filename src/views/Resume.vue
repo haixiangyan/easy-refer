@@ -37,13 +37,16 @@
   export default class Resume extends Vue {
     job: TJob = {
       jobId: "",
+      refererId: this.userId,
       company: "",
-      deadline: new Date(),
+      deadline: new Date().toISOString(),
       expiration: 3,
       referredCount: 0,
       referTotal: 0,
-      referer: "",
-      requiredFields: []
+      requiredFields: [],
+      createdAt: new Date().toISOString(),
+      imageUrl: '',
+      source: ''
     }
     application: TApplication = {
       // 必填
@@ -70,6 +73,9 @@
     }
     get jobId() {
       return this.$store.state.user.jobId
+    }
+    get userId() {
+      return this.$store.state.user.userId
     }
 
     mounted() {

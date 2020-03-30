@@ -28,13 +28,14 @@ const mocks = {
     }),
     Job: () => ({
         jobId: faker.random.uuid(),
+        refererId: faker.random.uuid(),
         company: companies[faker.random.number(companies.length - 1)],
-        referer: faker.name.findName(),
         requiredFields: randomRequiredFields(),
         deadline: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
         expiration: expiration[faker.random.number(expiration.length - 1)],
         referredCount: faker.random.number({min: 10, max: 100}),
         referTotal: faker.random.number({min: 200, max: 300}),
+        createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
         imageUrl: faker.image.avatar(),
         source: faker.internet.url()
     }),

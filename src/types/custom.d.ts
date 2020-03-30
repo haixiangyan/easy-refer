@@ -1,54 +1,3 @@
-interface IData {
-  success: boolean
-  message: string
-  content?: any
-}
-
-interface ILogin extends IData{
-  content: TUser
-}
-interface IRegister extends IData {
-  content: TLoginForm
-}
-
-interface IIntro extends IData {
-  content: TIntro
-}
-interface IUser extends IData {
-  content: TUser
-}
-
-interface IGetJobs extends IData {
-  content: {
-    totalPages: number
-    jobs: TJob[]
-  }
-}
-interface IGetJob extends IData {
-  content: TJob
-}
-interface IAddJob extends IData {
-  content: TJob
-}
-
-interface IGetResumes extends IData {
-  content: {
-    totalPages: number
-    resumes: TResume[]
-  }
-}
-interface IGetResume extends IApply { }
-interface IApply extends IData {
-  content: TApplication
-}
-
-interface IGetRefers extends IData {
-  content: {
-    totalPages: number
-    refers: TRefer[]
-  }
-}
-
 type TMapper = {
   [key: string]: string
 }
@@ -70,13 +19,14 @@ type TRegisterForm = TLoginForm & { }
 
 type TJob = {
   jobId: string,
+  refererId: string,
   company: string
-  referer: string
   requiredFields: string[]
-  deadline: Date
+  deadline: string
   expiration: 3 | 5 | 7
   referredCount: number
   referTotal: number
+  createdAt: string
   imageUrl?: string
   source?: string
 }

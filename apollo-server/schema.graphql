@@ -41,13 +41,14 @@ type ResumesPage {
 
 type Job {
     jobId: String!
+    refererId: String!
     company: String!
-    referer: String!
     requiredFields: [String!]!
-    deadline: Date!
+    deadline: String!
     expiration: Int!
     referredCount: Int!
     referTotal: Int!
+    createdAt: String!
     imageUrl: String
     source: String
 }
@@ -167,13 +168,14 @@ input UserForm {
 
 input JobForm {
     jobId: String!
-    company: String!
-    referer: String!
-    requiredFields: [String!]!
-    deadline: Date!
-    expiration: Int!
-    referredCount: Int!
-    referTotal: Int!
+    refererId: String!
+    company: String
+    requiredFields: [String!]
+    deadline: Date
+    expiration: Int
+    referredCount: Int
+    referTotal: Int
+    createdAt: String
     imageUrl: String
     source: String
 }

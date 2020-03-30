@@ -33,7 +33,6 @@ Job
 | jobId          | string   | !        | yes  |      | 工作ID             |
 | refererId         | string   | !        |      | yes  | 发布该工作的用户ID |
 | company        | string   | !        |      |      | 该职位的公司名     |
-| referer        | string   | !        |      |      | 内推人名字         |
 | requiredFields | string[] | !        |      |      | 内推表单项         |
 | deadline       | Date     | !        |      |      | 截止日期           |
 | expiration     | number   | !        |      |      | X天后直接默拒      |

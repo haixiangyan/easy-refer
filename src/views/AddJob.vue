@@ -72,12 +72,13 @@
     addJobForm: TJob = {
       jobId: "undefined",
       company: "",
-      referer: this.$store.state.user.name,
+      refererId: this.userId,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
-      deadline: new Date(dayjs().add(1, "month").toISOString()),
+      deadline: dayjs().add(1, "month").toISOString(),
       expiration: 3,
       referredCount: 0,
       referTotal: 100,
+      createdAt: new Date().toISOString(),
       source: "",
       imageUrl: "",
     }
