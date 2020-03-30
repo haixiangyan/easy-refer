@@ -8,6 +8,7 @@ type Mutation {
     register(registerForm: RegisterForm!): User!
     addJob(userId: String!, jobForm: JobForm!): Job!
     updateRefer(referForm: ReferForm!): Refer!
+    deleteRefer(referId: String!): String!
     updateJob(userId: String!, jobForm: JobForm!): Job!
     updateUser(userForm: UserForm!): User!
     addResume(resumeForm: ResumeForm!): Resume!

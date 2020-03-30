@@ -27,7 +27,7 @@
   import Vue from "vue"
   import {Component, Prop} from "vue-property-decorator"
   import {STATUS_NAMES_MAPPER} from "@/contents/status"
-  import ResumeService from "@/services/ResumeService"
+  import DeleteReferGQL from '@/graphql/DeleteRefer.graphql'
 
   @Component
   export default class ReferItem extends Vue {
@@ -53,9 +53,10 @@
 
     async confirmWithdraw() {
       try {
-        const {data} = await ResumeService.withdrawResume(this.refer.referId)
-
-        if (!data.success) return this.$message.error(data.message)
+        await this.$apollo.mutate({
+          mutation: DeleteReferGQL,
+          variables: {referId: this.refer.referId}
+        })
 
         this.$message.success('已撤回')
       } catch (error) {

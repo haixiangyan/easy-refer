@@ -1,0 +1,3 @@
+mutation DeleteRefer($referId: String!) {
+    referId: deleteRefer(referId: $referId)
+}
