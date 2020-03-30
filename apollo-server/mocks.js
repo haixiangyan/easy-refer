@@ -39,6 +39,14 @@ const mocks = {
     JobsPage: () => ({
         jobs: [...Array(10)].map(i => mocks.Job()),
         totalPages: 100
+    }),
+    UserIntro: () => ({
+        avatarUrl: faker.image.avatar(),
+        name: faker.name.findName(),
+        finishedRefers: faker.random.number({min: 10, max: 100}),
+        totalRefers: faker.random.number({min: 200, max: 400}),
+        finishedResumes: faker.random.number({min: 20, max: 100}),
+        totalResumes: faker.random.number({min: 300, max: 500})
     })
 }
 

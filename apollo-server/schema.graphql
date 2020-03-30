@@ -15,6 +15,7 @@ type Query {
     getJobs(page: Int!): JobsPage!
     getJobById(jobId: String!): Job!
     getUser(userId: String!): User!
+    getUserIntro(userId: String!): UserIntro!
 }
 
 type JobsPage {
@@ -48,6 +49,14 @@ type User {
     userId: String!
 }
 
+type UserIntro {
+    avatarUrl: String!
+    name: String!
+    finishedRefers: Int!
+    totalRefers: Int!
+    finishedResumes: Int!
+    totalResumes: Int!
+}
 
 input LoginForm {
     email: String!

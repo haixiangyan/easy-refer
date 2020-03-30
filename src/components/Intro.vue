@@ -36,8 +36,8 @@
 
 <script lang="ts">
   import Vue from "vue"
-  import UserService from "@/services/UserService"
   import {Component} from "vue-property-decorator"
+  import GetUserIntroGQL from '@/graphql/GetUserIntro.graphql'
 
   @Component
   export default class Intro extends Vue {
@@ -55,6 +55,9 @@
     get jobId() {
       return this.$store.state.user.jobId
     }
+    get userId() {
+      return this.$store.state.user.userId
+    }
 
     mounted() {
       this.loadIntro()
@@ -62,11 +65,12 @@
 
     async loadIntro() {
       try {
-        const {data} = await UserService.getIntro("1")
+        const {data} = await this.$apollo.query({
+          query: GetUserIntroGQL,
+          variables: {userId: this.userId}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.intro = data.content
+        this.intro = data.userIntro
         this.referRate = this.calculateRate(this.intro.finishedRefers, this.intro.totalRefers)
         this.resumeRate = this.calculateRate(this.intro.finishedResumes, this.intro.totalResumes)
       } catch (error) {
