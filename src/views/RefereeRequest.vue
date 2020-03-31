@@ -34,7 +34,7 @@
   @Component({
     components: {JobItem}
   })
-  export default class Resume extends Vue {
+  export default class RefereeRequest extends Vue {
     job: TJobInResume = {
       jobId: "",
       company: "",
