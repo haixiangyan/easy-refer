@@ -1,8 +1,8 @@
 <template>
     <el-row class="job-item">
         <el-col :span="4">
-            <router-link class="avatar" to="/job-list">
-                <img :src="job.imageUrl" alt="avatar">
+            <router-link class="avatar" :to="`/apply-refer/${job.jobId}`">
+                <CompanyAvatar :src="job.imageUrl" error-src="https://lorempixel.com/420/320/abstract/1/Sample"/>
             </router-link>
         </el-col>
         <el-col class="content" :span="20">
@@ -32,9 +32,12 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Prop} from "vue-property-decorator"
+  import CompanyAvatar from "@/components/Image.vue"
   import {getReferProgress} from "@/utils/refer"
 
-  @Component
+  @Component({
+    components: {CompanyAvatar}
+  })
   export default class JobItem extends Vue {
     @Prop({required: true}) job!: TJobItem
 
