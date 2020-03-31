@@ -22,7 +22,7 @@
     components: {JobItem, ResumeForm}
   })
   export default class ApplyRefer extends Vue {
-    job: TJobInResume = {
+    job: TJobItem = {
       jobId: "",
       company: "",
       refererName: "",

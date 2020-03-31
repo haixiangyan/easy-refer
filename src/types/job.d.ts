@@ -19,9 +19,6 @@ type TJobItem = TJob & {
   referTotal: number
   deadline: string
   expiration: 3 | 5 | 7
-}
-
-type TJobInResume = TJobItem & {
   requiredFields: string[]
 }
 

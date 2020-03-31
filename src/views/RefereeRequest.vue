@@ -35,7 +35,7 @@
     components: {JobItem}
   })
   export default class RefereeRequest extends Vue {
-    job: TJobInResume = {
+    job: TJobItem = {
       jobId: "",
       company: "",
       refererName: "",

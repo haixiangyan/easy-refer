@@ -93,7 +93,6 @@
 
       const {userId, ...rest} = this.$store.state.user
       this.resumeForm = {...this.resumeForm, ...rest, refereeId: userId}
-      console.log(this.resumeForm)
     }
 
     async initResume() {
@@ -102,7 +101,6 @@
           query: GetResumeByIdGQL,
           variables: {resumeId: this.resumeId}
         })
-        console.log(data.resume)
         this.resumeForm = data.resume
       } catch (error) {
         this.$message.error(error.mesage)

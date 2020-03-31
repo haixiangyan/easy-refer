@@ -22,7 +22,7 @@
     components: {JobItem, ResumeForm}
   })
   export default class EditRefer extends Vue {
-    job: TJobInResume = {
+    job: TJobItem = {
       jobId: "",
       company: "",
       refererName: "",
@@ -55,7 +55,6 @@
     }
 
     async edit(resumeForm: TResumeForm) {
-      console.log(resumeForm)
       try {
         await this.$apollo.mutate({
           mutation: UpdateResumeGQL,

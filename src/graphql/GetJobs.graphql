@@ -10,6 +10,7 @@ query GetJobs($page: Int!) {
             expiration
             imageUrl
             source
+            requiredFields
         }
         totalPages
     }

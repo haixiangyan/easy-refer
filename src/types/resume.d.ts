@@ -12,7 +12,7 @@ type TResume = {
   thirdPersonIntro?: string
 }
 
-type TResumeBody = TResume & {
+type TResumeBody = {
   refereeId: string
   jobId: string
   email: string
