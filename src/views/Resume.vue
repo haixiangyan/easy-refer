@@ -66,6 +66,9 @@
     referFieldsMapper = REFER_FIELDS_MAPPER
     levelMapper = LEVEL_MAPPER
 
+    get referId() {
+      return this.$route.params.referId
+    }
     get resumeId() {
       return this.$route.params.resumeId
     }
@@ -108,7 +111,13 @@
       try {
         await this.$apollo.mutate({
           mutation: UpdateReferGQL,
-          variables: {referForm: {status}}
+          variables: {
+            referForm: {
+              referId: this.referId,
+              refereeId: this.user.userId,
+              status
+            }
+          }
         })
 
         this.$message.success('已修改该内推信息')
