@@ -6,7 +6,7 @@
 
         <el-divider>修改你的信息</el-divider>
 
-        <ResumeForm @submit="edit" :required-fields="job.requiredFields"/>
+        <ResumeForm @submit="edit" :required-fields="job.requiredFields" :resume-id="resume.resumeId"/>
     </div>
 </template>
 
@@ -15,7 +15,7 @@
   import {Component} from "vue-property-decorator"
   import JobItem from "@/components/JobItem.vue"
   import ResumeForm from "@/components/ResumeForm.vue"
-  import GetJobByIdGQL from "@/graphql/GetJobById.graphql"
+  import GetReferDetailsGQL from '@/graphql/GetReferDetails.graphql'
   import UpdateResumeGQL from "@/graphql/UpdateResume.graphql"
 
   @Component({
@@ -34,20 +34,23 @@
       imageUrl: "",
       source: ""
     }
-
-    mounted() {
-      this.loadJob()
+    resume: any = {
+      resumeId: undefined
     }
 
-    async loadJob() {
+    mounted() {
+      this.loadReferDetails()
+    }
+
+    async loadReferDetails() {
       try {
         const {data} = await this.$apollo.query({
-          query: GetJobByIdGQL,
-          // TODO: 使用 jobId
-          variables: {jobId: this.$route.params.referId}
+          query: GetReferDetailsGQL,
+          variables: {referId: this.$route.params.referId}
         })
 
-        this.job = data.job
+        this.job = data.referDetails.job
+        this.resume = data.referDetails.resume
       } catch (error) {
         this.$message.error(error.message)
       }
@@ -59,8 +62,7 @@
           mutation: UpdateResumeGQL,
           variables: {
             refereeId: this.$store.state.user.userId,
-            // TODO: 使用 referId
-            resumeId: this.$route.params.referId,
+            resumeId: this.resume.resumeId,
             resumeForm: resume
           }
         })

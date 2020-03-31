@@ -21,6 +21,7 @@ type Query {
     getUser(userId: String!): User!
     getUserIntro(userId: String!): UserIntro!
     getRefers(userId: String!, page: Int!): RefersPage!
+    getReferDetails(referId: String!): ReferDetails!
     getResumes(userId: String!, page: Int!): ResumesPage!
     getResumeById(resumeId: String!): Resume!
 }
@@ -38,6 +39,12 @@ type RefersPage {
 type ResumesPage {
     resumes: [Resume!]!
     totalPages: Int!
+}
+
+type ReferDetails {
+    referId: String!
+    resume: Resume!
+    job: Job!
 }
 
 type Job {
