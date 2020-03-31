@@ -68,6 +68,7 @@ type User {
     jobId: String
     email: String!
     experience: Int!
+    avatarUrl: String!
     intro: String
     leetCodeUrl: String
     name: String!

@@ -9,6 +9,7 @@ type TUser = {
   leetCodeUrl?: string
   thirdPersonIntro?: string
   resumeUrl?: string
+  avatarUrl?: string
 }
 
 type TUserForm = TUser & {

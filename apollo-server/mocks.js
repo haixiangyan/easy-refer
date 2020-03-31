@@ -30,7 +30,8 @@ const mocks = {
         phone: faker.phone.phoneNumberFormat(),
         leetCodeUrl: faker.internet.url(),
         thirdPersonIntro: faker.lorem.paragraph(),
-        resumeUrl: faker.internet.url()
+        resumeUrl: faker.internet.url(),
+        avatarUrl: faker.image.avatar()
     }),
     Job: () => ({
         jobId: faker.random.uuid(),

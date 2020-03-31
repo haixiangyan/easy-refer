@@ -1,13 +1,14 @@
 query GetUser($userId: String!) {
     user: getUser(userId: $userId) {
+        name
         email
+        phone
         experience
+        resumeUrl
         intro
         jobId
-        leetCodeUrl
-        name
-        phone
-        resumeUrl
         thirdPersonIntro
+        leetCodeUrl
+        avatarUrl
     }
 }
