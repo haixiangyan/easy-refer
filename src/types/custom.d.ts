@@ -56,6 +56,7 @@ type TReferItem = {
 }
 type TReferRow = {
   referId: string
+  jobId: string
   resumeId: string
   experience: number
   name: string

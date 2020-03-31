@@ -66,6 +66,9 @@
     referFieldsMapper = REFER_FIELDS_MAPPER
     levelMapper = LEVEL_MAPPER
 
+    get jobId() {
+      return this.$route.params.jobId
+    }
     get referId() {
       return this.$route.params.referId
     }
@@ -85,7 +88,7 @@
       try {
         const {data} = await this.$apollo.query({
           query: GetJobByIdGQL,
-          variables: {jobId: this.user.jobId}
+          variables: {jobId: this.jobId}
         })
 
         this.job = data.job
@@ -120,7 +123,7 @@
           }
         })
 
-        this.$message.success('已修改该内推信息')
+        this.$message.success(status === 'rejected' ? '不推此简历' : '已推此简历')
 
         await this.$router.push('/referee-request-list')
       } catch (error) {

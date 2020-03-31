@@ -71,7 +71,7 @@ const routes = [
     component: Apply
   },
   {
-    path: '/resume/:referId/:resumeId',
+    path: '/resume/:jobId/:referId/:resumeId',
     name: 'Resume',
     component: Resume,
     meta: {requireAuth: true}
