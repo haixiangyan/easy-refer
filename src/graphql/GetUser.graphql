@@ -9,6 +9,5 @@ query GetUser($userId: String!) {
         phone
         resumeUrl
         thirdPersonIntro
-        userId
     }
 }

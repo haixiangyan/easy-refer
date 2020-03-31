@@ -156,8 +156,7 @@ input ResumeForm {
 }
 
 input UserForm {
-    userId: String
-    jobId: String
+    jobId: String!
     email: String!
     experience: Int!
     name: String!

@@ -49,7 +49,7 @@
 
   @Component
   export default class User extends Vue {
-    user: TUser = {
+    user: TUserForm = {
       userId: this.$store.state.user.userId,
       jobId: "",
       email: "",
