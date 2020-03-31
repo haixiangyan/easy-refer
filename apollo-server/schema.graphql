@@ -169,16 +169,13 @@ input UserForm {
 }
 
 input JobForm {
-    jobId: String
-    refererId: String
-    refererName: String!
-    company: String
-    requiredFields: [String!]
-    deadline: Date
-    expiration: Int
-    referredCount: Int
-    referTotal: Int
-    createdAt: String
+    company: String!
+    requiredFields: [String!]!
+    deadline: Date!
+    expiration: Int!
+    referredCount: Int!
+    referTotal: Int!
+    createdAt: String!
     imageUrl: String
     source: String
 }

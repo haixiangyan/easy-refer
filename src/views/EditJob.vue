@@ -14,13 +14,17 @@
     components: {JobForm}
   })
   export default class AddJob extends Vue {
+    get user() {
+      return this.$store.state.user
+    }
+
     async onSubmit(jobForm: TJobForm) {
       try {
         await this.$apollo.mutate({
           mutation: UpdateJobGQL,
           variables: {
-            refererId: this.$store.state.user.userId,
-            jobId: jobForm.jobId,
+            refererId: this.user.userId,
+            jobId: this.user.jobId,
             jobForm
           }
         })

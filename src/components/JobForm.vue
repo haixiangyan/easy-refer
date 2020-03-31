@@ -67,10 +67,8 @@
   @Component
   export default class JobForm extends Vue {
     jobForm: TJobForm = {
-      jobId: this.user.jobId,
       company: "",
       refererName: this.user.name,
-      refererId: this.user.userId,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
       deadline: dayjs().add(1, "month").toISOString(),
       expiration: 3,
