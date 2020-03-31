@@ -34,8 +34,19 @@
       imageUrl: "",
       source: ""
     }
-    resume: any = {
-      resumeId: undefined
+    resume: TResumeDetails = {
+      email: "",
+      experience: 0,
+      intro: "",
+      jobId: "",
+      leetCodeUrl: "",
+      name: "",
+      phone: "",
+      referLinks: "",
+      refereeId: "",
+      resumeId: "",
+      resumeUrl: "",
+      thirdPersonIntro: ""
     }
 
     mounted() {
