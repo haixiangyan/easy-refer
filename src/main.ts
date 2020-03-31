@@ -9,11 +9,6 @@ import './registerServiceWorker'
 // 基础样式
 import './assets/styles/global.scss'
 
-// 测试使用 mockjs
-if (process.env.NODE_ENV === 'development') {
-  require('./mock/')
-}
-
 Vue.config.productionTip = false
 
 new Vue({
