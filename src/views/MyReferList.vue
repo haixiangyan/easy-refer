@@ -1,5 +1,5 @@
 <template>
-    <div class="refer">
+    <div class="my-refer-list">
         <div class="refers">
             <ReferItem v-for="refer in refers" :key="refer.id" :refer="refer"/>
         </div>
@@ -24,7 +24,7 @@
   @Component({
     components: {ReferItem}
   })
-  export default class ReferList extends Vue {
+  export default class MyReferList extends Vue {
     refers: TReferItem[] = []
     page: number = 0
     totalPages: number = 0

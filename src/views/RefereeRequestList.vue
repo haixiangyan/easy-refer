@@ -1,5 +1,5 @@
 <template>
-    <div class="resume-list">
+    <div class="referee-request-list">
         <div class="resumes">
             <el-table
                 :data="resumes"
@@ -39,7 +39,7 @@
   import {LEVEL_MAPPER} from "@/contents/level"
 
   @Component
-  export default class ResumeList extends Vue {
+  export default class RefereeRequestListList extends Vue {
     resumes: TResumeRow[] = []
     page: number = 1
     totalPages: number = 0

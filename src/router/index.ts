@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index'
 import JobList from '../views/JobList.vue'
-import ReferList from '@/views/ReferList.vue'
-import ResumeList from '@/views/ResumeList.vue'
+import MyReferList from '@/views/MyReferList.vue'
+import RefereeRequestList from '@/views/RefereeRequestList.vue'
 import User from '@/views/User.vue'
 import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
@@ -30,15 +30,15 @@ const routes = [
     component: JobList
   },
   {
-    path: '/refer-list',
-    name: 'ReferList',
-    component: ReferList,
+    path: '/my-refer-list',
+    name: 'MyReferList',
+    component: MyReferList,
     meta: {requireAuth: true}
   },
   {
-    path: '/resume-list',
-    name: 'ResumeList',
-    component: ResumeList,
+    path: '/referee-request-list',
+    name: 'RefereeRequestList',
+    component: RefereeRequestList,
     meta: {requireAuth: true}
   },
   {

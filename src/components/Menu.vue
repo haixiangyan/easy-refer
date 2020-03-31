@@ -13,11 +13,11 @@
                 <i class="el-icon-s-home"></i>
                 <span slot="title">内推广场</span>
             </el-menu-item>
-            <el-menu-item index="/refer-list">
+            <el-menu-item index="/my-refer-list">
                 <i class="el-icon-s-order"></i>
                 <span slot="title">内推进度</span>
             </el-menu-item>
-            <el-menu-item index="/resume-list">
+            <el-menu-item index="/referee-request-list">
                 <i class="el-icon-s-cooperation"></i>
                 <span slot="title">处理内推</span>
             </el-menu-item>

@@ -113,7 +113,7 @@
 
         this.$message.success('已修改该内推信息')
 
-        await this.$router.push('/resume-list')
+        await this.$router.push('/referee-request-list')
       } catch (error) {
         this.$message.error(error.message)
       }

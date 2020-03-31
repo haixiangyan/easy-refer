@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="function">
-            <router-link to="/refer-list" tag="div">
+            <router-link to="/my-refer-list" tag="div">
                 <el-button class="button" type="success" :round="true" icon="el-icon-view">
                    查看内推状态
                 </el-button>
