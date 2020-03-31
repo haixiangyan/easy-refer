@@ -2,9 +2,9 @@
     <div class="referee-request-list">
         <div class="resumes">
             <el-table
-                :data="resumes"
+                :data="refers"
                 style="width: 100%">
-                <el-table-column prop="name" label="姓名" width="180"/>
+                <el-table-column prop="refereeName" label="姓名" width="180"/>
                 <el-table-column prop="createdAt" label="提交日期" width="180"/>
                 <el-table-column label="经验">
                     <template slot-scope="scope">
@@ -35,12 +35,12 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
-  import GetResumesGQL from '@/graphql/GetResumes.graphql'
+  import GetRefersGQL from '@/graphql/GetRefers.graphql'
   import {LEVEL_MAPPER} from "@/contents/level"
 
   @Component
   export default class RefereeRequestListList extends Vue {
-    resumes: TResumeRow[] = []
+    refers: TReferRow[] = []
     page: number = 1
     totalPages: number = 0
 
@@ -59,12 +59,14 @@
     async loadResumes(page: number) {
       try {
         const {data} = await this.$apollo.query({
-          query: GetResumesGQL,
+          query: GetRefersGQL,
           variables: {userId: this.userId, page}
         })
 
-        this.resumes = data.resumesPage.resumes
-        this.totalPages = data.resumesPage.totalPages
+        console.log(data)
+
+        this.refers = data.refersPage.refers
+        this.totalPages = data.refersPage.totalPages
       } catch (error) {
         this.$message.error(error.message)
       }

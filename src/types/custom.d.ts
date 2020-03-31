@@ -54,6 +54,13 @@ type TReferItem = {
   refererName: string
   source?: string
 }
+type TReferRow = {
+  referId: string
+  resumeId: string
+  experience: number
+  name: string
+  createdAt: string
+}
 
 type TUser = {
   userId: string
@@ -67,7 +74,6 @@ type TUser = {
   thirdPersonIntro?: string
   resumeUrl?: string
 }
-
 
 type TResumeForm = {
   refereeId: string
@@ -83,16 +89,9 @@ type TResumeForm = {
   thirdPersonIntro: string
 }
 
-type TResumeRow = {
-  name: string
-  resumeId: string
-  experience: number
-  createdAt: string
-}
 type TResumeDetails = TResumeForm & {
   resumeId: string
 }
-type TEditResumeForm = TResumeDetails
 
 type TIntro = {
   avatarUrl: string

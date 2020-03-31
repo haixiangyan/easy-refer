@@ -3,11 +3,15 @@ query GetRefers($userId: String!, $page: Int!) {
         refers {
             referId
             jobId
+            resumeId
             status
-            updatedAt
             company
-            refererName
             source
+            experience
+            refererName
+            refereeName
+            updatedAt
+            createdAt
         }
         totalPages
     }

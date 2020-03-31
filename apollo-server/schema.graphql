@@ -76,9 +76,12 @@ type Refer {
     resumeId: String!
     status: String!
     updatedAt: String!
+    createdAt: String!
     # meta
     company: String!
     refererName: String!
+    refereeName: String!
+    experience: Int!
     source: String
 }
 
@@ -126,6 +129,7 @@ input ReferForm {
     resumeId: String
     status: String
     updatedAt: String
+    createdAt: String
 }
 
 input ResumeForm {

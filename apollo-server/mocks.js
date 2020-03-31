@@ -60,9 +60,12 @@ const mocks = {
         resumeId: faker.random.uuid(),
         status: status[faker.random.number(status.length - 1)],
         updatedAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
+        createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
         // meta
         company: companies[faker.random.number(companies.length - 1)],
         refererName: faker.name.findName(),
+        refereeName: faker.name.findName(),
+        experience: faker.random.number(7),
         source: faker.internet.url()
     }),
     RefersPage: () => ({
