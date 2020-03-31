@@ -11,6 +11,7 @@ import EditUser from '@/views/EditUser.vue'
 import AddJob from '@/views/AddJob.vue'
 import ApplyRefer from '@/views/ApplyRefer.vue'
 import RefereeRequest from '@/views/RefereeRequest.vue'
+import EditRefer from '@/views/EditRefer.vue'
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ const routes = [
     path: '/apply-refer/:jobId',
     name: 'ApplyRefer',
     component: ApplyRefer
+  },
+  {
+    path: '/edit-refer/:jobId',
+    name: 'EditRefer',
+    component: EditRefer
   },
   {
     path: '/referee-request/:jobId/:referId/:resumeId',

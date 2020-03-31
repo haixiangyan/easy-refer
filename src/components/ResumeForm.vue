@@ -42,10 +42,10 @@
   import Vue from "vue"
   import {Component, Prop} from "vue-property-decorator"
   import JobItem from "@/components/JobItem.vue"
-  import GetResumeByIdGQL from '@/graphql/GetResumeById.graphql'
+  import GetResumeByIdGQL from "@/graphql/GetResumeById.graphql"
   import {LEVEL_MAPPER} from "@/contents/level"
   import {ElForm} from "element-ui/types/form"
-  import {RESUME_RULES} from '@/contents/rules'
+  import {RESUME_RULES} from "@/contents/rules"
 
   @Component({
     components: {JobItem}
@@ -111,16 +111,14 @@
       (<ElForm>this.$refs.form).validate(async valid => {
         if (!valid) return this.$message.error("填写不正确")
 
-        this.$emit('submit', this.resume)
+        this.$emit("submit", this.resume)
       })
     }
   }
 </script>
 
 <style scoped lang="scss">
-    .refer {
-        .submit {
-            text-align: center;
-        }
+    .submit {
+        text-align: center;
     }
 </style>

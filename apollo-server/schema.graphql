@@ -12,6 +12,7 @@ type Mutation {
     updateJob(userId: String!, jobForm: JobForm!): Boolean
     updateUser(userForm: UserForm!): User
     addResume(resumeForm: ResumeForm!): Boolean
+    updateResume(resumeForm: ResumeForm!): Boolean
 }
 
 type Query {

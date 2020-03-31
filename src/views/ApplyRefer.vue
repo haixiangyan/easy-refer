@@ -68,10 +68,4 @@
   }
 </script>
 
-<style scoped lang="scss">
-    .apply {
-        .submit {
-            text-align: center;
-        }
-    }
-</style>
+<style scoped lang="scss"></style>
