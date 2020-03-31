@@ -14,11 +14,11 @@
   import {Component, Prop} from "vue-property-decorator"
 
   @Component
-  export default class Image extends Vue {
+  export default class CompanyImage extends Vue {
     @Prop(Boolean) lazy = false
     @Prop({required: true, type: String}) src!: string
-    @Prop(String) errorSrc: string = 'https://dummyimage.com/420x320/ff7f7f/333333.png&text=无'
-    @Prop(String) placeholderSrc: string = 'https://dummyimage.com/420x320/ff7f7f/333333.png&text=等'
+    errorSrc: string = 'https://dummyimage.com/420x320/ff7f7f/333333.png&text=无'
+    placeholderSrc: string = 'https://dummyimage.com/420x320/ff7f7f/333333.png&text=等'
   }
 </script>
 
