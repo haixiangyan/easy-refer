@@ -117,11 +117,7 @@
           variables: {
             refereeId: this.user.userId,
             referId: this.referId,
-            referForm: {
-              refereeId: this.user.userId,
-              referId: this.referId,
-              status
-            }
+            referForm: {status}
           }
         })
 

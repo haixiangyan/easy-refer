@@ -130,8 +130,8 @@ input RegisterForm {
 }
 
 input ReferForm {
-    referId: String!
-    refereeId: String!
+    referId: String
+    refereeId: String
     refererId: String
     jobId: String
     resumeId: String
@@ -143,7 +143,7 @@ input ReferForm {
 input ResumeForm {
     resumeId: String
     refereeId: String
-    jobId: String!
+    jobId: String
     name: String!
     email: String!
     experience: Int!
@@ -156,13 +156,13 @@ input ResumeForm {
 }
 
 input UserForm {
-    userId: String!
-    jobId: String!
+    userId: String
+    jobId: String
     email: String!
     experience: Int!
+    name: String!
     intro: String
     leetCodeUrl: String
-    name: String!
     phone: String
     resumeUrl: String
     thirdPersonIntro: String
