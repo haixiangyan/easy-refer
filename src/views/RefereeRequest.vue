@@ -47,9 +47,8 @@
       imageUrl: '',
       source: ''
     }
-    resume: TResumeDetails = {
+    resume: TResumeBody = {
       // 必填
-      resumeId: '',
       jobId: "",
       refereeId: this.user.userId,
       email: "",
@@ -104,7 +103,8 @@
           variables: {resumeId: this.resumeId}
         })
 
-        this.resume = data.resume
+        const {resumeId, ...resumeBody} = data.resume
+        this.resume = resumeBody
       } catch (error) {
         this.$message.error(error.message)
       }
