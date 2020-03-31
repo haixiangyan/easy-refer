@@ -6,7 +6,10 @@
 
         <el-divider>填写你的信息</el-divider>
 
-        <ResumeForm @submit="apply" :required-fields="job.requiredFields"/>
+        <ResumeForm
+            @submit="apply"
+            @back="$router.push('/job-list')"
+            :required-fields="job.requiredFields"/>
     </div>
 </template>
 
