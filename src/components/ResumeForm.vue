@@ -34,6 +34,7 @@
 
         <div class="submit">
             <el-button @click="submit" type="primary" round>提交</el-button>
+            <el-button @click="back" round>返回</el-button>
         </div>
     </el-form>
 </template>
@@ -113,6 +114,10 @@
 
         this.$emit("submit", this.resumeForm)
       })
+    }
+
+    back() {
+      this.$emit('back')
     }
   }
 </script>

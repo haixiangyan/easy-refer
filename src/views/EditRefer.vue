@@ -6,7 +6,11 @@
 
         <el-divider>修改你的信息</el-divider>
 
-        <ResumeForm @submit="edit" :required-fields="job.requiredFields" :resume-id="resumeId"/>
+        <ResumeForm
+            @submit="edit"
+            @back="$router.push('/my-refer-list')"
+            :required-fields="job.requiredFields"
+            :resume-id="resumeId"/>
     </div>
 </template>
 
