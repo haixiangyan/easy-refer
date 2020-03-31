@@ -126,10 +126,8 @@
 
 <style lang="scss">
     .job-form {
-        .required-fields-select {
-            .el-tag__close.el-icon-close {
-                display: none;
-            }
+        .el-tag__close.el-icon-close {
+            display: none!important;
         }
     }
 </style>

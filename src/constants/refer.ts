@@ -2,7 +2,7 @@ export const REFER_FIELDS = [
   // 必填
   {value: 'name', label: '姓名'},
   {value: 'email', label: '邮箱'},
-  {value: 'experience', label: '工作经历'},
+  {value: 'experience', label: '工作经验'},
   // 选填
   {value: 'referLinks', label: '内推链接'},
   {value: 'phone', label: '电话'},
@@ -15,7 +15,7 @@ export const REFER_FIELDS = [
 export const REFER_FIELDS_MAPPER = {
   name: '姓名',
   email: '邮箱',
-  experience: '工作经历',
+  experience: '工作经验',
   referLinks: '内推链接',
   phone: '电话',
   intro: '个人简介',
