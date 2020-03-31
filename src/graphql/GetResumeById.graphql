@@ -3,9 +3,7 @@ query GetResumeById($resumeId: String!) {
         resumeId
         jobId
         createdAt
-        referLinks
-
-        userId
+        refereeId
         name
         email
         experience
@@ -14,5 +12,6 @@ query GetResumeById($resumeId: String!) {
         leetCodeUrl
         thirdPersonIntro
         resumeUrl
+        referLinks
     }
 }

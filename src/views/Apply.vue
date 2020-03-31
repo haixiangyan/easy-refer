@@ -71,9 +71,8 @@
       imageUrl: '',
       source: ''
     }
-    resume: TResume = {
+    resume: TResumeForm = {
       // 必填
-      resumeId: "undefined",
       jobId: "",
       refereeId: "",
       email: "",
@@ -115,7 +114,8 @@
     initApplication() {
       if (!this.isLogin) return
 
-      this.resume = {...this.resume, ...this.user}
+      const {userId, ...rest} = this.user
+      this.resume = {...this.resume, ...rest}
     }
 
     async loadJob() {

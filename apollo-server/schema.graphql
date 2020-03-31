@@ -6,12 +6,12 @@ schema {
 type Mutation {
     login(loginForm: LoginForm!): User!
     register(registerForm: RegisterForm!): User!
-    addJob(userId: String!, jobForm: JobForm!): Job!
-    updateRefer(referForm: ReferForm!): Refer!
-    deleteRefer(referId: String!): String!
-    updateJob(userId: String!, jobForm: JobForm!): Job!
-    updateUser(userForm: UserForm!): User!
-    addResume(resumeForm: ResumeForm!): Resume!
+    addJob(userId: String!, jobForm: JobForm!): Boolean
+    updateRefer(referForm: ReferForm!): Boolean
+    deleteRefer(referId: String!): Boolean
+    updateJob(userId: String!, jobForm: JobForm!): Boolean
+    updateUser(userForm: UserForm!): User
+    addResume(resumeForm: ResumeForm!): Boolean
 }
 
 type Query {
@@ -77,7 +77,7 @@ type Refer {
     status: String!
     updatedAt: String!
     # meta
-    compnay: String!
+    company: String!
     refererName: String!
     source: String
 }
@@ -129,11 +129,9 @@ input ReferForm {
 }
 
 input ResumeForm {
-    resumeId: String!
+    resumeId: String
     refereeId: String!
     jobId: String!
-    createdAt: String!
-    userId: String!
     name: String!
     email: String!
     experience: Int!

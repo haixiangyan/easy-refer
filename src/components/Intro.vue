@@ -39,15 +39,6 @@
   import {Component} from "vue-property-decorator"
   import GetUserIntroGQL from '@/graphql/GetUserIntro.graphql'
 
-  type TIntro = {
-    avatarUrl: string
-    name: string
-    finishedRefers: number
-    totalRefers: number
-    finishedResumes: number
-    totalResumes: number
-  }
-
   @Component
   export default class Intro extends Vue {
     intro: TIntro = {

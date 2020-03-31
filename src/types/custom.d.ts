@@ -45,15 +45,11 @@ type TJobForm = {
   source?: string
 }
 
-type TRefer = {
+type TReferItem = {
   referId: string
-  refereeId: string
-  refererId: string
   jobId: string
-  resumeId: string
   status: string
   updatedAt: string
-  // meta
   company: string
   refererName: string
   source?: string
@@ -72,18 +68,38 @@ type TUser = {
   resumeUrl?: string
 }
 
-type TResume = {
-  resumeId: string
+
+type TResumeForm = {
   refereeId: string
   jobId: string
   email: string
   name: string
   experience: number
-  intro?: string
-  phone?: string
-  leetCodeUrl?: string
-  thirdPersonIntro?: string
-  resumeUrl?: string
-  referLinks?: string
-  // meta
+  intro: string
+  leetCodeUrl: string
+  phone: string
+  referLinks: string
+  resumeUrl: string
+  thirdPersonIntro: string
 }
+
+type TResumeRow = {
+  name: string
+  resumeId: string
+  experience: number
+  createdAt: string
+}
+type TResumeDetails = TResumeForm & {
+  resumeId: string
+}
+type TEditResumeForm = TResumeDetails
+
+type TIntro = {
+  avatarUrl: string
+  name: string
+  finishedRefers: number
+  totalRefers: number
+  finishedResumes: number
+  totalResumes: number
+}
+

@@ -40,7 +40,7 @@
 
   @Component
   export default class ResumeList extends Vue {
-    resumes: TResume[] = []
+    resumes: TResumeRow[] = []
     page: number = 1
     totalPages: number = 0
 

@@ -59,7 +59,7 @@ const mocks = {
         jobId: faker.random.uuid(),
         resumeId: faker.random.uuid(),
         status: status[faker.random.number(status.length - 1)],
-        updatedDate: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
+        updatedAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
         // meta
         company: companies[faker.random.number(companies.length - 1)],
         refererName: faker.name.findName(),
@@ -83,7 +83,7 @@ const mocks = {
         resumeUrl: faker.internet.url(),
         referLinks: faker.internet.url(),
         // meta
-        createdAt: new Date().toISOString()
+        createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
     }),
     ResumesPage: () => ({
         resumes: [...Array(20)].map(() => mocks.Resume()),

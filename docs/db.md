@@ -47,6 +47,7 @@ Resume
 | 字段             | 类型   | 不能为空 | 主键 | 外键 | 描述           |
 |------------------|--------|----------|------|------|----------------|
 | resumeId         | string | !        | yes  |      | 简历ID         |
+| referId         | string | !        | |   yes   | 内推ID         |
 | refereeId           | string | !        |      |      | 申请人ID       |
 | jobId            | string | !        |      |      | 对应JobID      |
 | email            | string | !        |      |      | 申请人邮箱     |

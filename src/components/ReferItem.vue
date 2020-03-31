@@ -31,7 +31,7 @@
 
   @Component
   export default class ReferItem extends Vue {
-    @Prop({required: true}) refer!: TRefer
+    @Prop({required: true}) refer!: TReferItem
 
     get statusName() {
       return STATUS_NAMES_MAPPER[this.refer.status]

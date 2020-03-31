@@ -47,9 +47,9 @@
       imageUrl: '',
       source: ''
     }
-    resume: TResume = {
+    resume: TResumeDetails = {
       // 必填
-      resumeId: "undefined",
+      resumeId: '',
       jobId: "",
       refereeId: this.user.userId,
       email: "",
