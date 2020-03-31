@@ -36,7 +36,7 @@
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
   import GetRefersGQL from '@/graphql/GetRefers.graphql'
-  import {LEVEL_MAPPER} from "@/contents/level"
+  import {LEVEL_MAPPER} from "@/constants/level"
 
   @Component
   export default class RefereeRequestListList extends Vue {

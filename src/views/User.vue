@@ -29,8 +29,8 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import GetUserGQL from "@/graphql/GetUser.graphql"
-  import {LEVEL_MAPPER} from "@/contents/level"
-  import {FIELD_MAPPER} from "@/contents/fields"
+  import {LEVEL_MAPPER} from "@/constants/level"
+  import {FIELD_MAPPER} from "@/constants/fields"
 
   @Component
   export default class User extends Vue {

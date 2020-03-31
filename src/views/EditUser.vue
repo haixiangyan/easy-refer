@@ -48,8 +48,8 @@
   import {Component} from "vue-property-decorator"
   import GetUserGQL from '@/graphql/GetUser.graphql'
   import UpdateUserGQL from '@/graphql/UpdateUser.graphql'
-  import {LEVEL_MAPPER} from "@/contents/level"
-  import {EDIT_USER_RULES} from "@/contents/rules"
+  import {LEVEL_MAPPER} from "@/constants/level"
+  import {EDIT_USER_RULES} from "@/constants/rules"
   import {ElForm} from 'element-ui/types/form'
 
   @Component

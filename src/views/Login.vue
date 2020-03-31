@@ -34,7 +34,7 @@
   import RegisterGQL from "@/graphql/Register.graphql"
   import {Component} from "vue-property-decorator"
   import {ElForm} from "element-ui/types/form"
-  import {LOGIN_RULES} from "@/contents/rules"
+  import {LOGIN_RULES} from "@/constants/rules"
 
   @Component
   export default class Login extends Vue {

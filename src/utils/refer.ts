@@ -1,4 +1,4 @@
-import {ELEMENT_COLORS} from '@/contents/color'
+import {ELEMENT_COLORS} from '@/constants/color'
 
 export const getReferProgress = (percentage: number): string => {
   if (0 <= percentage && percentage < 30) {
