@@ -12,6 +12,11 @@ const randomRequiredFields = () => ([
     'name', 'email', 'experience', 'referLinks'
 ])
 
+const dateRange = (from, to) =>
+    dayjs(faker.date.between(from, to)).format('YYYY-MM-DD')
+const now = () =>
+    dayjs().format('YYYY-MM-DD')
+
 const mocks = {
     User: () => ({
         userId: faker.random.uuid(),
@@ -30,11 +35,11 @@ const mocks = {
         refererId: faker.random.uuid(),
         company: companies[faker.random.number(companies.length - 1)],
         requiredFields: randomRequiredFields(),
-        deadline: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
+        deadline: dateRange('2020-12-1', '2021-1-1'),
         expiration: expiration[faker.random.number(expiration.length - 1)],
         referredCount: faker.random.number({min: 10, max: 100}),
         referTotal: faker.random.number({min: 200, max: 300}),
-        createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
+        createdAt: now(),
         imageUrl: faker.image.avatar(),
         source: faker.internet.url(),
         // meta
@@ -59,8 +64,8 @@ const mocks = {
         jobId: faker.random.uuid(),
         resumeId: faker.random.uuid(),
         status: status[faker.random.number(status.length - 1)],
-        updatedAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
-        createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
+        updatedAt: dateRange('2020-4-1', '2020-5-1'),
+        createdAt: dateRange('2019-4-1', '2019-5-1'),
         // meta
         company: companies[faker.random.number(companies.length - 1)],
         refererName: faker.name.findName(),
@@ -69,7 +74,7 @@ const mocks = {
         source: faker.internet.url()
     }),
     RefersPage: () => ({
-        refers: [...Array(10)].map(() => mocks.Refer()),
+        refers: [...Array(20)].map(() => mocks.Refer()),
         totalPages: 100
     }),
     Resume: () => ({
@@ -86,10 +91,10 @@ const mocks = {
         resumeUrl: faker.internet.url(),
         referLinks: faker.internet.url(),
         // meta
-        createdAt: dayjs(faker.date.between('2015-01-01', '2015-12-31')).format('YYYY-MM-DD'),
+        createdAt: dateRange('2019-7-1', '2019-8-1')
     }),
     ResumesPage: () => ({
-        resumes: [...Array(20)].map(() => mocks.Resume()),
+        resumes: [...Array(10)].map(() => mocks.Resume()),
         totalPages: 100
     })
 }
