@@ -1,42 +1,30 @@
 <template>
     <div class="user">
-        <el-divider>个人信息</el-divider>
-        <div v-if="user.name" class="name user-item">
-            <h3>
-                <span>姓名</span>
-                <router-link tag="span" to="/edit-user">
-                    <el-button round type="primary" size="small" icon="el-icon-edit">编辑</el-button>
-                </router-link>
-            </h3>
-            <p>{{user.name}}</p>
-        </div>
-        <div v-if="user.name" class="email user-item">
-            <h3>邮箱</h3>
-            <p>{{user.email}}</p>
-        </div>
-        <div v-if="user.phone" class="phone user-item">
-            <h3>电话</h3>
-            <p>{{user.phone}}</p>
-        </div>
-        <div v-if="user.experience" class="experience user-item">
-            <h3>工作经验</h3>
-            <p>{{level}}</p>
-        </div>
-        <div v-if="user.leetCodeUrl" class="leetcode-link user-item">
-            <h3>LeetCode链接</h3>
-            <p><el-link :href="user.leetCodeUrl">{{user.leetCodeUrl}}</el-link></p>
-        </div>
-        <div v-if="user.intro" class="intro user-item">
-            <h3>个人简介</h3>
-            <p>{{user.intro}}</p>
-        </div>
-        <div class="third-person-intro user-item">
-            <h3>第三人称介绍</h3>
-            <p>{{user.thirdPersonIntro}}</p>
-        </div>
-        <div v-if="user.resumeUrl" class="resume user-item">
-            <h3>简历</h3>
-            <p>{{user.resumeUrl}}</p>
+        <el-row type="flex" align="middle">
+            <el-col :span="6">
+                <el-avatar class="avatar" :src="user.avatarUrl" :size="100"/>
+            </el-col>
+            <el-col>
+                <el-button size="small" type="success" plain round>修改头像</el-button>
+            </el-col>
+        </el-row>
+        <el-table
+            :data="userTable"
+            style="width: 100%">
+            <el-table-column
+                prop="key"
+                label=""
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="value"
+                label="">
+            </el-table-column>
+        </el-table>
+        <div class="user-edit">
+            <router-link to="/edit-user" tag="span">
+                <el-button type="primary" round>修改信息</el-button>
+            </router-link>
         </div>
     </div>
 </template>
@@ -44,18 +32,20 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
-  import GetUserGQL from '@/graphql/GetUser.graphql'
-  import {LEVEL_MAPPER} from "@/contents/level"
+  import GetUserGQL from "@/graphql/GetUser.graphql"
+  import {LEVEL_MAPPER} from "@/constants/level"
+  import {FIELD_MAPPER} from "@/constants/fields"
 
   @Component
   export default class User extends Vue {
-    user: TUserForm = {
-      userId: this.$store.state.user.userId,
+    user: TUser = {
       jobId: "",
       email: "",
       name: "",
       experience: 0
     }
+    userTable: any[] = []
+    hiddenFields = ["avatarUrl", "jobId"]
 
     get level() {
       return LEVEL_MAPPER[this.user.experience]
@@ -69,10 +59,19 @@
       try {
         const {data} = await this.$apollo.query({
           query: GetUserGQL,
-          variables: {userId: this.user.userId}
+          variables: {userId: this.$store.state.user.userId}
         })
 
         this.user = data.user
+
+        this.userTable = Object.entries(data.user)
+          .filter(([key, _]) => !this.hiddenFields.includes(key))
+          .map(([key, value]) => {
+            return {
+              key: FIELD_MAPPER[key],
+              value: key === "experience" ? LEVEL_MAPPER[value as number] : value
+            }
+          })
       } catch (error) {
         this.$message.error(error.message)
       }
@@ -81,15 +80,8 @@
 </script>
 
 <style scoped lang="scss">
-    .user {
-        .name > h3 {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        &-item {
-            margin-bottom: 10px;
-        }
+    .user-edit {
+        margin-top: 12px;
+        text-align: center;
     }
 </style>

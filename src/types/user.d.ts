@@ -1,18 +1,18 @@
 type TUser = {
   userId?: string
-  jobId?: string
-  email?: string
-  name?: string
-  experience?: number
+  jobId: string
+  email: string
+  name: string
+  experience: number
   intro?: string
   phone?: string
   leetCodeUrl?: string
   thirdPersonIntro?: string
   resumeUrl?: string
+  avatarUrl?: string
 }
 
 type TUserForm = TUser & {
-  userId: string
   jobId: string
   email: string
   name: string

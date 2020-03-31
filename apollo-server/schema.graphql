@@ -68,6 +68,7 @@ type User {
     jobId: String
     email: String!
     experience: Int!
+    avatarUrl: String!
     intro: String
     leetCodeUrl: String
     name: String!
@@ -163,6 +164,7 @@ input UserForm {
     phone: String
     resumeUrl: String
     thirdPersonIntro: String
+    avatarUrl: String!
 }
 
 input JobForm {

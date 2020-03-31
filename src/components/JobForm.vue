@@ -59,8 +59,8 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import dayjs from "dayjs"
-  import {REQUIRED_REFER_FIELD_VALUES, REFER_FIELDS} from "@/contents/refer"
-  import {JOB_RULES} from "@/contents/rules"
+  import {REQUIRED_REFER_FIELD_VALUES, REFER_FIELDS} from "@/constants/refer"
+  import {JOB_RULES} from "@/constants/rules"
   import GetJobByIdGQL from "@/graphql/GetJobById.graphql"
   import {ElForm} from "element-ui/types/form"
 

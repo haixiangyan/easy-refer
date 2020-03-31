@@ -44,9 +44,9 @@
   import {Component, Prop} from "vue-property-decorator"
   import JobItem from "@/components/JobItem.vue"
   import GetResumeByIdGQL from "@/graphql/GetResumeById.graphql"
-  import {LEVEL_MAPPER} from "@/contents/level"
+  import {LEVEL_MAPPER} from "@/constants/level"
   import {ElForm} from "element-ui/types/form"
-  import {RESUME_RULES} from "@/contents/rules"
+  import {RESUME_RULES} from "@/constants/rules"
 
   @Component({
     components: {JobItem}

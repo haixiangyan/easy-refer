@@ -26,7 +26,7 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Prop} from "vue-property-decorator"
-  import {STATUS_NAMES_MAPPER} from "@/contents/status"
+  import {STATUS_NAMES_MAPPER} from "@/constants/status"
   import DeleteReferGQL from '@/graphql/DeleteRefer.graphql'
 
   @Component
