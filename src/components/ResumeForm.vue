@@ -1,5 +1,5 @@
 <template>
-    <el-form ref="form" :model="resume" label-width="120px" label-position="left" :rules="rules">
+    <el-form ref="resumeForm" :model="resume" label-width="120px" label-position="left" :rules="rules">
         <!--必填-->
         <el-form-item required prop="name" label="姓名">
             <el-input :disabled="isLogin" v-model="resume.name"></el-input>
@@ -108,7 +108,7 @@
     }
 
     submit() {
-      (<ElForm>this.$refs.form).validate(async valid => {
+      (<ElForm>this.$refs.resumeForm).validate(async valid => {
         if (!valid) return this.$message.error("填写不正确")
 
         this.$emit("submit", this.resume)
