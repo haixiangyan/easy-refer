@@ -1,5 +1,0 @@
-import './MockAuthService'
-import './MockJobService'
-import './MockUserService'
-import './MockReferService'
-import './MockResumeService'

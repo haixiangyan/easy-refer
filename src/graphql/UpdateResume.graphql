@@ -1,0 +1,3 @@
+mutation UpdateResume($resumeId: String!, $resumeForm: ResumeForm!) {
+    updateResume(resumeId: $resumeId, resumeForm: $resumeForm)
+}

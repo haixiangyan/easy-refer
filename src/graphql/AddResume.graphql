@@ -1,0 +1,3 @@
+mutation AddResume($resumeForm: ResumeForm!) {
+    addResume(resumeForm: $resumeForm)
+}

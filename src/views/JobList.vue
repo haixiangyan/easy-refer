@@ -18,14 +18,14 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
+  import GetJobsGQL from '@/graphql/GetJobs.graphql'
   import JobItem from "@/components/JobItem.vue"
-  import JobService from "@/services/JobService"
 
   @Component({
     components: {JobItem}
   })
   export default class JobList extends Vue {
-    publicJobs: TJob[] = []
+    publicJobs: TJobItem[] = []
     page: number = 1
     totalPages: number = 0
 
@@ -35,12 +35,13 @@
 
     async loadJobs(page: number) {
       try {
-        const {data} = await JobService.getJobs('public', page)
+        const {data} = await this.$apollo.query({
+          query: GetJobsGQL,
+          variables: {page}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.publicJobs = data.content.jobs
-        this.totalPages = data.content.totalPages
+        this.publicJobs = data.jobsPage.jobs
+        this.totalPages = data.jobsPage.totalPages
       } catch (error) {
         this.$message.error(error.message)
       }

@@ -33,7 +33,6 @@ Job
 | jobId          | string   | !        | yes  |      | 工作ID             |
 | refererId         | string   | !        |      | yes  | 发布该工作的用户ID |
 | company        | string   | !        |      |      | 该职位的公司名     |
-| referer        | string   | !        |      |      | 内推人名字         |
 | requiredFields | string[] | !        |      |      | 内推表单项         |
 | deadline       | Date     | !        |      |      | 截止日期           |
 | expiration     | number   | !        |      |      | X天后直接默拒      |
@@ -48,6 +47,7 @@ Resume
 | 字段             | 类型   | 不能为空 | 主键 | 外键 | 描述           |
 |------------------|--------|----------|------|------|----------------|
 | resumeId         | string | !        | yes  |      | 简历ID         |
+| referId         | string | !        | |   yes   | 内推ID         |
 | refereeId           | string | !        |      |      | 申请人ID       |
 | jobId            | string | !        |      |      | 对应JobID      |
 | email            | string | !        |      |      | 申请人邮箱     |
@@ -58,6 +58,7 @@ Resume
 | leetCodeUrl      | string |          |      |      | LeetCode链接   |
 | thirdPersonIntro | string |          |      |      | 第三人称介绍   |
 | resumeUrl        | string |          |      |      | 简历链接       |
+| referLinks        | string |          |      |      | 内推链接       |
 
 Refer
 当提交内推后，生成一个 Refer，提交人可以查看、修改或撤销这个 Refer。注意，这个 Refer 
@@ -71,5 +72,5 @@ Refer
 | jobId       | string | !        |      | yes  | 该内推对应的职位ID |
 | resumeId       | string | !        |      | yes  | 该内推对应的简历ID |
 | status      | string | !        |      |      | 内推状态           |
-| createdDate | Date   | !        |      |      | 提交内推日期       |
+| createdAt | Date   | !        |      |      | 提交内推日期       |
 

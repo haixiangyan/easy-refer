@@ -44,13 +44,14 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
-  import UserService from "@/services/UserService"
+  import GetUserGQL from '@/graphql/GetUser.graphql'
   import {LEVEL_MAPPER} from "@/contents/level"
 
   @Component
   export default class User extends Vue {
-    user: TUser = {
+    user: TUserForm = {
       userId: this.$store.state.user.userId,
+      jobId: "",
       email: "",
       name: "",
       experience: 0
@@ -66,11 +67,12 @@
 
     async loadUser() {
       try {
-        const {data} = await UserService.getUser(this.user.userId)
+        const {data} = await this.$apollo.query({
+          query: GetUserGQL,
+          variables: {userId: this.user.userId}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.user = data.content
+        this.user = data.user
       } catch (error) {
         this.$message.error(error.message)
       }

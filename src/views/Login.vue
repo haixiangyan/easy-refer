@@ -30,8 +30,9 @@
 
 <script lang="ts">
   import Vue from "vue"
+  import LoginGQL from "@/graphql/Login.graphql"
+  import RegisterGQL from "@/graphql/Register.graphql"
   import {Component} from "vue-property-decorator"
-  import AuthService from "@/services/AuthService"
   import {ElForm} from "element-ui/types/form"
   import {LOGIN_RULES} from "@/contents/rules"
 
@@ -46,16 +47,15 @@
 
     register() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
-        if (!valid) return this.$message.error('填写不正确')
+        if (!valid) return this.$message.error("填写不正确")
 
         try {
-          const {data} = await AuthService.register(this.loginForm)
+          await this.$apollo.mutate({
+            mutation: RegisterGQL,
+            variables: {registerForm: this.loginForm}
+          })
 
-          if (data.success) {
-            this.login()
-          } else {
-            this.$message.error(data.message)
-          }
+          this.login()
         } catch (error) {
           this.$message.error(error.message)
         }
@@ -64,21 +64,20 @@
 
     login() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
-        if (!valid) return this.$message.error('填写不正确')
+        if (!valid) return this.$message.error("填写不正确")
 
         try {
-          const {data} = await AuthService.login(this.loginForm)
-          if (data.success) {
-            this.$store.commit("auth/setAuth", data.success)
-            this.$store.commit("user/setUser", data.content)
+          const {data} = await this.$apollo.mutate({
+            mutation: LoginGQL,
+            variables: {loginForm: this.loginForm}
+          })
+          this.$store.commit("auth/setAuth", true)
+          this.$store.commit("user/setUser", data.user)
 
-            this.$notify({title: "登录成功", message: data.message, type: "success"})
+          this.$notify({title: "登录成功", message: '欢迎回来', type: "success"})
 
-            await this.$router.push("/job-list")
-          } else {
-            this.$message.error(data.message)
-          }
-        } catch(error) {
+          await this.$router.push("/job-list")
+        } catch (error) {
           this.$message.error(error.message)
         }
       })

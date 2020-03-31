@@ -9,8 +9,8 @@
         <div class="apply">
             <div class="apply-item" v-for="field in job.requiredFields" :key="field">
                 <h3>{{referFieldsMapper[field]}}</h3>
-                <p v-if="field !== 'experience'">{{application[field]}}</p>
-                <p v-if="field === 'experience'">{{levelMapper[application[field]]}}</p>
+                <p v-if="field !== 'experience'">{{resume[field]}}</p>
+                <p v-if="field === 'experience'">{{levelMapper[resume[field]]}}</p>
             </div>
         </div>
 
@@ -25,30 +25,32 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import JobItem from "@/components/JobItem.vue"
-  import JobService from '@/services/JobService'
+  import GetJobByIdGQL from '@/graphql/GetJobById.graphql'
+  import GetResumeByIdGQL from '@/graphql/GetResumeById.graphql'
+  import UpdateReferGQL from '@/graphql/UpdateRefer.graphql'
   import {REFER_FIELDS_MAPPER} from "@/contents/refer"
   import {LEVEL_MAPPER} from "@/contents/level"
-  import ResumeService from "@/services/ResumeService"
 
   @Component({
     components: {JobItem}
   })
-  export default class Resume extends Vue {
-    job: TJob = {
+  export default class RefereeRequest extends Vue {
+    job: TJobItem = {
       jobId: "",
       company: "",
-      deadline: new Date(),
+      refererName: "",
+      deadline: new Date().toISOString(),
       expiration: 3,
       referredCount: 0,
       referTotal: 0,
-      referer: "",
-      requiredFields: []
+      requiredFields: [],
+      imageUrl: '',
+      source: ''
     }
-    application: TApplication = {
+    resume: TResumeBody = {
       // 必填
-      applicationId: "undefined",
       jobId: "",
-      userId: "",
+      refereeId: this.user.userId,
       email: "",
       name: "",
       experience: 0,
@@ -63,11 +65,17 @@
     referFieldsMapper = REFER_FIELDS_MAPPER
     levelMapper = LEVEL_MAPPER
 
+    get jobId() {
+      return this.$route.params.jobId
+    }
+    get referId() {
+      return this.$route.params.referId
+    }
     get resumeId() {
       return this.$route.params.resumeId
     }
-    get jobId() {
-      return this.$store.state.user.jobId
+    get user() {
+      return this.$store.state.user
     }
 
     mounted() {
@@ -77,11 +85,12 @@
 
     async loadJob() {
       try {
-        const {data} = await JobService.getJob(this.jobId)
+        const {data} = await this.$apollo.query({
+          query: GetJobByIdGQL,
+          variables: {jobId: this.jobId}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.job = data.content
+        this.job = data.job
       } catch (error) {
         this.$message.error(error.message)
       }
@@ -89,11 +98,13 @@
 
     async loadResume() {
       try {
-        const {data} = await ResumeService.getResume(this.resumeId)
+        const {data} = await this.$apollo.query({
+          query: GetResumeByIdGQL,
+          variables: {resumeId: this.resumeId}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.application = data.content
+        const {resumeId, ...resumeBody} = data.resume
+        this.resume = resumeBody
       } catch (error) {
         this.$message.error(error.message)
       }
@@ -101,13 +112,17 @@
 
     async updateStatus(status: string) {
       try {
-        const {data} = await ResumeService.updateResumeStatus(this.resumeId, status)
+        await this.$apollo.mutate({
+          mutation: UpdateReferGQL,
+          variables: {
+            referId: this.referId,
+            referForm: {status}
+          }
+        })
 
-        if (!data.success) return this.$message.error(data.message)
+        this.$message.success(status === 'rejected' ? '不推此简历' : '已推此简历')
 
-        this.$message.success(data.message)
-
-        await this.$router.push('/resume-list')
+        await this.$router.push('/referee-request-list')
       } catch (error) {
         this.$message.error(error.message)
       }

@@ -9,7 +9,7 @@
             <p class="title">
                 {{job.company}}
                 <el-divider direction="vertical"></el-divider>
-                {{job.referer}}内推
+                {{job.refererName}}内推
             </p>
             <div class="tags">
                 <el-tag size="mini" type="primary">{{job.deadline}}截止</el-tag>
@@ -17,7 +17,7 @@
             </div>
             <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
             <div class="footer">
-                <router-link v-if="showApply" :to="`/apply/${job.jobId}`" tag="span">
+                <router-link v-if="showApply" :to="`/apply-refer/${job.jobId}`" tag="span">
                     <el-link class="start-refer" type="primary">申请内推</el-link>
                 </router-link>
                 <el-link v-if="job.source" :href="job.source">
@@ -36,7 +36,7 @@
 
   @Component
   export default class JobItem extends Vue {
-    @Prop({required: true}) job!: TJob
+    @Prop({required: true}) job!: TJobItem
 
     get referredPercentage() {
       const {referredCount, referTotal} = this.job
@@ -46,7 +46,7 @@
       return getReferProgress(this.referredPercentage)
     }
     get showApply() {
-      return this.$route.name !== 'Apply'
+      return this.$route.name !== 'ApplyRefer.vue'
     }
   }
 </script>

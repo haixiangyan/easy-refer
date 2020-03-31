@@ -1,0 +1,14 @@
+mutation Login($loginForm: LoginForm!) {
+    user: login(loginForm: $loginForm) {
+        userId
+        jobId
+        email
+        experience
+        intro
+        leetCodeUrl
+        name
+        phone
+        resumeUrl
+        thirdPersonIntro
+    }
+}

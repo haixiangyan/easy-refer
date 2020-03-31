@@ -1,0 +1,187 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Mutation {
+    login(loginForm: LoginForm!): User!
+    register(registerForm: RegisterForm!): User!
+    addJob(refererId: String!, jobForm: JobForm!): Boolean
+    updateRefer(referId: String!, referForm: ReferForm!): Boolean
+    deleteRefer(referId: String!): Boolean
+    updateJob(refererId: String!, jobId: String!, jobForm: JobForm!): Boolean
+    updateUser(userId: String!, userForm: UserForm!): User
+    addResume(resumeForm: ResumeForm!): Boolean
+    updateResume(resumeId: String!, resumeForm: ResumeForm!): Boolean
+}
+
+type Query {
+    getJobs(page: Int!): JobsPage!
+    getJobById(jobId: String!): Job!
+    getUser(userId: String!): User!
+    getUserIntro(userId: String!): UserIntro!
+    getRefers(userId: String!, page: Int!): RefersPage!
+    getReferDetails(referId: String!): ReferDetails!
+    getResumes(userId: String!, page: Int!): ResumesPage!
+    getResumeById(resumeId: String!): Resume!
+}
+
+type JobsPage {
+    jobs: [Job!]!
+    totalPages: Int!
+}
+
+type RefersPage {
+    refers: [Refer!]!
+    totalPages: Int!
+}
+
+type ResumesPage {
+    resumes: [Resume!]!
+    totalPages: Int!
+}
+
+type ReferDetails {
+    referId: String!
+    resume: Resume!
+    job: Job!
+}
+
+type Job {
+    jobId: String!
+    refererId: String!
+    company: String!
+    requiredFields: [String!]!
+    deadline: String!
+    expiration: Int!
+    referredCount: Int!
+    referTotal: Int!
+    createdAt: String!
+    imageUrl: String
+    source: String
+    # meta
+    refererName: String!
+}
+
+type User {
+    userId: String!
+    jobId: String
+    email: String!
+    experience: Int!
+    intro: String
+    leetCodeUrl: String
+    name: String!
+    phone: String
+    resumeUrl: String
+    thirdPersonIntro: String
+}
+
+type Refer {
+    referId: String!
+    refereeId: String!
+    refererId: String!
+    jobId: String!
+    resumeId: String!
+    status: String!
+    updatedAt: String!
+    createdAt: String!
+    # meta
+    company: String!
+    refererName: String!
+    refereeName: String!
+    experience: Int!
+    source: String
+}
+
+type Resume {
+    resumeId: String!
+    refereeId: String!
+    jobId: String!
+    name: String!
+    email: String!
+    experience: Int!
+    intro: String
+    phone: String
+    leetCodeUrl: String
+    thirdPersonIntro: String
+    resumeUrl: String
+    referLinks: String
+    # meta
+    createdAt: String
+}
+
+type UserIntro {
+    avatarUrl: String!
+    name: String!
+    finishedRefers: Int!
+    totalRefers: Int!
+    finishedResumes: Int!
+    totalResumes: Int!
+}
+
+input LoginForm {
+    email: String!
+    password: String!
+}
+
+input RegisterForm {
+    email: String!
+    password: String!
+}
+
+input ReferForm {
+    refereeId: String
+    refererId: String
+    jobId: String
+    resumeId: String
+    status: String
+    updatedAt: String
+    createdAt: String
+}
+
+input ResumeForm {
+    refereeId: String!
+    jobId: String!
+    name: String!
+    email: String!
+    experience: Int!
+    intro: String
+    phone: String
+    leetCodeUrl: String
+    thirdPersonIntro: String
+    resumeUrl: String
+    referLinks: String
+}
+
+input UserForm {
+    jobId: String!
+    email: String!
+    experience: Int!
+    name: String!
+    intro: String
+    leetCodeUrl: String
+    phone: String
+    resumeUrl: String
+    thirdPersonIntro: String
+}
+
+input JobForm {
+    company: String!
+    requiredFields: [String!]!
+    deadline: Date!
+    expiration: Int!
+    referredCount: Int!
+    referTotal: Int!
+    createdAt: String!
+    imageUrl: String
+    source: String
+}
+
+
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar JSON
+scalar Date
+scalar Phone
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload

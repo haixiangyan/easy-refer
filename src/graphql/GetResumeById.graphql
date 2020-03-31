@@ -1,0 +1,17 @@
+query GetResumeById($resumeId: String!) {
+    resume: getResumeById(resumeId: $resumeId) {
+        resumeId
+        jobId
+        createdAt
+        refereeId
+        name
+        email
+        experience
+        intro
+        phone
+        leetCodeUrl
+        thirdPersonIntro
+        resumeUrl
+        referLinks
+    }
+}

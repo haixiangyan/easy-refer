@@ -17,12 +17,12 @@
             </div>
         </div>
         <div class="function">
-            <router-link to="/refer-list" tag="div">
+            <router-link to="/my-refer-list" tag="div">
                 <el-button class="button" type="success" :round="true" icon="el-icon-view">
                    查看内推状态
                 </el-button>
             </router-link>
-            <router-link :to="jobId ? `/edit-job/${jobId}` : '/add-job'" tag="div">
+            <router-link :to="jobId ? `/edit-job` : '/add-job'" tag="div">
                 <el-button class="button"
                            type="primary"
                            :icon="jobId ? 'el-icon-edit' : 'el-icon-plus'"
@@ -36,8 +36,8 @@
 
 <script lang="ts">
   import Vue from "vue"
-  import UserService from "@/services/UserService"
   import {Component} from "vue-property-decorator"
+  import GetUserIntroGQL from '@/graphql/GetUserIntro.graphql'
 
   @Component
   export default class Intro extends Vue {
@@ -55,6 +55,9 @@
     get jobId() {
       return this.$store.state.user.jobId
     }
+    get userId() {
+      return this.$store.state.user.userId
+    }
 
     mounted() {
       this.loadIntro()
@@ -62,11 +65,12 @@
 
     async loadIntro() {
       try {
-        const {data} = await UserService.getIntro("1")
+        const {data} = await this.$apollo.query({
+          query: GetUserIntroGQL,
+          variables: {userId: this.userId}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.intro = data.content
+        this.intro = data.userIntro
         this.referRate = this.calculateRate(this.intro.finishedRefers, this.intro.totalRefers)
         this.resumeRate = this.calculateRate(this.intro.finishedResumes, this.intro.totalResumes)
       } catch (error) {

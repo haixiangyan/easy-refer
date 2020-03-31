@@ -2,15 +2,17 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index'
 import JobList from '../views/JobList.vue'
-import ReferList from '@/views/ReferList.vue'
-import ResumeList from '@/views/ResumeList.vue'
+import MyReferList from '@/views/MyReferList.vue'
+import RefereeRequestList from '@/views/RefereeRequestList.vue'
 import User from '@/views/User.vue'
 import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
 import EditUser from '@/views/EditUser.vue'
 import AddJob from '@/views/AddJob.vue'
-import Apply from '@/views/Apply.vue'
-import Resume from '@/views/Resume.vue'
+import EditJob from '@/views/EditJob.vue'
+import ApplyRefer from '@/views/ApplyRefer.vue'
+import RefereeRequest from '@/views/RefereeRequest.vue'
+import EditRefer from '@/views/EditRefer.vue'
 
 Vue.use(VueRouter)
 
@@ -30,15 +32,15 @@ const routes = [
     component: JobList
   },
   {
-    path: '/refer-list',
-    name: 'ReferList',
-    component: ReferList,
+    path: '/my-refer-list',
+    name: 'MyReferList',
+    component: MyReferList,
     meta: {requireAuth: true}
   },
   {
-    path: '/resume-list',
-    name: 'ResumeList',
-    component: ResumeList,
+    path: '/referee-request-list',
+    name: 'RefereeRequestList',
+    component: RefereeRequestList,
     meta: {requireAuth: true}
   },
   {
@@ -55,25 +57,30 @@ const routes = [
   },
   {
     path: '/add-job',
-    name: 'EditJob',
-    component: AddJob,
-    meta: {requireAuth: true}
-  },
-  {
-    path: '/edit-job/:jobId',
     name: 'AddJob',
     component: AddJob,
     meta: {requireAuth: true}
   },
   {
-    path: '/apply/:jobId',
-    name: 'Apply',
-    component: Apply
+    path: '/edit-job',
+    name: 'EditJob',
+    component: EditJob,
+    meta: {requireAuth: true}
   },
   {
-    path: '/resume/:resumeId',
-    name: 'Resume',
-    component: Resume,
+    path: '/apply-refer/:jobId',
+    name: 'ApplyRefer',
+    component: ApplyRefer
+  },
+  {
+    path: '/edit-refer/:referId',
+    name: 'EditRefer',
+    component: EditRefer
+  },
+  {
+    path: '/referee-request/:jobId/:referId/:resumeId',
+    name: 'RefereeRequest',
+    component: RefereeRequest,
     meta: {requireAuth: true}
   },
   {

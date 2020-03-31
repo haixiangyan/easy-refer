@@ -1,10 +1,10 @@
 <template>
-    <div class="resume-list">
+    <div class="referee-request-list">
         <div class="resumes">
             <el-table
-                :data="resumes"
+                :data="refers"
                 style="width: 100%">
-                <el-table-column prop="name" label="姓名" width="180"/>
+                <el-table-column prop="refereeName" label="姓名" width="180"/>
                 <el-table-column prop="createdAt" label="提交日期" width="180"/>
                 <el-table-column label="经验">
                     <template slot-scope="scope">
@@ -13,7 +13,7 @@
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" width="100">
                     <template slot-scope="scope">
-                        <router-link tag="span" :to="`/resume/${scope.row.resumeId}`">
+                        <router-link tag="span" :to="`/referee-request/${scope.row.jobId}/${scope.row.referId}/${scope.row.resumeId}`">
                             <el-link type="primary">查看</el-link>
                         </router-link>
                     </template>
@@ -35,12 +35,12 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
-  import ResumeService from "@/services/ResumeService"
+  import GetRefersGQL from '@/graphql/GetRefers.graphql'
   import {LEVEL_MAPPER} from "@/contents/level"
 
   @Component
-  export default class ResumeList extends Vue {
-    resumes: TResume[] = []
+  export default class RefereeRequestListList extends Vue {
+    refers: TReferRow[] = []
     page: number = 1
     totalPages: number = 0
 
@@ -58,19 +58,16 @@
 
     async loadResumes(page: number) {
       try {
-        const {data} = await ResumeService.getResumes(this.userId, page)
+        const {data} = await this.$apollo.query({
+          query: GetRefersGQL,
+          variables: {userId: this.userId, page}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.resumes = data.content.resumes
-        this.totalPages = data.content.totalPages
+        this.refers = data.refersPage.refers
+        this.totalPages = data.refersPage.totalPages
       } catch (error) {
         this.$message.error(error.message)
       }
-    }
-
-    showResume(x: any) {
-      console.log(x)
     }
 
     @Watch("page")

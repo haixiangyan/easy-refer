@@ -46,7 +46,8 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
-  import UserService from "@/services/UserService"
+  import GetUserGQL from '@/graphql/GetUser.graphql'
+  import UpdateUserGQL from '@/graphql/UpdateUser.graphql'
   import {LEVEL_MAPPER} from "@/contents/level"
   import {EDIT_USER_RULES} from "@/contents/rules"
   import {ElForm} from 'element-ui/types/form'
@@ -54,7 +55,7 @@
   @Component
   export default class EditUser extends Vue {
     editUserForm: TUser = {
-      userId: "",
+      jobId: "",
       email: "",
       name: "",
       experience: 0,
@@ -79,11 +80,12 @@
 
     async loadUser() {
       try {
-        const {data} = await UserService.getUser(this.userId)
+        const {data} = await this.$apollo.query({
+          query: GetUserGQL,
+          variables: {userId: this.userId}
+        })
 
-        if (!data.success) return this.$message.error(data.message)
-
-        this.editUserForm = data.content
+        this.editUserForm = data.user
       } catch (error) {
         this.$message.error(error.message)
       }
@@ -94,11 +96,15 @@
         if (!valid) return this.$message.error('填写不正确')
 
         try {
-          const {data} = await UserService.editUser(this.editUserForm)
+          await this.$apollo.mutate({
+            mutation: UpdateUserGQL,
+            variables: {
+              userId: this.userId,
+              userForm: this.editUserForm
+            }
+          })
 
-          if (!data.success) return this.$message.error(data.message)
-
-          this.$message.success(data.message)
+          this.$message.success('已更新用户信息')
           await this.$router.push('/user')
         } catch (error) {
           this.$message.error(error.message)
