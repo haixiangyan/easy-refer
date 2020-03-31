@@ -16,6 +16,8 @@ const dateRange = (from, to) =>
     dayjs(faker.date.between(from, to)).format('YYYY-MM-DD')
 const now = () =>
     dayjs().format('YYYY-MM-DD')
+const fakerImageUrl = () =>
+    'https://picsum.photos/400/400/?image='+faker.random.number(1084)
 
 const mocks = {
     User: () => ({
@@ -40,7 +42,7 @@ const mocks = {
         referredCount: faker.random.number({min: 10, max: 100}),
         referTotal: faker.random.number({min: 200, max: 300}),
         createdAt: now(),
-        imageUrl: faker.image.avatar(),
+        imageUrl: fakerImageUrl(),
         source: faker.internet.url(),
         // meta
         refererName: faker.name.findName()
