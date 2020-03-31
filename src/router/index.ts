@@ -9,7 +9,7 @@ import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
 import EditUser from '@/views/EditUser.vue'
 import AddJob from '@/views/AddJob.vue'
-import Apply from '@/views/Apply.vue'
+import ApplyRefer from '@/views/ApplyRefer.vue'
 import RefereeRequest from '@/views/RefereeRequest.vue'
 
 Vue.use(VueRouter)
@@ -66,9 +66,9 @@ const routes = [
     meta: {requireAuth: true}
   },
   {
-    path: '/apply/:jobId',
-    name: 'Apply',
-    component: Apply
+    path: '/apply-refer/:jobId',
+    name: 'ApplyRefer',
+    component: ApplyRefer
   },
   {
     path: '/referee-request/:jobId/:referId/:resumeId',
