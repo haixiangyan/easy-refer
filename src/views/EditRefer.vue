@@ -6,7 +6,7 @@
 
         <el-divider>修改你的信息</el-divider>
 
-        <ResumeForm @submit="edit" :required-fields="job.requiredFields" :resume-id="resume.resumeId"/>
+        <ResumeForm @submit="edit" :required-fields="job.requiredFields" :resume-id="resumeId"/>
     </div>
 </template>
 
@@ -34,20 +34,7 @@
       imageUrl: "",
       source: ""
     }
-    resume: TResumeDetails = {
-      email: "",
-      experience: 0,
-      intro: "",
-      jobId: "",
-      leetCodeUrl: "",
-      name: "",
-      phone: "",
-      referLinks: "",
-      refereeId: "",
-      resumeId: "",
-      resumeUrl: "",
-      thirdPersonIntro: ""
-    }
+    resumeId = ''
 
     mounted() {
       this.loadReferDetails()
@@ -61,7 +48,7 @@
         })
 
         this.job = data.referDetails.job
-        this.resume = data.referDetails.resume
+        this.resumeId = data.referDetails.resume.resumeId
       } catch (error) {
         this.$message.error(error.message)
       }
@@ -73,7 +60,7 @@
         await this.$apollo.mutate({
           mutation: UpdateResumeGQL,
           variables: {
-            resumeId: this.resume.resumeId,
+            resumeId: this.resumeId,
             resumeForm: resumeForm
           }
         })

@@ -66,7 +66,7 @@
 
   @Component
   export default class JobForm extends Vue {
-    jobForm: TJobForm = {
+    jobForm: TJobForm & {[key: string]: string | number | string[]} = {
       company: "",
       refererName: this.user.name,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
@@ -106,7 +106,9 @@
           variables: {jobId: this.user.jobId}
         })
 
-        this.jobForm = {...this.jobForm, ...data.job}
+        Object.keys(this.jobForm).forEach(key => {
+          this.jobForm[key] = data.job[key]
+        })
       } catch (error) {
         this.$message.error(error.message)
       }
