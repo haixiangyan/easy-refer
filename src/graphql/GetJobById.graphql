@@ -11,5 +11,7 @@ query GetJobById($jobId: String!) {
         createdAt
         imageUrl
         source
+        # meta
+        refererName
     }
 }
