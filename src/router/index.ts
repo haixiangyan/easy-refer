@@ -9,6 +9,7 @@ import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
 import EditUser from '@/views/EditUser.vue'
 import AddJob from '@/views/AddJob.vue'
+import EditJob from '@/views/EditJob.vue'
 import ApplyRefer from '@/views/ApplyRefer.vue'
 import RefereeRequest from '@/views/RefereeRequest.vue'
 import EditRefer from '@/views/EditRefer.vue'
@@ -56,14 +57,14 @@ const routes = [
   },
   {
     path: '/add-job',
-    name: 'EditJob',
+    name: 'AddJob',
     component: AddJob,
     meta: {requireAuth: true}
   },
   {
-    path: '/edit-job/:jobId',
-    name: 'AddJob',
-    component: AddJob,
+    path: '/edit-job',
+    name: 'EditJob',
+    component: EditJob,
     meta: {requireAuth: true}
   },
   {

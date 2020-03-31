@@ -58,7 +58,7 @@ type Job {
 
 type User {
     userId: String!
-    jobId: String!
+    jobId: String
     email: String!
     experience: Int!
     intro: String
@@ -164,6 +164,7 @@ input UserForm {
 input JobForm {
     jobId: String
     refererId: String!
+    refererName: String!
     company: String
     requiredFields: [String!]
     deadline: Date

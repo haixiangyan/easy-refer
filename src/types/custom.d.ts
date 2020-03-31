@@ -34,6 +34,7 @@ type TJobInResume = TJobItem & {
 type TJobForm = {
   jobId?: string
   refererId: string,
+  refererName: string,
   company: string
   requiredFields: string[]
   deadline: string
