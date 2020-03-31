@@ -19,7 +19,7 @@
         await this.$apollo.mutate({
           mutation: AddJobGQL,
           variables: {
-            userId: this.$store.state.user.userId,
+            refererId: this.$store.state.user.userId,
             jobForm
           }
         })

@@ -99,7 +99,10 @@
         try {
           await this.$apollo.mutate({
             mutation: UpdateUserGQL,
-            variables: {userForm: this.editUserForm}
+            variables: {
+              userId: this.userId,
+              userForm: this.editUserForm
+            }
           })
 
           this.$message.success('已更新用户信息')

@@ -73,7 +73,7 @@ const routes = [
     component: ApplyRefer
   },
   {
-    path: '/edit-refer/:jobId',
+    path: '/edit-refer/:referId',
     name: 'EditRefer',
     component: EditRefer
   },

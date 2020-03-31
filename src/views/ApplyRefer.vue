@@ -56,11 +56,15 @@
       try {
         await this.$apollo.mutate({
           mutation: AddResumeGQL,
-          variables: {resumeForm: resume}
+          variables: {
+            refereeId: this.$store.state.user.userId,
+            jobId: resume.jobId,
+            resumeForm: resume
+          }
         })
 
         this.$message.success("已提交内推信息")
-        await this.$router.push("/referee-request-list")
+        await this.$router.push("/my-refer-list")
       } catch (error) {
         this.$message.error(error.message)
       }

@@ -1,5 +1,5 @@
-mutation UpdateUser($userForm: UserForm!) {
-    user: updateUser(userForm: $userForm) {
+mutation UpdateUser($userId: String!, $userForm: UserForm!) {
+    user: updateUser(userId: $userId, userForm: $userForm) {
         userId
         jobId
         email

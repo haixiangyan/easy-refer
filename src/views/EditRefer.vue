@@ -43,7 +43,8 @@
       try {
         const {data} = await this.$apollo.query({
           query: GetJobByIdGQL,
-          variables: {jobId: this.$route.params.jobId}
+          // TODO: 使用 jobId
+          variables: {jobId: this.$route.params.referId}
         })
 
         this.job = data.job
@@ -56,11 +57,16 @@
       try {
         await this.$apollo.mutate({
           mutation: UpdateResumeGQL,
-          variables: {resumeForm: resume}
+          variables: {
+            refereeId: this.$store.state.user.userId,
+            // TODO: 使用 referId
+            resumeId: this.$route.params.referId,
+            resumeForm: resume
+          }
         })
 
         this.$message.success("已修改内推信息")
-        await this.$router.push("/referee-request-list")
+        await this.$router.push("/my-refer-list")
       } catch (error) {
         this.$message.error(error.message)
       }
