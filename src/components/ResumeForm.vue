@@ -1,35 +1,35 @@
 <template>
-    <el-form ref="resumeForm" :model="resume" label-width="120px" label-position="left" :rules="rules">
+    <el-form ref="resumeForm" :model="resumeForm" label-width="120px" label-position="left" :rules="rules">
         <!--必填-->
         <el-form-item required prop="name" label="姓名">
-            <el-input :disabled="isLogin" v-model="resume.name"></el-input>
+            <el-input :disabled="isLogin" v-model="resumeForm.name"></el-input>
         </el-form-item>
         <el-form-item required prop="experience" label="工作经验">
-            <el-select v-model="resume.experience" placeholder="请选择">
+            <el-select v-model="resumeForm.experience" placeholder="请选择">
                 <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item required prop="email" label="邮箱">
-            <el-input type="email" :disabled="isLogin" v-model="resume.email"></el-input>
+            <el-input type="email" :disabled="isLogin" v-model="resumeForm.email"></el-input>
         </el-form-item>
         <!--选填-->
         <el-form-item v-if="isShowField('phone')" required prop="phone" label="电话">
-            <el-input type="tel" v-model.number="resume.phone"></el-input>
+            <el-input type="tel" v-model.number="resumeForm.phone"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('intro')" required prop="intro" label="个人简介">
-            <el-input type="textarea" autosize v-model="resume.intro"></el-input>
+            <el-input type="textarea" autosize v-model="resumeForm.intro"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('thirdPersonIntro')" required prop="thirdPersonIntro" label="第三人称介绍">
-            <el-input type="textarea" autosize v-model="resume.thirdPersonIntro"></el-input>
+            <el-input type="textarea" autosize v-model="resumeForm.thirdPersonIntro"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('referLinks')" required prop="referLinks" label="内推链接">
-            <el-input type="textarea" autosize v-model="resume.referLinks"></el-input>
+            <el-input type="textarea" autosize v-model="resumeForm.referLinks"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" label="LeetCode">
-            <el-input type="url" v-model="resume.leetCodeUrl"></el-input>
+            <el-input type="url" v-model="resumeForm.leetCodeUrl"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('resumeUrl')" required prop="resumeUrl" label="简历链接">
-            <el-input type="url" v-model="resume.resumeUrl"></el-input>
+            <el-input type="url" v-model="resumeForm.resumeUrl"></el-input>
         </el-form-item>
 
         <div class="submit">
@@ -53,7 +53,7 @@
   export default class ResumeForm extends Vue {
     @Prop() resumeId: string | undefined
     @Prop({required: true}) requiredFields!: string[]
-    resume: TResumeForm = {
+    resumeForm: TResumeForm = {
       // 必填
       jobId: "",
       refereeId: "",
@@ -92,7 +92,8 @@
       if (!this.isLogin) return
 
       const {userId, ...rest} = this.$store.state.user
-      this.resume = {...this.resume, ...rest}
+      this.resumeForm = {...this.resumeForm, ...rest, refereeId: userId}
+      console.log(this.resumeForm)
     }
 
     async initResume() {
@@ -101,7 +102,8 @@
           query: GetResumeByIdGQL,
           variables: {resumeId: this.resumeId}
         })
-        this.resume = data.resume
+        console.log(data.resume)
+        this.resumeForm = data.resume
       } catch (error) {
         this.$message.error(error.mesage)
       }
@@ -111,7 +113,7 @@
       (<ElForm>this.$refs.resumeForm).validate(async valid => {
         if (!valid) return this.$message.error("填写不正确")
 
-        this.$emit("submit", this.resume)
+        this.$emit("submit", this.resumeForm)
       })
     }
   }

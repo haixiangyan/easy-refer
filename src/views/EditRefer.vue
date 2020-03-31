@@ -67,14 +67,14 @@
       }
     }
 
-    async edit(resume: TResumeForm) {
+    async edit(resumeForm: TResumeForm) {
+      console.log(resumeForm)
       try {
         await this.$apollo.mutate({
           mutation: UpdateResumeGQL,
           variables: {
-            refereeId: this.$store.state.user.userId,
             resumeId: this.resume.resumeId,
-            resumeForm: resume
+            resumeForm: resumeForm
           }
         })
 

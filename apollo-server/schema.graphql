@@ -11,8 +11,8 @@ type Mutation {
     deleteRefer(referId: String!): Boolean
     updateJob(refererId: String!, jobId: String!, jobForm: JobForm!): Boolean
     updateUser(userId: String!, userForm: UserForm!): User
-    addResume(refereeId: String!, jobId: String!, resumeForm: ResumeForm!): Boolean
-    updateResume(refereeId: String!, resumeId: String!, resumeForm: ResumeForm!): Boolean
+    addResume(resumeForm: ResumeForm!): Boolean
+    updateResume(resumeId: String!, resumeForm: ResumeForm!): Boolean
 }
 
 type Query {
@@ -141,9 +141,8 @@ input ReferForm {
 }
 
 input ResumeForm {
-    resumeId: String
-    refereeId: String
-    jobId: String
+    refereeId: String!
+    jobId: String!
     name: String!
     email: String!
     experience: Int!

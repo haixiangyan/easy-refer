@@ -52,15 +52,11 @@
       }
     }
 
-    async apply(resume: TResumeForm) {
+    async apply(resumeForm: TResumeForm) {
       try {
         await this.$apollo.mutate({
           mutation: AddResumeGQL,
-          variables: {
-            refereeId: this.$store.state.user.userId,
-            jobId: resume.jobId,
-            resumeForm: resume
-          }
+          variables: {resumeForm}
         })
 
         this.$message.success("已提交内推信息")
