@@ -15,7 +15,7 @@ export const LOGIN_RULES = {
   ]
 }
 
-export const APPLICATION_RULES = {
+export const RESUME_RULES = {
   email: [
     {required: true, message: '请输入邮箱', trigger: 'blur'},
     {type: 'email', message: '邮箱格式不正确', trigger: 'blur'}

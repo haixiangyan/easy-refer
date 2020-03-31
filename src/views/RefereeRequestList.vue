@@ -63,8 +63,6 @@
           variables: {userId: this.userId, page}
         })
 
-        console.log(data)
-
         this.refers = data.refersPage.refers
         this.totalPages = data.refersPage.totalPages
       } catch (error) {
