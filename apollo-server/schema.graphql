@@ -164,6 +164,7 @@ input UserForm {
     phone: String
     resumeUrl: String
     thirdPersonIntro: String
+    avatarUrl: String!
 }
 
 input JobForm {

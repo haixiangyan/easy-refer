@@ -1,8 +1,12 @@
 <template>
     <div class="user">
-        <el-row class="user-header">
-            <el-avatar class="avatar" :src="user.avatarUrl" :size="100"/>
-            <el-button size="small" type="success" plain round>修改头像</el-button>
+        <el-row type="flex" align="middle">
+            <el-col :span="6">
+                <el-avatar class="avatar" :src="user.avatarUrl" :size="100"/>
+            </el-col>
+            <el-col>
+                <el-button size="small" type="success" plain round>修改头像</el-button>
+            </el-col>
         </el-row>
         <el-table
             :data="userTable"
@@ -66,7 +70,7 @@
           .map(([key, value]) => {
             return {
               key: FIELD_MAPPER[key],
-              value: key === 'experience' ? LEVEL_MAPPER[value as number] : value
+              value: key === "experience" ? LEVEL_MAPPER[value as number] : value
             }
           })
       } catch (error) {
@@ -77,19 +81,8 @@
 </script>
 
 <style scoped lang="scss">
-    .user {
-        &-header {
-            display: flex;
-            align-items: center;
-
-            .avatar {
-                margin-right: 64px;
-            }
-        }
-
-        &-edit {
-            margin-top: 12px;
-            text-align: center;
-        }
+    .user-edit {
+        margin-top: 12px;
+        text-align: center;
     }
 </style>
