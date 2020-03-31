@@ -115,7 +115,6 @@
         await this.$apollo.mutate({
           mutation: UpdateReferGQL,
           variables: {
-            refereeId: this.user.userId,
             referId: this.referId,
             referForm: {status}
           }
