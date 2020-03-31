@@ -18,7 +18,7 @@
         </el-form-item>
         <!--选填-->
         <el-form-item prop="phone" label="联系电话">
-            <el-input type="tel" v-model.number="editUserForm.phone"></el-input>
+            <el-input type="tel" v-model="editUserForm.phone"></el-input>
         </el-form-item>
         <el-form-item label="个人简介">
             <el-input type="textarea" :rows="4" v-model="editUserForm.intro"></el-input>
@@ -53,7 +53,7 @@
   export default class EditUserForm extends Vue {
     @Prop() form!: TUserForm
 
-    editUserForm: TUser = {
+    editUserForm: TUserForm = {
       jobId: "",
       email: "",
       name: "",

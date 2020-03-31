@@ -38,15 +38,14 @@
 
   @Component
   export default class User extends Vue {
-    user: TUserForm = {
-      userId: this.$store.state.user.userId,
+    user: TUser = {
       jobId: "",
       email: "",
       name: "",
       experience: 0
     }
     userTable: any[] = []
-    hiddenFields = ["avatarUrl", "jobId", ""]
+    hiddenFields = ["avatarUrl", "jobId"]
 
     get level() {
       return LEVEL_MAPPER[this.user.experience]
@@ -60,7 +59,7 @@
       try {
         const {data} = await this.$apollo.query({
           query: GetUserGQL,
-          variables: {userId: this.user.userId}
+          variables: {userId: this.$store.state.user.userId}
         })
 
         this.user = data.user

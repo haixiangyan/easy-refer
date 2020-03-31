@@ -26,7 +26,7 @@
     components: {EditUserForm}
   })
   export default class EditUser extends Vue {
-    form: TUser | null = null
+    form: TUserForm | null = null
     rules = EDIT_USER_RULES
 
     get userId() {
