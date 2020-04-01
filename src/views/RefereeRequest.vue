@@ -1,5 +1,5 @@
 <template>
-    <div class="resume">
+    <div class="resume" v-loading="loading" element-loading-text="加载该简历">
         <div class="job-description">
             <JobItem :job="job"/>
         </div>
@@ -59,6 +59,7 @@
       resumeUrl: '',
       thirdPersonIntro: '',
     }
+    loading = false
 
     get jobId() {
       return this.$route.params.jobId
@@ -86,8 +87,10 @@
     }
 
     mounted() {
-      this.loadJob()
-      this.loadResume()
+      this.loading = true
+      const jobPromise = this.loadJob()
+      const resumePromise = this.loadResume()
+      Promise.all([jobPromise, resumePromise]).then(() => this.loading = false)
     }
 
     async loadJob() {
