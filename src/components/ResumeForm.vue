@@ -113,7 +113,8 @@
           variables: {resumeId: this.resumeId}
         })
 
-        this.resumeForm = data.resume
+        const {resumeId, createdAt, ...resumeForm} = data.resume
+        this.resumeForm = resumeForm
       } catch (error) {
         this.$message.error(error.mesage)
       } finally {

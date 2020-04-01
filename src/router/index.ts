@@ -75,7 +75,8 @@ const routes = [
   {
     path: '/edit-refer/:referId',
     name: 'EditRefer',
-    component: EditRefer
+    component: EditRefer,
+    meta: {requireAuth: true}
   },
   {
     path: '/referee-request/:jobId/:referId/:resumeId',
