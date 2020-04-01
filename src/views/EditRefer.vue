@@ -64,7 +64,7 @@
           mutation: UpdateResumeGQL,
           variables: {
             resumeId: this.resumeId,
-            resumeForm: resumeForm
+            resumeForm
           }
         })
 

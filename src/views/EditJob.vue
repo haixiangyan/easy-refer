@@ -19,13 +19,14 @@
     }
 
     async onSubmit(jobForm: TJobForm) {
+      const {refererName, ...form} = jobForm
       try {
         await this.$apollo.mutate({
           mutation: UpdateJobGQL,
           variables: {
             refererId: this.user.userId,
             jobId: this.user.jobId,
-            jobForm
+            jobForm: form
           }
         })
 
