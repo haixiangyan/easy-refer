@@ -1,12 +1,14 @@
 <template>
-    <div class="apply" v-loading="loading" element-loading-text="提交中">
-        <div class="job-description">
+    <div class="apply">
+        <div class="job-description" v-loading="jobLoading" element-loading-text="加载职位中">
             <JobItem :job="job"/>
         </div>
 
         <el-divider>填写你的信息</el-divider>
 
         <ResumeForm
+            v-loading="applyLoading"
+            element-loading-text="提交中"
             @submit="apply"
             @back="$router.push('/job-list')"
             :required-fields="job.requiredFields"
@@ -38,7 +40,8 @@
       imageUrl: "",
       source: ""
     }
-    loading = false
+    applyLoading = false
+    jobLoading = false
 
     mounted() {
       this.loadJob()
@@ -46,7 +49,7 @@
 
     async loadJob() {
       try {
-        this.loading = true
+        this.jobLoading = true
         const {data} = await this.$apollo.query({
           query: GetJobByIdGQL,
           variables: {jobId: this.$route.params.jobId}
@@ -56,13 +59,13 @@
       } catch (error) {
         this.$message.error(error.message)
       } finally {
-        this.loading = false
+        this.jobLoading = false
       }
     }
 
     async apply(resumeForm: TResumeForm) {
       try {
-        this.loading = true
+        this.applyLoading = true
         await this.$apollo.mutate({
           mutation: AddResumeGQL,
           variables: {resumeForm}
@@ -73,7 +76,7 @@
       } catch (error) {
         this.$message.error(error.message)
       } finally {
-        this.loading = false
+        this.applyLoading = false
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
     <div class="edit-refer">
-        <div class="job-description" v-loading="jobLoading" element-loading-text="加载职位">
+        <div class="job-description" v-loading="jobLoading" element-loading-text="加载职位中">
             <JobItem :job="job"/>
         </div>
 
@@ -52,7 +52,6 @@
     async loadReferDetails() {
       try {
         this.jobLoading = true
-        this.loadingText = '正在加载内推和简历'
         const {data} = await this.$apollo.query({
           query: GetReferDetailsGQL,
           variables: {referId: this.$route.params.referId}
