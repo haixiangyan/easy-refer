@@ -9,6 +9,7 @@ const status = ['processing', 'rejected', 'referred']
 const requiredFields = ['name', 'email', 'phone', 'experience', 'referLinks', 'resumeUrl', 'intro', 'thirdPersonIntro', 'leetCodeUrl']
 
 const mockArray = (array) => array[faker.random.number(companies.length - 1)]
+const mockItemList = (length, makeObjectCallback) => [...Array(length)].map(() => makeObjectCallback())
 const dateRange = (from, to) => dayjs(faker.date.between(from, to)).toISOString()
 const now = () => dayjs().toISOString()
 const fakerImageUrl = () => 'https://picsum.photos/400/400/?image=' + faker.random.number(1084)
@@ -54,7 +55,7 @@ const mocks = {
         source: faker.internet.url()
     }),
     JobItemListPage: () => ({
-        JobItemList: [...Array(10)].map(() => mocks.JobItem()),
+        jobItemList: mockItemList(10, mocks.JobItem),
         totalPages: 100
     }),
     UserIntro: () => ({
