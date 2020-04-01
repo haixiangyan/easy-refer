@@ -34,7 +34,12 @@
   import {Component} from "vue-property-decorator"
   import GetUserGQL from "@/graphql/GetUser.graphql"
   import {LEVEL_MAPPER} from "@/constants/level"
-  import {FIELD_MAPPER} from "@/constants/fields"
+  import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
+
+  type TTableItem = {
+    key: string
+    value: string
+  }
 
   @Component
   export default class User extends Vue {
@@ -44,7 +49,7 @@
       name: "",
       experience: 0
     }
-    userTable: any[] = []
+    userTable: TTableItem[] = []
     hiddenFields = ["avatarUrl", "jobId"]
 
     get level() {
@@ -68,10 +73,10 @@
           .filter(([key, _]) => !this.hiddenFields.includes(key))
           .map(([key, value]) => {
             return {
-              key: FIELD_MAPPER[key],
+              key: REFER_FIELDS_MAPPER[key],
               value: key === "experience" ? LEVEL_MAPPER[value as number] : value
             }
-          })
+          }) as TTableItem[]
       } catch (error) {
         this.$message.error(error.message)
       }
