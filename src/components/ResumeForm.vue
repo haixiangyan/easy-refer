@@ -1,5 +1,11 @@
 <template>
-    <el-form ref="resumeForm" :model="resumeForm" label-width="120px" label-position="left" :rules="rules">
+    <el-form ref="resumeForm"
+             v-loading="resumeLoading"
+             element-loading-text="加载简历中"
+             :model="resumeForm"
+             label-width="120px"
+             label-position="left"
+             :rules="rules">
         <el-form-item required prop="name" :label="field('name')">
             <el-input :disabled="isLogin" v-model="resumeForm.name"></el-input>
         </el-form-item>
@@ -71,6 +77,7 @@
     }
     rules = RESUME_RULES
     field = getFieldName
+    resumeLoading = false
 
     mounted() {
       this.initForm()
@@ -99,7 +106,7 @@
 
     async initResume() {
       try {
-        this.$emit('loading', true)
+        this.resumeLoading = true
 
         const {data} = await this.$apollo.query({
           query: GetResumeByIdGQL,
@@ -110,7 +117,7 @@
       } catch (error) {
         this.$message.error(error.mesage)
       } finally {
-        this.$emit('loading', false)
+        this.resumeLoading = false
       }
     }
 
