@@ -1,6 +1,6 @@
 <template>
     <div class="my-refer-list">
-        <div class="refers">
+        <div class="refers" v-loading="loading" element-loading-text="加载我的内推">
             <ReferItem v-for="refer in refers" :key="refer.id" :refer="refer"/>
         </div>
         <div class="pages">
@@ -28,6 +28,7 @@
     refers: TReferItem[] = []
     page: number = 0
     totalPages: number = 0
+    loading = false
 
     get userId() {
       return this.$store.state.user.userId
@@ -39,6 +40,8 @@
 
     async loadRefers(page: number) {
       try {
+        this.loading = true
+
         const {data} = await this.$apollo.query({
           query: GetRefersGQL,
           variables: {userId: this.userId, page}
@@ -48,6 +51,8 @@
         this.totalPages = data.refersPage.totalPages
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.loading = false
       }
     }
 

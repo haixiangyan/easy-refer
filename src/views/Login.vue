@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <el-card class="login-card">
+        <el-card class="login-card" v-loading="loading">
             <el-form class="login-form" ref="loginForm" :model="loginForm" :rules="rules">
                 <div class="login-form-header">
                     <img class="login-logo" src="../assets/img/logo.png" alt="logo">
@@ -29,27 +29,28 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import LoginGQL from "@/graphql/Login.graphql"
-  import RegisterGQL from "@/graphql/Register.graphql"
-  import {Component} from "vue-property-decorator"
-  import {ElForm} from "element-ui/types/form"
-  import {LOGIN_RULES} from "@/constants/rules"
+  import Vue from 'vue'
+  import LoginGQL from '@/graphql/Login.graphql'
+  import RegisterGQL from '@/graphql/Register.graphql'
+  import {Component} from 'vue-property-decorator'
+  import {ElForm} from 'element-ui/types/form'
+  import {LOGIN_RULES} from '@/constants/rules'
 
   @Component
   export default class Login extends Vue {
     loginForm: TLoginForm = {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     }
-
+    loading = false
     rules = LOGIN_RULES
 
     register() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
-        if (!valid) return this.$message.error("填写不正确")
+        if (!valid) return this.$message.error('填写不正确')
 
         try {
+          this.loading = true
           await this.$apollo.mutate({
             mutation: RegisterGQL,
             variables: {registerForm: this.loginForm}
@@ -58,27 +59,30 @@
           this.login()
         } catch (error) {
           this.$message.error(error.message)
-        }
+        } finally { this.loading = false }
       })
     }
 
     login() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
-        if (!valid) return this.$message.error("填写不正确")
+        if (!valid) return this.$message.error('填写不正确')
 
         try {
+          this.loading = true
           const {data} = await this.$apollo.mutate({
             mutation: LoginGQL,
             variables: {loginForm: this.loginForm}
           })
-          this.$store.commit("auth/setAuth", true)
-          this.$store.commit("user/setUser", data.user)
+          this.$store.commit('auth/setAuth', true)
+          this.$store.commit('user/setUser', data.user)
 
-          this.$notify({title: "登录成功", message: '欢迎回来', type: "success"})
+          this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
 
-          await this.$router.push("/job-list")
+          await this.$router.push('/job-list')
         } catch (error) {
           this.$message.error(error.message)
+        } finally {
+          this.loading = false
         }
       })
     }

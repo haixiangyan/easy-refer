@@ -2,6 +2,8 @@
     <div class="referee-request-list">
         <div class="resumes">
             <el-table
+                v-loading="loading"
+                element-loading-text="加载所有简历中"
                 :data="refers"
                 style="width: 100%">
                 <el-table-column prop="refereeName" label="姓名" width="180"/>
@@ -43,6 +45,7 @@
     refers: TReferRow[] = []
     page: number = 1
     totalPages: number = 0
+    loading = false
 
     get userId() {
       return this.$store.state.user.userId
@@ -58,6 +61,8 @@
 
     async loadResumes(page: number) {
       try {
+        this.loading = true
+
         const {data} = await this.$apollo.query({
           query: GetRefersGQL,
           variables: {userId: this.userId, page}
@@ -67,6 +72,8 @@
         this.totalPages = data.refersPage.totalPages
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.loading = false
       }
     }
 

@@ -1,6 +1,6 @@
 <template>
     <div class="job-list">
-        <div class="jobs">
+        <div class="jobs" v-loading="loading" element-loading-text="加载内推职位中">
             <JobItem v-for="job in publicJobs" :job="job" :key="job.id"></JobItem>
         </div>
         <div class="pages">
@@ -28,6 +28,7 @@
     publicJobs: TJobItem[] = []
     page: number = 1
     totalPages: number = 0
+    loading = false
 
     mounted() {
       this.loadJobs(this.page)
@@ -35,6 +36,8 @@
 
     async loadJobs(page: number) {
       try {
+        this.loading = true
+
         const {data} = await this.$apollo.query({
           query: GetJobsGQL,
           variables: {page}
@@ -44,6 +47,8 @@
         this.totalPages = data.jobsPage.totalPages
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.loading = false
       }
     }
 
@@ -55,6 +60,9 @@
 </script>
 
 <style lang="scss">
+    .jobs {
+        height: 100%;
+    }
     .pages {
         text-align: center;
         padding: 20px 0;

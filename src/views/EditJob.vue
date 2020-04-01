@@ -1,5 +1,5 @@
 <template>
-    <div class="edit-job">
+    <div v-loading="loading" element-loading-text="提交中" class="edit-job">
         <JobForm @submit="onSubmit"/>
     </div>
 </template>
@@ -14,6 +14,8 @@
     components: {JobForm}
   })
   export default class AddJob extends Vue {
+    loading = false
+
     get user() {
       return this.$store.state.user
     }
@@ -21,6 +23,8 @@
     async onSubmit(jobForm: TJobForm) {
       const {refererName, ...form} = jobForm
       try {
+        this.loading = true
+
         await this.$apollo.mutate({
           mutation: UpdateJobGQL,
           variables: {
@@ -35,6 +39,8 @@
         await this.$router.push("/job-list")
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.loading = false
       }
     }
   }

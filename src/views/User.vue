@@ -1,5 +1,5 @@
 <template>
-    <div class="user">
+    <div class="user" v-loading="loading" element-loading-text="加载用户中">
         <el-row type="flex" align="middle">
             <el-col :span="6">
                 <el-avatar class="avatar" :src="avatarUrl" :size="100"/>
@@ -47,6 +47,7 @@
     avatarUrl = ''
     userTable: TELTableItem[] = []
     hiddenFields = ["avatarUrl", "jobId"]
+    loading = false
 
     get level() {
       return LEVEL_MAPPER[this.user.experience]
@@ -58,6 +59,8 @@
 
     async loadUser() {
       try {
+        this.loading = true
+
         const {data} = await this.$apollo.query({
           query: GetUserGQL,
           variables: {userId: this.$store.state.user.userId}
@@ -75,6 +78,8 @@
           })) as TELTableItem[]
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.loading = false
       }
     }
   }
