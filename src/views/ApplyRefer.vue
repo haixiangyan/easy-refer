@@ -1,5 +1,5 @@
 <template>
-    <div class="apply">
+    <div class="apply" v-loading="loading" element-loading-text="提交中">
         <div class="job-description">
             <JobItem :job="job"/>
         </div>
@@ -37,6 +37,7 @@
       imageUrl: "",
       source: ""
     }
+    loading = false
 
     mounted() {
       this.loadJob()
@@ -44,6 +45,7 @@
 
     async loadJob() {
       try {
+        this.loading = true
         const {data} = await this.$apollo.query({
           query: GetJobByIdGQL,
           variables: {jobId: this.$route.params.jobId}
@@ -52,11 +54,14 @@
         this.job = data.job
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.loading = false
       }
     }
 
     async apply(resumeForm: TResumeForm) {
       try {
+        this.loading = true
         await this.$apollo.mutate({
           mutation: AddResumeGQL,
           variables: {resumeForm}
@@ -66,6 +71,8 @@
         await this.$router.push("/my-refer-list")
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.loading = false
       }
     }
   }
