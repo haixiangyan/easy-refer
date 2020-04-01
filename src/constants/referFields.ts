@@ -1,4 +1,4 @@
-export const REFER_FIELDS_MAPPER: TMapper = {
+export const REFER_FIELDS_MAPPER: TStringMapper = {
   name: '姓名',
   email: '邮箱',
   phone: '电话',

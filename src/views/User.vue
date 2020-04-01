@@ -2,7 +2,7 @@
     <div class="user">
         <el-row type="flex" align="middle">
             <el-col :span="6">
-                <el-avatar class="avatar" :src="user.avatarUrl" :size="100"/>
+                <el-avatar class="avatar" :src="avatarUrl" :size="100"/>
             </el-col>
             <el-col>
                 <el-button size="small" type="success" plain round>修改头像</el-button>
@@ -36,20 +36,16 @@
   import {LEVEL_MAPPER} from "@/constants/level"
   import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
 
-  type TTableItem = {
-    key: string
-    value: string
-  }
-
   @Component
   export default class User extends Vue {
     user: TUser = {
       jobId: "",
       email: "",
       name: "",
-      experience: 0
+      experience: 0,
     }
-    userTable: TTableItem[] = []
+    avatarUrl = ''
+    userTable: TELTableItem[] = []
     hiddenFields = ["avatarUrl", "jobId"]
 
     get level() {
@@ -67,16 +63,16 @@
           variables: {userId: this.$store.state.user.userId}
         })
 
-        this.user = data.user
+        const {avatarUrl, ...user} = data.user
+        this.user = user
+        this.avatarUrl = avatarUrl
 
         this.userTable = Object.entries(data.user)
           .filter(([key, _]) => !this.hiddenFields.includes(key))
-          .map(([key, value]) => {
-            return {
+          .map(([key, value]) => ({
               key: REFER_FIELDS_MAPPER[key],
               value: key === "experience" ? LEVEL_MAPPER[value as number] : value
-            }
-          }) as TTableItem[]
+          })) as TELTableItem[]
       } catch (error) {
         this.$message.error(error.message)
       }
