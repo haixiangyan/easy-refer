@@ -15,7 +15,7 @@ const randomRequiredFields = () => ([
 const dateRange = (from, to) =>
     dayjs(faker.date.between(from, to)).toISOString()
 const now = () =>
-    dayjs().format('YYYY-MM-DD')
+    dayjs().toISOString()
 const fakerImageUrl = () =>
     'https://picsum.photos/400/400/?image='+faker.random.number(1084)
 
