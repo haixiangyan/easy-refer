@@ -1,7 +1,7 @@
 <template>
     <el-form ref="jobForm" :model="jobForm" label-width="120px" label-position="left" class="job-form"
              :rules="rules">
-        <el-divider>内推信息</el-divider>
+        <el-divider>内推职位信息</el-divider>
         <el-form-item prop="company" required label="内推公司">
             <el-input v-model="jobForm.company" placeholder="内推的公司"></el-input>
         </el-form-item>
