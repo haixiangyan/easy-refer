@@ -9,7 +9,8 @@
         <ResumeForm
             @submit="apply"
             @back="$router.push('/job-list')"
-            :required-fields="job.requiredFields"/>
+            :required-fields="job.requiredFields"
+        />
     </div>
 </template>
 
