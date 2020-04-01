@@ -1,6 +1,6 @@
 // Enable mocking in vue.config.js with `"pluginOptions": { "enableMocks": true }`
 // Customize mocking: https://www.apollographql.com/docs/graphql-tools/mocking.html#Customizing-mocks
-import faker from 'faker'
+import faker from 'faker/locale/zh_CN'
 import dayjs from 'dayjs'
 
 const expiration = [3, 5, 7]
