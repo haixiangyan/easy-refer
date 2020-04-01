@@ -1,13 +1,16 @@
 <template>
     <div class="edit-refer">
-        <div class="job-description">
+        <div class="job-description" v-loading="jobLoading" element-loading-text="加载职位">
             <JobItem :job="job"/>
         </div>
 
         <el-divider>修改你的信息</el-divider>
 
         <ResumeForm
+            v-loading="editLoading"
+            element-loading-text="提交中"
             @submit="edit"
+            @loading="resumeLoading = $event"
             @back="$router.push('/my-refer-list')"
             :required-fields="job.requiredFields"
             :resume-id="resumeId"/>
@@ -39,6 +42,8 @@
       source: ""
     }
     resumeId = ''
+    jobLoading = false
+    editLoading = false
 
     mounted() {
       this.loadReferDetails()
@@ -46,6 +51,8 @@
 
     async loadReferDetails() {
       try {
+        this.jobLoading = true
+        this.loadingText = '正在加载内推和简历'
         const {data} = await this.$apollo.query({
           query: GetReferDetailsGQL,
           variables: {referId: this.$route.params.referId}
@@ -55,11 +62,14 @@
         this.resumeId = data.referDetails.resume.resumeId
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.jobLoading = false
       }
     }
 
     async edit(resumeForm: TResumeForm) {
       try {
+        this.editLoading = true
         await this.$apollo.mutate({
           mutation: UpdateResumeGQL,
           variables: {
@@ -72,6 +82,8 @@
         await this.$router.push("/my-refer-list")
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.editLoading = false
       }
     }
   }
