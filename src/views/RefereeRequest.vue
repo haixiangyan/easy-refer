@@ -6,13 +6,10 @@
 
         <el-divider>申请信息</el-divider>
 
-        <div class="apply">
-            <div class="apply-item" v-for="field in job.requiredFields" :key="field">
-                <h3>{{getFieldName(field)}}</h3>
-                <p v-if="field !== 'experience'">{{resume[field]}}</p>
-                <p v-if="field === 'experience'">{{levelMapper[resume[field]]}}</p>
-            </div>
-        </div>
+        <el-table class="resume-table" :data="resumeTable">
+            <el-table-column prop="key" label="内推项" width="120"/>
+            <el-table-column prop="value" label="内容"/>
+        </el-table>
 
         <div class="buttons">
             <el-button @click="updateStatus('referred')" round type="primary">推完了</el-button>
@@ -22,23 +19,23 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "vue-property-decorator"
-  import JobItem from "@/components/JobItem.vue"
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
+  import JobItem from '@/components/JobItem.vue'
   import GetJobByIdGQL from '@/graphql/GetJobById.graphql'
   import GetResumeByIdGQL from '@/graphql/GetResumeById.graphql'
   import UpdateReferGQL from '@/graphql/UpdateRefer.graphql'
-  import {getFieldName} from '@/constants/referFields'
-  import {LEVEL_MAPPER} from "@/constants/level"
+  import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
+  import {LEVEL_MAPPER} from '@/constants/level'
 
   @Component({
     components: {JobItem}
   })
   export default class RefereeRequest extends Vue {
     job: TJobItem = {
-      jobId: "",
-      company: "",
-      refererName: "",
+      jobId: '',
+      company: '',
+      refererName: '',
       deadline: new Date().toISOString(),
       expiration: 3,
       referredCount: 0,
@@ -49,33 +46,43 @@
     }
     resume: TResumeBody = {
       // 必填
-      jobId: "",
+      jobId: '',
       refereeId: this.user.userId,
-      email: "",
-      name: "",
+      email: '',
+      name: '',
       experience: 0,
       // 选填
-      intro: "",
-      leetCodeUrl: "",
-      phone: "",
+      intro: '',
+      leetCodeUrl: '',
+      phone: '',
       referLinks: '',
-      resumeUrl: "",
-      thirdPersonIntro: "",
+      resumeUrl: '',
+      thirdPersonIntro: '',
     }
-    levelMapper = LEVEL_MAPPER
-    getFieldName = getFieldName
 
     get jobId() {
       return this.$route.params.jobId
     }
+
     get referId() {
       return this.$route.params.referId
     }
+
     get resumeId() {
       return this.$route.params.resumeId
     }
+
     get user() {
       return this.$store.state.user
+    }
+
+    get resumeTable() {
+      return Object.entries(this.resume)
+        .filter(([key, _]) => this.job.requiredFields.includes(key))
+        .map(([key, value]) => ({
+          key: REFER_FIELDS_MAPPER[key],
+          value: key === 'experience' ? LEVEL_MAPPER[value as number] : value
+        }))
     }
 
     mounted() {
@@ -131,9 +138,10 @@
 </script>
 
 <style scoped lang="scss">
-    .apply-item {
-        margin-bottom: 10px;
+    .resume-table {
+        margin-bottom: 24px;
     }
+
     .buttons {
         margin-top: 16px;
         text-align: center;
