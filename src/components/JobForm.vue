@@ -1,5 +1,8 @@
 <template>
-    <el-form ref="jobForm" :model="jobForm" label-width="120px" label-position="left" class="job-form"
+    <el-form v-loading="loading" element-loading-text="获取已创建职位" ref="jobForm" :model="jobForm"
+             label-width="120px"
+             label-position="left"
+             class="job-form"
              :rules="rules">
         <el-divider>内推职位信息</el-divider>
         <el-form-item prop="company" required label="内推公司">
@@ -88,6 +91,7 @@
         return cellDate.isBefore(today) || cellDate.isAfter(afterOneYear)
       }
     }
+    loading = false
     rules = JOB_RULES
 
     get referFields() {
@@ -103,6 +107,7 @@
 
     async loadJob() {
       try {
+        this.loading = true
         const {data} = await this.$apollo.query({
           query: GetJobByIdGQL,
           variables: {jobId: this.user.jobId}
@@ -113,6 +118,8 @@
         })
       } catch (error) {
         this.$message.error(error.message)
+      } finally {
+        this.loading = false
       }
     }
 
