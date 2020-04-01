@@ -20,7 +20,8 @@
         <el-form-item v-if="isShowField('referLinks')" required prop="referLinks" :label="field('referLinks')">
             <el-input type="textarea" autosize v-model="resumeForm.referLinks"></el-input>
         </el-form-item>
-        <el-form-item v-if="isShowField('thirdPersonIntro')" required prop="thirdPersonIntro" :label="field('thirdPersonIntro')">
+        <el-form-item v-if="isShowField('thirdPersonIntro')" required prop="thirdPersonIntro"
+                      :label="field('thirdPersonIntro')">
             <el-input type="textarea" autosize v-model="resumeForm.thirdPersonIntro"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" :label="field('leetCodeUrl')">
@@ -38,13 +39,13 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component, Prop} from "vue-property-decorator"
-  import JobItem from "@/components/JobItem.vue"
-  import GetResumeByIdGQL from "@/graphql/GetResumeById.graphql"
-  import {LEVEL_MAPPER} from "@/constants/level"
-  import {ElForm} from "element-ui/types/form"
-  import {RESUME_RULES} from "@/constants/rules"
+  import Vue from 'vue'
+  import {Component, Prop} from 'vue-property-decorator'
+  import JobItem from '@/components/JobItem.vue'
+  import GetResumeByIdGQL from '@/graphql/GetResumeById.graphql'
+  import {LEVEL_MAPPER} from '@/constants/level'
+  import {ElForm} from 'element-ui/types/form'
+  import {RESUME_RULES} from '@/constants/rules'
   import {getFieldName} from '@/constants/referFields'
 
   @Component({
@@ -55,18 +56,18 @@
     @Prop({required: true}) requiredFields!: string[]
     resumeForm: TResumeForm = {
       // 必填
-      jobId: "",
-      refereeId: "",
-      email: "",
-      name: "",
+      jobId: '',
+      refereeId: '',
+      email: '',
+      name: '',
       experience: 0,
       // 选填
-      intro: "",
-      leetCodeUrl: "",
-      phone: "",
-      referLinks: "",
-      resumeUrl: "",
-      thirdPersonIntro: "",
+      intro: '',
+      leetCodeUrl: '',
+      phone: '',
+      referLinks: '',
+      resumeUrl: '',
+      thirdPersonIntro: '',
     }
     rules = RESUME_RULES
     field = getFieldName
@@ -78,6 +79,7 @@
     get isLogin() {
       return this.$store.state.auth.isLogin
     }
+
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }
@@ -97,21 +99,26 @@
 
     async initResume() {
       try {
+        this.$emit('loading', true)
+
         const {data} = await this.$apollo.query({
           query: GetResumeByIdGQL,
           variables: {resumeId: this.resumeId}
         })
+
         this.resumeForm = data.resume
       } catch (error) {
         this.$message.error(error.mesage)
+      } finally {
+        this.$emit('loading', false)
       }
     }
 
     submit() {
       (<ElForm>this.$refs.resumeForm).validate(async valid => {
-        if (!valid) return this.$message.error("填写不正确")
+        if (!valid) return this.$message.error('填写不正确')
 
-        this.$emit("submit", this.resumeForm)
+        this.$emit('submit', this.resumeForm)
       })
     }
 
