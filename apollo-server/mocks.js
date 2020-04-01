@@ -13,7 +13,7 @@ const randomRequiredFields = () => ([
 ])
 
 const dateRange = (from, to) =>
-    dayjs(faker.date.between(from, to)).format('YYYY-MM-DD')
+    dayjs(faker.date.between(from, to)).toISOString()
 const now = () =>
     dayjs().format('YYYY-MM-DD')
 const fakerImageUrl = () =>
