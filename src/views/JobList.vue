@@ -18,7 +18,7 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
-  import GetJobsGQL from '@/graphql/GetJobs.graphql'
+  import GetJobItemListGQL from '@/graphql/GetJobItemList.graphql'
   import JobItem from "@/components/JobItem.vue"
 
   @Component({
@@ -39,12 +39,12 @@
         this.loading = true
 
         const {data} = await this.$apollo.query({
-          query: GetJobsGQL,
+          query: GetJobItemListGQL,
           variables: {page}
         })
 
-        this.publicJobs = data.jobsPage.jobs
-        this.totalPages = data.jobsPage.totalPages
+        this.publicJobs = data.jobItemListPage.jobItemList
+        this.totalPages = data.jobItemListPage.totalPages
       } catch (error) {
         this.$message.error(error.message)
       } finally {

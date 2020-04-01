@@ -5,19 +5,13 @@ import dayjs from 'dayjs'
 
 const expiration = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
-
 const status = ['processing', 'rejected', 'referred']
+const requiredFields = ['name', 'email', 'phone', 'experience', 'referLinks', 'resumeUrl', 'intro', 'thirdPersonIntro', 'leetCodeUrl']
 
-const randomRequiredFields = () => ([
-    'name', 'email', 'experience', 'referLinks'
-])
-
-const dateRange = (from, to) =>
-    dayjs(faker.date.between(from, to)).toISOString()
-const now = () =>
-    dayjs().toISOString()
-const fakerImageUrl = () =>
-    'https://picsum.photos/400/400/?image='+faker.random.number(1084)
+const mockArray = (array) => array[faker.random.number(companies.length - 1)]
+const dateRange = (from, to) => dayjs(faker.date.between(from, to)).toISOString()
+const now = () => dayjs().toISOString()
+const fakerImageUrl = () => 'https://picsum.photos/400/400/?image=' + faker.random.number(1084)
 
 const mocks = {
     User: () => ({
@@ -37,7 +31,7 @@ const mocks = {
         jobId: faker.random.uuid(),
         refererId: faker.random.uuid(),
         company: companies[faker.random.number(companies.length - 1)],
-        requiredFields: randomRequiredFields(),
+        requiredFields,
         deadline: dateRange('2020-12-1', '2021-1-1'),
         expiration: expiration[faker.random.number(expiration.length - 1)],
         referredCount: faker.random.number({min: 10, max: 100}),
@@ -45,11 +39,22 @@ const mocks = {
         createdAt: now(),
         imageUrl: fakerImageUrl(),
         source: faker.internet.url(),
-        // meta
-        refererName: faker.name.findName()
     }),
-    JobsPage: () => ({
-        jobs: [...Array(10)].map(() => mocks.Job()),
+    JobItem: () => ({
+        jobId: faker.random.uuid(),
+        refererName: faker.name.findName(),
+        company: mockArray(companies),
+        referredCount: faker.random.number({min: 10, max: 100}),
+        referTotal: faker.random.number({min: 200, max: 300}),
+        deadline: dateRange('2020-12-1', '2021-1-1'),
+        expiration: mockArray(expiration),
+        requiredFields,
+        createdAt: now(),
+        imageUrl: fakerImageUrl(),
+        source: faker.internet.url()
+    }),
+    JobItemListPage: () => ({
+        JobItemList: [...Array(10)].map(() => mocks.JobItem()),
         totalPages: 100
     }),
     UserIntro: () => ({

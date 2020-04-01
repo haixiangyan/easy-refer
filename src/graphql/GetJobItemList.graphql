@@ -1,6 +1,6 @@
-query GetJobs($page: Int!) {
-    jobsPage: getJobs(page: $page) {
-        jobs {
+query GetJobItemList($page: Int!) {
+    jobItemListPage: getJobItemList(page: $page) {
+        jobItemList {
             jobId
             refererName
             company
@@ -8,9 +8,10 @@ query GetJobs($page: Int!) {
             referTotal
             deadline
             expiration
+            requiredFields
+            createdAt
             imageUrl
             source
-            requiredFields
         }
         totalPages
     }
