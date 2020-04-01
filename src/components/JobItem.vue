@@ -12,7 +12,7 @@
                 {{job.refererName}}内推
             </p>
             <div class="tags">
-                <el-tag size="mini" type="primary">{{job.deadline}}截止</el-tag>
+                <el-tag size="mini" type="primary">{{deadline}}截止</el-tag>
                 <el-tag size="mini" type="danger">{{job.expiration}}天必推</el-tag>
             </div>
             <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
@@ -31,9 +31,11 @@
 
 <script lang="ts">
   import Vue from "vue"
+  import dayjs from 'dayjs'
   import {Component, Prop} from "vue-property-decorator"
   import CompanyImage from "@/components/CompanyImage.vue"
   import {getReferProgress} from "@/utils/refer"
+  import {DATETIME_FORMAT} from '@/constants/format'
 
   @Component({
     components: {CompanyImage}
@@ -41,6 +43,9 @@
   export default class JobItem extends Vue {
     @Prop({required: true}) job!: TJobItem
 
+    get deadline() {
+      return dayjs(this.job.deadline).format(DATETIME_FORMAT)
+    }
     get referredPercentage() {
       const {referredCount, referTotal} = this.job
       return referTotal === 0 ? 0 : parseFloat((referredCount / referTotal * 100).toFixed(2))
