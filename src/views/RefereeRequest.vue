@@ -28,7 +28,7 @@
   import GetJobByIdGQL from '@/graphql/GetJobById.graphql'
   import GetResumeByIdGQL from '@/graphql/GetResumeById.graphql'
   import UpdateReferGQL from '@/graphql/UpdateRefer.graphql'
-  import {getFieldName, REFER_FIELDS_MAPPER} from '@/constants/referFields'
+  import {getFieldName} from '@/constants/referFields'
   import {LEVEL_MAPPER} from "@/constants/level"
 
   @Component({
