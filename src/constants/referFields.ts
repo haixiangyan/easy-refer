@@ -10,6 +10,8 @@ export const REFER_FIELDS_MAPPER: TStringMapper = {
   referLinks: '内推链接',
 }
 
+export const getFieldName = (value: string) => REFER_FIELDS_MAPPER[value]
+
 export const REQUIRED_REFER_FIELD_VALUES = [
   'name', 'email', 'experience', 'referLinks'
 ]
