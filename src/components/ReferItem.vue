@@ -2,7 +2,7 @@
     <el-row class="refer-item">
         <el-col :span="6">
             <p class="status" :class="refer.status">{{statusName}}</p>
-            <p class="updated-date">{{refer.updatedAt}}</p>
+            <p class="updated-date">{{updatedAt}}</p>
         </el-col>
         <el-col :span="14" class="content">
             <div class="post">
@@ -25,9 +25,11 @@
 
 <script lang="ts">
   import Vue from "vue"
+  import dayjs from 'dayjs'
   import {Component, Prop} from "vue-property-decorator"
   import {STATUS_NAMES_MAPPER} from "@/constants/status"
   import DeleteReferGQL from '@/graphql/DeleteRefer.graphql'
+  import {DATETIME_FORMAT} from '@/constants/format'
 
   @Component
   export default class ReferItem extends Vue {
@@ -35,6 +37,9 @@
 
     get statusName() {
       return STATUS_NAMES_MAPPER[this.refer.status]
+    }
+    get updatedAt() {
+      return dayjs(this.refer.updatedAt).format(DATETIME_FORMAT)
     }
 
     async withdraw() {
