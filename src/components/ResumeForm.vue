@@ -1,34 +1,32 @@
 <template>
     <el-form ref="resumeForm" :model="resumeForm" label-width="120px" label-position="left" :rules="rules">
-        <!--必填-->
-        <el-form-item required prop="name" label="姓名">
+        <el-form-item required prop="name" :label="getFieldName('name')">
             <el-input :disabled="isLogin" v-model="resumeForm.name"></el-input>
         </el-form-item>
-        <el-form-item required prop="experience" label="工作经验">
-            <el-select v-model="resumeForm.experience" placeholder="请选择">
-                <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
-            </el-select>
-        </el-form-item>
-        <el-form-item required prop="email" label="邮箱">
+        <el-form-item required prop="email" :label="getFieldName('email')">
             <el-input type="email" :disabled="isLogin" v-model="resumeForm.email"></el-input>
         </el-form-item>
-        <!--选填-->
-        <el-form-item v-if="isShowField('phone')" required prop="phone" label="电话">
+        <el-form-item v-if="isShowField('phone')" required prop="phone" :label="getFieldName('phone')">
             <el-input type="tel" v-model.number="resumeForm.phone"></el-input>
         </el-form-item>
-        <el-form-item v-if="isShowField('intro')" required prop="intro" label="个人简介">
+        <el-form-item required prop="experience" :label="getFieldName('experience')">
+            <el-select v-model="resumeForm.experience" placeholder="请选择">
+                <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"/>
+            </el-select>
+        </el-form-item>
+        <el-form-item v-if="isShowField('intro')" required prop="intro" :label="getFieldName('intro')">
             <el-input type="textarea" autosize v-model="resumeForm.intro"></el-input>
         </el-form-item>
-        <el-form-item v-if="isShowField('thirdPersonIntro')" required prop="thirdPersonIntro" label="第三人称介绍">
-            <el-input type="textarea" autosize v-model="resumeForm.thirdPersonIntro"></el-input>
-        </el-form-item>
-        <el-form-item v-if="isShowField('referLinks')" required prop="referLinks" label="内推链接">
+        <el-form-item v-if="isShowField('referLinks')" required prop="referLinks" :label="getFieldName('referLinks')">
             <el-input type="textarea" autosize v-model="resumeForm.referLinks"></el-input>
         </el-form-item>
-        <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" label="LeetCode">
+        <el-form-item v-if="isShowField('thirdPersonIntro')" required prop="thirdPersonIntro" :label="getFieldName('thirdPersonIntro')">
+            <el-input type="textarea" autosize v-model="resumeForm.thirdPersonIntro"></el-input>
+        </el-form-item>
+        <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" :label="getFieldName('leetCodeUrl')">
             <el-input type="url" v-model="resumeForm.leetCodeUrl"></el-input>
         </el-form-item>
-        <el-form-item v-if="isShowField('resumeUrl')" required prop="resumeUrl" label="简历链接">
+        <el-form-item v-if="isShowField('resumeUrl')" required prop="resumeUrl" :label="getFieldName('resumeUrl')">
             <el-input type="url" v-model="resumeForm.resumeUrl"></el-input>
         </el-form-item>
 
@@ -47,6 +45,7 @@
   import {LEVEL_MAPPER} from "@/constants/level"
   import {ElForm} from "element-ui/types/form"
   import {RESUME_RULES} from "@/constants/rules"
+  import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
 
   @Component({
     components: {JobItem}
@@ -78,13 +77,15 @@
     get isLogin() {
       return this.$store.state.auth.isLogin
     }
-
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }
 
     isShowField(fieldName: string) {
       return this.requiredFields.includes(fieldName)
+    }
+    getFieldName(value: string) {
+      return REFER_FIELDS_MAPPER[value]
     }
 
     async initForm() {
