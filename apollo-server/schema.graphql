@@ -52,7 +52,7 @@ type Job {
     refererId: String!
     company: String!
     requiredFields: [String!]!
-    deadline: String!
+    deadline: Date!
     expiration: Int!
     referredCount: Int!
     referTotal: Int!
