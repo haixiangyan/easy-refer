@@ -8,7 +8,7 @@
 
         <div class="apply">
             <div class="apply-item" v-for="field in job.requiredFields" :key="field">
-                <h3>{{referFieldsMapper[field]}}</h3>
+                <h3>{{getFieldName(field)}}</h3>
                 <p v-if="field !== 'experience'">{{resume[field]}}</p>
                 <p v-if="field === 'experience'">{{levelMapper[resume[field]]}}</p>
             </div>
@@ -28,7 +28,7 @@
   import GetJobByIdGQL from '@/graphql/GetJobById.graphql'
   import GetResumeByIdGQL from '@/graphql/GetResumeById.graphql'
   import UpdateReferGQL from '@/graphql/UpdateRefer.graphql'
-  import {REFER_FIELDS_MAPPER} from "@/constants/refer"
+  import {getFieldName} from '@/constants/referFields'
   import {LEVEL_MAPPER} from "@/constants/level"
 
   @Component({
@@ -62,8 +62,8 @@
       resumeUrl: "",
       thirdPersonIntro: "",
     }
-    referFieldsMapper = REFER_FIELDS_MAPPER
     levelMapper = LEVEL_MAPPER
+    getFieldName = getFieldName
 
     get jobId() {
       return this.$route.params.jobId

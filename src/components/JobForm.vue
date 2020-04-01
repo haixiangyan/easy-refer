@@ -59,7 +59,7 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import dayjs from "dayjs"
-  import {REQUIRED_REFER_FIELD_VALUES, REFER_FIELDS} from "@/constants/refer"
+  import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '@/constants/referFields'
   import {JOB_RULES} from "@/constants/rules"
   import GetJobByIdGQL from "@/graphql/GetJobById.graphql"
   import {ElForm} from "element-ui/types/form"
@@ -79,7 +79,6 @@
       imageUrl: ""
     }
     requiredReferFieldValues = REQUIRED_REFER_FIELD_VALUES
-    referFields = REFER_FIELDS
     deadlineOptions = {
       disabledDate(date: Date) {
         const today = dayjs()
@@ -91,6 +90,9 @@
     }
     rules = JOB_RULES
 
+    get referFields() {
+      return Object.entries(REFER_FIELDS_MAPPER).map(([value, label]) => ({value, label}))
+    }
     get user() {
       return this.$store.state.user
     }

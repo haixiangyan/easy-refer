@@ -1,21 +1,25 @@
 <template>
     <div class="intro">
         <div class="avatar">
-            <el-avatar :src="intro.avatarUrl" :size="50"/>
-            <p class="name">{{intro.name}}</p>
+            <router-link to="/user">
+                <el-avatar :src="intro.avatarUrl" :size="100"/>
+            </router-link>
+            <router-link to="/user" tag="p">
+                <el-link class="name">{{intro.name}}</el-link>
+            </router-link>
         </div>
-        <div class="analysis">
-            <div class="refer">
+        <el-row class="analysis">
+            <el-col :span="12" class="refer">
                 <p class="number">{{intro.finishedRefers}} / {{intro.totalRefers}}</p>
                 <p class="description">已申请的内推</p>
                 <p class="rate">{{referRate}}%</p>
-            </div>
-            <div class="resume">
+            </el-col>
+            <div :span="12" class="resume">
                 <p class="number">{{intro.finishedResumes}} / {{intro.totalResumes}}</p>
                 <p class="description">要处理的简历</p>
                 <p class="rate">{{resumeRate}}%</p>
             </div>
-        </div>
+        </el-row>
         <div class="function">
             <router-link to="/my-refer-list" tag="div">
                 <el-button class="button" type="success" :round="true" icon="el-icon-view">
@@ -95,6 +99,7 @@
 
             .name {
                 margin-top: 10px;
+                font-size: 1.2em;
             }
         }
 
@@ -103,12 +108,10 @@
         }
 
         .analysis {
-            display: flex;
             margin-top: 16px;
 
             .refer, .resume {
                 text-align: center;
-                width: 50%;
 
                 .number {
                     font-size: 1.7em;

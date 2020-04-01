@@ -1,4 +1,4 @@
-type TUserStore = TMapper & {
+type TUserStore = TStringMapper & {
   userId: string
   email: string
   name: string
