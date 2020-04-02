@@ -56,24 +56,8 @@ type ResumesPage {
 
 type ReferDetails {
     referId: String!
-    resume: Resume!
-    job: Job!
-}
-
-type Job {
-    jobId: String!
-    refererId: String!
-    company: String!
-    requiredFields: [String!]!
-    deadline: DateTime!
-    expiration: Int!
-    referredCount: Int!
-    referTotal: Int!
-    createdAt: DateTime!
-    imageUrl: String
-    source: String
-    # meta
-    refererName: String!
+    resumeId: String!
+    jobItem: JobItem!
 }
 
 type JobItem {
