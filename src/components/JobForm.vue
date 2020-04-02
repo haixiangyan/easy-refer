@@ -64,7 +64,7 @@
   import dayjs from "dayjs"
   import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '@/constants/referFields'
   import {JOB_RULES} from "@/constants/rules"
-  import GetJobByIdGQL from "@/graphql/GetJobById.graphql"
+  import GetJobItemGQL from "@/graphql/GetJobItem.graphql"
   import {ElForm} from "element-ui/types/form"
 
   @Component
@@ -109,13 +109,11 @@
       try {
         this.loading = true
         const {data} = await this.$apollo.query({
-          query: GetJobByIdGQL,
+          query: GetJobItemGQL,
           variables: {jobId: this.user.jobId}
         })
 
-        Object.keys(this.jobForm).forEach(key => {
-          this.jobForm[key] = data.job[key]
-        })
+        this.jobForm = data.jobItem
       } catch (error) {
         this.$message.error(error.message)
       } finally {

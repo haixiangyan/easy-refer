@@ -39,8 +39,8 @@
       referredCount: 0,
       referTotal: 0,
       requiredFields: [],
-      imageUrl: '',
-      source: ''
+      source: '',
+      avatarUrl: ''
     }
     resumeId = ''
     jobLoading = false

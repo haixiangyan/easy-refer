@@ -38,8 +38,8 @@ const mocks = {
         expiration: mockArray(expiration),
         requiredFields,
         createdAt: now(),
-        imageUrl: fakerImageUrl(),
-        source: faker.internet.url()
+        source: faker.internet.url(),
+        avatarUrl: faker.image.avatar()
     }),
     JobItemListPage: () => ({
         jobItemList: mockItemList(10, mocks.JobItem),

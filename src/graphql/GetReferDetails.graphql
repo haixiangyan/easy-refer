@@ -11,8 +11,8 @@ query GetReferDetails($referId: String!) {
             expiration
             requiredFields
             createdAt
-            imageUrl
             source
+            avatarUrl
         }
     }
 }

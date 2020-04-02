@@ -20,8 +20,8 @@ type TJobItem = {
   deadline: string
   expiration: 3 | 5 | 7
   requiredFields: string[]
-  imageUrl: string
   source: string
+  avatarUrl: string
 }
 
 type TJobForm = {

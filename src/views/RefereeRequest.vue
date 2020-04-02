@@ -22,7 +22,7 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import GetJobByIdGQL from '@/graphql/GetJobById.graphql'
+  import GetJobItemGQL from '@/graphql/GetJobItem.graphql'
   import GetResumeBodyGQL from '@/graphql/GetResumeBody.graphql'
   import UpdateReferGQL from '@/graphql/UpdateRefer.graphql'
   import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
@@ -41,8 +41,8 @@
       referredCount: 0,
       referTotal: 0,
       requiredFields: [],
-      imageUrl: '',
-      source: ''
+      source: '',
+      avatarUrl: ''
     }
     resume: TResumeBody = {
       // 必填
@@ -96,11 +96,11 @@
     async loadJob() {
       try {
         const {data} = await this.$apollo.query({
-          query: GetJobByIdGQL,
+          query: GetJobItemGQL,
           variables: {jobId: this.jobId}
         })
 
-        this.job = data.job
+        this.job = data.jobItem
       } catch (error) {
         this.$message.error(error.message)
       }

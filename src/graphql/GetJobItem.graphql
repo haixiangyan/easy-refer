@@ -1,5 +1,5 @@
 query GetJobById($jobId: String!) {
-    job: getJobById(jobId: $jobId) {
+    jobItem: getJobItem(jobId: $jobId) {
         jobId
         company
         requiredFields
@@ -8,7 +8,7 @@ query GetJobById($jobId: String!) {
         referredCount
         referTotal
         createdAt
-        imageUrl
         source
+        avatarUrl
     }
 }
