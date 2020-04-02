@@ -5,13 +5,13 @@ type TReferItem = {
   updatedAt: string
   company: string
   refererName: string
-  source?: string
+  source: string
 }
 type TReferRow = {
   referId: string
   jobId: string
   resumeId: string
   experience: number
-  name: string
+  refereeName: string
   createdAt: string
 }

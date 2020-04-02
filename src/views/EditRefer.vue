@@ -58,8 +58,8 @@
           variables: {referId: this.$route.params.referId}
         })
 
-        this.job = data.referDetails.job
-        this.resumeId = data.referDetails.resume.resumeId
+        this.job = data.referDetails.jobItem
+        this.resumeId = data.referDetails.resumeId
       } catch (error) {
         this.$message.error(error.message)
       } finally {

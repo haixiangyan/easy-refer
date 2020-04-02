@@ -11,7 +11,7 @@ type TJob = {
   source?: string
 }
 
-type TJobItem = TJob & {
+type TJobItem = {
   jobId: string
   refererName: string
   company: string
@@ -20,6 +20,8 @@ type TJobItem = TJob & {
   deadline: string
   expiration: 3 | 5 | 7
   requiredFields: string[]
+  imageUrl: string
+  source: string
 }
 
 type TJobForm = {

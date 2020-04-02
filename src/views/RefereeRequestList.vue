@@ -7,7 +7,11 @@
                 :data="refers"
                 style="width: 100%">
                 <el-table-column prop="refereeName" label="姓名" width="180"/>
-                <el-table-column prop="createdAt" label="提交日期" width="180"/>
+                <el-table-column prop="createdAt" label="提交日期" width="180">
+                    <template slot-scope="scope">
+                        {{getCreatedAt(scope.row.createdAt)}}
+                    </template>
+                </el-table-column>
                 <el-table-column label="经验">
                     <template slot-scope="scope">
                         <span>{{getLevel(scope.row.experience)}}</span>
@@ -37,8 +41,10 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
-  import GetRefersGQL from '@/graphql/GetRefers.graphql'
+  import GetReferTable from '@/graphql/GetReferTable.graphql'
   import {LEVEL_MAPPER} from "@/constants/level"
+  import dayjs from 'dayjs'
+  import {DATETIME_FORMAT} from '@/constants/format'
 
   @Component
   export default class RefereeRequestListList extends Vue {
@@ -59,17 +65,21 @@
       return LEVEL_MAPPER[experience]
     }
 
+    getCreatedAt(createdAt: string) {
+      return dayjs(createdAt).format(DATETIME_FORMAT)
+    }
+
     async loadResumes(page: number) {
       try {
         this.loading = true
 
         const {data} = await this.$apollo.query({
-          query: GetRefersGQL,
+          query: GetReferTable,
           variables: {userId: this.userId, page}
         })
 
-        this.refers = data.refersPage.refers
-        this.totalPages = data.refersPage.totalPages
+        this.refers = data.referTable.referRowList
+        this.totalPages = data.referTable.totalPages
       } catch (error) {
         this.$message.error(error.message)
       } finally {

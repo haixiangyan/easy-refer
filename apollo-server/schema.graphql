@@ -6,61 +6,66 @@ schema {
 type Mutation {
     login(loginForm: LoginForm!): User!
     register(registerForm: RegisterForm!): User!
+
+    updateUser(userId: String!, userForm: UserForm!): User
+
     addJob(refererId: String!, jobForm: JobForm!): Boolean
+    updateJob(refererId: String!, jobId: String!, jobForm: JobForm!): Boolean
+
     updateRefer(referId: String!, referForm: ReferForm!): Boolean
     deleteRefer(referId: String!): Boolean
-    updateJob(refererId: String!, jobId: String!, jobForm: JobForm!): Boolean
-    updateUser(userId: String!, userForm: UserForm!): User
+
     addResume(resumeForm: ResumeForm!): Boolean
     updateResume(resumeId: String!, resumeForm: ResumeForm!): Boolean
 }
 
 type Query {
-    getJobs(page: Int!): JobsPage!
-    getJobById(jobId: String!): Job!
+    getJobById(jobId: String!): JobItem!
+    getJobItemList(page: Int!): JobItemListPage!
+
     getUser(userId: String!): User!
     getUserIntro(userId: String!): UserIntro!
-    getRefers(userId: String!, page: Int!): RefersPage!
+
+    getReferItemList(userId: String!, page: Int!): ReferItemListPage!
+    getReferTable(userId: String!, page: Int!): ReferTable!
     getReferDetails(referId: String!): ReferDetails!
-    getResumes(userId: String!, page: Int!): ResumesPage!
-    getResumeById(resumeId: String!): Resume!
+
+    getResumeBody(resumeId: String!): ResumeBody!
 }
 
-type JobsPage {
-    jobs: [Job!]!
+type JobItemListPage {
+    jobItemList: [JobItem!]!
     totalPages: Int!
 }
 
-type RefersPage {
-    refers: [Refer!]!
+type ReferItemListPage {
+    referItemList: [ReferItem!]!
     totalPages: Int!
 }
 
-type ResumesPage {
-    resumes: [Resume!]!
+type ReferTable {
+    referRowList: [ReferRow!]!
     totalPages: Int!
 }
 
 type ReferDetails {
     referId: String!
-    resume: Resume!
-    job: Job!
+    resumeId: String!
+    jobItem: JobItem!
 }
 
-type Job {
+type JobItem {
     jobId: String!
-    refererId: String!
+    refererName: String!
     company: String!
-    requiredFields: [String!]!
-    deadline: DateTime!
-    expiration: Int!
     referredCount: Int!
     referTotal: Int!
+    deadline: DateTime!
+    expiration: Int!
+    requiredFields: [String!]!
     createdAt: DateTime!
-    imageUrl: String
-    source: String
-    # meta
-    refererName: String!
+    imageUrl: String!
+    source: String!
 }
 
 type User {
@@ -77,38 +82,37 @@ type User {
     thirdPersonIntro: String
 }
 
-type Refer {
+type ReferItem {
     referId: String!
-    refereeId: String!
-    refererId: String!
     jobId: String!
-    resumeId: String!
     status: String!
     updatedAt: DateTime!
-    createdAt: DateTime!
-    # meta
     company: String!
     refererName: String!
-    refereeName: String!
-    experience: Int!
-    source: String
+    source: String!
 }
 
-type Resume {
+type ReferRow {
+    referId: String!
+    jobId: String!
     resumeId: String!
+    experience: Int!
+    refereeName: String!
+    createdAt: DateTime!
+}
+
+type ResumeBody {
     refereeId: String!
     jobId: String!
-    name: String!
     email: String!
+    name: String!
     experience: Int!
-    intro: String
-    phone: String
-    leetCodeUrl: String
-    thirdPersonIntro: String
-    resumeUrl: String
-    referLinks: String
-    # meta
-    createdAt: DateTime
+    intro: String!
+    leetCodeUrl: String!
+    phone: String!
+    referLinks: String!
+    resumeUrl: String!
+    thirdPersonIntro: String!
 }
 
 type UserIntro {

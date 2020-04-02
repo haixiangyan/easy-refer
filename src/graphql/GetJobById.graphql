@@ -1,7 +1,6 @@
 query GetJobById($jobId: String!) {
     job: getJobById(jobId: $jobId) {
         jobId
-        refererId
         company
         requiredFields
         deadline
@@ -11,7 +10,5 @@ query GetJobById($jobId: String!) {
         createdAt
         imageUrl
         source
-        # meta
-        refererName
     }
 }
