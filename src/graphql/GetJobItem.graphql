@@ -8,7 +8,7 @@ query GetJobById($jobId: String!) {
         referredCount
         referTotal
         createdAt
-        imageUrl
         source
+        avatarUrl
     }
 }

@@ -2,7 +2,7 @@
     <el-row class="job-item">
         <el-col :span="4">
             <router-link class="avatar" :to="`/apply-refer/${job.jobId}`">
-                <CompanyImage :src="job.imageUrl"/>
+                <CompanyImage :src="job.avatarUrl"/>
             </router-link>
         </el-col>
         <el-col class="content" :span="20">

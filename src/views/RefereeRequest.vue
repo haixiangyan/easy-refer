@@ -41,8 +41,8 @@
       referredCount: 0,
       referTotal: 0,
       requiredFields: [],
-      imageUrl: '',
-      source: ''
+      source: '',
+      avatarUrl: ''
     }
     resume: TResumeBody = {
       // 必填

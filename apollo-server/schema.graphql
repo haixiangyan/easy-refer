@@ -64,7 +64,6 @@ type JobItem {
     expiration: Int!
     requiredFields: [String!]!
     createdAt: DateTime!
-    imageUrl: String!
     source: String!
     avatarUrl: String!
 }

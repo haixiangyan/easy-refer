@@ -10,8 +10,8 @@ query GetJobItemList($page: Int!) {
             expiration
             requiredFields
             createdAt
-            imageUrl
             source
+            avatarUrl
         }
         totalPages
     }
