@@ -28,19 +28,6 @@ const mocks = {
         resumeUrl: faker.internet.url(),
         avatarUrl: faker.image.avatar()
     }),
-    Job: () => ({
-        jobId: faker.random.uuid(),
-        refererId: faker.random.uuid(),
-        company: companies[faker.random.number(companies.length - 1)],
-        requiredFields,
-        deadline: dateRange('2020-12-1', '2021-1-1'),
-        expiration: expiration[faker.random.number(expiration.length - 1)],
-        referredCount: faker.random.number({min: 10, max: 100}),
-        referTotal: faker.random.number({min: 200, max: 300}),
-        createdAt: now(),
-        imageUrl: fakerImageUrl(),
-        source: faker.internet.url(),
-    }),
     JobItem: () => ({
         jobId: faker.random.uuid(),
         refererName: faker.name.findName(),
@@ -106,6 +93,11 @@ const mocks = {
     ReferTable: () => ({
         referRowList: mockItemList(20, mocks.ReferRow),
         totalPages: 100
+    }),
+    ReferDetails: () => ({
+        referId: faker.random.uuid(),
+        resumeId: faker.random.uuid(),
+        jobItem: mocks.JobItem()
     }),
     Resume: () => ({
         resumeId: faker.random.uuid(),
