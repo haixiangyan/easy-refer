@@ -96,7 +96,7 @@ type ReferRow {
     referId: String!
     jobId: String!
     resumeId: String!
-    experience: String!
+    experience: Int!
     refereeName: String!
     createdAt: DateTime!
 }
@@ -106,7 +106,7 @@ type ResumeBody {
     jobId: String!
     email: String!
     name: String!
-    experience: String!
+    experience: Int!
     intro: String!
     leetCodeUrl: String!
     phone: String!
