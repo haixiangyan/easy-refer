@@ -23,7 +23,7 @@
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
   import GetJobByIdGQL from '@/graphql/GetJobById.graphql'
-  import GetResumeByIdGQL from '@/graphql/GetResumeById.graphql'
+  import GetResumeBodyGQL from '@/graphql/GetResumeBody.graphql'
   import UpdateReferGQL from '@/graphql/UpdateRefer.graphql'
   import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
   import {LEVEL_MAPPER} from '@/constants/level'
@@ -109,12 +109,11 @@
     async loadResume() {
       try {
         const {data} = await this.$apollo.query({
-          query: GetResumeByIdGQL,
+          query: GetResumeBodyGQL,
           variables: {resumeId: this.resumeId}
         })
 
-        const {resumeId, ...resumeBody} = data.resume
-        this.resume = resumeBody
+        this.resume = data.resumeBody
       } catch (error) {
         this.$message.error(error.message)
       }

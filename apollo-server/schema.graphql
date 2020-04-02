@@ -30,8 +30,7 @@ type Query {
     getReferTable(userId: String!, page: Int!): ReferTable!
     getReferDetails(referId: String!): ReferDetails!
 
-    getResumes(userId: String!, page: Int!): ResumesPage!
-    getResumeById(resumeId: String!): Resume!
+    getResumeBody(resumeId: String!): ResumeBody!
 }
 
 type JobItemListPage {
@@ -46,11 +45,6 @@ type ReferItemListPage {
 
 type ReferTable {
     referRowList: [ReferRow!]!
-    totalPages: Int!
-}
-
-type ResumesPage {
-    resumes: [Resume!]!
     totalPages: Int!
 }
 
@@ -107,21 +101,18 @@ type ReferRow {
     createdAt: DateTime!
 }
 
-type Resume {
-    resumeId: String!
+type ResumeBody {
     refereeId: String!
     jobId: String!
-    name: String!
     email: String!
-    experience: Int!
-    intro: String
-    phone: String
-    leetCodeUrl: String
-    thirdPersonIntro: String
-    resumeUrl: String
-    referLinks: String
-    # meta
-    createdAt: DateTime
+    name: String!
+    experience: String!
+    intro: String!
+    leetCodeUrl: String!
+    phone: String!
+    referLinks: String!
+    resumeUrl: String!
+    thirdPersonIntro: String!
 }
 
 type UserIntro {

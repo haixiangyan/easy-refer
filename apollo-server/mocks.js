@@ -99,26 +99,19 @@ const mocks = {
         resumeId: faker.random.uuid(),
         jobItem: mocks.JobItem()
     }),
-    Resume: () => ({
-        resumeId: faker.random.uuid(),
+    ResumeBody: () => ({
         refereeId: faker.random.uuid(),
         jobId: faker.random.uuid(),
-        name: faker.name.findName(),
         email: faker.internet.email(),
+        name: faker.name.findName(),
         experience: faker.random.number(7),
         intro: faker.lorem.paragraph(),
-        phone: faker.phone.phoneNumberFormat(),
         leetCodeUrl: faker.internet.url(),
-        thirdPersonIntro: faker.lorem.paragraph(),
-        resumeUrl: faker.internet.url(),
+        phone: faker.phone.phoneNumberFormat(),
         referLinks: faker.internet.url(),
-        // meta
-        createdAt: dateRange('2019-7-1', '2019-8-1')
+        resumeUrl: faker.internet.url(),
+        thirdPersonIntro: faker.lorem.paragraph()
     }),
-    ResumesPage: () => ({
-        resumes: [...Array(10)].map(() => mocks.Resume()),
-        totalPages: 100
-    })
 }
 
 export default mocks

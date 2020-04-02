@@ -1,0 +1,15 @@
+query GetResumeBody($resumeId: String!) {
+    resumeBody: getResumeBody(resumeId: $resumeId) {
+        refereeId
+        jobId
+        email
+        name
+        experience
+        intro
+        leetCodeUrl
+        phone
+        referLinks
+        resumeUrl
+        thirdPersonIntro
+    }
+}

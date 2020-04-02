@@ -48,7 +48,7 @@
   import Vue from 'vue'
   import {Component, Prop} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import GetResumeByIdGQL from '@/graphql/GetResumeById.graphql'
+  import GetResumeBodyGQL from '@/graphql/GetResumeBody.graphql'
   import {LEVEL_MAPPER} from '@/constants/level'
   import {ElForm} from 'element-ui/types/form'
   import {RESUME_RULES} from '@/constants/rules'
@@ -109,12 +109,11 @@
         this.resumeLoading = true
 
         const {data} = await this.$apollo.query({
-          query: GetResumeByIdGQL,
+          query: GetResumeBodyGQL,
           variables: {resumeId: this.resumeId}
         })
 
-        const {resumeId, createdAt, ...resumeForm} = data.resume
-        this.resumeForm = resumeForm
+        this.resumeForm = data.resumeBody
       } catch (error) {
         this.$message.error(error.mesage)
       } finally {
