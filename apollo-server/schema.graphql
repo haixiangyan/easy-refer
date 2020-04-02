@@ -26,7 +26,8 @@ type Query {
     getUser(userId: String!): User!
     getUserIntro(userId: String!): UserIntro!
 
-    getRefers(userId: String!, page: Int!): RefersPage!
+    getReferItemList(userId: String!, page: Int!): ReferItemListPage!
+    getReferTable(userId: String!, page: Int!): ReferTable!
     getReferDetails(referId: String!): ReferDetails!
 
     getResumes(userId: String!, page: Int!): ResumesPage!
@@ -38,8 +39,13 @@ type JobItemListPage {
     totalPages: Int!
 }
 
-type RefersPage {
-    refers: [Refer!]!
+type ReferItemListPage {
+    referItemList: [ReferItem!]!
+    totalPages: Int!
+}
+
+type ReferTable {
+    referRowList: [ReferRow!]!
     totalPages: Int!
 }
 
@@ -98,21 +104,23 @@ type User {
     thirdPersonIntro: String
 }
 
-type Refer {
+type ReferItem {
     referId: String!
-    refereeId: String!
-    refererId: String!
     jobId: String!
-    resumeId: String!
     status: String!
     updatedAt: DateTime!
-    createdAt: DateTime!
-    # meta
     company: String!
     refererName: String!
+    source: String!
+}
+
+type ReferRow {
+    referId: String!
+    jobId: String!
+    resumeId: String!
+    experience: String!
     refereeName: String!
-    experience: Int!
-    source: String
+    createdAt: DateTime!
 }
 
 type Resume {

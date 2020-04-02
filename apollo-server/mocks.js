@@ -8,7 +8,7 @@ const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'Br
 const status = ['processing', 'rejected', 'referred']
 const requiredFields = ['name', 'email', 'phone', 'experience', 'referLinks', 'resumeUrl', 'intro', 'thirdPersonIntro', 'leetCodeUrl']
 
-const mockArray = (array) => array[faker.random.number(companies.length - 1)]
+const mockArray = (array) => array[faker.random.number(array.length - 1)]
 const mockItemList = (length, makeObjectCallback) => [...Array(length)].map(() => makeObjectCallback())
 const dateRange = (from, to) => dayjs(faker.date.between(from, to)).toISOString()
 const now = () => dayjs().toISOString()
@@ -82,8 +82,29 @@ const mocks = {
         experience: faker.random.number(7),
         source: faker.internet.url()
     }),
-    RefersPage: () => ({
-        refers: [...Array(20)].map(() => mocks.Refer()),
+    ReferItem: () => ({
+        referId: faker.random.uuid(),
+        jobId: faker.random.uuid(),
+        status: mockArray(status),
+        updatedAt: dateRange('2020-4-1', '2020-5-1'),
+        company: mockArray(companies),
+        refererName: faker.name.findName(),
+        source: faker.internet.url()
+    }),
+    ReferItemListPage: () => ({
+        referItemList: mockItemList(10, mocks.ReferItem),
+        totalPages: 100
+    }),
+    ReferRow: () => ({
+        referId: faker.random.uuid(),
+        jobId: faker.random.uuid(),
+        resumeId: faker.random.uuid(),
+        experience: faker.random.number(7),
+        refereeName: faker.name.findName(),
+        createdAt: dateRange('2020-4-1', '2020-5-1')
+    }),
+    ReferTable: () => ({
+        referRowList: mockItemList(20, mocks.ReferRow),
         totalPages: 100
     }),
     Resume: () => ({
