@@ -21,7 +21,7 @@
   import {Component} from "vue-property-decorator"
   import JobItem from "@/components/JobItem.vue"
   import ResumeForm from "@/components/ResumeForm.vue"
-  import GetJobByIdGQL from "@/graphql/GetJobById.graphql"
+  import GetJobItemGQL from "@/graphql/GetJobItem.graphql"
   import AddResumeGQL from "@/graphql/AddResume.graphql"
 
   @Component({
@@ -51,11 +51,11 @@
       try {
         this.jobLoading = true
         const {data} = await this.$apollo.query({
-          query: GetJobByIdGQL,
+          query: GetJobItemGQL,
           variables: {jobId: this.$route.params.jobId}
         })
 
-        this.job = data.job
+        this.job = data.jobItem
       } catch (error) {
         this.$message.error(error.message)
       } finally {

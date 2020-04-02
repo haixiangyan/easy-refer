@@ -20,7 +20,7 @@ type Mutation {
 }
 
 type Query {
-    getJobById(jobId: String!): JobItem!
+    getJobItem(jobId: String!): JobItem!
     getJobItemList(page: Int!): JobItemListPage!
 
     getUser(userId: String!): User!
@@ -66,6 +66,7 @@ type JobItem {
     createdAt: DateTime!
     imageUrl: String!
     source: String!
+    avatarUrl: String!
 }
 
 type User {
