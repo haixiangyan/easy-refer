@@ -8,18 +8,15 @@ type Mutation {
     register(registerForm: RegisterForm!): User!
 
     updateUser(userId: String!, userForm: UserForm!): User
-    uploadAvatar(userId: String!, avatar: Upload!): String!
 
     addJob(refererId: String!, jobForm: JobForm!): Boolean
     updateJob(refererId: String!, jobId: String!, jobForm: JobForm!): Boolean
 
     updateRefer(referId: String!, referForm: ReferForm!): Boolean
     deleteRefer(referId: String!): Boolean
-    uploadReferResume(refereeId: String!, resumeId: String, resume: Upload!): String!
 
     addResume(resumeForm: ResumeForm!): Boolean
     updateResume(resumeId: String!, resumeForm: ResumeForm!): Boolean
-    uploadResume(userId: String!, resume: Upload!): String!
 }
 
 type Query {

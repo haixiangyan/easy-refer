@@ -1,3 +1,0 @@
-mutation UploadAvatar($userId: String!, $avatar: Upload!) {
-    avatarUrl: uploadAvatar(userId: $userId, avatar: $avatar)
-}
