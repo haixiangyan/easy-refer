@@ -15,6 +15,7 @@ type Mutation {
 
     updateRefer(referId: String!, referForm: ReferForm!): Boolean
     deleteRefer(referId: String!): Boolean
+    uploadReferResume(refereeId: String!, resumeId: String, resume: Upload!): String!
 
     addResume(resumeForm: ResumeForm!): Boolean
     updateResume(resumeId: String!, resumeForm: ResumeForm!): Boolean
