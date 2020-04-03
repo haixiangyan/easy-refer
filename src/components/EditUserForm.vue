@@ -31,8 +31,8 @@
             <el-upload
                 v-loading="loading"
                 element-loading-text="上传中"
-                action=""
-                :auto-upload="false"
+                action="/user-resume"
+                :data="{userId}"
                 :on-change="onUpload"
                 :before-upload="beforeUpload"
                 :show-file-list="false">
@@ -58,8 +58,6 @@
   import {EDIT_USER_RULES} from '@/constants/rules'
   import {ElForm} from 'element-ui/types/form'
   import {getFieldName} from '@/constants/referFields'
-  import UploadResumeGQL from '@/graphql/UploadResume.graphql'
-  import {ElUploadInternalFileDetail} from 'element-ui/types/upload'
   import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
 
   @Component
@@ -84,24 +82,21 @@
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }
+    get userId() {
+      return this.$store.state.user.userId
+    }
 
     mounted() {
       this.editUserForm = {...this.form}
     }
 
-    async onUpload(file: ElUploadInternalFileDetail) {
-      try {
-        this.loading = true
-        const {data} = await this.$apollo.mutate({
-          mutation: UploadResumeGQL,
-          variables: {userId: this.$store.state.user.userId, resume: file.raw}
-        })
-        this.form.resumeUrl = data.resumeUrl
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.loading = false
-      }
+    onUpload({status, response}: {status: string, response: IUploadResume}) {
+      if (status === 'fail') return this.$message.error('上传失败')
+      if (status === 'ready') return this.loading = true
+
+      this.editUserForm.resumeUrl = response.resumeUrl
+      this.loading = false
+      this.$message.success('上传成功')
     }
 
     beforeUpload(file: File) {
