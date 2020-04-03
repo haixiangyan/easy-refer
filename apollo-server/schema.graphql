@@ -18,6 +18,7 @@ type Mutation {
 
     addResume(resumeForm: ResumeForm!): Boolean
     updateResume(resumeId: String!, resumeForm: ResumeForm!): Boolean
+    uploadResume(userId: String!, resume: Upload!): String!
 }
 
 type Query {

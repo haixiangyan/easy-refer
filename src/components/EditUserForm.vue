@@ -27,8 +27,19 @@
         <el-form-item prop="leetCodeUrl" :label="field('leetCodeUrl')">
             <el-input type="url" v-model="editUserForm.leetCodeUrl"></el-input>
         </el-form-item>
-        <el-form-item prop="resumeUrl" :label="field('resumeUrl')">
-            <el-input type="url" v-model="editUserForm.resumeUrl"></el-input>
+        <el-form-item :label="field('resumeUrl')">
+            <el-upload
+                v-loading="loading"
+                element-loading-text="上传中"
+                action=""
+                :auto-upload="false"
+                :on-change="onUpload"
+                :before-upload="beforeUpload"
+                :show-file-list="false">
+                <el-button size="small" type="primary">上传简历</el-button>
+                <span style="margin-left: 12px">{{form.resumeUrl}}</span>
+                <div slot="tip" class="el-upload__tip">只能上传 <strong>pdf</strong> 文件，且不超过5MB</div>
+            </el-upload>
         </el-form-item>
 
         <el-form-item class="edit-form-submit">
@@ -41,30 +52,34 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component, Prop} from "vue-property-decorator"
-  import {LEVEL_MAPPER} from "@/constants/level"
-  import {EDIT_USER_RULES} from "@/constants/rules"
+  import Vue from 'vue'
+  import {Component, Prop} from 'vue-property-decorator'
+  import {LEVEL_MAPPER} from '@/constants/level'
+  import {EDIT_USER_RULES} from '@/constants/rules'
   import {ElForm} from 'element-ui/types/form'
   import {getFieldName} from '@/constants/referFields'
+  import UploadResumeGQL from '@/graphql/UploadResume.graphql'
+  import {ElUploadInternalFileDetail} from 'element-ui/types/upload'
+  import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
 
   @Component
   export default class EditUserForm extends Vue {
     @Prop() form!: TUserForm
 
     editUserForm: TUserForm = {
-      jobId: "",
-      email: "",
-      name: "",
+      jobId: '',
+      email: '',
+      name: '',
       experience: 0,
-      intro: "",
-      phone: "",
-      leetCodeUrl: "",
-      thirdPersonIntro: "",
-      resumeUrl: ""
+      intro: '',
+      phone: '',
+      leetCodeUrl: '',
+      thirdPersonIntro: '',
+      resumeUrl: ''
     }
     rules = EDIT_USER_RULES
     field = getFieldName
+    loading = false
 
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
@@ -72,6 +87,35 @@
 
     mounted() {
       this.editUserForm = {...this.form}
+    }
+
+    async onUpload(file: ElUploadInternalFileDetail) {
+      try {
+        this.loading = true
+        const {data} = await this.$apollo.mutate({
+          mutation: UploadResumeGQL,
+          variables: {userId: this.$store.state.user.userId, resume: file.raw}
+        })
+        this.form.resumeUrl = data.resumeUrl
+      } catch (error) {
+        this.$message.error(error.message)
+      } finally {
+        this.loading = false
+      }
+    }
+
+    beforeUpload(file: File) {
+      const isPdf = RESUME_MIME_TYPES.includes(file.type)
+      const isValidSize = file.size <= RESUME_SIZE
+
+      if (!isPdf) {
+        this.$message.error('上传简历只能是 PDF 格式')
+      }
+      if (!isValidSize) {
+        this.$message.error('上传简历大小不能超过 5MB')
+      }
+
+      return isPdf && isValidSize
     }
 
     saveChange() {
