@@ -41,7 +41,7 @@
     }
     avatarUrl = ''
     userTable: TELTableItem[] = []
-    hiddenFields = ["avatarUrl", "jobId"]
+    hiddenFields = ['userId', "avatarUrl", "jobId"]
     loading = false
 
     get level() {
