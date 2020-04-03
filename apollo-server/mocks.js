@@ -15,6 +15,9 @@ const now = () => dayjs().toISOString()
 const fakerImageUrl = () => 'https://picsum.photos/400/400/?image=' + faker.random.number(1084)
 
 const mocks = {
+    Mutation: () => ({
+        uploadAvatar: () => faker.image.avatar()
+    }),
     User: () => ({
         userId: faker.random.uuid(),
         jobId: faker.random.uuid(),

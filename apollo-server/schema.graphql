@@ -8,7 +8,7 @@ type Mutation {
     register(registerForm: RegisterForm!): User!
 
     updateUser(userId: String!, userForm: UserForm!): User
-    uploadAvatar(userId: String!, avatar: Upload!): Boolean
+    uploadAvatar(userId: String!, avatar: Upload!): String!
 
     addJob(refererId: String!, jobForm: JobForm!): Boolean
     updateJob(refererId: String!, jobId: String!, jobForm: JobForm!): Boolean
@@ -117,7 +117,6 @@ type ResumeBody {
 }
 
 type UserIntro {
-    avatarUrl: String!
     name: String!
     finishedRefers: Int!
     totalRefers: Int!

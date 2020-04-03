@@ -6,9 +6,10 @@
             </el-col>
             <el-col>
                 <el-upload
-                    action=""
+                    action="/xxx"
+                    :auto-upload="false"
                     :show-file-list="false"
-                    :on-success="onUpload"
+                    :on-change="onUpload"
                     :before-upload="beforeUpload">
                     <el-button size="small" type="success" plain round>修改头像</el-button>
                 </el-upload>
@@ -49,13 +50,20 @@
       this.loadUser()
     }
 
-    async onUpload(res: {id: string}, file: ElUploadInternalFileDetail) {
+    async onUpload(file: ElUploadInternalFileDetail) {
       try {
-        await this.$apollo.mutate({
+        this.loading = true
+        this.loadingText = '上传中'
+
+        const {data} = await this.$apollo.mutate({
           mutation: UploadAvatarGQL,
           variables: {userId: this.userId, avatar: file.raw}
         })
-        this.avatarUrl = URL.createObjectURL(file.raw);
+        // 更新到修改用户页面
+        this.avatarUrl = data.avatarUrl
+        // 更新到 user store
+        this.$store.commit('user/setAvatarUrl', data.avatarUrl)
+
         this.$message.success('修改成功')
       } catch (error) {
         this.$message.error(error.message)

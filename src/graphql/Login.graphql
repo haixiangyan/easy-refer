@@ -10,5 +10,6 @@ mutation Login($loginForm: LoginForm!) {
         phone
         resumeUrl
         thirdPersonIntro
+        avatarUrl
     }
 }
