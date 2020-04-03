@@ -1,3 +1,0 @@
-mutation UploadReferResume($refereeId: String!, $resumeId: String, $resume: Upload!) {
-    resumeUrl: uploadReferResume(refereeId: $refereeId, resumeId: $resumeId, resume: $resume)
-}

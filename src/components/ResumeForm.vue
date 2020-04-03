@@ -37,9 +37,11 @@
             <el-upload
                 v-loading="loading"
                 element-loading-text="上传中"
-                action=""
-                :auto-upload="false"
-                :on-change="onUpload"
+                action="/refer-resume"
+                :data="{resumeId}"
+                :on-success="uploaded"
+                :on-change="uploading"
+                :on-error="() => this.$message.error('上传失败')"
                 :before-upload="beforeUpload"
                 :show-file-list="false">
                 <el-button size="small" type="primary">上传简历</el-button>
@@ -64,8 +66,6 @@
   import {ElForm} from 'element-ui/types/form'
   import {RESUME_RULES} from '@/constants/rules'
   import {getFieldName} from '@/constants/referFields'
-  import {ElUploadInternalFileDetail} from 'element-ui/types/upload'
-  import UploadReferResume from '@/graphql/UploadReferResume.graphql'
   import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
 
   @Component({
@@ -110,23 +110,14 @@
       return this.requiredFields.includes(fieldName)
     }
 
-    async onUpload(file: ElUploadInternalFileDetail) {
-      try {
-        this.loading = true
-        const {data} = await this.$apollo.mutate({
-          mutation: UploadReferResume,
-          variables: {
-            refereeId: this.resumeForm.refereeId,
-            resumeId: this.resumeId,
-            resume: file.raw
-          }
-        })
-        this.resumeForm.resumeUrl = data.resumeUrl
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.loading = false
-      }
+    uploaded(response: IUploadResume) {
+      this.resumeForm.resumeUrl = response.resumeUrl
+      this.loading = false
+      this.$message.success('上传成功')
+    }
+
+    uploading({status}: {status: string}) {
+      this.loading = !(status === 'success' || status === 'fail')
     }
 
     beforeUpload(file: File) {
@@ -135,9 +126,11 @@
 
       if (!isPdf) {
         this.$message.error('上传简历只能是 PDF 格式')
+        this.loading = false
       }
       if (!isValidSize) {
         this.$message.error('上传简历大小不能超过 5MB')
+        this.loading = false
       }
 
       return isPdf && isValidSize
