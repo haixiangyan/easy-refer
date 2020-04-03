@@ -99,7 +99,7 @@
     }
 
     uploading({status}: {status: string}) {
-      this.loading = status === 'fail' || status === 'success'
+      this.loading = !(status === 'success' || status === 'fail')
     }
 
     beforeUpload(file: File) {
@@ -108,9 +108,11 @@
 
       if (!isPdf) {
         this.$message.error('上传简历只能是 PDF 格式')
+        this.loading = false
       }
       if (!isValidSize) {
         this.$message.error('上传简历大小不能超过 5MB')
+        this.loading = false
       }
 
       return isPdf && isValidSize

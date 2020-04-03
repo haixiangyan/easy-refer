@@ -12,6 +12,7 @@
     "apollo:start": "vue-cli-service apollo:start"
   },
   "dependencies": {
+    "@types/faker": "^4.1.11",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "dayjs": "^1.8.23",

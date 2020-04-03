@@ -6,11 +6,10 @@
             </el-col>
             <el-col>
                 <el-upload
-                    action=""
-                    :auto-upload="false"
+                    action="/avatar"
                     :show-file-list="false"
-                    :on-change="onUpload"
-                    :on-error="() => this.$message.error('上传出错')"
+                    :on-success="uploaded"
+                    :on-change="uploading"
                     :before-upload="beforeUpload">
                     <el-button size="small" type="success" plain round>修改头像</el-button>
                 </el-upload>
@@ -23,15 +22,13 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "vue-property-decorator"
-  import UpdateUserGQL from "@/graphql/UpdateUser.graphql"
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
+  import UpdateUserGQL from '@/graphql/UpdateUser.graphql'
   import GetUserGQL from '@/graphql/GetUser.graphql'
-  import {EDIT_USER_RULES} from "@/constants/rules"
-  import EditUserForm from "@/components/EditUserForm.vue"
+  import {EDIT_USER_RULES} from '@/constants/rules'
+  import EditUserForm from '@/components/EditUserForm.vue'
   import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '@/constants/file'
-  import UploadAvatarGQL from '@/graphql/UploadAvatar.graphql'
-  import {ElUploadInternalFileDetail} from 'element-ui/types/upload'
 
   @Component({
     components: {EditUserForm}
@@ -51,40 +48,30 @@
       this.loadUser()
     }
 
-    async onUpload(file: ElUploadInternalFileDetail) {
-      try {
-        this.loading = true
-        this.loadingText = '上传中'
+    uploaded(response: IAvatar) {
+      // 更新到修改用户页面
+      this.avatarUrl = response.avatarUrl
+      // 更新到 user store
+      this.$store.commit('user/setAvatarUrl', response.avatarUrl)
 
-        const {data} = await this.$apollo.mutate({
-          mutation: UploadAvatarGQL,
-          variables: {userId: this.userId, avatar: file.raw}
-        })
-        // 更新到修改用户页面
-        this.avatarUrl = data.avatarUrl
-        // 更新到 user store
-        this.$store.commit('user/setAvatarUrl', data.avatarUrl)
+      this.$message.success('修改成功')
+    }
 
-        this.$message.success('修改成功')
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.loading = false
-      }
+    uploading({status}: {status: string}) {
+      this.loading = !(status === 'success' || status === 'fail')
     }
 
     beforeUpload(file: File) {
-      this.loading = true
-      this.loadingText = '上传中'
-
       const isImage = IMAGE_MIME_TYPES.includes(file.type)
       const isValidSize = file.size <= IMAGE_SIZE
 
       if (!isImage) {
-        this.$message.error('上传头像图片格式不正确');
+        this.$message.error('上传头像图片格式不正确')
+        this.loading = false
       }
       if (!isValidSize) {
-        this.$message.error('上传头像图片大小不能超过 2MB');
+        this.$message.error('上传头像图片大小不能超过 2MB')
+        this.loading = false
       }
 
       return isImage && isValidSize
@@ -121,8 +108,8 @@
           }
         })
 
-        this.$message.success("已更新用户信息")
-        await this.$router.push("/user")
+        this.$message.success('已更新用户信息')
+        await this.$router.push('/user')
       } catch (error) {
         this.$message.error(error.message)
       } finally {
