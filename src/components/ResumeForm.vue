@@ -13,7 +13,7 @@
             <el-input type="email" :disabled="isLogin" v-model="resumeForm.email"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('phone')" required prop="phone" :label="field('phone')">
-            <el-input type="tel" v-model.number="resumeForm.phone"></el-input>
+            <el-input type="tel" v-model="resumeForm.phone"></el-input>
         </el-form-item>
         <el-form-item required prop="experience" :label="field('experience')">
             <el-select v-model="resumeForm.experience" placeholder="请选择">
@@ -33,8 +33,19 @@
         <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" :label="field('leetCodeUrl')">
             <el-input type="url" v-model="resumeForm.leetCodeUrl"></el-input>
         </el-form-item>
-        <el-form-item v-if="isShowField('resumeUrl')" required prop="resumeUrl" :label="field('resumeUrl')">
-            <el-input type="url" v-model="resumeForm.resumeUrl"></el-input>
+        <el-form-item :label="field('resumeUrl')">
+            <el-upload
+                v-loading="loading"
+                element-loading-text="上传中"
+                action=""
+                :auto-upload="false"
+                :on-change="onUpload"
+                :before-upload="beforeUpload"
+                :show-file-list="false">
+                <el-button size="small" type="primary">上传简历</el-button>
+                <span style="margin-left: 12px">{{resumeForm.resumeUrl}}</span>
+                <div slot="tip" class="el-upload__tip">只能上传 <strong>pdf</strong> 文件，且不超过5MB</div>
+            </el-upload>
         </el-form-item>
 
         <div class="submit">
@@ -53,6 +64,9 @@
   import {ElForm} from 'element-ui/types/form'
   import {RESUME_RULES} from '@/constants/rules'
   import {getFieldName} from '@/constants/referFields'
+  import {ElUploadInternalFileDetail} from 'element-ui/types/upload'
+  import UploadReferResume from '@/graphql/UploadReferResume.graphql'
+  import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
 
   @Component({
     components: {JobItem}
@@ -78,6 +92,7 @@
     rules = RESUME_RULES
     field = getFieldName
     resumeLoading = false
+    loading = false
 
     mounted() {
       this.initForm()
@@ -93,6 +108,39 @@
 
     isShowField(fieldName: string) {
       return this.requiredFields.includes(fieldName)
+    }
+
+    async onUpload(file: ElUploadInternalFileDetail) {
+      try {
+        this.loading = true
+        const {data} = await this.$apollo.mutate({
+          mutation: UploadReferResume,
+          variables: {
+            refereeId: this.resumeForm.refereeId,
+            resumeId: this.resumeId,
+            resume: file.raw
+          }
+        })
+        this.resumeForm.resumeUrl = data.resumeUrl
+      } catch (error) {
+        this.$message.error(error.message)
+      } finally {
+        this.loading = false
+      }
+    }
+
+    beforeUpload(file: File) {
+      const isPdf = RESUME_MIME_TYPES.includes(file.type)
+      const isValidSize = file.size <= RESUME_SIZE
+
+      if (!isPdf) {
+        this.$message.error('上传简历只能是 PDF 格式')
+      }
+      if (!isValidSize) {
+        this.$message.error('上传简历大小不能超过 5MB')
+      }
+
+      return isPdf && isValidSize
     }
 
     async initForm() {

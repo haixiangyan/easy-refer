@@ -16,7 +16,9 @@ const fakerImageUrl = () => 'https://picsum.photos/400/400/?image=' + faker.rand
 
 const mocks = {
     Mutation: () => ({
-        uploadAvatar: () => faker.image.avatar()
+        uploadAvatar: () => faker.image.avatar(),
+        uploadResume: () => faker.internet.url(),
+        uploadReferResume: () => faker.internet.url(),
     }),
     User: () => ({
         userId: faker.random.uuid(),

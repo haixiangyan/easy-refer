@@ -1,0 +1,3 @@
+mutation UploadResume($userId: String!, $resume: Upload!) {
+    resumeUrl: uploadResume(userId: $userId, resume: $resume)
+}
