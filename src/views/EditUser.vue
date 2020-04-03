@@ -99,7 +99,8 @@
           variables: {userId: this.userId}
         })
 
-        this.form = data.user
+        const {userId, ...userForm} = data.user
+        this.form = userForm
         this.avatarUrl = data.user.avatarUrl
       } catch (error) {
         this.$message.error(error.message)
