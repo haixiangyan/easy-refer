@@ -2,7 +2,7 @@
     <div class="intro">
         <div class="avatar">
             <router-link to="/user">
-                <el-avatar :src="intro.avatarUrl" :size="100"/>
+                <el-avatar :src="avatarUrl" :size="100"/>
             </router-link>
             <router-link to="/user" tag="p">
                 <el-link class="name">{{intro.name}}</el-link>
@@ -46,7 +46,6 @@
   @Component
   export default class Intro extends Vue {
     intro: TIntro = {
-      avatarUrl: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
       name: "",
       finishedRefers: 0,
       totalRefers: 0,
@@ -61,6 +60,9 @@
     }
     get userId() {
       return this.$store.state.user.userId
+    }
+    get avatarUrl() {
+      return this.$store.state.user.avatarUrl
     }
 
     mounted() {

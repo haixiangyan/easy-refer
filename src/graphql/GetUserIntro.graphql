@@ -1,6 +1,5 @@
 query GetUserIntro($userId: String!) {
     userIntro: getUserIntro(userId: $userId) {
-        avatarUrl
         name
         finishedRefers
         totalRefers

@@ -1,36 +1,30 @@
-type TUserStore = TStringMapper & {
-  userId: string
-  email: string
-  name: string
-  jobId: string | undefined
-  intro?: string
-  phone?: string
-  leetCodeUrl?: string
-  thirdPersonIntro?: string
-  resumeUrl?: string
-}
+type TUserStore = TStringMapper & TUser
 
 const auth = {
   namespaced: true,
   state: {
     userId: '',
-    email: '',
     name: '',
-    jobId: undefined,
-    // 可无
-    intro: '',
+    email: '',
     phone: '',
-    leetCodeUrl: '',
+    experience: 0,
+    resumeUrl: '',
+    intro: '',
+    jobId: '',
     thirdPersonIntro: '',
-    resumeUrl: ''
+    leetCodeUrl: '',
+    avatarUrl: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
   },
   mutations: {
-    setUser: (state: TUserStore, payload: TUserStore) => {
+    setUser: (state: TUserStore, user: TUserStore) => {
       Object.keys(state).forEach((key: string) => {
-        if (key in state && key in payload) {
-          state[key] = payload[key]
+        if (key in state && key in user) {
+          state[key] = user[key]
         }
       })
+    },
+    setAvatarUrl: (state: TUserStore, avatarUrl: string) => {
+      state.avatarUrl = avatarUrl
     }
   }
 }

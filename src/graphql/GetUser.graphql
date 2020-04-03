@@ -1,5 +1,6 @@
 query GetUser($userId: String!) {
     user: getUser(userId: $userId) {
+        userId
         name
         email
         phone

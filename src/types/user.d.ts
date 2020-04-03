@@ -20,7 +20,6 @@ type TUserForm = TUser & {
 }
 
 type TIntro = {
-  avatarUrl: string
   name: string
   finishedRefers: number
   totalRefers: number
