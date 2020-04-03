@@ -158,6 +158,7 @@ input ResumeForm {
     thirdPersonIntro: String
     resumeUrl: String
     referLinks: String
+    avatarUrl: String
 }
 
 input UserForm {

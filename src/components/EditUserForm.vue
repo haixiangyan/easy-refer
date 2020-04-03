@@ -33,7 +33,9 @@
                 element-loading-text="上传中"
                 action="/user-resume"
                 :data="{userId}"
-                :on-change="onUpload"
+                :on-success="uploaded"
+                :on-change="uploading"
+                :on-error="() => this.$message.error('上传失败')"
                 :before-upload="beforeUpload"
                 :show-file-list="false">
                 <el-button size="small" type="primary">上传简历</el-button>
@@ -90,13 +92,14 @@
       this.editUserForm = {...this.form}
     }
 
-    onUpload({status, response}: {status: string, response: IUploadResume}) {
-      if (status === 'fail') return this.$message.error('上传失败')
-      if (status === 'ready') return this.loading = true
-
+    uploaded(response: IUploadResume) {
       this.editUserForm.resumeUrl = response.resumeUrl
       this.loading = false
       this.$message.success('上传成功')
+    }
+
+    uploading({status}: {status: string}) {
+      this.loading = status === 'fail' || status === 'success'
     }
 
     beforeUpload(file: File) {
