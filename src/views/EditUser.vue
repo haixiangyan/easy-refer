@@ -6,10 +6,11 @@
             </el-col>
             <el-col>
                 <el-upload
-                    action="/xxx"
+                    action=""
                     :auto-upload="false"
                     :show-file-list="false"
                     :on-change="onUpload"
+                    :on-error="() => this.$message.error('上传出错')"
                     :before-upload="beforeUpload">
                     <el-button size="small" type="success" plain round>修改头像</el-button>
                 </el-upload>
@@ -72,6 +73,7 @@
       }
     }
     beforeUpload(file: File) {
+      console.log('fuck')
       this.loading = true
       this.loadingText = '上传中'
 
