@@ -8,6 +8,7 @@ type Mutation {
     register(registerForm: RegisterForm!): User!
 
     updateUser(userId: String!, userForm: UserForm!): User
+    uploadAvatar(userId: String!, avatar: Upload!): Boolean
 
     addJob(refererId: String!, jobForm: JobForm!): Boolean
     updateJob(refererId: String!, jobId: String!, jobForm: JobForm!): Boolean
