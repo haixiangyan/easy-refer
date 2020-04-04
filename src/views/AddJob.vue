@@ -30,7 +30,7 @@
 
         this.$message.success("已添加该职位")
 
-        await this.$router.push("/job-list")
+        await this.$router.push("/jobItem-list")
       } catch (error) {
         this.$message.error(error.message)
       } finally {

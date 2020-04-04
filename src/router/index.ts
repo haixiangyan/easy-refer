@@ -19,7 +19,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/job-list',
+    redirect: '/jobItem-list',
   },
   {
     path: '/login',
@@ -27,7 +27,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/job-list',
+    path: '/jobItem-list',
     name: 'JobList',
     component: JobList
   },
@@ -56,13 +56,13 @@ const routes = [
     meta: {requireAuth: true}
   },
   {
-    path: '/add-job',
+    path: '/add-jobItem',
     name: 'AddJob',
     component: AddJob,
     meta: {requireAuth: true}
   },
   {
-    path: '/edit-job',
+    path: '/edit-jobItem',
     name: 'EditJob',
     component: EditJob,
     meta: {requireAuth: true}

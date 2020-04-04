@@ -16,3 +16,8 @@ type TLoginForm = {
 
 interface ILogin extends TUser{ }
 interface IRegister { }
+
+interface IJobItemList {
+  jobItemList: TJobItem[]
+  totalPages: number
+}

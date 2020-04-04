@@ -13,7 +13,10 @@ type TJob = {
 
 type TJobItem = {
   jobId: string
-  refererName: string
+  referer: {
+    name: string
+    avatarUrl: string
+  }
   company: string
   referredCount: number
   referTotal: number
@@ -21,7 +24,6 @@ type TJobItem = {
   expiration: 3 | 5 | 7
   requiredFields: string[]
   source: string
-  avatarUrl: string
 }
 
 type TJobForm = {

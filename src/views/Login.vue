@@ -68,7 +68,7 @@
 
         this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
 
-        await this.$router.push('/job-list')
+        await this.$router.push('/jobItem-list')
       })
     }
   }
