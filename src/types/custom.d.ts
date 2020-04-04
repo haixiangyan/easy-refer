@@ -14,3 +14,5 @@ type TLoginForm = {
   password: string
 }
 
+interface ILogin extends TUser{ }
+interface IRegister { }

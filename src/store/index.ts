@@ -10,12 +10,10 @@ const store = new Vuex.Store({
   modules: {auth, user},
   state: {
     loading: false,
-    loadingText: '加载中',
   },
   mutations: {
-    setLoading(state, isLoading: boolean, loadingText = '加载中') {
+    setLoading(state, isLoading: boolean) {
       state.loading = isLoading
-      state.loadingText = loadingText
     }
   }
 })

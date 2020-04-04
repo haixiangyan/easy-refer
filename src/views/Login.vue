@@ -30,11 +30,10 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import LoginGQL from '@/graphql/Login.graphql'
-  import RegisterGQL from '@/graphql/Register.graphql'
   import {Component} from 'vue-property-decorator'
   import {ElForm} from 'element-ui/types/form'
   import {LOGIN_RULES} from '@/constants/rules'
+  import AuthService from '@/service/AuthService'
 
   @Component
   export default class Login extends Vue {
@@ -42,24 +41,19 @@
       email: '',
       password: ''
     }
-    loading = false
     rules = LOGIN_RULES
+
+    get loading() {
+      return this.$store.state.loading
+    }
 
     register() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
-        try {
-          this.loading = true
-          await this.$apollo.mutate({
-            mutation: RegisterGQL,
-            variables: {registerForm: this.loginForm}
-          })
+        await AuthService.register(this.loginForm)
 
-          this.login()
-        } catch (error) {
-          this.$message.error(error.message)
-        } finally { this.loading = false }
+        this.login()
       })
     }
 
@@ -67,23 +61,14 @@
       (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
-        try {
-          this.loading = true
-          const {data} = await this.$apollo.mutate({
-            mutation: LoginGQL,
-            variables: {loginForm: this.loginForm}
-          })
-          this.$store.commit('auth/setAuth', true)
-          this.$store.commit('user/setUser', data.user)
+        const {data} = await AuthService.login(this.loginForm)
 
-          this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
+        this.$store.commit('auth/setAuth', true)
+        this.$store.commit('user/setUser', data)
 
-          await this.$router.push('/job-list')
-        } catch (error) {
-          this.$message.error(error.message)
-        } finally {
-          this.loading = false
-        }
+        this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
+
+        // await this.$router.push('/job-list')
       })
     }
   }
