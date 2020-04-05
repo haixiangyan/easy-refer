@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import {Job, Resume, User} from '@/mocks/objects'
+import {Job, Resume, User} from '@/mocks/MockObject'
 
 Mock.mock('/login', 'post', {
   user: User,

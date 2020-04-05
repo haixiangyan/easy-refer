@@ -1,4 +1,3 @@
-import Mock from 'mockjs'
 import dayjs from 'dayjs'
 import faker from "faker/locale/zh_CN"
 
@@ -7,7 +6,6 @@ const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'Br
 const status = ['processing', 'rejected', 'referred']
 const requiredFields = ['name', 'email', 'phone', 'experience', 'referLinks', 'resumeUrl', 'intro', 'thirdPersonIntro', 'leetCodeUrl']
 
-const mockArray = (array: any[]) => array[Mock.Random.natural(0, array.length - 1)]
 const dateRange = (from: string, to: string) => dayjs(faker.date.between(from, to)).toISOString()
 const now = () => dayjs().toISOString()
 

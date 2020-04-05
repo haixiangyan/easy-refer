@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import {MyRefer, OtherRefer, Refer} from '@/mocks/objects'
+import {MyRefer, OtherRefer, Refer} from '@/mocks/MockObject'
 
 Mock.mock(/\/refers\?.*/, 'get', (options: any) => {
   const referTemplate = options.url.includes('my') ? MyRefer : OtherRefer
