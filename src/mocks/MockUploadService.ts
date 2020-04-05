@@ -1,4 +1,3 @@
-import faker from 'faker'
 import Mock from 'mockjs'
 
 Mock.mock('/user-resume', 'post', {
@@ -14,5 +13,5 @@ Mock.mock('/refer-resume', 'post', {
 })
 
 Mock.mock('/avatar', 'post', {
-  avatarUrl: faker.image.avatar()
+  avatarUrl: Mock.Random.dataImage('100x100', '新头像')
 })
