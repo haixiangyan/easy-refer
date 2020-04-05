@@ -1,6 +1,6 @@
 <template>
-    <div class="job-list">
-        <div class="jobs" v-loading="loading" element-loading-text="加载内推职位中">
+    <div>
+        <div class="job-item-list" v-loading="loading" element-loading-text="加载内推职位中">
             <JobItem v-for="jobItem in publicJobs" :job-item="jobItem" :key="jobItem.jobId"></JobItem>
         </div>
         <div class="pages">
@@ -50,7 +50,7 @@
 </script>
 
 <style lang="scss">
-    .jobs {
+    .job-item-list {
         height: 100%;
     }
 

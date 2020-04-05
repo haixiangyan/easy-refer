@@ -1,5 +1,5 @@
 <template>
-    <div class="user" v-loading="loading" element-loading-text="加载用户中">
+    <div v-loading="loading" element-loading-text="加载用户中">
         <el-row type="flex" align="middle">
             <el-avatar class="avatar" :src="user.avatarUrl" :size="100"/>
         </el-row>

@@ -1,6 +1,6 @@
 <template>
-    <div class="apply">
-        <div class="job-description" v-loading="jobLoading" element-loading-text="加载职位中">
+    <div>
+        <div v-loading="jobLoading" element-loading-text="加载职位中">
             <JobItem :job-item="jobItem"/>
         </div>
 

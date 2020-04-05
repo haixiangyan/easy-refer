@@ -1,6 +1,6 @@
 <template>
-    <div class="edit-refer" v-loading="jobLoading" element-loading-text="加载职位中">
-        <div class="job-description">
+    <div v-loading="jobLoading" element-loading-text="加载职位中">
+        <div>
             <JobItem :job-item="jobItem"/>
         </div>
 

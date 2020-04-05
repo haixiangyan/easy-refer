@@ -1,5 +1,5 @@
 <template>
-    <div class="edit-user" v-loading="loading" :element-loading-text="loadingText">
+    <div v-loading="loading" :element-loading-text="loadingText">
         <el-row class="avatar" type="flex" align="middle">
             <el-col :span="6">
                 <el-avatar :src="user.avatarUrl" :size="100"/>
