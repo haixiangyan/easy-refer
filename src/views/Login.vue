@@ -65,7 +65,7 @@
 
         this.$store.commit('auth/setAuth', true)
         this.$store.commit('user/setUser', data.user)
-        this.$store.commit('job/setJob', data.job)
+        data.job && this.$store.commit('job/setJob', data.job)
 
         this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
 

@@ -19,7 +19,7 @@ type TLoginForm = {
 
 interface ILogin {
   user: TUser
-  job: TJob
+  job?: TJob
 }
 
 interface IRegister {}

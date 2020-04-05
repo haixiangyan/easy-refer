@@ -42,8 +42,8 @@ export const Job = {
   requiredFields,
   deadline: dateRange('2020-12-1', '2021-1-1'),
   'expiration|1': expiration,
-  referredCount: '@INTEGER(30, 100)',
-  referTotal: '@INTEGER(100, 300)',
+  referredCount: '@NATURAL(30, 100)',
+  referTotal: '@NATURAL(100, 300)',
   source: '@URL',
   createdAt: dateRange('2020-12-1', '2021-1-1'),
   updatedAt: dateRange('2020-12-1', '2021-1-1')

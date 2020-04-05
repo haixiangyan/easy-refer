@@ -65,7 +65,6 @@
   import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '@/constants/referFields'
   import {JOB_RULES} from "@/constants/rules"
   import {ElForm} from "element-ui/types/form"
-  import JobService from '@/service/JobService'
 
   @Component
   export default class JobForm extends Vue {
@@ -74,7 +73,7 @@
       createdAt: new Date().toISOString(),
       deadline: dayjs().add(1, 'month').toISOString(),
       expiration: 5,
-      referTotals: 0,
+      referTotal: 0,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
       source: '',
       updatedAt: dayjs().toISOString()
@@ -98,16 +97,17 @@
     get user() {
       return this.$store.state.user
     }
+    get job() {
+      return this.$store.state.job
+    }
 
     mounted() {
       this.user.jobId && this.loadJob()
     }
 
     async loadJob() {
-      const {data: job} = await JobService.getJobById(this.user.jobId)
-
       Object.keys(this.form).forEach((key: string) => {
-        this.form[key] = job[key]
+        this.form[key] = this.job[key]
         })
     }
 

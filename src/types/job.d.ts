@@ -5,8 +5,8 @@ type TJob = TMapper & {
   requiredFields: string[]
   deadline: string
   expiration: 3 | 5 | 7
-  referredCounts: number
-  referTotals: number
+  referredCount: number
+  referTotal: number
   source: string
   createdAt: string
   updatedAt: string
@@ -32,7 +32,7 @@ type TJobForm = TMapper & {
   requiredFields: string[]
   deadline: string
   expiration: 3 | 5 | 7
-  referTotals: number
+  referTotal: number
   source: string
   createdAt: string
   updatedAt: string
