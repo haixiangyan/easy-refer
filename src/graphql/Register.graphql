@@ -1,5 +1,0 @@
-mutation Register($registerForm: RegisterForm!) {
-    register(registerForm: $registerForm) {
-        email
-    }
-}

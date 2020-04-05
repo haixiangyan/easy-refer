@@ -1,3 +1,0 @@
-mutation UpdateRefer($referId: String!, $referForm: ReferForm!) {
-    updateRefer(referId: $referId, referForm: $referForm)
-}
