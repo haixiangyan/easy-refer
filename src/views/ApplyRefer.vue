@@ -10,7 +10,7 @@
             v-loading="applyLoading"
             element-loading-text="提交中"
             @submit="apply"
-            @back="$router.push('/jobItem-list')"
+            @back="$router.push('/job-list')"
             :required-fields="jobItem.requiredFields"
         />
     </div>
@@ -64,7 +64,7 @@
 
       this.$message.success('已提交内推信息')
 
-      await this.$router.push('/my-refer-list')
+      await this.$router.push('/my/refer-list')
     }
   }
 </script>

@@ -21,12 +21,12 @@
             </div>
         </el-row>
         <div class="function">
-            <router-link to="/my-refer-list" tag="div">
+            <router-link to="/my/refer-list" tag="div">
                 <el-button class="button" type="success" :round="true" icon="el-icon-view">
                    查看内推状态
                 </el-button>
             </router-link>
-            <router-link :to="user.jobId ? `/edit-job` : '/add-jobItem'" tag="div">
+            <router-link :to="user.jobId ? `/edit-job` : '/add-job'" tag="div">
                 <el-button class="button"
                            type="primary"
                            :icon="user.jobId ? 'el-icon-edit' : 'el-icon-plus'"

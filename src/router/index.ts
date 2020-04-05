@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import store from '../store/index'
 import JobList from '../views/JobList.vue'
 import MyReferList from '@/views/MyReferList.vue'
-import RefereeRequestList from '@/views/RefereeRequestList.vue'
 import User from '@/views/User.vue'
 import NotFound from '@/views/NotFound.vue'
 import Login from '@/views/Login.vue'
@@ -11,8 +10,9 @@ import EditUser from '@/views/EditUser.vue'
 import AddJob from '@/views/AddJob.vue'
 import EditJob from '@/views/EditJob.vue'
 import ApplyRefer from '@/views/ApplyRefer.vue'
-import RefereeRequest from '@/views/RefereeRequest.vue'
+import OtherRefer from '@/views/OtherRefer.vue'
 import EditRefer from '@/views/EditRefer.vue'
+import OtherReferList from '@/views/OtherReferList.vue'
 
 Vue.use(VueRouter)
 
@@ -30,18 +30,6 @@ const routes = [
     path: '/job-list',
     name: 'JobList',
     component: JobList
-  },
-  {
-    path: '/my-refer-list',
-    name: 'MyReferList',
-    component: MyReferList,
-    meta: {requireAuth: true}
-  },
-  {
-    path: '/referee-request-list',
-    name: 'RefereeRequestList',
-    component: RefereeRequestList,
-    meta: {requireAuth: true}
   },
   {
     path: '/user',
@@ -79,9 +67,21 @@ const routes = [
     meta: {requireAuth: true}
   },
   {
-    path: '/referee-request/:referId/',
-    name: 'RefereeRequest',
-    component: RefereeRequest,
+    path: '/my/refer-list',
+    name: 'MyReferList',
+    component: MyReferList,
+    meta: {requireAuth: true}
+  },
+  {
+    path: '/other/refer-list',
+    name: 'OtherReferList',
+    component: OtherReferList,
+    meta: {requireAuth: true}
+  },
+  {
+    path: '/other/refer/:referId/',
+    name: 'OtherRefer',
+    component: OtherRefer,
     meta: {requireAuth: true}
   },
   {

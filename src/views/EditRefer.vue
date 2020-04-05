@@ -13,7 +13,7 @@
             @submit="edit"
             :refer="refer"
             @loading="resumeLoading = $event"
-            @back="$router.push('/my-refer-list')"
+            @back="$router.push('/my/refer-list')"
             :required-fields="jobItem.requiredFields"
             :resume-id="refer.resumeId"/>
     </div>
@@ -87,7 +87,7 @@
 
       this.$message.success('已修改内推信息')
 
-      await this.$router.push('/my-refer-list')
+      await this.$router.push('/refer-list/me')
     }
   }
 </script>

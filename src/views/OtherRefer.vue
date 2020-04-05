@@ -1,12 +1,12 @@
 <template>
-    <div class="resume" v-loading="loading" element-loading-text="加载该简历">
-        <div class="job-description">
+    <div v-loading="loading" element-loading-text="加载该简历">
+        <div>
             <JobItem :job-item="jobItem"/>
         </div>
 
         <el-divider>申请信息</el-divider>
 
-        <el-table class="resume-table" :data="referTable">
+        <el-table class="refer-table" :data="referTable">
             <el-table-column prop="key" label="内推项" width="120"/>
             <el-table-column prop="value" label="内容"/>
         </el-table>
@@ -116,13 +116,13 @@
 
       this.$message.success(status === 'rejected' ? '不推此简历' : '已推此简历')
 
-      await this.$router.push('/referee-request-list')
+      await this.$router.push('/refer-list/other')
     }
   }
 </script>
 
 <style scoped lang="scss">
-    .resume-table {
+    .refer-table {
         margin-bottom: 24px;
     }
 
