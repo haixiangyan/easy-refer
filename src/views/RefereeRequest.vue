@@ -22,11 +22,8 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import GetResumeBodyGQL from '@/graphql/GetResumeBody.graphql'
-  import UpdateReferGQL from '@/graphql/UpdateRefer.graphql'
   import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
   import {LEVEL_MAPPER} from '@/constants/level'
-  import JobService from '@/service/JobService'
   import ReferService from '@/service/ReferService'
 
   @Component({
@@ -109,28 +106,17 @@
 
     async loadRefer() {
       const {data: refer} = await ReferService.getReferById(this.referId)
-      console.log(refer)
       Object.keys(this.referForm).forEach((key: string) => {
         this.referForm[key] = refer[key]
       })
     }
 
-    async updateStatus(status: string) {
-      try {
-        await this.$apollo.mutate({
-          mutation: UpdateReferGQL,
-          variables: {
-            referId: this.referId,
-            referForm: {status}
-          }
-        })
+    async updateStatus(status: TStatus) {
+      await ReferService.patchRefer(this.referId, {status})
 
-        this.$message.success(status === 'rejected' ? '不推此简历' : '已推此简历')
+      this.$message.success(status === 'rejected' ? '不推此简历' : '已推此简历')
 
-        await this.$router.push('/referee-request-list')
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+      await this.$router.push('/referee-request-list')
     }
   }
 </script>

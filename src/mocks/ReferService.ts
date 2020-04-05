@@ -12,3 +12,5 @@ Mock.mock(/\/refers\?.*/, 'get', (options: any) => {
 Mock.mock(/\/refers\/d*/, 'get', Refer)
 
 Mock.mock(/\/refers[\/]?\d*/, 'post', (options: any) => JSON.parse(options.body).referForm)
+
+Mock.mock(/\/refers\/d*/, 'patch', Refer)

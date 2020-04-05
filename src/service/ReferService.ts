@@ -10,8 +10,13 @@ const ReferService = {
   async getReferById(referId: string): Promise<AxiosResponse<IRefer>> {
     return await service.get(`/refers/${referId}`)
   },
-  async editRefer(referId: string, referForm: TReferForm): Promise<AxiosResponse> {
+  async editRefer(referId: string, referForm: TReferForm): Promise<AxiosResponse<TRefer>> {
     return await service.post(`/refers/${referId}`, {
+      referForm
+    })
+  },
+  async patchRefer(referId: string, referForm: TReferPatch): Promise<AxiosResponse<TRefer>> {
+    return await service.patch(`/refers/${referId}`, {
       referForm
     })
   },
