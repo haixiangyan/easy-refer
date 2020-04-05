@@ -27,6 +27,7 @@
   import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
   import {LEVEL_MAPPER} from '@/constants/level'
   import JobService from '@/service/JobService'
+  import ReferService from '@/service/ReferService'
 
   @Component({
     components: {JobItem}
@@ -46,37 +47,37 @@
       requiredFields: [],
       source: '',
     }
-    resume: TResumeBody = {
-      // 必填
-      jobId: '',
-      refereeId: this.user.userId,
+    referForm: TReferForm = {
       email: '',
-      name: '',
       experience: 0,
-      // 选填
       intro: '',
       leetCodeUrl: '',
+      name: '',
       phone: '',
       referLinks: '',
-      resumeUrl: '',
-      thirdPersonIntro: '',
+      resumeId: '',
+      thirdPersonIntro: ''
     }
     loading = false
 
-    get jobId() {
-      return this.$route.params.jobId
-    }
-
     get referId() {
       return this.$route.params.referId
+    }
+
+    get job() {
+      return this.$store.state.job
     }
 
     get user() {
       return this.$store.state.user
     }
 
+    get resume() {
+      return this.$store.state.resume
+    }
+
     get referTable() {
-      return Object.entries(this.resume)
+      return Object.entries(this.referForm)
         .filter(([key, _]) => this.jobItem.requiredFields.includes(key))
         .map(([key, value]) => ({
           key: REFER_FIELDS_MAPPER[key],
@@ -85,33 +86,33 @@
     }
 
     mounted() {
-      this.loading = true
-      const jobPromise = this.loadJob()
-      const resumePromise = this.loadResume()
-      Promise.all([jobPromise, resumePromise]).then(() => this.loading = false)
+      this.initJobItem()
+      this.loadRefer()
     }
 
-    async loadJob() {
-      try {
-        const {data} = await JobService.getJobItemById(this.jobId)
-
-        this.jobItem = data
-      } catch (error) {
-        this.$message.error(error.message)
+    initJobItem() {
+      this.jobItem = {
+        jobId: this.job.jobId,
+        company: this.job.company,
+        referer: {
+          name: this.user.name,
+          avatarUrl: this.user.avatarUrl
+        },
+        deadline: this.job.deadline,
+        expiration: this.job.expiration,
+        referredCount: this.job.referredCount,
+        referTotal: this.job.referTotal,
+        requiredFields: this.job.requiredFields,
+        source: this.job.source
       }
     }
 
-    async loadResume() {
-      try {
-        const {data} = await this.$apollo.query({
-          query: GetResumeBodyGQL,
-          variables: {resumeId: this.resumeId}
-        })
-
-        this.resume = data.resumeBody
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+    async loadRefer() {
+      const {data: refer} = await ReferService.getReferById(this.referId)
+      console.log(refer)
+      Object.keys(this.referForm).forEach((key: string) => {
+        this.referForm[key] = refer[key]
+      })
     }
 
     async updateStatus(status: string) {
