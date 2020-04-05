@@ -6,7 +6,7 @@
 
         <el-divider>申请信息</el-divider>
 
-        <el-table class="resume-table" :data="resumeTable">
+        <el-table class="resume-table" :data="referTable">
             <el-table-column prop="key" label="内推项" width="120"/>
             <el-table-column prop="value" label="内容"/>
         </el-table>
@@ -71,15 +71,11 @@
       return this.$route.params.referId
     }
 
-    get resumeId() {
-      return this.$route.params.resumeId
-    }
-
     get user() {
       return this.$store.state.user
     }
 
-    get resumeTable() {
+    get referTable() {
       return Object.entries(this.resume)
         .filter(([key, _]) => this.jobItem.requiredFields.includes(key))
         .map(([key, value]) => ({

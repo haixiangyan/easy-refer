@@ -17,7 +17,10 @@ type TLoginForm = {
   password: string
 }
 
-interface ILogin extends TUser {}
+interface ILogin {
+  user: TUser
+  job: TJob
+}
 
 interface IRegister {}
 

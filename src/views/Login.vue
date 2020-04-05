@@ -61,10 +61,11 @@
       (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
-        const {data: user} = await AuthService.login(this.loginForm)
+        const {data} = await AuthService.login(this.loginForm)
 
         this.$store.commit('auth/setAuth', true)
-        this.$store.commit('user/setUser', user)
+        this.$store.commit('user/setUser', data.user)
+        this.$store.commit('job/setJob', data.job)
 
         this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
 

@@ -1,6 +1,9 @@
 import Mock from 'mockjs'
-import {User} from '@/mocks/objects'
+import {Job, User} from '@/mocks/objects'
 
-Mock.mock('/login', 'post', User)
+Mock.mock('/login', 'post', {
+  user: User,
+  job: Job
+})
 
 Mock.mock('/register', 'post', User)

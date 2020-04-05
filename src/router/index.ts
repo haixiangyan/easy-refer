@@ -79,7 +79,7 @@ const routes = [
     meta: {requireAuth: true}
   },
   {
-    path: '/referee-request/:jobId/:referId/:resumeId',
+    path: '/referee-request/:referId/',
     name: 'RefereeRequest',
     component: RefereeRequest,
     meta: {requireAuth: true}

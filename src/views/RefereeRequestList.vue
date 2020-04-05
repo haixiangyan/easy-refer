@@ -19,7 +19,7 @@
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" width="100">
                     <template slot-scope="scope">
-                        <router-link tag="span" :to="`/referee-request/${scope.row.job.jobId}/${scope.row.referId}/${scope.row.resume.resumeId}`">
+                        <router-link tag="span" :to="`/referee-request/${scope.row.referId}`">
                             <el-link type="primary">查看</el-link>
                         </router-link>
                     </template>
