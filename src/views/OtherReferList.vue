@@ -1,10 +1,6 @@
 <template>
     <div>
-        <el-table
-            v-loading="loading"
-            element-loading-text="加载所有简历中"
-            :data="refers"
-            style="width: 100%">
+        <el-table :data="refers" style="width: 100%">
             <el-table-column prop="referer.name" label="姓名" width="180"/>
             <el-table-column prop="createdAt" label="提交日期" width="180">
                 <template slot-scope="scope">
@@ -49,7 +45,6 @@
     refers: TOtherRefer[] = []
     page: number = 1
     totalPages: number = 0
-    loading = false
 
     get userId() {
       return this.$store.state.user.userId
@@ -68,18 +63,10 @@
     }
 
     async loadResumes(page: number) {
-      try {
-        this.loading = true
+      const {data} = await ReferService.getReferList('other', page)
 
-        const {data} = await ReferService.getReferList('other', page)
-
-        this.refers = data.referList as TOtherRefer[]
-        this.totalPages = data.totalPages
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.loading = false
-      }
+      this.refers = data.referList as TOtherRefer[]
+      this.totalPages = data.totalPages
     }
 
     @Watch('page')

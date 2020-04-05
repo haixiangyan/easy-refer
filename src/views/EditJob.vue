@@ -1,5 +1,5 @@
 <template>
-    <div v-loading="loading" element-loading-text="提交中">
+    <div>
         <JobForm @submit="onSubmit"/>
     </div>
 </template>
@@ -14,8 +14,6 @@
     components: {JobForm}
   })
   export default class AddJob extends Vue {
-    loading = false
-
     get user() {
       return this.$store.state.user
     }

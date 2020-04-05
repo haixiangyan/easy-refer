@@ -1,5 +1,5 @@
 <template>
-    <div v-loading="loading" :element-loading-text="loadingText">
+    <div>
         <el-row class="avatar" type="flex" align="middle">
             <el-col :span="6">
                 <el-avatar :src="user.avatarUrl" :size="100"/>
@@ -33,8 +33,6 @@
   export default class EditUser extends Vue {
     form: TUserForm | null = null
     rules = EDIT_USER_RULES
-    loading = false
-    loadingText = '加载中'
 
     get user() {
       return this.$store.state.user
@@ -47,7 +45,7 @@
     }
 
     uploading({status}: { status: string }) {
-      this.loading = !(status === 'success' || status === 'fail')
+      this.$store.commit('setLoading', !(status === 'success' || status === 'fail'))
     }
 
     beforeUpload(file: File) {
@@ -56,11 +54,11 @@
 
       if (!isImage) {
         this.$message.error('上传头像图片格式不正确')
-        this.loading = false
+        this.$store.commit('setLoading', false)
       }
       if (!isValidSize) {
         this.$message.error('上传头像图片大小不能超过 2MB')
-        this.loading = false
+        this.$store.commit('setLoading', false)
       }
 
       return isImage && isValidSize

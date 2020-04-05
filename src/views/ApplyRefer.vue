@@ -1,14 +1,12 @@
 <template>
     <div>
-        <div v-loading="jobLoading" element-loading-text="加载职位中">
+        <div>
             <JobItem :job-item="jobItem"/>
         </div>
 
         <el-divider>填写你的信息</el-divider>
 
         <ReferForm
-            v-loading="applyLoading"
-            element-loading-text="提交中"
             @submit="apply"
             @back="$router.push('/job-list')"
             :required-fields="jobItem.requiredFields"
@@ -42,8 +40,6 @@
       requiredFields: [],
       source: ''
     }
-    applyLoading = false
-    jobLoading = false
 
     get jobId() {
       return this.$route.params.jobId
