@@ -17,35 +17,31 @@
                 <i class="el-icon-s-order"></i>
                 <span slot="title">内推进度</span>
             </el-menu-item>
-            <el-menu-item index="/referee-request-list">
+            <el-menu-item :disabled="$store.state.user.jobId === ''" index="/referee-request-list">
                 <i class="el-icon-s-cooperation"></i>
                 <span slot="title">处理内推</span>
             </el-menu-item>
         </el-menu>
         <router-link to="/user" tag="span">
-            <el-link icon="el-icon-user">{{authText}}</el-link>
+            <el-link icon="el-icon-user">
+                {{$store.state.auth.isLogin ? '我' : '登录'}}
+            </el-link>
         </router-link>
     </nav>
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "vue-property-decorator"
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
 
-  @Component({
-    computed: {
-      authText() {
-        return this.$store.state.auth.isLogin ? '我' : '登录'
-      }
-    }
-  })
+  @Component
   export default class ReMenu extends Vue {
-
   }
 </script>
 
 <style scoped lang="scss">
     @import "~@/assets/styles/variables.scss";
+
     nav {
         display: flex;
         align-items: center;
@@ -58,8 +54,10 @@
         transform: translateX(-50%);
         z-index: 1500;
         background: white;
+
         .menu {
             border-bottom: none;
+
             .logo-menu-item {
                 text-align: center;
 
