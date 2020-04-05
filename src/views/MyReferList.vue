@@ -3,7 +3,7 @@
         <div v-loading="loading" element-loading-text="加载我的内推">
             <ReferItem v-for="refer in refers" :key="refer.id" :refer="refer"/>
         </div>
-        <div>
+        <div class="pages">
             <el-pagination
                 v-show="totalPages !== 0"
                 :current-page.sync="page"
@@ -48,4 +48,9 @@
   }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+    .pages {
+        padding: 20px 0;
+        text-align: center;
+    }
+</style>

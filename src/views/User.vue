@@ -64,7 +64,7 @@
 
 <style scoped lang="scss">
     .user-edit {
-        margin-top: 12px;
+        padding: 20px 0;
         text-align: center;
     }
 </style>

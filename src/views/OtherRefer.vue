@@ -6,7 +6,7 @@
 
         <el-divider>申请信息</el-divider>
 
-        <el-table class="refer-table" :data="referTable">
+        <el-table :data="referTable">
             <el-table-column prop="key" label="内推项" width="120"/>
             <el-table-column prop="value" label="内容"/>
         </el-table>
@@ -122,12 +122,8 @@
 </script>
 
 <style scoped lang="scss">
-    .refer-table {
-        margin-bottom: 24px;
-    }
-
     .buttons {
-        margin-top: 16px;
+        padding: 20px 0;
         text-align: center;
     }
 </style>
