@@ -21,3 +21,10 @@ interface IJobItemList {
   jobItemList: TJobItem[]
   totalPages: number
 }
+
+interface IReferList {
+  referList: TMyRefer[] | TOtherRefer[]
+  totalPages: number
+}
+
+interface IRefer extends TRefer{ }

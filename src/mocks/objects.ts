@@ -16,7 +16,7 @@ export const User = {
   jobId: '@ID',
   email: '@EMAIL',
   name: '@CNAMW',
-  'experience|1': expiration,
+  experience: '@NATURAL(0, 7)',
   intro: '@PARAGRAPH',
   phone: '949346789',
   leetCodeUrl: '@URL',
@@ -66,12 +66,48 @@ export const Refer = {
   name: '@CNAMW',
   email: '@EMAIL',
   phone: '949346789',
-  experience: mockArray(expiration),
+  experience: '@NATURAL(0, 7)',
   intro: '@PARAGRAPH',
   leetCodeUrl: '@URL',
   thirdPersonIntro: '@PARAGRAPH',
   resumeId:'@ID',
-  status: mockArray(status),
+  'status|1': status,
   updatedAt: dateRange('2020-4-1', '2020-5-1'),
+  createdAt: now()
+}
+
+// 查看 Refer 状态的 Item，以后需要扩展
+export const MyRefer = {
+  referId: '@ID',
+  referer: {
+    name: '@CNAME',
+  },
+  job: {
+    jobId: '@ID',
+    'company|1': companies
+  },
+  'status|1': status,
+  updatedAt: dateRange('2020-4-1', '2020-5-1'),
+  source: '@URL'
+}
+
+// Refer 表中的一行，以后需要扩展
+export const OtherRefer = {
+  referId: '@ID',
+  resume: {
+    resumeId: '@ID',
+    url: '@URL',
+    name: '@CNAME'
+  },
+  job: {
+    jobId: '@ID'
+  },
+  referer: {
+    name: '@CNAME'
+  },
+  referee: {
+    name: '@CNAME'
+  },
+  experience: '@NATURAL(0, 7)',
   createdAt: now()
 }

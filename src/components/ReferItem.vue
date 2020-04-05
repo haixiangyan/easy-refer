@@ -11,8 +11,8 @@
                     <i class="el-icon-paperclip"></i>
                 </el-link>
             </div>
-            <div class="company">{{refer.company}}</div>
-            <div class="referer">{{refer.refererName}}正在处理</div>
+            <div class="company">{{refer.job.company}}</div>
+            <div class="referer">{{refer.referer.name}}正在处理</div>
         </el-col>
         <el-col :span="4">
             <router-link :to="`/edit-refer/${refer.referId}`" tag="span">
@@ -33,7 +33,7 @@
 
   @Component
   export default class ReferItem extends Vue {
-    @Prop({required: true}) refer!: TReferItem
+    @Prop({required: true}) refer!: TMyRefer
 
     get statusName() {
       return STATUS_NAMES_MAPPER[this.refer.status]
