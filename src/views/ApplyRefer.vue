@@ -1,16 +1,16 @@
 <template>
-    <div class="apply">
-        <div class="job-description" v-loading="jobLoading" element-loading-text="加载职位中">
+    <div>
+        <div v-loading="jobLoading" element-loading-text="加载职位中">
             <JobItem :job-item="jobItem"/>
         </div>
 
         <el-divider>填写你的信息</el-divider>
 
-        <ResumeForm
+        <ReferForm
             v-loading="applyLoading"
             element-loading-text="提交中"
             @submit="apply"
-            @back="$router.push('/jobItem-list')"
+            @back="$router.push('/job-list')"
             :required-fields="jobItem.requiredFields"
         />
     </div>
@@ -20,12 +20,12 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import ResumeForm from '@/components/ResumeForm.vue'
+  import ReferForm from '@/components/ReferForm.vue'
   import JobService from '@/service/JobService'
   import ReferService from '@/service/ReferService'
 
   @Component({
-    components: {JobItem, ResumeForm}
+    components: {JobItem, ReferForm}
   })
   export default class ApplyRefer extends Vue {
     jobItem: TJobItem = {
@@ -64,7 +64,7 @@
 
       this.$message.success('已提交内推信息')
 
-      await this.$router.push('/my-refer-list')
+      await this.$router.push('/my/refer-list')
     }
   }
 </script>

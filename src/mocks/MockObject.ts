@@ -1,14 +1,12 @@
-import Mock from 'mockjs'
 import dayjs from 'dayjs'
-import faker from "faker/locale/zh_CN"
+import Mock from 'mockjs'
 
 const expiration = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
 const status = ['processing', 'rejected', 'referred']
 const requiredFields = ['name', 'email', 'phone', 'experience', 'referLinks', 'resumeUrl', 'intro', 'thirdPersonIntro', 'leetCodeUrl']
 
-const mockArray = (array: any[]) => array[Mock.Random.natural(0, array.length - 1)]
-const dateRange = (from: string, to: string) => dayjs(faker.date.between(from, to)).toISOString()
+const dateRange = () => dayjs(Mock.Random.date()).toISOString()
 const now = () => dayjs().toISOString()
 
 export const User = {
@@ -22,7 +20,7 @@ export const User = {
   leetCodeUrl: '@URL',
   thirdPersonIntro: '@PARAGRAPH',
   resumeId:'@ID',
-  avatarUrl: faker.image.avatar(),
+  avatarUrl: `@DATAIMAGE('100x100', '用户')`,
   finishedRefers: '@NATURAL(10, 100)',
   totalRefers: '@NATURAL(100, 300)',
   finishedResumes: '@NATURAL(10, 100)',
@@ -40,25 +38,25 @@ export const Job = {
   refererId: '@ID',
   'company|1': companies,
   requiredFields,
-  deadline: dateRange('2020-12-1', '2021-1-1'),
+  deadline: dateRange(),
   'expiration|1': expiration,
   referredCount: '@NATURAL(30, 100)',
   referTotal: '@NATURAL(100, 300)',
   source: '@URL',
-  createdAt: dateRange('2020-12-1', '2021-1-1'),
-  updatedAt: dateRange('2020-12-1', '2021-1-1')
+  createdAt: dateRange(),
+  updatedAt: dateRange()
 }
 
 export const JobItem = {
   jobId: '@ID',
   referer: {
     name: '@CNAME',
-    avatarUrl: '@IMAGE("200x200")'
+    avatarUrl: `@DATAIMAGE('100x100', '内推人')`,
   },
   'company|1': companies,
   referredCount: '@INTEGER(30, 100)',
   referTotal: '@INTEGER(100, 300)',
-  deadline: dateRange('2020-12-1', '2021-1-1'),
+  deadline: dateRange(),
   'expiration|1': expiration,
   requiredFields,
   source: '@URL',
@@ -79,7 +77,7 @@ export const Refer = {
   referLinks: '@URL',
   resumeId:'@ID',
   'status|1': status,
-  updatedAt: dateRange('2020-4-1', '2020-5-1'),
+  updatedAt: dateRange(),
   createdAt: now()
 }
 
@@ -94,7 +92,7 @@ export const MyRefer = {
     'company|1': companies
   },
   'status|1': status,
-  updatedAt: dateRange('2020-4-1', '2020-5-1'),
+  updatedAt: dateRange(),
   source: '@URL'
 }
 

@@ -1,6 +1,6 @@
 <template>
-    <div class="my-refer-list">
-        <div class="refers" v-loading="loading" element-loading-text="加载我的内推">
+    <div>
+        <div v-loading="loading" element-loading-text="加载我的内推">
             <ReferItem v-for="refer in refers" :key="refer.id" :refer="refer"/>
         </div>
         <div class="pages">
@@ -49,5 +49,8 @@
 </script>
 
 <style scoped lang="scss">
-
+    .pages {
+        padding: 20px 0;
+        text-align: center;
+    }
 </style>

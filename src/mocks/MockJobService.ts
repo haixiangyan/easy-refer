@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import {Job, JobItem} from './objects'
+import {Job, JobItem} from './MockObject'
 
 Mock.mock(/\/jobs\/item\/\d*/,  'get', JobItem)
 

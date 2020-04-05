@@ -1,5 +1,5 @@
 <template>
-    <div v-loading="loading" element-loading-text="提交中" class="edit-job">
+    <div v-loading="loading" element-loading-text="提交中">
         <JobForm @submit="onSubmit"/>
     </div>
 </template>

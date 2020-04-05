@@ -26,34 +26,4 @@
   }
 </script>
 
-<style lang="scss">
-    .add-job-form {
-        .required-fields-select {
-            .el-tag__close.el-icon-close {
-                display: none;
-            }
-        }
-    }
-</style>
-
-<style scoped lang="scss">
-    @import '~@/assets/styles/variables.scss';
-
-    .add-job-form {
-        .full-width {
-            width: 100%;
-        }
-
-        .limit-hint {
-            color: $warning-color;
-        }
-
-        .publish {
-            text-align: center;
-
-            &-button {
-                margin-right: 8px;
-            }
-        }
-    }
-</style>
+<style scoped lang="scss"></style>

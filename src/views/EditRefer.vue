@@ -1,19 +1,19 @@
 <template>
-    <div class="edit-refer" v-loading="jobLoading" element-loading-text="加载职位中">
-        <div class="job-description">
+    <div v-loading="jobLoading" element-loading-text="加载职位中">
+        <div>
             <JobItem :job-item="jobItem"/>
         </div>
 
         <el-divider v-if="refer.resumeId">修改你的信息</el-divider>
 
-        <ResumeForm
+        <ReferForm
             v-if="refer.resumeId"
             v-loading="editLoading"
             element-loading-text="提交中"
             @submit="edit"
             :refer="refer"
             @loading="resumeLoading = $event"
-            @back="$router.push('/my-refer-list')"
+            @back="$router.push('/my/refer-list')"
             :required-fields="jobItem.requiredFields"
             :resume-id="refer.resumeId"/>
     </div>
@@ -23,12 +23,12 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import ResumeForm from '@/components/ResumeForm.vue'
+  import ReferForm from '@/components/ReferForm.vue'
   import JobService from '@/service/JobService'
   import ReferService from '@/service/ReferService'
 
   @Component({
-    components: {JobItem, ResumeForm}
+    components: {JobItem, ReferForm}
   })
   export default class EditRefer extends Vue {
     jobItem: TJobItem = {
@@ -87,7 +87,7 @@
 
       this.$message.success('已修改内推信息')
 
-      await this.$router.push('/my-refer-list')
+      await this.$router.push('/my/refer-list')
     }
   }
 </script>

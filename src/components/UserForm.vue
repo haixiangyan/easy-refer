@@ -1,5 +1,5 @@
 <template>
-    <el-form v-if="form" class="edit-form"
+    <el-form v-if="form" class="user-form"
              ref="form" :model="form"
              label-width="120px"
              label-position="left"
@@ -43,7 +43,7 @@
             </el-upload>
         </el-form-item>
 
-        <el-form-item class="edit-form-submit">
+        <el-form-item class="user-form-submit">
             <el-button class="submit-button" round type="primary" @click="saveChange">保存</el-button>
             <router-link tag="span" to="/user">
                 <el-button round>返回</el-button>
@@ -63,7 +63,7 @@
   import ResumeService from '@/service/ResumeService'
 
   @Component
-  export default class EditUserForm extends Vue {
+  export default class UserForm extends Vue {
     form: TUserForm = {
       avatarUrl: '',
       email: '',
@@ -145,7 +145,7 @@
 </script>
 
 <style scoped lang="scss">
-    .edit-form {
+    .user-form {
         &-submit {
             text-align: right;
 
