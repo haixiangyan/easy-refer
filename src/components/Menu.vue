@@ -17,14 +17,14 @@
                 <i class="el-icon-s-order"></i>
                 <span slot="title">内推进度</span>
             </el-menu-item>
-            <el-menu-item :disabled="$store.state.user.jobId === ''" index="/other/refer-list">
+            <el-menu-item :disabled="isLogin && jobId === ''" index="/other/refer-list">
                 <i class="el-icon-s-cooperation"></i>
                 <span slot="title">处理内推</span>
             </el-menu-item>
         </el-menu>
         <router-link to="/user" tag="span">
             <el-link icon="el-icon-user">
-                {{$store.state.auth.isLogin ? '我' : '登录'}}
+                {{isLogin ? '我' : '登录'}}
             </el-link>
         </router-link>
     </nav>
@@ -33,9 +33,13 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
+  import {USER_MODULE} from '@/store/modules/user'
+  import {AUTH_MODULE} from '@/store/modules/auth'
 
   @Component
   export default class ReMenu extends Vue {
+    @USER_MODULE.State(state => state.details.jobId) jobId!: string
+    @AUTH_MODULE.State('isLogin') isLogin!: boolean
   }
 </script>
 

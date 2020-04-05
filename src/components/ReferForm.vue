@@ -75,7 +75,7 @@
 
     @USER_MODULE.State('details') user!: TUser & TMapper
     @Mutation('setLoading') setLoading!: Function
-    @AUTH_MODULE.State(state => state.isLogin) isLogin!: boolean
+    @AUTH_MODULE.State('isLogin') isLogin!: boolean
 
     form: TReferForm = {
       email: '',
