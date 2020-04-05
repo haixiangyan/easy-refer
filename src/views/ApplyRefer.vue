@@ -21,8 +21,8 @@
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
   import ResumeForm from '@/components/ResumeForm.vue'
-  import AddResumeGQL from '@/graphql/AddResume.graphql'
   import JobService from '@/service/JobService'
+  import ReferService from '@/service/ReferService'
 
   @Component({
     components: {JobItem, ResumeForm}
@@ -45,31 +45,26 @@
     applyLoading = false
     jobLoading = false
 
+    get jobId() {
+      return this.$route.params.jobId
+    }
+
     mounted() {
       this.loadJob()
     }
 
     async loadJob() {
-      const {data} = await JobService.getJobItemById(this.$route.params.jobId)
+      const {data} = await JobService.getJobItemById(this.jobId)
 
       this.jobItem = data
     }
 
-    async apply(resumeForm: TResumeForm) {
-      try {
-        this.applyLoading = true
-        await this.$apollo.mutate({
-          mutation: AddResumeGQL,
-          variables: {resumeForm}
-        })
+    async apply(form: TReferForm) {
+      await ReferService.applyRefer(this.jobId, form)
 
-        this.$message.success('已提交内推信息')
-        await this.$router.push('/my-refer-list')
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.applyLoading = false
-      }
+      this.$message.success('已提交内推信息')
+
+      await this.$router.push('/my-refer-list')
     }
   }
 </script>

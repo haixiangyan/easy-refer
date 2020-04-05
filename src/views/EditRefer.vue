@@ -24,7 +24,6 @@
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
   import ResumeForm from '@/components/ResumeForm.vue'
-  import UpdateResumeGQL from '@/graphql/UpdateResume.graphql'
   import JobService from '@/service/JobService'
   import ReferService from '@/service/ReferService'
 
@@ -83,24 +82,12 @@
       this.jobItem = jobItem
     }
 
-    async edit(resumeForm: TResumeForm) {
-      try {
-        this.editLoading = true
-        await this.$apollo.mutate({
-          mutation: UpdateResumeGQL,
-          variables: {
-            resumeId: this.refer.resumeId,
-            resumeForm
-          }
-        })
+    async edit(form: TReferForm) {
+      await ReferService.editRefer(this.referId, form)
 
-        this.$message.success('已修改内推信息')
-        await this.$router.push('/my-refer-list')
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.editLoading = false
-      }
+      this.$message.success('已修改内推信息')
+
+      await this.$router.push('/my-refer-list')
     }
   }
 </script>
