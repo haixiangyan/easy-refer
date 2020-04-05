@@ -15,14 +15,18 @@ export const User = {
   userId: '@ID',
   jobId: '@ID',
   email: '@EMAIL',
-  name: '@CNAMW',
+  name: '@CNAME',
   experience: '@NATURAL(0, 7)',
   intro: '@PARAGRAPH',
   phone: '949346789',
   leetCodeUrl: '@URL',
   thirdPersonIntro: '@PARAGRAPH',
   resumeId:'@ID',
-  avatarUrl: '@URL'
+  avatarUrl: faker.image.avatar(),
+  finishedRefers: '@NATURAL(10, 100)',
+  totalRefers: '@NATURAL(100, 300)',
+  finishedResumes: '@NATURAL(10, 100)',
+  totalResumes: '@NATURAL(100, 300)',
 }
 
 export const Resume = {

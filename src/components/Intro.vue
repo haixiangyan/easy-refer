@@ -2,22 +2,22 @@
     <div class="intro">
         <div class="avatar">
             <router-link to="/user">
-                <el-avatar :src="avatarUrl" :size="100"/>
+                <el-avatar :src="user.avatarUrl" :size="100"/>
             </router-link>
             <router-link to="/user" tag="p">
-                <el-link class="name">{{intro.name}}</el-link>
+                <el-link class="name">{{user.name}}</el-link>
             </router-link>
         </div>
         <el-row class="analysis">
             <el-col :span="12" class="refer">
-                <p class="number">{{intro.finishedRefers}} / {{intro.totalRefers}}</p>
-                <p class="description">已申请的内推</p>
-                <p class="rate">{{referRate}}%</p>
+                <p class="number">{{user.finishedRefers}} / {{user.totalRefers}}</p>
+                <p class="description">已完成的内推</p>
+                <p class="rate">{{approvedRate}}%</p>
             </el-col>
             <div :span="12" class="resume">
-                <p class="number">{{intro.finishedResumes}} / {{intro.totalResumes}}</p>
+                <p class="number">{{user.finishedResumes}} / {{user.totalResumes}}</p>
                 <p class="description">要处理的简历</p>
-                <p class="rate">{{resumeRate}}%</p>
+                <p class="rate">{{referRate}}%</p>
             </div>
         </el-row>
         <div class="function">
@@ -26,12 +26,12 @@
                    查看内推状态
                 </el-button>
             </router-link>
-            <router-link :to="jobId ? `/edit-job` : '/add-jobItem'" tag="div">
+            <router-link :to="user.jobId ? `/edit-job` : '/add-jobItem'" tag="div">
                 <el-button class="button"
                            type="primary"
-                           :icon="jobId ? 'el-icon-edit' : 'el-icon-plus'"
+                           :icon="user.jobId ? 'el-icon-edit' : 'el-icon-plus'"
                            :round="true">
-                    {{jobId ? '修改' : '发布'}}内推职位
+                    {{user.jobId ? '修改' : '发布'}}内推职位
                 </el-button>
             </router-link>
         </div>
@@ -41,47 +41,17 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
-  import GetUserIntroGQL from '@/graphql/GetUserIntro.graphql'
 
   @Component
   export default class Intro extends Vue {
-    intro: TIntro = {
-      name: "",
-      finishedRefers: 0,
-      totalRefers: 0,
-      finishedResumes: 0,
-      totalResumes: 0,
+    get user() {
+      return this.$store.state.user
     }
-    referRate = "0"
-    resumeRate = "0"
-
-    get jobId() {
-      return this.$store.state.user.jobId
+    get referRate() {
+      return this.calculateRate(this.user.finishedRefers, this.user.totalRefers)
     }
-    get userId() {
-      return this.$store.state.user.userId
-    }
-    get avatarUrl() {
-      return this.$store.state.user.avatarUrl
-    }
-
-    mounted() {
-      this.loadIntro()
-    }
-
-    async loadIntro() {
-      try {
-        const {data} = await this.$apollo.query({
-          query: GetUserIntroGQL,
-          variables: {userId: this.userId}
-        })
-
-        this.intro = data.userIntro
-        this.referRate = this.calculateRate(this.intro.finishedRefers, this.intro.totalRefers)
-        this.resumeRate = this.calculateRate(this.intro.finishedResumes, this.intro.totalResumes)
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+    get approvedRate() {
+      return this.calculateRate(this.user.finishedResumes, this.user.totalResumes)
     }
 
     calculateRate(current: number, total: number): string {

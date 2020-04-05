@@ -1,26 +1,28 @@
-type TUserStore = TStringMapper & TUser
+type TUserStore = TMapper & TUser
 
-const auth = {
+const user = {
   namespaced: true,
   state: {
     userId: '',
-    name: '',
-    email: '',
-    phone: '',
-    experience: 0,
-    resumeUrl: '',
-    intro: '',
     jobId: '',
-    thirdPersonIntro: '',
+    email: '',
+    name: '',
+    experience: 0,
+    intro: '',
+    phone: '',
     leetCodeUrl: '',
-    avatarUrl: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
+    thirdPersonIntro: '',
+    resumeId: '',
+    avatarUrl: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+    finishedRefers: 0,
+    totalRefers: 0,
+    finishedResumes: 0,
+    totalResumes: 0
   },
   mutations: {
     setUser: (state: TUserStore, user: TUserStore) => {
       Object.keys(state).forEach((key: string) => {
-        if (key in state && key in user) {
-          state[key] = user[key]
-        }
+        state[key] = user[key]
       })
     },
     setAvatarUrl: (state: TUserStore, avatarUrl: string) => {
@@ -29,4 +31,4 @@ const auth = {
   }
 }
 
-export default auth
+export default user

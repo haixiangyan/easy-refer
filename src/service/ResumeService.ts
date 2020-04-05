@@ -3,7 +3,7 @@ import service from '@/service/config'
 
 const ResumeService = {
   async getResumeById(resumeId: string): Promise<AxiosResponse<IResume>> {
-    return await service.get(`/resume/${resumeId}`)
+    return await service.get(`/resumes/${resumeId}`)
   }
 }
 

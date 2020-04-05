@@ -79,7 +79,6 @@
       const {data: refer} = await ReferService.getReferById(this.referId)
       const {data: jobItem} = await JobService.getJobItemById(refer.jobId)
 
-      console.log(refer)
       this.refer = refer
       this.jobItem = jobItem
     }
