@@ -43,7 +43,7 @@
             </el-upload>
         </el-form-item>
 
-        <el-form-item class="edit-form-submit">
+        <el-form-item class="user-form-submit">
             <el-button class="submit-button" round type="primary" @click="saveChange">保存</el-button>
             <router-link tag="span" to="/user">
                 <el-button round>返回</el-button>
