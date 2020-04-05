@@ -27,7 +27,6 @@
       "scripthost"
     ]
   },
-  "files": ["src/types/graphql.d.ts"],
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
