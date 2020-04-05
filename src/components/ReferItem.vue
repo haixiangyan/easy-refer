@@ -24,12 +24,12 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
+  import Vue from 'vue'
   import dayjs from 'dayjs'
-  import {Component, Prop} from "vue-property-decorator"
-  import {STATUS_NAMES_MAPPER} from "@/constants/status"
-  import DeleteReferGQL from '@/graphql/DeleteRefer.graphql'
+  import {Component, Prop} from 'vue-property-decorator'
+  import {STATUS_NAMES_MAPPER} from '@/constants/status'
   import {DATETIME_FORMAT} from '@/constants/format'
+  import ReferService from '@/service/ReferService'
 
   @Component
   export default class ReferItem extends Vue {
@@ -38,6 +38,7 @@
     get statusName() {
       return STATUS_NAMES_MAPPER[this.refer.status]
     }
+
     get updatedAt() {
       return dayjs(this.refer.updatedAt).format(DATETIME_FORMAT)
     }
@@ -53,20 +54,13 @@
             this.confirmWithdraw()
           }
         }
-      });
+      })
     }
 
     async confirmWithdraw() {
-      try {
-        await this.$apollo.mutate({
-          mutation: DeleteReferGQL,
-          variables: {referId: this.refer.referId}
-        })
+      await ReferService.deleteRefer(this.refer.referId)
 
-        this.$message.success('已撤回')
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+      this.$message.success('已撤回')
     }
   }
 </script>

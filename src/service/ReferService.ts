@@ -24,6 +24,9 @@ const ReferService = {
     return await service.post('/refers', {
       jobId, referForm
     })
+  },
+  async deleteRefer(referId: string): Promise<AxiosResponse> {
+    return await service.delete(`/refers/${referId}`)
   }
 }
 
