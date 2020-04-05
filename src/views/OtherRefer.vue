@@ -116,7 +116,7 @@
 
       this.$message.success(status === 'rejected' ? '不推此简历' : '已推此简历')
 
-      await this.$router.push('/refer-list/other')
+      await this.$router.push('/other/refer-list')
     }
   }
 </script>

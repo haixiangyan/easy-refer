@@ -87,7 +87,7 @@
 
       this.$message.success('已修改内推信息')
 
-      await this.$router.push('/refer-list/me')
+      await this.$router.push('/my/refer-list')
     }
   }
 </script>
