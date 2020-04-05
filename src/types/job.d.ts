@@ -30,7 +30,7 @@ type TJobItem = {
 type TJobForm = TMapper & {
   company: string
   requiredFields: string[]
-  deadlines: string
+  deadline: string
   expiration: 3 | 5 | 7
   referTotals: number
   source: string
