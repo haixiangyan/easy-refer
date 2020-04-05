@@ -6,7 +6,7 @@
 
         <el-divider>填写你的信息</el-divider>
 
-        <ResumeForm
+        <ReferForm
             v-loading="applyLoading"
             element-loading-text="提交中"
             @submit="apply"
@@ -20,12 +20,12 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import ResumeForm from '@/components/ResumeForm.vue'
+  import ReferForm from '@/components/ReferForm.vue'
   import JobService from '@/service/JobService'
   import ReferService from '@/service/ReferService'
 
   @Component({
-    components: {JobItem, ResumeForm}
+    components: {JobItem, ReferForm}
   })
   export default class ApplyRefer extends Vue {
     jobItem: TJobItem = {

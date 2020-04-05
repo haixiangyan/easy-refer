@@ -70,7 +70,7 @@
   @Component({
     components: {JobItem}
   })
-  export default class ResumeForm extends Vue {
+  export default class ReferForm extends Vue {
     @Prop() refer: TRefer | undefined
     @Prop({required: true}) requiredFields!: string[]
     form: TReferForm = {

@@ -6,7 +6,7 @@
 
         <el-divider v-if="refer.resumeId">修改你的信息</el-divider>
 
-        <ResumeForm
+        <ReferForm
             v-if="refer.resumeId"
             v-loading="editLoading"
             element-loading-text="提交中"
@@ -23,12 +23,12 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import ResumeForm from '@/components/ResumeForm.vue'
+  import ReferForm from '@/components/ReferForm.vue'
   import JobService from '@/service/JobService'
   import ReferService from '@/service/ReferService'
 
   @Component({
-    components: {JobItem, ResumeForm}
+    components: {JobItem, ReferForm}
   })
   export default class EditRefer extends Vue {
     jobItem: TJobItem = {
