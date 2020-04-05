@@ -6,7 +6,7 @@
                 element-loading-text="加载所有简历中"
                 :data="refers"
                 style="width: 100%">
-                <el-table-column prop="refereeName" label="姓名" width="180"/>
+                <el-table-column prop="referer.name" label="姓名" width="180"/>
                 <el-table-column prop="createdAt" label="提交日期" width="180">
                     <template slot-scope="scope">
                         {{getCreatedAt(scope.row.createdAt)}}
@@ -19,7 +19,7 @@
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" width="100">
                     <template slot-scope="scope">
-                        <router-link tag="span" :to="`/referee-request/${scope.row.jobId}/${scope.row.referId}/${scope.row.resumeId}`">
+                        <router-link tag="span" :to="`/referee-request/${scope.row.referId}`">
                             <el-link type="primary">查看</el-link>
                         </router-link>
                     </template>
@@ -41,14 +41,14 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component, Watch} from "vue-property-decorator"
-  import GetReferTable from '@/graphql/GetReferTable.graphql'
   import {LEVEL_MAPPER} from "@/constants/level"
   import dayjs from 'dayjs'
   import {DATETIME_FORMAT} from '@/constants/format'
+  import ReferService from '@/service/ReferService'
 
   @Component
   export default class RefereeRequestListList extends Vue {
-    refers: TReferRow[] = []
+    refers: TOtherRefer[] = []
     page: number = 1
     totalPages: number = 0
     loading = false
@@ -73,13 +73,10 @@
       try {
         this.loading = true
 
-        const {data} = await this.$apollo.query({
-          query: GetReferTable,
-          variables: {userId: this.userId, page}
-        })
+        const {data} = await ReferService.getReferList('other', page)
 
-        this.refers = data.referTable.referRowList
-        this.totalPages = data.referTable.totalPages
+        this.refers = data.referList as TOtherRefer[]
+        this.totalPages = data.totalPages
       } catch (error) {
         this.$message.error(error.message)
       } finally {

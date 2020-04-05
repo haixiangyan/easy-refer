@@ -1,10 +1,4 @@
 module.exports = {
-    pluginOptions: {
-        apollo: {
-            enableMocks: true,
-            enableEngine: false
-        }
-    },
     pwa: {
         iconPaths: {
             favicon32: 'favicon.ico',

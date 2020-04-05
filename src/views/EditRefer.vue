@@ -1,20 +1,21 @@
 <template>
     <div class="edit-refer" v-loading="jobLoading" element-loading-text="加载职位中">
         <div class="job-description">
-            <JobItem :job="job"/>
+            <JobItem :job-item="jobItem"/>
         </div>
 
-        <el-divider v-if="resumeId">修改你的信息</el-divider>
+        <el-divider v-if="refer.resumeId">修改你的信息</el-divider>
 
         <ResumeForm
-            v-if="resumeId"
+            v-if="refer.resumeId"
             v-loading="editLoading"
             element-loading-text="提交中"
             @submit="edit"
+            :refer="refer"
             @loading="resumeLoading = $event"
             @back="$router.push('/my-refer-list')"
-            :required-fields="job.requiredFields"
-            :resume-id="resumeId"/>
+            :required-fields="jobItem.requiredFields"
+            :resume-id="refer.resumeId"/>
     </div>
 </template>
 
@@ -23,68 +24,70 @@
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
   import ResumeForm from '@/components/ResumeForm.vue'
-  import GetReferDetailsGQL from '@/graphql/GetReferDetails.graphql'
-  import UpdateResumeGQL from '@/graphql/UpdateResume.graphql'
+  import JobService from '@/service/JobService'
+  import ReferService from '@/service/ReferService'
 
   @Component({
     components: {JobItem, ResumeForm}
   })
   export default class EditRefer extends Vue {
-    job: TJobItem = {
+    jobItem: TJobItem = {
       jobId: '',
+      referer: {
+        name: '',
+        avatarUrl: '',
+      },
       company: '',
-      refererName: '',
       deadline: new Date().toISOString(),
       expiration: 3,
       referredCount: 0,
       referTotal: 0,
       requiredFields: [],
       source: '',
-      avatarUrl: ''
     }
-    resumeId = ''
+    refer: TRefer = {
+      createdAt: '',
+      email: '',
+      experience: 0,
+      intro: '',
+      jobId: '',
+      leetCodeUrl: '',
+      name: '',
+      phone: '',
+      referId: '',
+      refereeId: '',
+      refererId: '',
+      resumeId: '',
+      referLinks: '',
+      status: 'processing',
+      thirdPersonIntro: '',
+      updatedAt: ''
+    }
     jobLoading = false
     editLoading = false
 
+    get referId() {
+      return this.$route.params.referId
+    }
+
     mounted() {
-      this.loadReferDetails()
+      this.load()
     }
 
-    async loadReferDetails() {
-      try {
-        this.jobLoading = true
-        const {data} = await this.$apollo.query({
-          query: GetReferDetailsGQL,
-          variables: {referId: this.$route.params.referId}
-        })
+    async load() {
+      const {data: refer} = await ReferService.getReferById(this.referId)
+      const {data: jobItem} = await JobService.getJobItemById(refer.jobId)
 
-        this.job = data.referDetails.jobItem
-        this.resumeId = data.referDetails.resumeId
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.jobLoading = false
-      }
+      this.refer = refer
+      this.jobItem = jobItem
     }
 
-    async edit(resumeForm: TResumeForm) {
-      try {
-        this.editLoading = true
-        await this.$apollo.mutate({
-          mutation: UpdateResumeGQL,
-          variables: {
-            resumeId: this.resumeId,
-            resumeForm
-          }
-        })
+    async edit(form: TReferForm) {
+      await ReferService.editRefer(this.referId, form)
 
-        this.$message.success('已修改内推信息')
-        await this.$router.push('/my-refer-list')
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.editLoading = false
-      }
+      this.$message.success('已修改内推信息')
+
+      await this.$router.push('/my-refer-list')
     }
   }
 </script>

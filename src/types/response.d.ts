@@ -1,6 +1,7 @@
 interface IUploadResume {
-  resumeUrl: string
-  resumeName: string
+  resumeId: string
+  url: string
+  name: string
 }
 
 interface IAvatar {

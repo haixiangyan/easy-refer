@@ -24,6 +24,9 @@
     components: {Menu, Intro, Footer},
   })
   export default class App extends Vue {
+    get loading() {
+      return this.$store.state.loading
+    }
     get screenClass(): string {
       return this.$route.name === "Login" ? "full-screen" : "normal-screen"
     }

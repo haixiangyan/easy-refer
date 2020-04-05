@@ -1,20 +1,20 @@
 <template>
-    <el-form v-loading="loading" element-loading-text="获取已创建职位" ref="jobForm" :model="jobForm"
+    <el-form v-loading="loading" element-loading-text="获取已创建职位" ref="form" :model="form"
              label-width="120px"
              label-position="left"
              class="job-form"
              :rules="rules">
         <el-divider>内推职位信息</el-divider>
         <el-form-item prop="company" required label="内推公司">
-            <el-input v-model="jobForm.company" placeholder="内推的公司"></el-input>
+            <el-input v-model="form.company" placeholder="内推的公司"></el-input>
         </el-form-item>
         <el-form-item required label="内推人">
-            <el-input disabled v-model="jobForm.refererName" placeholder="请输入你的名字"></el-input>
+            <el-input disabled :value="user.name" placeholder="请输入你的名字"></el-input>
         </el-form-item>
         <el-form-item required label="必填内容">
             <el-select
                 class="full-width"
-                v-model="jobForm.requiredFields"
+                v-model="form.requiredFields"
                 multiple placeholder="选择候选人要填的信息">
                 <el-option
                     v-for="field in referFields"
@@ -27,7 +27,7 @@
         <el-form-item required label="截止日期">
             <el-date-picker
                 class="full-width"
-                v-model="jobForm.deadline"
+                v-model="form.deadline"
                 type="date"
                 format="yyyy年MM月dd日"
                 :picker-options="deadlineOptions"
@@ -35,16 +35,16 @@
             </el-date-picker>
         </el-form-item>
         <el-form-item required label="X天默拒">
-            <el-radio v-model="jobForm.expiration" :label="3">3 天</el-radio>
-            <el-radio v-model="jobForm.expiration" :label="5">5 天</el-radio>
-            <el-radio v-model="jobForm.expiration" :label="7">7 天</el-radio>
+            <el-radio v-model="form.expiration" :label="3">3 天</el-radio>
+            <el-radio v-model="form.expiration" :label="5">5 天</el-radio>
+            <el-radio v-model="form.expiration" :label="7">7 天</el-radio>
         </el-form-item>
         <el-form-item required label="内推上限">
-            <el-input-number v-model="jobForm.referTotal" :min="20" :max="1000" :step="100" label="描述文字"/>
+            <el-input-number v-model="form.referTotal" :min="20" :max="1000" :step="100" label="描述文字"/>
             <p class="limit-hint">上限范围：20~1000 请合理安排你的内推计划</p>
         </el-form-item>
         <el-form-item label="一亩三分地原贴">
-            <el-input type="url" v-model="jobForm.source" placeholder="添加原帖更方便追踪哦"/>
+            <el-input type="url" v-model="form.source" placeholder="添加原帖更方便追踪哦"/>
         </el-form-item>
 
         <div class="publish">
@@ -64,22 +64,19 @@
   import dayjs from "dayjs"
   import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '@/constants/referFields'
   import {JOB_RULES} from "@/constants/rules"
-  import GetJobItemGQL from "@/graphql/GetJobItem.graphql"
   import {ElForm} from "element-ui/types/form"
 
   @Component
   export default class JobForm extends Vue {
-    jobForm: TJobForm & {[key: string]: string | number | string[]} = {
-      company: "",
-      refererName: this.user.name,
-      requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
-      deadline: dayjs().add(1, "month").toISOString(),
-      expiration: 3,
-      referredCount: 0,
-      referTotal: 100,
+    form: TJobForm = {
+      company: '',
       createdAt: new Date().toISOString(),
-      source: "",
-      imageUrl: ""
+      deadline: dayjs().add(1, 'month').toISOString(),
+      expiration: 5,
+      referTotal: 0,
+      requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
+      source: '',
+      updatedAt: dayjs().toISOString()
     }
     requiredReferFieldValues = REQUIRED_REFER_FIELD_VALUES
     deadlineOptions = {
@@ -100,32 +97,25 @@
     get user() {
       return this.$store.state.user
     }
+    get job() {
+      return this.$store.state.job
+    }
 
     mounted() {
       this.user.jobId && this.loadJob()
     }
 
     async loadJob() {
-      try {
-        this.loading = true
-        const {data} = await this.$apollo.query({
-          query: GetJobItemGQL,
-          variables: {jobId: this.user.jobId}
+      Object.keys(this.form).forEach((key: string) => {
+        this.form[key] = this.job[key]
         })
-
-        this.jobForm = data.jobItem
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.loading = false
-      }
     }
 
     submit() {
-      (<ElForm>this.$refs.jobForm).validate(async valid => {
+      (<ElForm>this.$refs.form).validate(async valid => {
         if (!valid) return this.$message.error("填写不正确")
 
-        this.$emit('submit', this.jobForm)
+        this.$emit('submit', this.form)
       })
     }
   }

@@ -11,8 +11,8 @@
                     <i class="el-icon-paperclip"></i>
                 </el-link>
             </div>
-            <div class="company">{{refer.company}}</div>
-            <div class="referer">{{refer.refererName}}正在处理</div>
+            <div class="company">{{refer.job.company}}</div>
+            <div class="referer">{{refer.referer.name}}正在处理</div>
         </el-col>
         <el-col :span="4">
             <router-link :to="`/edit-refer/${refer.referId}`" tag="span">
@@ -24,20 +24,21 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
+  import Vue from 'vue'
   import dayjs from 'dayjs'
-  import {Component, Prop} from "vue-property-decorator"
-  import {STATUS_NAMES_MAPPER} from "@/constants/status"
-  import DeleteReferGQL from '@/graphql/DeleteRefer.graphql'
+  import {Component, Prop} from 'vue-property-decorator'
+  import {STATUS_NAMES_MAPPER} from '@/constants/status'
   import {DATETIME_FORMAT} from '@/constants/format'
+  import ReferService from '@/service/ReferService'
 
   @Component
   export default class ReferItem extends Vue {
-    @Prop({required: true}) refer!: TReferItem
+    @Prop({required: true}) refer!: TMyRefer
 
     get statusName() {
       return STATUS_NAMES_MAPPER[this.refer.status]
     }
+
     get updatedAt() {
       return dayjs(this.refer.updatedAt).format(DATETIME_FORMAT)
     }
@@ -53,20 +54,13 @@
             this.confirmWithdraw()
           }
         }
-      });
+      })
     }
 
     async confirmWithdraw() {
-      try {
-        await this.$apollo.mutate({
-          mutation: DeleteReferGQL,
-          variables: {referId: this.refer.referId}
-        })
+      await ReferService.deleteRefer(this.refer.referId)
 
-        this.$message.success('已撤回')
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+      this.$message.success('已撤回')
     }
   }
 </script>

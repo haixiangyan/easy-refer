@@ -1,9 +1,0 @@
-query GetUserIntro($userId: String!) {
-    userIntro: getUserIntro(userId: $userId) {
-        name
-        finishedRefers
-        totalRefers
-        finishedResumes
-        totalResumes
-    }
-}
