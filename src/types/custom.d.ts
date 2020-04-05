@@ -28,3 +28,5 @@ interface IReferList {
 }
 
 interface IRefer extends TRefer{ }
+
+interface IResume extends TResume { }

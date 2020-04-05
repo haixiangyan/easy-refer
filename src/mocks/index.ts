@@ -1,4 +1,5 @@
 import '@/mocks/AuthService'
 import '@/mocks/JobsService'
 import '@/mocks/ReferService'
+import '@/mocks/ResumeService'
 import '@/mocks/upload'
