@@ -1,14 +1,14 @@
 <template>
-    <div  v-loading="loading" element-loading-text="提交中" class="add-job">
+    <div v-loading="loading" element-loading-text="提交中" class="add-job">
         <JobForm @submit="onSubmit"/>
     </div>
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "vue-property-decorator"
-  import JobForm from "@/components/JobForm.vue"
-  import AddJobGQL from "@/graphql/AddJob.graphql"
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
+  import JobForm from '@/components/JobForm.vue'
+  import JobService from '@/service/JobService'
 
   @Component({
     components: {JobForm}
@@ -16,26 +16,12 @@
   export default class AddJob extends Vue {
     loading = false
 
-    async onSubmit(jobForm: TJobForm) {
-      try {
-        this.loading = true
+    async onSubmit(form: TJobForm) {
+      await JobService.addJob(form)
 
-        await this.$apollo.mutate({
-          mutation: AddJobGQL,
-          variables: {
-            refererId: this.$store.state.user.userId,
-            jobForm
-          }
-        })
+      this.$message.success('已添加该职位')
 
-        this.$message.success("已添加该职位")
-
-        await this.$router.push("/jobItem-list")
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.loading = false
-      }
+      await this.$router.push('/job-list')
     }
   }
 </script>

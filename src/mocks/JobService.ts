@@ -9,3 +9,6 @@ Mock.mock(/\/jobs\/item\?.*/,  'get', {
 })
 
 Mock.mock(/\/jobs\/\d*/,  'get', Job)
+
+Mock.mock('/jobs',  'post', (options: any) => JSON.parse(options.body))
+Mock.mock(/\/jobs\/\d*/,  'put', (options: any) => JSON.parse(options.body))

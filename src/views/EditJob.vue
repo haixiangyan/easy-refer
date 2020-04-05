@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "vue-property-decorator"
-  import JobForm from "@/components/JobForm.vue"
-  import UpdateJobGQL from "@/graphql/UpdateJob.graphql"
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
+  import JobForm from '@/components/JobForm.vue'
+  import JobService from '@/service/JobService'
 
   @Component({
     components: {JobForm}
@@ -20,28 +20,12 @@
       return this.$store.state.user
     }
 
-    async onSubmit(jobForm: TJobForm) {
-      const {refererName, ...form} = jobForm
-      try {
-        this.loading = true
+    async onSubmit(form: TJobForm) {
+      await JobService.editJob(this.user.jobId, form)
 
-        await this.$apollo.mutate({
-          mutation: UpdateJobGQL,
-          variables: {
-            refererId: this.user.userId,
-            jobId: this.user.jobId,
-            jobForm: form
-          }
-        })
+      this.$message.success('已修改该职位')
 
-        this.$message.success("已修改该职位")
-
-        await this.$router.push("/jobItem-list")
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.loading = false
-      }
+      await this.$router.push('/job-list')
     }
   }
 </script>

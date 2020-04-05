@@ -69,7 +69,7 @@ export const Refer = {
   jobId: '@ID',
   refererId: '@ID',
   refereeId: '@ID',
-  name: '@CNAMW',
+  name: '@CNAME',
   email: '@EMAIL',
   phone: '949346789',
   experience: '@NATURAL(0, 7)',
