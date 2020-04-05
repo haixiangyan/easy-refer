@@ -1,3 +1,5 @@
+import {namespace} from 'vuex-class'
+
 type TAuthStore = {
   isLogin: boolean
 }
@@ -13,5 +15,7 @@ const auth = {
     }
   }
 }
+
+export const AUTH_MODULE = namespace('auth')
 
 export default auth

@@ -41,12 +41,11 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
+  import {USER_MODULE} from '@/store/modules/user'
 
   @Component
   export default class Intro extends Vue {
-    get user() {
-      return this.$store.state.user
-    }
+    @USER_MODULE.State('details') user!: TUser
     get referRate() {
       return this.calculateRate(this.user.finishedRefers, this.user.totalRefers)
     }

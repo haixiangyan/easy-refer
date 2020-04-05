@@ -2,7 +2,7 @@
     <div>
         <el-row class="avatar" type="flex" align="middle">
             <el-col :span="6">
-                <el-avatar :src="user.avatarUrl" :size="100"/>
+                <el-avatar :src="avatarUrl" :size="100"/>
             </el-col>
             <el-col>
                 <el-upload
@@ -26,26 +26,29 @@
   import UserForm from '@/components/UserForm.vue'
   import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '@/constants/file'
   import UserService from '@/service/UserService'
+  import {USER_MODULE} from '@/store/modules/user'
+  import {Mutation} from 'vuex-class'
 
   @Component({
     components: {UserForm}
   })
   export default class EditUser extends Vue {
+    @USER_MODULE.State(state => state.details.avatarUrl) avatarUrl!: string
+    @USER_MODULE.Mutation('setUser') setUser!: Function
+    @USER_MODULE.Mutation('setAvatarUrl') setAvatarUrl!: Function
+    @Mutation('setLoading') setLoading!: Function
+
     form: TUserForm | null = null
     rules = EDIT_USER_RULES
 
-    get user() {
-      return this.$store.state.user
-    }
-
     uploaded(response: IAvatar) {
-      this.$store.commit('user/setAvatarUrl', response.avatarUrl)
+      this.setAvatarUrl(response.avatarUrl)
 
       this.$message.success('修改成功')
     }
 
     uploading({status}: { status: string }) {
-      this.$store.commit('setLoading', !(status === 'success' || status === 'fail'))
+      this.setLoading(!(status === 'success' || status === 'fail'))
     }
 
     beforeUpload(file: File) {
@@ -54,11 +57,11 @@
 
       if (!isImage) {
         this.$message.error('上传头像图片格式不正确')
-        this.$store.commit('setLoading', false)
+        this.setLoading(false)
       }
       if (!isValidSize) {
         this.$message.error('上传头像图片大小不能超过 2MB')
-        this.$store.commit('setLoading', false)
+        this.setLoading(false)
       }
 
       return isImage && isValidSize
@@ -67,7 +70,7 @@
     async onSubmit(form: TUserForm) {
       const {data: user} = await UserService.editUser(form)
 
-      this.$store.commit('user/setUser', user)
+      this.setUser(user)
 
       this.$message.success('已更新用户信息')
 
