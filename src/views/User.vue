@@ -1,5 +1,5 @@
 <template>
-    <div v-loading="loading" element-loading-text="加载用户中">
+    <div>
         <el-row type="flex" align="middle">
             <el-avatar class="avatar" :src="user.avatarUrl" :size="100"/>
         </el-row>
@@ -33,7 +33,6 @@
   @Component
   export default class User extends Vue {
     avatarUrl = ''
-    loading = false
     fields = ['email', 'name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro']
 
     get level() {

@@ -1,5 +1,5 @@
 <template>
-    <div v-loading="loading" element-loading-text="加载该简历">
+    <div>
         <div>
             <JobItem :job-item="jobItem"/>
         </div>
@@ -55,7 +55,6 @@
       resumeId: '',
       thirdPersonIntro: ''
     }
-    loading = false
 
     get referId() {
       return this.$route.params.referId

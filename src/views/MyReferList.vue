@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-loading="loading" element-loading-text="加载我的内推">
+        <div>
             <ReferItem v-for="refer in refers" :key="refer.id" :refer="refer"/>
         </div>
         <div class="pages">
@@ -28,7 +28,6 @@
     refers: TMyRefer[] = []
     page: number = 0
     totalPages: number = 0
-    loading = false
 
     mounted() {
       this.loadRefers(this.page)

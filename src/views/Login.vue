@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <el-card class="login-card" v-loading="loading">
+        <el-card class="login-card">
             <el-form class="login-form" ref="loginForm" :model="loginForm" :rules="rules">
                 <div class="login-form-header">
                     <img class="login-logo" src="../assets/img/logo.png" alt="logo">
@@ -42,10 +42,6 @@
       password: ''
     }
     rules = LOGIN_RULES
-
-    get loading() {
-      return this.$store.state.loading
-    }
 
     register() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {

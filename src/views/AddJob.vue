@@ -1,5 +1,5 @@
 <template>
-    <div v-loading="loading" element-loading-text="提交中" class="add-job">
+    <div class="add-job">
         <JobForm @submit="onSubmit"/>
     </div>
 </template>
@@ -14,8 +14,6 @@
     components: {JobForm}
   })
   export default class AddJob extends Vue {
-    loading = false
-
     async onSubmit(form: TJobForm) {
       await JobService.addJob(form)
 

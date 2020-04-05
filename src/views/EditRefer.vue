@@ -1,5 +1,5 @@
 <template>
-    <div v-loading="jobLoading" element-loading-text="加载职位中">
+    <div>
         <div>
             <JobItem :job-item="jobItem"/>
         </div>
@@ -8,11 +8,8 @@
 
         <ReferForm
             v-if="refer.resumeId"
-            v-loading="editLoading"
-            element-loading-text="提交中"
             @submit="edit"
             :refer="refer"
-            @loading="resumeLoading = $event"
             @back="$router.push('/my/refer-list')"
             :required-fields="jobItem.requiredFields"
             :resume-id="refer.resumeId"/>
@@ -63,8 +60,6 @@
       thirdPersonIntro: '',
       updatedAt: ''
     }
-    jobLoading = false
-    editLoading = false
 
     get referId() {
       return this.$route.params.referId
