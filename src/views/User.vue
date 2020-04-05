@@ -29,6 +29,10 @@
   import {Component} from 'vue-property-decorator'
   import {LEVEL_MAPPER} from '@/constants/level'
   import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
+  import {namespace} from 'vuex-class'
+  import {TUserState} from '@/store/modules/user'
+
+  const userModule = namespace('user')
 
   @Component
   export default class User extends Vue {
@@ -36,12 +40,10 @@
     fields = ['email', 'name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro']
 
     get level() {
-      return LEVEL_MAPPER[this.user.experience]
+      return LEVEL_MAPPER[this.user!.experience]
     }
 
-    get user() {
-      return this.$store.state.user
-    }
+    @userModule.State(state => state) user: TUserState | undefined
 
     get resume() {
       return this.$store.state.resume

@@ -1,4 +1,4 @@
-type TUserState = TUser & TMapper
+export type TUserState = TUser & TMapper
 
 const initState: TUserState = {
   userId: '',
