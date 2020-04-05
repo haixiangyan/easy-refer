@@ -2,7 +2,7 @@
     <div class="edit-user" v-loading="loading" :element-loading-text="loadingText">
         <el-row class="avatar" type="flex" align="middle">
             <el-col :span="6">
-                <el-avatar :src="avatarUrl" :size="100"/>
+                <el-avatar :src="user.avatarUrl" :size="100"/>
             </el-col>
             <el-col>
                 <el-upload
@@ -15,20 +15,17 @@
                 </el-upload>
             </el-col>
         </el-row>
-        <div v-if="form">
-            <EditUserForm :form="form" @submit="onSubmit"/>
-        </div>
+        <EditUserForm @submit="onSubmit"/>
     </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
-  import UpdateUserGQL from '@/graphql/UpdateUser.graphql'
-  import GetUserGQL from '@/graphql/GetUser.graphql'
   import {EDIT_USER_RULES} from '@/constants/rules'
   import EditUserForm from '@/components/EditUserForm.vue'
   import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '@/constants/file'
+  import UserService from '@/service/UserService'
 
   @Component({
     components: {EditUserForm}
@@ -38,26 +35,18 @@
     rules = EDIT_USER_RULES
     loading = false
     loadingText = '加载中'
-    avatarUrl = ''
 
-    get userId() {
-      return this.$store.state.user.userId
-    }
-
-    mounted() {
-      this.loadUser()
+    get user() {
+      return this.$store.state.user
     }
 
     uploaded(response: IAvatar) {
-      // 更新到修改用户页面
-      this.avatarUrl = response.avatarUrl
-      // 更新到 user store
       this.$store.commit('user/setAvatarUrl', response.avatarUrl)
 
       this.$message.success('修改成功')
     }
 
-    uploading({status}: {status: string}) {
+    uploading({status}: { status: string }) {
       this.loading = !(status === 'success' || status === 'fail')
     }
 
@@ -77,44 +66,14 @@
       return isImage && isValidSize
     }
 
-    async loadUser() {
-      try {
-        this.loading = true
-        this.loadingText = '加载用户中'
-        const {data} = await this.$apollo.query({
-          query: GetUserGQL,
-          variables: {userId: this.userId}
-        })
+    async onSubmit(form: TUserForm) {
+      const {data: user} = await UserService.editUser(form)
 
-        const {userId, ...userForm} = data.user
-        this.form = userForm
-        this.avatarUrl = data.user.avatarUrl
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.loading = false
-      }
-    }
+      this.$store.commit('user/setUser', user)
 
-    async onSubmit(editUserForm: TUserForm) {
-      try {
-        this.loading = true
-        this.loadingText = '提交中'
-        await this.$apollo.mutate({
-          mutation: UpdateUserGQL,
-          variables: {
-            userId: this.userId,
-            userForm: editUserForm
-          }
-        })
+      this.$message.success('已更新用户信息')
 
-        this.$message.success('已更新用户信息')
-        await this.$router.push('/user')
-      } catch (error) {
-        this.$message.error(error.message)
-      } finally {
-        this.loading = false
-      }
+      await this.$router.push('/user')
     }
   }
 </script>

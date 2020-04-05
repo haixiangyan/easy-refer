@@ -25,30 +25,39 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "vue-property-decorator"
-  import {LEVEL_MAPPER} from "@/constants/level"
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
+  import {LEVEL_MAPPER} from '@/constants/level'
   import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
 
   @Component
   export default class User extends Vue {
     avatarUrl = ''
     loading = false
-    fields = ['email','name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro', 'resumeId']
+    fields = ['email', 'name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro']
 
     get level() {
       return LEVEL_MAPPER[this.user.experience]
     }
+
     get user() {
       return this.$store.state.user
     }
+
+    get resume() {
+      return this.$store.state.resume
+    }
+
     get userTable() {
-      return Object.entries(this.user)
-        .filter(([key, _]) => this.fields.includes(key))
-        .map(([key, value]) => ({
-          key: REFER_FIELDS_MAPPER[key],
-          value: key === "experience" ? LEVEL_MAPPER[value as number] : value
-        }))
+      return [
+        ...Object.entries(this.user)
+          .filter(([key, _]) => this.fields.includes(key))
+          .map(([key, value]) => ({
+            key: REFER_FIELDS_MAPPER[key],
+            value: key === 'experience' ? LEVEL_MAPPER[value as number] : value
+          })),
+        {key: REFER_FIELDS_MAPPER.resumeUrl, value: this.resume.url}
+      ]
     }
   }
 </script>
