@@ -1,5 +1,5 @@
 <template>
-    <el-form v-loading="loading" element-loading-text="获取已创建职位" ref="form" :model="form"
+    <el-form ref="form" :model="form"
              label-width="120px"
              label-position="left"
              class="job-form"
@@ -65,9 +65,13 @@
   import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '@/constants/referFields'
   import {JOB_RULES} from "@/constants/rules"
   import {ElForm} from "element-ui/types/form"
+  import {USER_MODULE} from '@/store/modules/user'
 
   @Component
   export default class JobForm extends Vue {
+    @USER_MODULE.State('details') user!: TUser
+    @USER_MODULE.State('job') job!: TJob & TMapper
+
     form: TJobForm = {
       company: '',
       createdAt: new Date().toISOString(),
@@ -88,17 +92,10 @@
         return cellDate.isBefore(today) || cellDate.isAfter(afterOneYear)
       }
     }
-    loading = false
     rules = JOB_RULES
 
     get referFields() {
       return Object.entries(REFER_FIELDS_MAPPER).map(([value, label]) => ({value, label}))
-    }
-    get user() {
-      return this.$store.state.user
-    }
-    get job() {
-      return this.$store.state.job
     }
 
     mounted() {
