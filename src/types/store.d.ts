@@ -1,4 +1,4 @@
-type TUserState = TMapper & {
+type TUserState = {
   details: TUser
   job: TJob
   resume: TResume

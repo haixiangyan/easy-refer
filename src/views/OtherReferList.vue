@@ -46,12 +46,8 @@
     page: number = 1
     totalPages: number = 0
 
-    get userId() {
-      return this.$store.state.user.userId
-    }
-
     mounted() {
-      this.loadResumes(this.page)
+      this.loadOtherReferList(this.page)
     }
 
     getLevel(experience: number) {
@@ -62,7 +58,7 @@
       return dayjs(createdAt).format(DATETIME_FORMAT)
     }
 
-    async loadResumes(page: number) {
+    async loadOtherReferList(page: number) {
       const {data} = await ReferService.getReferList('other', page)
 
       this.refers = data.referList as TOtherRefer[]
@@ -71,7 +67,7 @@
 
     @Watch('page')
     onPageChange(page: number) {
-      this.loadResumes(page)
+      this.loadOtherReferList(page)
     }
   }
 </script>

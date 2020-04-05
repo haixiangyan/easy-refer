@@ -43,6 +43,22 @@ const initState: TUserState = {
 const user = {
   namespaced: true,
   state: initState,
+  getters: {
+    jobItem: ({job, details}: TUserState) => ({
+        jobId: job.jobId,
+        company: job.company,
+        referer: {
+          name: details.name,
+          avatarUrl: details.avatarUrl
+        },
+        deadline: job.deadline,
+        expiration: job.expiration,
+        referredCount: job.referredCount,
+        referTotal: job.referTotal,
+        requiredFields: job.requiredFields,
+        source: job.source
+    })
+  },
   mutations: {
     setUser: (state: TUserState, user: TUser) => {
       state.details = {
@@ -56,7 +72,7 @@ const user = {
         ...job
       }
     },
-    setResume: (state: TResumeState, resume: TResume) => {
+    setResume: (state: TUserState, resume: TResume) => {
       state.resume = {
         ...state.resume,
         ...resume

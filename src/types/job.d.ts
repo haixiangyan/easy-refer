@@ -1,4 +1,4 @@
-type TJob = TMapper & {
+type TJob = {
   jobId: string
   refererId: string
   company: string
