@@ -1,7 +1,7 @@
 <template>
     <div class="resume" v-loading="loading" element-loading-text="加载该简历">
         <div class="job-description">
-            <JobItem :job="job"/>
+            <JobItem :job-item="jobItem"/>
         </div>
 
         <el-divider>申请信息</el-divider>
@@ -22,27 +22,29 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import GetJobItemGQL from '@/graphql/GetJobItem.graphql'
   import GetResumeBodyGQL from '@/graphql/GetResumeBody.graphql'
   import UpdateReferGQL from '@/graphql/UpdateRefer.graphql'
   import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
   import {LEVEL_MAPPER} from '@/constants/level'
+  import JobService from '@/service/JobService'
 
   @Component({
     components: {JobItem}
   })
   export default class RefereeRequest extends Vue {
-    job: TJobItem = {
+    jobItem: TJobItem = {
       jobId: '',
       company: '',
-      refererName: '',
+      referer: {
+        name: '',
+        avatarUrl: ''
+      },
       deadline: new Date().toISOString(),
       expiration: 3,
       referredCount: 0,
       referTotal: 0,
       requiredFields: [],
       source: '',
-      avatarUrl: ''
     }
     resume: TResumeBody = {
       // 必填
@@ -79,7 +81,7 @@
 
     get resumeTable() {
       return Object.entries(this.resume)
-        .filter(([key, _]) => this.job.requiredFields.includes(key))
+        .filter(([key, _]) => this.jobItem.requiredFields.includes(key))
         .map(([key, value]) => ({
           key: REFER_FIELDS_MAPPER[key],
           value: key === 'experience' ? LEVEL_MAPPER[value as number] : value
@@ -95,12 +97,9 @@
 
     async loadJob() {
       try {
-        const {data} = await this.$apollo.query({
-          query: GetJobItemGQL,
-          variables: {jobId: this.jobId}
-        })
+        const {data} = await JobService.getJobItemById(this.jobId)
 
-        this.job = data.jobItem
+        this.jobItem = data
       } catch (error) {
         this.$message.error(error.message)
       }
