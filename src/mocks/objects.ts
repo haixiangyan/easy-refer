@@ -38,13 +38,15 @@ export const Resume = {
 export const Job = {
   jobId: '@ID',
   refererId: '@ID',
-  company: mockArray(companies),
+  'company|1': companies,
   requiredFields,
   deadline: dateRange('2020-12-1', '2021-1-1'),
-  expiration: mockArray(expiration),
+  'expiration|1': expiration,
   referredCount: '@INTEGER(30, 100)',
   referTotal: '@INTEGER(100, 300)',
-  source: '@URL'
+  source: '@URL',
+  createdAt: dateRange('2020-12-1', '2021-1-1'),
+  updatedAt: dateRange('2020-12-1', '2021-1-1')
 }
 
 export const JobItem = {

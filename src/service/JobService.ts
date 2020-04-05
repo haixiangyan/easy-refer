@@ -7,8 +7,11 @@ const JobService = {
       params: {page, limit}
     })
   },
-  async getJobItemById(jobId: string): Promise<AxiosResponse<TJobItem>> {
+  async getJobItemById(jobId: string): Promise<AxiosResponse<IJobItem>> {
     return await service.get(`/jobs/item/${jobId}`)
+  },
+  async getJobById(jobId: string): Promise<AxiosResponse<IJob>> {
+    return await service.get(`/jobs/${jobId}`)
   }
 }
 

@@ -5,7 +5,7 @@ type TNumMapper = {
   [key: number]: string
 }
 type TMapper = {
-  [key: string]: string | number
+  [key: string]: string | number | string[]
 }
 type TELTableItem = {
   key: string
@@ -17,8 +17,13 @@ type TLoginForm = {
   password: string
 }
 
-interface ILogin extends TUser{ }
-interface IRegister { }
+interface ILogin extends TUser {}
+
+interface IRegister {}
+
+interface IJob extends TJob {}
+
+interface IJobItem extends TJobItem {}
 
 interface IJobItemList {
   jobItemList: TJobItem[]
@@ -30,6 +35,6 @@ interface IReferList {
   totalPages: number
 }
 
-interface IRefer extends TRefer{ }
+interface IRefer extends TRefer {}
 
-interface IResume extends TResume { }
+interface IResume extends TResume {}

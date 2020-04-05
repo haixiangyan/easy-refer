@@ -1,14 +1,15 @@
-type TJob = {
-  jobId?: string
-  refererId?: string
-  company?: string
-  requiredFields?: string[]
-  deadline?: string
-  expiration?: 3 | 5 | 7
-  referredCount?: number
-  referTotal?: number
-  imageUrl?: string
-  source?: string
+type TJob = TMapper & {
+  jobId: string
+  refererId: string
+  company: string
+  requiredFields: string[]
+  deadline: string
+  expiration: 3 | 5 | 7
+  referredCounts: number
+  referTotals: number
+  source: string
+  createdAt: string
+  updatedAt: string
 }
 
 type TJobItem = {
@@ -26,15 +27,13 @@ type TJobItem = {
   source: string
 }
 
-type TJobForm = {
-  refererName: string,
+type TJobForm = TMapper & {
   company: string
   requiredFields: string[]
-  deadline: string
+  deadlines: string
   expiration: 3 | 5 | 7
-  referredCount: number
-  referTotal: number
+  referTotals: number
+  source: string
   createdAt: string
-  imageUrl?: string
-  source?: string
+  updatedAt: string
 }
