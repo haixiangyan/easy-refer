@@ -9,17 +9,16 @@
   import {Component} from 'vue-property-decorator'
   import JobForm from '@/components/JobForm.vue'
   import JobService from '@/service/JobService'
+  import {USER_MODULE} from '@/store/modules/user'
 
   @Component({
     components: {JobForm}
   })
   export default class AddJob extends Vue {
-    get user() {
-      return this.$store.state.user
-    }
+    @USER_MODULE.State(state => state.job.jobId) jobId!: string
 
     async onSubmit(form: TJobForm) {
-      await JobService.editJob(this.user.jobId, form)
+      await JobService.editJob(this.jobId, form)
 
       this.$message.success('已修改该职位')
 

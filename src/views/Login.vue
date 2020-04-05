@@ -34,9 +34,16 @@
   import {ElForm} from 'element-ui/types/form'
   import {LOGIN_RULES} from '@/constants/rules'
   import AuthService from '@/service/AuthService'
+  import {USER_MODULE} from '@/store/modules/user'
+  import {AUTH_MODULE} from '@/store/modules/auth'
 
   @Component
   export default class Login extends Vue {
+    @AUTH_MODULE.Mutation('setAuth') setAuth!: Function
+    @USER_MODULE.Mutation('setUser') setUser!: Function
+    @USER_MODULE.Mutation('setJob') setJob!: Function
+    @USER_MODULE.Mutation('setResume') setResume!: Function
+
     loginForm: TLoginForm = {
       email: '',
       password: ''
@@ -59,10 +66,10 @@
 
         const {data} = await AuthService.login(this.loginForm)
 
-        this.$store.commit('auth/setAuth', true)
-        this.$store.commit('user/setUser', data.user)
-        data.job && this.$store.commit('job/setJob', data.job)
-        data.resume && this.$store.commit('resume/setResume', data.resume)
+        this.setAuth(true)
+        this.setUser(data.user)
+        data.job && this.setJob(data.job)
+        data.resume && this.setResume(data.resume)
 
         this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
 

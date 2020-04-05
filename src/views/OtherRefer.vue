@@ -25,25 +25,17 @@
   import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
   import {LEVEL_MAPPER} from '@/constants/level'
   import ReferService from '@/service/ReferService'
+  import {USER_MODULE} from '@/store/modules/user'
 
   @Component({
     components: {JobItem}
   })
   export default class RefereeRequest extends Vue {
-    jobItem: TJobItem = {
-      jobId: '',
-      company: '',
-      referer: {
-        name: '',
-        avatarUrl: ''
-      },
-      deadline: new Date().toISOString(),
-      expiration: 3,
-      referredCount: 0,
-      referTotal: 0,
-      requiredFields: [],
-      source: '',
-    }
+    @USER_MODULE.State('job') job!: TJob
+    @USER_MODULE.State('details') user!: TUser
+    @USER_MODULE.State('resume') resume!: TResume
+    @USER_MODULE.Getter('jobItem') jobItem!: TJobItem
+
     referForm: TReferForm = {
       email: '',
       experience: 0,
@@ -60,18 +52,6 @@
       return this.$route.params.referId
     }
 
-    get job() {
-      return this.$store.state.job
-    }
-
-    get user() {
-      return this.$store.state.user
-    }
-
-    get resume() {
-      return this.$store.state.resume
-    }
-
     get referTable() {
       return Object.entries(this.referForm)
         .filter(([key, _]) => this.jobItem.requiredFields.includes(key))
@@ -82,25 +62,7 @@
     }
 
     mounted() {
-      this.initJobItem()
       this.loadRefer()
-    }
-
-    initJobItem() {
-      this.jobItem = {
-        jobId: this.job.jobId,
-        company: this.job.company,
-        referer: {
-          name: this.user.name,
-          avatarUrl: this.user.avatarUrl
-        },
-        deadline: this.job.deadline,
-        expiration: this.job.expiration,
-        referredCount: this.job.referredCount,
-        referTotal: this.job.referTotal,
-        requiredFields: this.job.requiredFields,
-        source: this.job.source
-      }
     }
 
     async loadRefer() {
