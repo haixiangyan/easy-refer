@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <el-card class="login-card" v-loading="loading">
+        <el-card class="login-card">
             <el-form class="login-form" ref="loginForm" :model="loginForm" :rules="rules">
                 <div class="login-form-header">
                     <img class="login-logo" src="../assets/img/logo.png" alt="logo">
@@ -43,15 +43,15 @@
     }
     rules = LOGIN_RULES
 
-    get loading() {
-      return this.$store.state.loading
-    }
-
     register() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
+        this.$store.commit('setLoading', true)
+
         await AuthService.register(this.loginForm)
+
+        this.$store.commit('setLoading', true)
 
         this.login()
       })
@@ -61,12 +61,16 @@
       (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
+        this.$store.commit('setLoading', true)
+
         const {data} = await AuthService.login(this.loginForm)
 
         this.$store.commit('auth/setAuth', true)
         this.$store.commit('user/setUser', data.user)
         data.job && this.$store.commit('job/setJob', data.job)
         data.resume && this.$store.commit('resume/setResume', data.resume)
+
+        this.$store.commit('setLoading', false)
 
         this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
 

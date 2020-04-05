@@ -1,5 +1,5 @@
 <template>
-    <div class="app" :class="screenClass">
+    <div class="app" :class="screenClass" v-loading="loading">
         <Menu v-if="!isLoginPage"/>
         <el-row class="main">
             <el-col :span="showIntro ? 16 : 24" class="view-wrapper">
