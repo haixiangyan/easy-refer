@@ -1,5 +1,5 @@
 <template>
-    <div class="app" :class="screenClass">
+    <div class="app" :class="screenClass" v-loading="loading">
         <Menu v-if="!isLoginPage"/>
         <el-row class="main">
             <el-col :span="showIntro ? 16 : 24" class="view-wrapper">
@@ -24,6 +24,9 @@
     components: {Menu, Intro, Footer},
   })
   export default class App extends Vue {
+    get loading() {
+      return this.$store.state.loading
+    }
     get screenClass(): string {
       return this.$route.name === "Login" ? "full-screen" : "normal-screen"
     }

@@ -1,41 +1,48 @@
 <template>
-    <div class="apply">
-        <div class="job-description">
-            <JobItem :job="job"/>
+    <div>
+        <div>
+            <JobItem :job-item="jobItem"/>
         </div>
 
         <el-divider>填写你的信息</el-divider>
 
-        <ResumeForm
+        <ReferForm
             @submit="apply"
             @back="$router.push('/job-list')"
-            :required-fields="job.requiredFields"/>
+            :required-fields="jobItem.requiredFields"
+        />
     </div>
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "vue-property-decorator"
-  import JobItem from "@/components/JobItem.vue"
-  import ResumeForm from "@/components/ResumeForm.vue"
-  import GetJobByIdGQL from "@/graphql/GetJobById.graphql"
-  import AddResumeGQL from "@/graphql/AddResume.graphql"
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
+  import JobItem from '@/components/JobItem.vue'
+  import ReferForm from '@/components/ReferForm.vue'
+  import JobService from '@/service/JobService'
+  import ReferService from '@/service/ReferService'
 
   @Component({
-    components: {JobItem, ResumeForm}
+    components: {JobItem, ReferForm}
   })
   export default class ApplyRefer extends Vue {
-    job: TJobItem = {
-      jobId: "",
-      company: "",
-      refererName: "",
+    jobItem: TJobItem = {
+      jobId: '',
+      referer: {
+        avatarUrl: '',
+        name: ''
+      },
+      company: '',
       deadline: new Date().toISOString(),
       expiration: 3,
       referredCount: 0,
       referTotal: 0,
       requiredFields: [],
-      imageUrl: "",
-      source: ""
+      source: ''
+    }
+
+    get jobId() {
+      return this.$route.params.jobId
     }
 
     mounted() {
@@ -43,30 +50,17 @@
     }
 
     async loadJob() {
-      try {
-        const {data} = await this.$apollo.query({
-          query: GetJobByIdGQL,
-          variables: {jobId: this.$route.params.jobId}
-        })
+      const {data} = await JobService.getJobItemById(this.jobId)
 
-        this.job = data.job
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+      this.jobItem = data
     }
 
-    async apply(resumeForm: TResumeForm) {
-      try {
-        await this.$apollo.mutate({
-          mutation: AddResumeGQL,
-          variables: {resumeForm}
-        })
+    async apply(form: TReferForm) {
+      await ReferService.applyRefer(this.jobId, form)
 
-        this.$message.success("已提交内推信息")
-        await this.$router.push("/my-refer-list")
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+      this.$message.success('已提交内推信息')
+
+      await this.$router.push('/my/refer-list')
     }
   }
 </script>

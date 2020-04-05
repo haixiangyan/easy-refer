@@ -1,7 +1,7 @@
 <template>
-    <div class="job-list">
-        <div class="jobs">
-            <JobItem v-for="job in publicJobs" :job="job" :key="job.id"></JobItem>
+    <div>
+        <div class="job-list">
+            <JobItem v-for="jobItem in publicJobs" :job-item="jobItem" :key="jobItem.jobId"></JobItem>
         </div>
         <div class="pages">
             <el-pagination
@@ -16,10 +16,10 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component, Watch} from "vue-property-decorator"
-  import GetJobsGQL from '@/graphql/GetJobs.graphql'
-  import JobItem from "@/components/JobItem.vue"
+  import Vue from 'vue'
+  import {Component, Watch} from 'vue-property-decorator'
+  import JobItem from '@/components/JobItem.vue'
+  import JobService from '@/service/JobService'
 
   @Component({
     components: {JobItem}
@@ -27,6 +27,7 @@
   export default class JobList extends Vue {
     publicJobs: TJobItem[] = []
     page: number = 1
+    limit: number = 10
     totalPages: number = 0
 
     mounted() {
@@ -34,20 +35,13 @@
     }
 
     async loadJobs(page: number) {
-      try {
-        const {data} = await this.$apollo.query({
-          query: GetJobsGQL,
-          variables: {page}
-        })
+      const {data} = await JobService.getJobItemList(page, this.limit)
 
-        this.publicJobs = data.jobsPage.jobs
-        this.totalPages = data.jobsPage.totalPages
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+      this.publicJobs = data.jobItemList
+      this.totalPages = data.totalPages
     }
 
-    @Watch("page")
+    @Watch('page')
     onPageChange(page: number) {
       this.loadJobs(page)
     }
@@ -55,6 +49,10 @@
 </script>
 
 <style lang="scss">
+    .job-list {
+        height: 100%;
+    }
+
     .pages {
         text-align: center;
         padding: 20px 0;

@@ -1,3 +1,0 @@
-mutation UpdateJob($refererId: String!, $jobId: String!, $jobForm: JobForm!) {
-    updateJob(refererId: $refererId, jobId: $jobId, jobForm: $jobForm)
-}

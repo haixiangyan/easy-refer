@@ -1,6 +1,6 @@
 <template>
-    <div class="my-refer-list">
-        <div class="refers">
+    <div>
+        <div>
             <ReferItem v-for="refer in refers" :key="refer.id" :refer="refer"/>
         </div>
         <div class="pages">
@@ -16,42 +16,31 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component, Watch} from "vue-property-decorator"
+  import Vue from 'vue'
+  import {Component, Watch} from 'vue-property-decorator'
   import ReferItem from '@/components/ReferItem.vue'
-  import GetRefersGQL from '@/graphql/GetRefers.graphql'
+  import ReferService from '@/service/ReferService'
 
   @Component({
     components: {ReferItem}
   })
   export default class MyReferList extends Vue {
-    refers: TReferItem[] = []
+    refers: TMyRefer[] = []
     page: number = 0
     totalPages: number = 0
 
-    get userId() {
-      return this.$store.state.user.userId
-    }
-
     mounted() {
-      this.loadRefers(1)
+      this.loadRefers(this.page)
     }
 
     async loadRefers(page: number) {
-      try {
-        const {data} = await this.$apollo.query({
-          query: GetRefersGQL,
-          variables: {userId: this.userId, page}
-        })
+      const {data} = await ReferService.getReferList('my', page)
 
-        this.refers = data.refersPage.refers
-        this.totalPages = data.refersPage.totalPages
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+      this.refers = data.referList as TMyRefer[]
+      this.totalPages = data.totalPages
     }
 
-    @Watch("page")
+    @Watch('page')
     onPageChange(page: number) {
       this.loadRefers(page)
     }
@@ -59,5 +48,8 @@
 </script>
 
 <style scoped lang="scss">
-
+    .pages {
+        padding: 20px 0;
+        text-align: center;
+    }
 </style>

@@ -29,57 +29,51 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import LoginGQL from "@/graphql/Login.graphql"
-  import RegisterGQL from "@/graphql/Register.graphql"
-  import {Component} from "vue-property-decorator"
-  import {ElForm} from "element-ui/types/form"
-  import {LOGIN_RULES} from "@/contents/rules"
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
+  import {ElForm} from 'element-ui/types/form'
+  import {LOGIN_RULES} from '@/constants/rules'
+  import AuthService from '@/service/AuthService'
+  import {USER_MODULE} from '@/store/modules/user'
+  import {AUTH_MODULE} from '@/store/modules/auth'
 
   @Component
   export default class Login extends Vue {
-    loginForm: TLoginForm = {
-      email: "",
-      password: ""
-    }
+    @AUTH_MODULE.Mutation('setAuth') setAuth!: Function
+    @USER_MODULE.Mutation('setUser') setUser!: Function
+    @USER_MODULE.Mutation('setJob') setJob!: Function
+    @USER_MODULE.Mutation('setResume') setResume!: Function
 
+    loginForm: TLoginForm = {
+      email: '',
+      password: ''
+    }
     rules = LOGIN_RULES
 
     register() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
-        if (!valid) return this.$message.error("填写不正确")
+        if (!valid) return this.$message.error('填写不正确')
 
-        try {
-          await this.$apollo.mutate({
-            mutation: RegisterGQL,
-            variables: {registerForm: this.loginForm}
-          })
+        await AuthService.register(this.loginForm)
 
-          this.login()
-        } catch (error) {
-          this.$message.error(error.message)
-        }
+        this.login()
       })
     }
 
     login() {
       (<ElForm>this.$refs.loginForm).validate(async valid => {
-        if (!valid) return this.$message.error("填写不正确")
+        if (!valid) return this.$message.error('填写不正确')
 
-        try {
-          const {data} = await this.$apollo.mutate({
-            mutation: LoginGQL,
-            variables: {loginForm: this.loginForm}
-          })
-          this.$store.commit("auth/setAuth", true)
-          this.$store.commit("user/setUser", data.user)
+        const {data} = await AuthService.login(this.loginForm)
 
-          this.$notify({title: "登录成功", message: '欢迎回来', type: "success"})
+        this.setAuth(true)
+        this.setUser(data.user)
+        data.job && this.setJob(data.job)
+        data.resume && this.setResume(data.resume)
 
-          await this.$router.push("/job-list")
-        } catch (error) {
-          this.$message.error(error.message)
-        }
+        this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
+
+        await this.$router.push('/job-list')
       })
     }
   }

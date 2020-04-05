@@ -5,63 +5,23 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "vue-property-decorator"
-  import JobForm from "@/components/JobForm.vue"
-  import AddJobGQL from "@/graphql/AddJob.graphql"
+  import Vue from 'vue'
+  import {Component} from 'vue-property-decorator'
+  import JobForm from '@/components/JobForm.vue'
+  import JobService from '@/service/JobService'
 
   @Component({
     components: {JobForm}
   })
   export default class AddJob extends Vue {
-    async onSubmit(jobForm: TJobForm) {
-      try {
-        await this.$apollo.mutate({
-          mutation: AddJobGQL,
-          variables: {
-            refererId: this.$store.state.user.userId,
-            jobForm
-          }
-        })
+    async onSubmit(form: TJobForm) {
+      await JobService.addJob(form)
 
-        this.$message.success("已添加该职位")
+      this.$message.success('已添加该职位')
 
-        await this.$router.push("/job-list")
-      } catch (error) {
-        this.$message.error(error.message)
-      }
+      await this.$router.push('/job-list')
     }
   }
 </script>
 
-<style lang="scss">
-    .add-job-form {
-        .required-fields-select {
-            .el-tag__close.el-icon-close {
-                display: none;
-            }
-        }
-    }
-</style>
-
-<style scoped lang="scss">
-    @import '~@/assets/styles/variables.scss';
-
-    .add-job-form {
-        .full-width {
-            width: 100%;
-        }
-
-        .limit-hint {
-            color: $warning-color;
-        }
-
-        .publish {
-            text-align: center;
-
-            &-button {
-                margin-right: 8px;
-            }
-        }
-    }
-</style>
+<style scoped lang="scss"></style>

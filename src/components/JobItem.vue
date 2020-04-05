@@ -1,26 +1,26 @@
 <template>
     <el-row class="job-item">
         <el-col :span="4">
-            <router-link class="avatar" to="/job-list">
-                <img :src="job.imageUrl" alt="avatar">
+            <router-link class="avatar" :to="`/apply-refer/${jobItem.jobId}`">
+                <CompanyImage :src="jobItem.referer.avatarUrl"/>
             </router-link>
         </el-col>
         <el-col class="content" :span="20">
             <p class="title">
-                {{job.company}}
+                {{jobItem.company}}
                 <el-divider direction="vertical"></el-divider>
-                {{job.refererName}}内推
+                {{jobItem.referer.name}}内推
             </p>
             <div class="tags">
-                <el-tag size="mini" type="primary">{{job.deadline}}截止</el-tag>
-                <el-tag size="mini" type="danger">{{job.expiration}}天必推</el-tag>
+                <el-tag size="mini" type="primary">{{deadline}}截止</el-tag>
+                <el-tag size="mini" type="danger">{{jobItem.expiration}}天必推</el-tag>
             </div>
             <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
             <div class="footer">
-                <router-link v-if="showApply" :to="`/apply-refer/${job.jobId}`" tag="span">
+                <router-link v-if="showApply" :to="`/apply-refer/${jobItem.jobId}`" tag="span">
                     <el-link class="start-refer" type="primary">申请内推</el-link>
                 </router-link>
-                <el-link v-if="job.source" :href="job.source">
+                <el-link v-if="jobItem.source" :href="jobItem.source">
                     原贴
                     <i class="el-icon-top-right"></i>
                 </el-link>
@@ -31,15 +31,23 @@
 
 <script lang="ts">
   import Vue from "vue"
+  import dayjs from 'dayjs'
   import {Component, Prop} from "vue-property-decorator"
+  import CompanyImage from "@/components/CompanyImage.vue"
   import {getReferProgress} from "@/utils/refer"
+  import {DATETIME_FORMAT} from '@/constants/format'
 
-  @Component
+  @Component({
+    components: {CompanyImage}
+  })
   export default class JobItem extends Vue {
-    @Prop({required: true}) job!: TJobItem
+    @Prop({required: true}) jobItem!: TJobItem
 
+    get deadline() {
+      return dayjs(this.jobItem.deadline).format(DATETIME_FORMAT)
+    }
     get referredPercentage() {
-      const {referredCount, referTotal} = this.job
+      const {referredCount, referTotal} = this.jobItem
       return referTotal === 0 ? 0 : parseFloat((referredCount / referTotal * 100).toFixed(2))
     }
     get referredProgress() {
