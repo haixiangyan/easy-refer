@@ -15,7 +15,7 @@
                 </el-upload>
             </el-col>
         </el-row>
-        <EditUserForm @submit="onSubmit"/>
+        <UserForm @submit="onSubmit"/>
     </div>
 </template>
 
@@ -23,12 +23,12 @@
   import Vue from 'vue'
   import {Component} from 'vue-property-decorator'
   import {EDIT_USER_RULES} from '@/constants/rules'
-  import EditUserForm from '@/components/EditUserForm.vue'
+  import UserForm from '@/components/UserForm.vue'
   import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '@/constants/file'
   import UserService from '@/service/UserService'
 
   @Component({
-    components: {EditUserForm}
+    components: {UserForm}
   })
   export default class EditUser extends Vue {
     form: TUserForm | null = null

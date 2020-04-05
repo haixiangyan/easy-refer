@@ -1,5 +1,5 @@
 <template>
-    <el-form v-if="form" class="edit-form"
+    <el-form v-if="form" class="user-form"
              ref="form" :model="form"
              label-width="120px"
              label-position="left"
@@ -63,7 +63,7 @@
   import ResumeService from '@/service/ResumeService'
 
   @Component
-  export default class EditUserForm extends Vue {
+  export default class UserForm extends Vue {
     form: TUserForm = {
       avatarUrl: '',
       email: '',
@@ -145,7 +145,7 @@
 </script>
 
 <style scoped lang="scss">
-    .edit-form {
+    .user-form {
         &-submit {
             text-align: right;
 
