@@ -1,16 +1,14 @@
 import {namespace} from 'vuex-class'
 
-type TAuthStore = {
-  isLogin: boolean
+const initState: TAuthState = {
+  isLogin: false
 }
 
 const auth = {
   namespaced: true,
-  state: {
-    isLogin: false
-  },
+  state: initState,
   mutations: {
-    setAuth: (state: TAuthStore, payload: boolean) => {
+    setAuth: (state: TAuthState, payload: boolean) => {
       state.isLogin = payload
     }
   }

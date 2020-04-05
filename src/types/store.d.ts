@@ -3,3 +3,7 @@ type TUserState = {
   job: TJob
   resume: TResume
 }
+
+type TAuthState = {
+  isLogin: boolean
+}
