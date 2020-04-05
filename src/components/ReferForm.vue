@@ -1,7 +1,5 @@
 <template>
     <el-form ref="form"
-             v-loading="resumeLoading"
-             element-loading-text="加载简历中"
              :model="form"
              label-width="120px"
              label-position="left"
@@ -35,8 +33,6 @@
         </el-form-item>
         <el-form-item :label="field('resumeUrl')">
             <el-upload
-                v-loading="loading"
-                element-loading-text="上传中"
                 action="/refer-resume"
                 :data="{resumeId: form.resumeId}"
                 :on-success="uploaded"
@@ -66,6 +62,9 @@
   import {RESUME_RULES} from '@/constants/rules'
   import {getFieldName} from '@/constants/referFields'
   import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
+  import {USER_MODULE} from '@/store/modules/user'
+  import {AUTH_MODULE} from '@/store/modules/auth'
+  import {Mutation} from 'vuex-class'
 
   @Component({
     components: {JobItem}
@@ -73,6 +72,11 @@
   export default class ReferForm extends Vue {
     @Prop() refer: TRefer | undefined
     @Prop({required: true}) requiredFields!: string[]
+
+    @USER_MODULE.State('details') user!: TUser & TMapper
+    @Mutation('setLoading') setLoading!: Function
+    @AUTH_MODULE.State(state => state.isLogin) isLogin!: boolean
+
     form: TReferForm = {
       email: '',
       experience: 0,
@@ -91,19 +95,11 @@
     }
     rules = RESUME_RULES
     field = getFieldName
-    resumeLoading = false
-    loading = false
 
     mounted() {
       this.initForm()
     }
 
-    get isLogin() {
-      return this.$store.state.auth.isLogin
-    }
-    get user() {
-      return this.$store.state.user
-    }
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }
@@ -115,12 +111,12 @@
     uploaded(resume: IUploadResume) {
       this.form.resumeId = resume.resumeId
       this.resume = resume
-      this.loading = false
+      this.setLoading(false)
       this.$message.success('上传成功')
     }
 
     uploading({status}: { status: string }) {
-      this.loading = !(status === 'success' || status === 'fail')
+      this.setLoading(!(status === 'success' || status === 'fail'))
     }
 
     beforeUpload(file: File) {
@@ -129,11 +125,11 @@
 
       if (!isPdf) {
         this.$message.error('上传简历只能是 PDF 格式')
-        this.loading = false
+        this.setLoading(false)
       }
       if (!isValidSize) {
         this.$message.error('上传简历大小不能超过 5MB')
-        this.loading = false
+        this.setLoading(false)
       }
 
       return isPdf && isValidSize
