@@ -4,6 +4,9 @@ type TStringMapper = {
 type TNumMapper = {
   [key: number]: string
 }
+type TMapper = {
+  [key: string]: string | number
+}
 type TELTableItem = {
   key: string
   value: string

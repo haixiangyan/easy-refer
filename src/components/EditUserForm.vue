@@ -92,8 +92,8 @@
       this.editUserForm = {...this.form}
     }
 
-    uploaded(response: IUploadResume) {
-      this.editUserForm.resumeUrl = response.resumeUrl
+    uploaded(resume: IUploadResume) {
+      this.editUserForm.resumeUrl = resume.url
       this.loading = false
       this.$message.success('上传成功')
     }

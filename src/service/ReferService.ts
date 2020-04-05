@@ -7,6 +7,9 @@ const ReferService = {
       params: {role, page, limit}
     })
   },
+  async getReferById(referId: string): Promise<AxiosResponse<IRefer>> {
+    return await service.get(`/refers/${referId}`)
+  }
 }
 
 export default ReferService

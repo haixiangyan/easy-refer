@@ -2,7 +2,19 @@ type TRole = 'referer' | 'referee'
 type TViewRole = 'my' | 'other'
 type TStatus = 'processing' | 'referred' | 'rejected'
 
-type TRefer = {
+type TReferForm = TMapper & {
+  name: string
+  email: string
+  phone: string
+  experience: number
+  intro: string
+  leetCodeUrl: string
+  thirdPersonIntro: string
+  resumeId: string
+  referLinks: string
+}
+
+type TRefer = TMapper & {
   referId: string
   jobId: string
   refererId: string
@@ -10,11 +22,12 @@ type TRefer = {
   name: string
   email: string
   phone: string
-  experience: 3 | 5 | 7
+  experience: number
   intro: string
   leetCodeUrl: string
   thirdPersonIntro: string
   resumeId: string
+  referLinks: string
   status: TStatus
   updatedAt: string
   createdAt: string

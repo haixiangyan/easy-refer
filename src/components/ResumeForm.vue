@@ -1,51 +1,51 @@
 <template>
-    <el-form ref="resumeForm"
+    <el-form ref="form"
              v-loading="resumeLoading"
              element-loading-text="加载简历中"
-             :model="resumeForm"
+             :model="form"
              label-width="120px"
              label-position="left"
              :rules="rules">
         <el-form-item required prop="name" :label="field('name')">
-            <el-input :disabled="isLogin" v-model="resumeForm.name"></el-input>
+            <el-input :disabled="isLogin" v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item required prop="email" :label="field('email')">
-            <el-input type="email" :disabled="isLogin" v-model="resumeForm.email"></el-input>
+            <el-input type="email" :disabled="isLogin" v-model="form.email"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('phone')" required prop="phone" :label="field('phone')">
-            <el-input type="tel" v-model="resumeForm.phone"></el-input>
+            <el-input type="tel" v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item required prop="experience" :label="field('experience')">
-            <el-select v-model="resumeForm.experience" placeholder="请选择">
+            <el-select v-model="form.experience" placeholder="请选择">
                 <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"/>
             </el-select>
         </el-form-item>
         <el-form-item v-if="isShowField('intro')" required prop="intro" :label="field('intro')">
-            <el-input type="textarea" autosize v-model="resumeForm.intro"></el-input>
+            <el-input type="textarea" autosize v-model="form.intro"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('referLinks')" required prop="referLinks" :label="field('referLinks')">
-            <el-input type="textarea" autosize v-model="resumeForm.referLinks"></el-input>
+            <el-input type="textarea" autosize v-model="form.referLinks"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('thirdPersonIntro')" required prop="thirdPersonIntro"
                       :label="field('thirdPersonIntro')">
-            <el-input type="textarea" autosize v-model="resumeForm.thirdPersonIntro"></el-input>
+            <el-input type="textarea" autosize v-model="form.thirdPersonIntro"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" :label="field('leetCodeUrl')">
-            <el-input type="url" v-model="resumeForm.leetCodeUrl"></el-input>
+            <el-input type="url" v-model="form.leetCodeUrl"></el-input>
         </el-form-item>
         <el-form-item :label="field('resumeUrl')">
             <el-upload
                 v-loading="loading"
                 element-loading-text="上传中"
                 action="/refer-resume"
-                :data="{resumeId}"
+                :data="{resumeId: form.resumeId}"
                 :on-success="uploaded"
                 :on-change="uploading"
                 :on-error="() => this.$message.error('上传失败')"
                 :before-upload="beforeUpload"
                 :show-file-list="false">
                 <el-button size="small" type="primary">上传简历</el-button>
-                <span style="margin-left: 12px">{{resumeForm.resumeUrl}}</span>
+                <span style="margin-left: 12px">{{resume.name}}</span>
                 <div slot="tip" class="el-upload__tip">只能上传 <strong>pdf</strong> 文件，且不超过5MB</div>
             </el-upload>
         </el-form-item>
@@ -61,7 +61,6 @@
   import Vue from 'vue'
   import {Component, Prop} from 'vue-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import GetResumeBodyGQL from '@/graphql/GetResumeBody.graphql'
   import {LEVEL_MAPPER} from '@/constants/level'
   import {ElForm} from 'element-ui/types/form'
   import {RESUME_RULES} from '@/constants/rules'
@@ -72,22 +71,23 @@
     components: {JobItem}
   })
   export default class ResumeForm extends Vue {
-    @Prop() resumeId: string | undefined
+    @Prop() refer: TRefer | undefined
     @Prop({required: true}) requiredFields!: string[]
-    resumeForm: TResumeForm = {
-      // 必填
-      jobId: '',
-      refereeId: '',
+    form: TReferForm = {
       email: '',
-      name: '',
       experience: 0,
-      // 选填
       intro: '',
       leetCodeUrl: '',
+      name: '',
       phone: '',
       referLinks: '',
-      resumeUrl: '',
-      thirdPersonIntro: '',
+      resumeId: '',
+      thirdPersonIntro: ''
+    }
+    resume: TResume = {
+      resumeId: '',
+      url: '',
+      name: ''
     }
     rules = RESUME_RULES
     field = getFieldName
@@ -101,7 +101,9 @@
     get isLogin() {
       return this.$store.state.auth.isLogin
     }
-
+    get user() {
+      return this.$store.state.user
+    }
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }
@@ -110,13 +112,14 @@
       return this.requiredFields.includes(fieldName)
     }
 
-    uploaded(response: IUploadResume) {
-      this.resumeForm.resumeUrl = response.resumeUrl
+    uploaded(resume: IUploadResume) {
+      this.form.resumeId = resume.resumeId
+      this.resume = resume
       this.loading = false
       this.$message.success('上传成功')
     }
 
-    uploading({status}: {status: string}) {
+    uploading({status}: { status: string }) {
       this.loading = !(status === 'success' || status === 'fail')
     }
 
@@ -137,36 +140,29 @@
     }
 
     async initForm() {
-      if (this.resumeId) return await this.initResume()
-
-      if (!this.isLogin) return
-
-      const {userId, ...rest} = this.$store.state.user
-      this.resumeForm = {...this.resumeForm, ...rest, refereeId: userId}
-    }
-
-    async initResume() {
-      try {
-        this.resumeLoading = true
-
-        const {data} = await this.$apollo.query({
-          query: GetResumeBodyGQL,
-          variables: {resumeId: this.resumeId}
+      // 当修改 refer 时初始化
+      if (this.refer) {
+        return Object.keys(this.form).forEach((key: string) => {
+          if (key in this.refer!) {
+            this.form[key] = this.refer![key]
+          }
         })
-
-        this.resumeForm = data.resumeBody
-      } catch (error) {
-        this.$message.error(error.mesage)
-      } finally {
-        this.resumeLoading = false
+      }
+      // 已经 login，自动填写表单
+      if (this.isLogin) {
+        return Object.keys(this.form).forEach((key: string) => {
+          if (key in this.user!) {
+            this.form[key] = this.user![key]
+          }
+        })
       }
     }
 
     submit() {
-      (<ElForm>this.$refs.resumeForm).validate(async valid => {
+      (<ElForm>this.$refs.form).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
-        this.$emit('submit', this.resumeForm)
+        this.$emit('submit', this.form)
       })
     }
 

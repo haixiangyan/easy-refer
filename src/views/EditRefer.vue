@@ -4,17 +4,18 @@
             <JobItem :job-item="jobItem"/>
         </div>
 
-        <el-divider v-if="resumeId">修改你的信息</el-divider>
+        <el-divider v-if="refer.resumeId">修改你的信息</el-divider>
 
         <ResumeForm
-            v-if="resumeId"
+            v-if="refer.resumeId"
             v-loading="editLoading"
             element-loading-text="提交中"
             @submit="edit"
+            :refer="refer"
             @loading="resumeLoading = $event"
             @back="$router.push('/my-refer-list')"
             :required-fields="jobItem.requiredFields"
-            :resume-id="resumeId"/>
+            :resume-id="refer.resumeId"/>
     </div>
 </template>
 
@@ -25,6 +26,7 @@
   import ResumeForm from '@/components/ResumeForm.vue'
   import UpdateResumeGQL from '@/graphql/UpdateResume.graphql'
   import JobService from '@/service/JobService'
+  import ReferService from '@/service/ReferService'
 
   @Component({
     components: {JobItem, ResumeForm}
@@ -44,21 +46,42 @@
       requiredFields: [],
       source: '',
     }
-    resumeId = ''
+    refer: TRefer = {
+      createdAt: '',
+      email: '',
+      experience: 0,
+      intro: '',
+      jobId: '',
+      leetCodeUrl: '',
+      name: '',
+      phone: '',
+      referId: '',
+      refereeId: '',
+      refererId: '',
+      resumeId: '',
+      referLinks: '',
+      status: 'processing',
+      thirdPersonIntro: '',
+      updatedAt: ''
+    }
     jobLoading = false
     editLoading = false
 
-    mounted() {
-      this.loadReferDetails()
+    get referId() {
+      return this.$route.params.referId
     }
 
-    async loadReferDetails() {
-      //TODO
-      const {data} = await JobService.getJobItemById('123123')
+    mounted() {
+      this.load()
+    }
 
-      this.jobItem = data
-      // TODO
-      this.resumeId = ''
+    async load() {
+      const {data: refer} = await ReferService.getReferById(this.referId)
+      const {data: jobItem} = await JobService.getJobItemById(refer.jobId)
+
+      console.log(refer)
+      this.refer = refer
+      this.jobItem = jobItem
     }
 
     async edit(resumeForm: TResumeForm) {
@@ -67,7 +90,7 @@
         await this.$apollo.mutate({
           mutation: UpdateResumeGQL,
           variables: {
-            resumeId: this.resumeId,
+            resumeId: this.refer.resumeId,
             resumeForm
           }
         })

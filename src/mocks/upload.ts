@@ -2,13 +2,15 @@ import faker from 'faker'
 import Mock from 'mockjs'
 
 Mock.mock('/user-resume', 'post', {
-  resumeUrl: faker.internet.url(),
-  resumeName: faker.internet.url()
+  resumeId: '@ID',
+  resumeUrl: '@URL',
+  resumeName: '@URL',
 })
 
 Mock.mock('/refer-resume', 'post', {
-  resumeUrl: faker.internet.url(),
-  resumeName: faker.internet.url()
+  resumeId: '@ID',
+  resumeUrl: '@URL',
+  resumeName: '@URL',
 })
 
 Mock.mock('/avatar', 'post', {

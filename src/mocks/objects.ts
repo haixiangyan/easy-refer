@@ -70,6 +70,7 @@ export const Refer = {
   intro: '@PARAGRAPH',
   leetCodeUrl: '@URL',
   thirdPersonIntro: '@PARAGRAPH',
+  referLinks: '@URL',
   resumeId:'@ID',
   'status|1': status,
   updatedAt: dateRange('2020-4-1', '2020-5-1'),
