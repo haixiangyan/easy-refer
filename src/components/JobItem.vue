@@ -5,7 +5,7 @@
                 <CompanyImage :src="jobItem.referer.avatarUrl"/>
             </router-link>
         </el-col>
-        <el-col class="content" :span="20">
+        <el-col class="content" :span="14">
             <p class="title">
                 {{jobItem.company}}
                 <el-divider direction="vertical"></el-divider>
@@ -26,15 +26,25 @@
                 </el-link>
             </div>
         </el-col>
+        <el-col class="chart" :span="6">
+            <ve-line
+                :data="chartData"
+                height="100%"
+                :settings="chartSettings"
+                :tooltip-visible="true"
+                :legend-visible="false"
+                :extend="options"
+            />
+        </el-col>
     </el-row>
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
+  import Vue from 'vue'
   import dayjs from 'dayjs'
-  import {Component, Prop} from "vue-property-decorator"
-  import CompanyImage from "@/components/CompanyImage.vue"
-  import {getReferProgress} from "@/utils/refer"
+  import {Component, Prop} from 'vue-property-decorator'
+  import CompanyImage from '@/components/CompanyImage.vue'
+  import {getReferProgress} from '@/utils/refer'
   import {DATETIME_FORMAT} from '@/constants/format'
 
   @Component({
@@ -43,16 +53,53 @@
   export default class JobItem extends Vue {
     @Prop({required: true}) jobItem!: TJobItem
 
+    chartSettings = {
+      yAxisType: ['KMB']
+    }
+    chartData = {
+      columns: ['date', 'referred'],
+      rows: [
+        {'date': '1/1', 'referred': 1393},
+        {'date': '1/2', 'referred': 3530},
+        {'date': '1/3', 'referred': 2923},
+        {'date': '1/4', 'referred': 1723},
+        {'date': '1/5', 'referred': 3792},
+        {'date': '1/6', 'referred': 4593}
+      ]
+    }
+    options = {
+      title: {
+        show: true,
+        text: 'fuck'
+      },
+      xAxis: {
+        show: false
+      },
+      yAxis: {
+        show: false,
+        position: 'right',
+      },
+      grid: {
+        left: 0,
+        top: '5%',
+        bottom: '-14',
+        right: 0
+      },
+    }
+
     get deadline() {
       return dayjs(this.jobItem.deadline).format(DATETIME_FORMAT)
     }
+
     get referredPercentage() {
       const {referredCount, referTotal} = this.jobItem
       return referTotal === 0 ? 0 : parseFloat((referredCount / referTotal * 100).toFixed(2))
     }
+
     get referredProgress() {
       return getReferProgress(this.referredPercentage)
     }
+
     get showApply() {
       return this.$route.name !== 'ApplyRefer.vue'
     }
@@ -61,39 +108,48 @@
 
 <style scoped lang="scss">
     @import '~@/assets/styles/variables.scss';
+
     .job-item {
         display: flex;
         padding: 20px 0;
         border-bottom: 1px solid $border-color;
+
         &:last-child {
             border-bottom: none;
         }
 
         .avatar {
             margin-right: 24px;
+
             img {
                 width: 80%;
             }
         }
+
         .content {
             line-height: 24px;
+
             .title {
                 margin-bottom: 8px;
                 font-size: 1.1em;
                 font-weight: bold;
             }
+
             .tags {
                 margin-bottom: 8px;
+
                 > span {
                     margin-right: 8px;
                 }
             }
+
             .progress {
                 max-width: 240px;
                 display: flex;
                 align-items: center;
             }
         }
+
         .footer {
             .start-refer {
                 margin-right: 8px;
