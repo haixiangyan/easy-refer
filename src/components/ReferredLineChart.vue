@@ -16,11 +16,15 @@
   @Component
   export default class ReferredLineChart extends Vue {
     chartSettings = {
-      yAxisType: ['KMB']
+      labelMap: { // 别名
+        date: '日期',
+        referred: '已内推'
+      },
+      yAxisType: ['KMB'] // 1000 -> 1k
     }
     chartData = {
       columns: ['date', 'referred'],
-      rows: [
+      rows: [ // {x, y}
         {'date': '1/1', 'referred': 1393},
         {'date': '1/2', 'referred': 3530},
         {'date': '1/3', 'referred': 2923},
@@ -30,24 +34,14 @@
       ]
     }
     options = {
-      xAxis: {
-        show: false
-      },
-      yAxis: {
-        show: false,
-      },
-      grid: {
-        left: '-14%',
-        top: 0,
-        bottom: '-16%',
-        right: 0
-      },
+      xAxis: {show: false},
+      yAxis: {show: false,},
+      // Canvas 对于容器的位置
+      grid: {left: '-14%', top: 0, bottom: '-16%', right: 0},
+      // 配置 y 轴方向的渐变色
       color: {
         type: 'linear',
-        x: 0,
-        y: 1,
-        x2: 0,
-        y2: 0,
+        x: 0, y: 1, x2: 0, y2: 0,
         colorStops: [
           {offset: 0, color: '#EBEDF0'},
           {offset: 0.25, color: '#C6E48B'},
@@ -55,9 +49,8 @@
           {offset: 0.75, color: '#329A3B'},
           {offset: 1, color: '#1C6127'}],
       },
-      series: {
-        showSymbol: false
-      },
+      // 不显示拆线上的节点
+      series: {showSymbol: false},
     }
   }
 </script>
