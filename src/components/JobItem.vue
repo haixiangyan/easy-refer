@@ -27,14 +27,7 @@
             </div>
         </el-col>
         <el-col class="chart" :span="6">
-            <ve-line
-                :data="chartData"
-                height="100%"
-                :settings="chartSettings"
-                :tooltip-visible="true"
-                :legend-visible="false"
-                :extend="options"
-            />
+            <ReferredLineChart/>
         </el-col>
     </el-row>
 </template>
@@ -44,48 +37,15 @@
   import dayjs from 'dayjs'
   import {Component, Prop} from 'vue-property-decorator'
   import CompanyImage from '@/components/CompanyImage.vue'
+  import ReferredLineChart from '@/components/ReferredLineChart.vue'
   import {getReferProgress} from '@/utils/refer'
   import {DATETIME_FORMAT} from '@/constants/format'
 
   @Component({
-    components: {CompanyImage}
+    components: {CompanyImage, ReferredLineChart}
   })
   export default class JobItem extends Vue {
     @Prop({required: true}) jobItem!: TJobItem
-
-    chartSettings = {
-      yAxisType: ['KMB']
-    }
-    chartData = {
-      columns: ['date', 'referred'],
-      rows: [
-        {'date': '1/1', 'referred': 1393},
-        {'date': '1/2', 'referred': 3530},
-        {'date': '1/3', 'referred': 2923},
-        {'date': '1/4', 'referred': 1723},
-        {'date': '1/5', 'referred': 3792},
-        {'date': '1/6', 'referred': 4593}
-      ]
-    }
-    options = {
-      title: {
-        show: true,
-        text: 'fuck'
-      },
-      xAxis: {
-        show: false
-      },
-      yAxis: {
-        show: false,
-        position: 'right',
-      },
-      grid: {
-        left: 0,
-        top: '5%',
-        bottom: '-14',
-        right: 0
-      },
-    }
 
     get deadline() {
       return dayjs(this.jobItem.deadline).format(DATETIME_FORMAT)
