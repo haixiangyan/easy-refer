@@ -42,6 +42,22 @@
         bottom: '-16%',
         right: 0
       },
+      color: {
+        type: 'linear',
+        x: 0,
+        y: 1,
+        x2: 0,
+        y2: 0,
+        colorStops: [
+          {offset: 0, color: '#EBEDF0'},
+          {offset: 0.25, color: '#C6E48B'},
+          {offset: 0.5, color: '#7BC96F'},
+          {offset: 0.75, color: '#329A3B'},
+          {offset: 1, color: '#1C6127'}],
+      },
+      series: {
+        showSymbol: false
+      },
     }
   }
 </script>
