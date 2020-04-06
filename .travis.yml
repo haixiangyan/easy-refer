@@ -3,3 +3,5 @@ node_js:
   - 10
 cache:
   yarn: true
+after_success:
+  - yarn run coveralls
