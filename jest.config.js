@@ -6,5 +6,5 @@ module.exports = {
         "src/utils/*.{ts,vue}",
         "!**/node_modules/**"
     ],
-    coverageReporters: ["html", "text-summary"]
+    coverageReporters: ["html", "text-summary", "lcov"]
 }
