@@ -35,13 +35,13 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component, Watch} from 'nuxt-property-decorator'
-  import {LEVEL_MAPPER} from '@/constants/level'
+  import {LEVEL_MAPPER} from '~/constants/level'
   import dayjs from 'dayjs'
-  import {DATETIME_FORMAT} from '@/constants/format'
-  import ReferService from '@/service/ReferService'
+  import {DATETIME_FORMAT} from '~/constants/format'
+  import ReferService from '~/service/ReferService'
 
   @Component
-  export default class OtherReferList extends Vue {
+  export default class extends Vue {
     refers: TOtherRefer[] = []
     page: number = 1
     totalPages: number = 0

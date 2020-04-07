@@ -17,15 +17,15 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import JobItem from '@/components/JobItem.vue'
-  import ReferForm from '@/components/ReferForm.vue'
-  import JobService from '@/service/JobService'
-  import ReferService from '@/service/ReferService'
+  import JobItem from '~/components/JobItem.vue'
+  import ReferForm from '~/components/ReferForm.vue'
+  import JobService from '~/service/JobService'
+  import ReferService from '~/service/ReferService'
 
   @Component({
     components: {JobItem, ReferForm}
   })
-  export default class ApplyRefer extends Vue {
+  export default class extends Vue {
     jobItem: TJobItem | null = null
 
     get jobId() {

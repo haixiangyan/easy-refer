@@ -21,16 +21,16 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import JobItem from '@/components/JobItem.vue'
-  import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
-  import {LEVEL_MAPPER} from '@/constants/level'
-  import ReferService from '@/service/ReferService'
-  import {USER_MODULE} from '@/store/user'
+  import JobItem from '~/components/JobItem.vue'
+  import {REFER_FIELDS_MAPPER} from '~/constants/referFields'
+  import {LEVEL_MAPPER} from '~/constants/level'
+  import ReferService from '~/service/ReferService'
+  import {USER_MODULE} from '~/store/user'
 
   @Component({
     components: {JobItem}
   })
-  export default class RefereeRequest extends Vue {
+  export default class extends Vue {
     @USER_MODULE.State('job') job!: TJob
     @USER_MODULE.State('details') user!: TUser
     @USER_MODULE.State('resume') resume!: TResume

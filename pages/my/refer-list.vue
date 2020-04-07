@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="job-list">
-            <JobItem v-for="jobItem in publicJobs" :job-item="jobItem" :key="jobItem.jobId"></JobItem>
+        <div>
+            <ReferItem v-for="refer in refers" :key="refer.id" :refer="refer"/>
         </div>
         <div class="pages">
             <el-pagination
@@ -18,43 +18,38 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component, Watch} from 'nuxt-property-decorator'
-  import JobItem from '@/components/JobItem.vue'
-  import JobService from '@/service/JobService'
+  import ReferItem from '~/components/ReferItem.vue'
+  import ReferService from '~/service/ReferService'
 
   @Component({
-    components: {JobItem}
+    components: {ReferItem}
   })
-  export default class JobList extends Vue {
-    publicJobs: TJobItem[] = []
-    page: number = 1
-    limit: number = 10
+  export default class extends Vue {
+    refers: TMyRefer[] = []
+    page: number = 0
     totalPages: number = 0
 
     mounted() {
-      this.loadJobs(this.page)
+      this.loadRefers(this.page)
     }
 
-    async loadJobs(page: number) {
-      const {data} = await JobService.getJobItemList(page, this.limit)
+    async loadRefers(page: number) {
+      const {data} = await ReferService.getReferList('my', page)
 
-      this.publicJobs = data.jobItemList
+      this.refers = data.referList as TMyRefer[]
       this.totalPages = data.totalPages
     }
 
     @Watch('page')
     onPageChange(page: number) {
-      this.loadJobs(page)
+      this.loadRefers(page)
     }
   }
 </script>
 
-<style lang="scss">
-    .job-list {
-        height: 100%;
-    }
-
+<style scoped lang="scss">
     .pages {
-        text-align: center;
         padding: 20px 0;
+        text-align: center;
     }
 </style>

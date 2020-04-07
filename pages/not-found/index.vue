@@ -7,7 +7,7 @@
   import {Component} from "nuxt-property-decorator"
 
   @Component
-  export default class NotFound extends Vue {
+  export default class extends Vue {
 
   }
 </script>

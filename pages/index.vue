@@ -1,68 +1,60 @@
 <template>
-  <div class="container">
     <div>
-      <h1 class="title">
-        refer-me
-      </h1>
-      <h2 class="subtitle">
-        一个方便北美内推的网站
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+        <div class="job-list">
+            <JobItem v-for="jobItem in publicJobs" :job-item="jobItem" :key="jobItem.jobId"></JobItem>
+        </div>
+        <div class="pages">
+            <el-pagination
+                v-show="totalPages !== 0"
+                :current-page.sync="page"
+                background
+                layout="prev, pager, next"
+                :total="totalPages">
+            </el-pagination>
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+  import Vue from 'vue'
+  import {Component, Watch} from 'nuxt-property-decorator'
+  import JobItem from '~/components/JobItem.vue'
+  import JobService from '~/service/JobService'
 
-export default Vue.extend({
-})
+  @Component({
+    components: {JobItem}
+  })
+  export default class extends Vue {
+    publicJobs: TJobItem[] = []
+    page: number = 1
+    limit: number = 10
+    totalPages: number = 0
+
+    mounted() {
+      this.loadJobs(this.page)
+    }
+
+    async loadJobs(page: number) {
+      const {data} = await JobService.getJobItemList(page, this.limit)
+
+      this.publicJobs = data.jobItemList
+      this.totalPages = data.totalPages
+    }
+
+    @Watch('page')
+    onPageChange(page: number) {
+      this.loadJobs(page)
+    }
+  }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style lang="scss">
+    .job-list {
+        height: 100%;
+    }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
+    .pages {
+        text-align: center;
+        padding: 20px 0;
+    }
 </style>

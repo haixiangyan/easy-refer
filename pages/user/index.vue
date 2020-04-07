@@ -27,12 +27,12 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import {LEVEL_MAPPER} from '@/constants/level'
-  import {REFER_FIELDS_MAPPER} from '@/constants/referFields'
-  import {USER_MODULE} from '@/store/user'
+  import {LEVEL_MAPPER} from '~/constants/level'
+  import {REFER_FIELDS_MAPPER} from '~/constants/referFields'
+  import {USER_MODULE} from '~/store/user'
 
   @Component
-  export default class User extends Vue {
+  export default class extends Vue {
     @USER_MODULE.State('details') user!: TUser
     @USER_MODULE.State('resume') resume!: TResume
 

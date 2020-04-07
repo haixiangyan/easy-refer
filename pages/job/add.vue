@@ -7,14 +7,14 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import JobForm from '@/components/JobForm.vue'
-  import JobService from '@/service/JobService'
-  import {USER_MODULE} from '@/store/user'
+  import JobForm from '~/components/JobForm.vue'
+  import JobService from '~/service/JobService'
+  import {USER_MODULE} from '~/store/user'
 
   @Component({
     components: {JobForm}
   })
-  export default class AddJob extends Vue {
+  export default class extends Vue {
     @USER_MODULE.Mutation('setJob') setJob!: Function
     @USER_MODULE.Mutation('setUser') setUser!: Function
 

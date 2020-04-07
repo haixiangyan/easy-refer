@@ -22,17 +22,17 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import {EDIT_USER_RULES} from '@/constants/rules'
-  import UserForm from '@/components/UserForm.vue'
-  import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '@/constants/file'
-  import UserService from '@/service/UserService'
-  import {USER_MODULE} from '@/store/user'
+  import {EDIT_USER_RULES} from '~/constants/rules'
+  import UserForm from '~/components/UserForm.vue'
+  import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '~/constants/file'
+  import UserService from '~/service/UserService'
+  import {USER_MODULE} from '~/store/user'
   import {Mutation} from 'vuex-class'
 
   @Component({
     components: {UserForm}
   })
-  export default class EditUser extends Vue {
+  export default class extends Vue {
     @USER_MODULE.State(state => state.details.avatarUrl) avatarUrl!: string
     @USER_MODULE.Mutation('setUser') setUser!: Function
     @USER_MODULE.Mutation('setAvatarUrl') setAvatarUrl!: Function
