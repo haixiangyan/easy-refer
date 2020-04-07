@@ -24,9 +24,11 @@
             </div>
         </el-col>
         <el-col class="refer-status" :span="6">
-            <router-link class="apply-refer" v-if="showApply" :to="`/apply-refer/${jobItem.jobId}`" tag="span">
-                <el-button size="small" type="primary">申请内推</el-button>
-            </router-link>
+            <div class="apply-refer" v-if="showApply">
+                <router-link :to="`/apply-refer/${jobItem.jobId}`" tag="span">
+                    <el-button size="small" type="primary">申请内推</el-button>
+                </router-link>
+            </div>
             <ReferredLineChart class="chart" v-if="jobItem" :data-source="finishedChartData"/>
         </el-col>
     </el-row>
@@ -47,6 +49,10 @@
   export default class JobItem extends Vue {
     @Prop({required: true}) jobItem!: TJobItem
 
+    get showApply() {
+      return this.$route.name === 'JobList'
+    }
+
     get deadline() {
       return dayjs(this.jobItem.deadline).format(DATETIME_FORMAT)
     }
@@ -66,10 +72,6 @@
 
     get referredProgress() {
       return getReferProgress(this.referredPercentage)
-    }
-
-    get showApply() {
-      return this.$route.name !== 'ApplyRefer.vue'
     }
   }
 </script>
@@ -120,8 +122,8 @@
 
         .refer-status {
             text-align: right;
-            .chart {
-                margin-top: 8px;
+            .apply-refer {
+                margin-bottom: 8px;
             }
         }
     }
