@@ -35,6 +35,12 @@
                 </el-button>
             </router-link>
         </div>
+        <div class="link">
+            <router-link :to="`/apply-refer/${user.jobId}`" >
+                <el-link type="primary">我的内推Link</el-link>
+            </router-link>
+            <i class="el-icon-document-copy copy-icon"></i>
+        </div>
     </div>
 </template>
 
@@ -122,6 +128,17 @@
                 .button {
                     width: 90%;
                 }
+            }
+        }
+
+        .link {
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .copy-icon {
+                margin-left: 8px;
+                cursor: pointer;
             }
         }
     }
