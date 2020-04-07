@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="jobItem">
         <div>
             <JobItem :job-item="jobItem"/>
         </div>
@@ -26,20 +26,7 @@
     components: {JobItem, ReferForm}
   })
   export default class ApplyRefer extends Vue {
-    jobItem: TJobItem = {
-      jobId: '',
-      referer: {
-        avatarUrl: '',
-        name: ''
-      },
-      company: '',
-      deadline: new Date().toISOString(),
-      expiration: 3,
-      referredCount: 0,
-      referTotal: 0,
-      requiredFields: [],
-      source: ''
-    }
+    jobItem: TJobItem | null = null
 
     get jobId() {
       return this.$route.params.jobId

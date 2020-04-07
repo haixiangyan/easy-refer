@@ -2,15 +2,17 @@ import Vue from 'vue'
 import router from './router'
 import store from './store'
 import App from './App.vue'
-import './plugins/element'
 import './registerServiceWorker'
+
+// 插件
+import './plugins'
 
 // 基础样式
 import './assets/styles/global.scss'
 
-// 引入 mock
+// 测试使用 mockjs
 if (process.env.NODE_ENV === 'development') {
-  require('@/mocks')
+  require('./mocks')
 }
 
 Vue.config.productionTip = false

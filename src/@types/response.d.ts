@@ -1,15 +1,11 @@
-type TStringMapper = {
-  [key: string]: string
+interface IUploadResume {
+  resumeId: string
+  url: string
+  name: string
 }
-type TNumMapper = {
-  [key: number]: string
-}
-type TMapper = {
-  [key: string]: string | number | string[]
-}
-type TELTableItem = {
-  key: string
-  value: string
+
+interface IAvatar {
+  avatarUrl: string
 }
 
 type TLoginForm = {

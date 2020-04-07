@@ -1,18 +1,17 @@
 <template>
     <div>
-        <div>
+        <div v-if="jobItem">
             <JobItem :job-item="jobItem"/>
         </div>
 
-        <el-divider v-if="refer.resumeId">修改你的信息</el-divider>
+        <el-divider>修改你的信息</el-divider>
 
         <ReferForm
-            v-if="refer.resumeId"
+            v-if="refer"
             @submit="edit"
             :refer="refer"
             @back="$router.push('/my/refer-list')"
-            :required-fields="jobItem.requiredFields"
-            :resume-id="refer.resumeId"/>
+            :required-fields="jobItem.requiredFields"/>
     </div>
 </template>
 
@@ -28,38 +27,8 @@
     components: {JobItem, ReferForm}
   })
   export default class EditRefer extends Vue {
-    jobItem: TJobItem = {
-      jobId: '',
-      referer: {
-        name: '',
-        avatarUrl: '',
-      },
-      company: '',
-      deadline: new Date().toISOString(),
-      expiration: 3,
-      referredCount: 0,
-      referTotal: 0,
-      requiredFields: [],
-      source: '',
-    }
-    refer: TRefer = {
-      createdAt: '',
-      email: '',
-      experience: 0,
-      intro: '',
-      jobId: '',
-      leetCodeUrl: '',
-      name: '',
-      phone: '',
-      referId: '',
-      refereeId: '',
-      refererId: '',
-      resumeId: '',
-      referLinks: '',
-      status: 'processing',
-      thirdPersonIntro: '',
-      updatedAt: ''
-    }
+    jobItem: TJobItem | null = null
+    refer: TRefer | null = null
 
     get referId() {
       return this.$route.params.referId
