@@ -2,7 +2,9 @@ import dayjs from 'dayjs'
 import {REQUIRED_REFER_FIELD_VALUES} from '~/constants/referFields'
 import {namespace} from 'vuex-class'
 
-const initState: TUserState = {
+export const USER_MODULE = namespace('user')
+
+export const state = (): TUserState => ({
   details: {
     userId: '',
     jobId: '',
@@ -39,53 +41,46 @@ const initState: TUserState = {
     url: '',
     name: ''
   }
+})
+
+export const getters = {
+  jobItem: ({job, details}: TUserState) => ({
+    jobId: job.jobId,
+    company: job.company,
+    referer: {
+      name: details.name,
+      avatarUrl: details.avatarUrl
+    },
+    deadline: job.deadline,
+    expiration: job.expiration,
+    referredCount: job.referredCount,
+    referTotal: job.referTotal,
+    requiredFields: job.requiredFields,
+    source: job.source,
+    finishedChart: job.finishedChart
+  })
 }
 
-const user = {
-  namespaced: true,
-  state: initState,
-  getters: {
-    jobItem: ({job, details}: TUserState) => ({
-        jobId: job.jobId,
-        company: job.company,
-        referer: {
-          name: details.name,
-          avatarUrl: details.avatarUrl
-        },
-        deadline: job.deadline,
-        expiration: job.expiration,
-        referredCount: job.referredCount,
-        referTotal: job.referTotal,
-        requiredFields: job.requiredFields,
-        source: job.source,
-        finishedChart: job.finishedChart
-    })
-  },
-  mutations: {
-    setUser: (state: TUserState, user: TUser) => {
-      state.details = {
-        ...state.details,
-        ...user
-      }
-    },
-    setJob: (state: TUserState, job: TJob) => {
-      state.job = {
-        ...state.job,
-        ...job
-      }
-    },
-    setResume: (state: TUserState, resume: TResume) => {
-      state.resume = {
-        ...state.resume,
-        ...resume
-      }
-    },
-    setAvatarUrl: (state: TUserState, avatarUrl: string) => {
-      state.details.avatarUrl = avatarUrl
+export const mutations = {
+  setUser: (state: TUserState, user: TUser) => {
+    state.details = {
+      ...state.details,
+      ...user
     }
+  },
+  setJob: (state: TUserState, job: TJob) => {
+    state.job = {
+      ...state.job,
+      ...job
+    }
+  },
+  setResume: (state: TUserState, resume: TResume) => {
+    state.resume = {
+      ...state.resume,
+      ...resume
+    }
+  },
+  setAvatarUrl: (state: TUserState, avatarUrl: string) => {
+    state.details.avatarUrl = avatarUrl
   }
 }
-
-export const USER_MODULE = namespace('user')
-
-export default user
