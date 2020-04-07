@@ -21,27 +21,28 @@ module.exports = {
     /*
     ** Global styles
     */
+    css: [
+        'element-ui/lib/theme-chalk/index.css',
+    ],
     styleResources: {
         scss: [
             '@/assets/styles/variables.scss',
             '@/assets/styles/global.scss',
-        ],
-        css: [
-            'element-ui/lib/theme-chalk.index.css',
-        ],
+        ]
     },
     /*
     ** Plugins to load before mounting the App
     */
     plugins: [
         '@/plugins/element-ui',
-        '@/plugins/v-charts'
+        '@/plugins/v-charts',
+        '@/plugins/mockjs'
     ],
     /*
     ** Nuxt.js dev-modules
     */
     buildModules: [
-        '@nuxt/typescript-build',
+        '@nuxt/typescript-build'
     ],
     /*
     ** Nuxt.js modules
