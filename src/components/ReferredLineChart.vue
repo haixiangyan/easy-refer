@@ -1,7 +1,8 @@
 <template>
     <ve-line
         :data="chartData"
-        height="100%"
+        width="100%"
+        height="80px"
         :settings="settings"
         :tooltip-visible="true"
         :legend-visible="false"
@@ -28,7 +29,7 @@
       xAxis: {show: false},
       yAxis: {show: false,},
       // Canvas 对于容器的位置
-      grid: {left: '-14%', top: 0, bottom: '-16%', right: 0},
+      grid: {left: '-16%', top: 0, bottom: -80, right: 0},
       // 配置 y 轴方向的渐变色
       color: {
         type: 'linear',

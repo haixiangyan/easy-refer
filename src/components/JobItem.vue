@@ -16,18 +16,18 @@
                 <el-tag size="mini" type="danger">{{jobItem.expiration}}天必推</el-tag>
             </div>
             <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
-            <div class="footer">
-                <router-link v-if="showApply" :to="`/apply-refer/${jobItem.jobId}`" tag="span">
-                    <el-link class="start-refer" type="primary">申请内推</el-link>
-                </router-link>
+            <div>
                 <el-link v-if="jobItem.source" :href="jobItem.source">
                     原贴
                     <i class="el-icon-top-right"></i>
                 </el-link>
             </div>
         </el-col>
-        <el-col class="chart" :span="6">
-            <ReferredLineChart v-if="jobItem" :data-source="finishedChartData"/>
+        <el-col class="refer-status" :span="6">
+            <router-link class="apply-refer" v-if="showApply" :to="`/apply-refer/${jobItem.jobId}`" tag="span">
+                <el-button size="small" type="primary">申请内推</el-button>
+            </router-link>
+            <ReferredLineChart class="chart" v-if="jobItem" :data-source="finishedChartData"/>
         </el-col>
     </el-row>
 </template>
@@ -118,9 +118,10 @@
             }
         }
 
-        .footer {
-            .start-refer {
-                margin-right: 8px;
+        .refer-status {
+            text-align: right;
+            .chart {
+                margin-top: 8px;
             }
         }
     }
