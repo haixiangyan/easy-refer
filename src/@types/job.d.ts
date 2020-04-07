@@ -10,6 +10,7 @@ type TJob = {
   source: string
   createdAt: string
   updatedAt: string
+  finishedChart: TFinishedChartItem[]
 }
 
 type TJobItem = {
@@ -24,7 +25,13 @@ type TJobItem = {
   deadline: string
   expiration: 3 | 5 | 7
   requiredFields: string[]
-  source: string
+  source: string,
+  finishedChart: TFinishedChartItem[]
+}
+
+type TFinishedChartItem = {
+  date: string
+  count: number
 }
 
 type TJobForm = TMapper & {

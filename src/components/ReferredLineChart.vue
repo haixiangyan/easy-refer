@@ -2,7 +2,7 @@
     <ve-line
         :data="chartData"
         height="100%"
-        :settings="chartSettings"
+        :settings="settings"
         :tooltip-visible="true"
         :legend-visible="false"
         :extend="options"
@@ -11,28 +11,19 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import {Component} from 'vue-property-decorator'
+  import {Component, Prop} from 'vue-property-decorator'
 
   @Component
   export default class ReferredLineChart extends Vue {
-    chartSettings = {
+    @Prop({required: true}) dataSource!: TFinishedChartItem[]
+    settings = {
       labelMap: { // 别名
         date: '日期',
-        referred: '已内推'
+        count: '已处理'
       },
       yAxisType: ['KMB'] // 1000 -> 1k
     }
-    chartData = {
-      columns: ['date', 'referred'],
-      rows: [ // {x, y}
-        {'date': '1/1', 'referred': 1393},
-        {'date': '1/2', 'referred': 3530},
-        {'date': '1/3', 'referred': 2923},
-        {'date': '1/4', 'referred': 1723},
-        {'date': '1/5', 'referred': 3792},
-        {'date': '1/6', 'referred': 4593}
-      ]
-    }
+
     options = {
       xAxis: {show: false},
       yAxis: {show: false,},
@@ -50,8 +41,16 @@
           {offset: 1, color: '#1C6127'}],
       },
       // 不显示拆线上的节点
-      series: {showSymbol: false},
+      series: {type: 'line', showSymbol: false},
     }
+
+    get chartData() {
+      return {
+        columns: ['date', 'count'],
+        rows: JSON.parse(JSON.stringify(this.dataSource))
+      }
+    }
+
   }
 </script>
 

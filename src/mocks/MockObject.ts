@@ -44,7 +44,11 @@ export const Job = {
   referTotal: '@NATURAL(100, 300)',
   source: '@URL',
   createdAt: dateRange(),
-  updatedAt: dateRange()
+  updatedAt: dateRange(),
+  'finishedChart|12': [{
+    date: `@DATE('yyyy-MM-dd')`,
+    count: '@NATURAL(50, 100)'
+  }]
 }
 
 export const JobItem = {
@@ -60,6 +64,10 @@ export const JobItem = {
   'expiration|1': expiration,
   requiredFields,
   source: '@URL',
+  'finishedChart|12': [{
+    date: `@DATE('yyyy-MM-dd')`,
+    count: '@NATURAL(50, 100)'
+  }]
 }
 
 export const Refer = {

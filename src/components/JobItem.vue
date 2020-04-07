@@ -27,7 +27,7 @@
             </div>
         </el-col>
         <el-col class="chart" :span="6">
-            <ReferredLineChart/>
+            <ReferredLineChart v-if="jobItem" :data-source="finishedChartData"/>
         </el-col>
     </el-row>
 </template>
@@ -49,6 +49,14 @@
 
     get deadline() {
       return dayjs(this.jobItem.deadline).format(DATETIME_FORMAT)
+    }
+
+    get finishedChartData() {
+      return this.jobItem.finishedChart
+        .map(({date, count}) => ({
+          date: dayjs(date).format(DATETIME_FORMAT),
+          count
+        }))
     }
 
     get referredPercentage() {
