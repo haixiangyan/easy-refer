@@ -14,6 +14,7 @@
     "strict": true,
     "noEmit": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     // 解决初始化 Nuxt 的报错
     "skipLibCheck": true,
@@ -26,8 +27,9 @@
       ]
     },
     "types": [
-      "@types/node",
-      "@nuxt/types"
+      "@types",
+      "@nuxt/types",
+      "jest"
     ]
   },
   "exclude": [

@@ -12,20 +12,33 @@
     "test": "jest"
   },
   "dependencies": {
-    "nuxt": "^2.0.0",
-    "cross-env": "^5.2.0",
-    "express": "^4.16.4",
-    "element-ui": "^2.4.11",
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/pwa": "^3.0.0-0"
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "clipboard": "^2.0.6",
+    "cross-env": "^5.2.0",
+    "dayjs": "^1.8.23",
+    "echarts": "^4.7.0",
+    "element-ui": "^2.4.11",
+    "express": "^4.16.4",
+    "nuxt": "^2.0.0",
+    "nuxt-property-decorator": "^2.5.1",
+    "v-charts": "^1.19.0",
+    "vue-class-component": "^7.2.3",
+    "vuex-class": "^0.3.2"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9",
-    "@nuxt/typescript-build": "^0.6.0",
+    "@nuxt/typescript-build": "^0.6.2",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@types/jest": "^25.2.1",
+    "@types/mockjs": "^1.0.2",
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
-    "vue-jest": "^4.0.0-0",
-    "ts-jest": "^25.0.0"
+    "mockjs": "^1.1.0",
+    "node-sass": "^4.13.1",
+    "nodemon": "^1.18.9",
+    "sass-loader": "^8.0.2",
+    "ts-jest": "^25.0.0",
+    "vue-jest": "^4.0.0-0"
   }
 }

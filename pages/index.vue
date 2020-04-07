@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <div>
-      <logo />
       <h1 class="title">
         refer-me
       </h1>
@@ -30,12 +29,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Logo from '~/components/Logo.vue'
 
 export default Vue.extend({
-  components: {
-    Logo
-  }
 })
 </script>
 

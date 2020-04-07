@@ -1,55 +1,76 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+    <div class="app" :class="screenClass" v-loading="loading">
+        <Menu v-if="!isLoginPage"/>
+        <el-row class="main">
+            <el-col :span="showIntro ? 16 : 24" class="view-wrapper">
+                <nuxt class="router-view"/>
+            </el-col>
+            <el-col :span="showIntro ? 8 : 0">
+                <Intro v-if="showIntro"/>
+            </el-col>
+        </el-row>
+        <Footer v-if="!isLoginPage"/>
+    </div>
 </template>
 
-<style>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+<script lang="ts">
+  import Vue from "vue"
+  import {Component} from "nuxt-property-decorator"
+  import Menu from "@/components/Menu.vue"
+  import Intro from "@/components/Intro.vue"
+  import Footer from '@/components/Footer.vue'
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
+  @Component({
+    components: {Menu, Intro, Footer},
+  })
+  export default class App extends Vue {
+    get loading() {
+      return this.$store.state.loading
+    }
+    get screenClass(): string {
+      return this.$route.name === "Login" ? "full-screen" : "normal-screen"
+    }
+    get isLoginPage(): boolean {
+      return this.$route.name === "Login"
+    }
+    get showIntro() {
+      return !this.isLoginPage && this.$store.state.auth.isLogin
+    }
+  }
+</script>
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+<style lang="scss">
+    .app {
+        position: relative;
+        margin: 0 auto;
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        min-height: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+    .normal-screen {
+        padding-top: 80px;
+        min-width: 600px;
+        max-width: 1100px;
+        padding-bottom: 80px;
+    }
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
+    .main {
+        height: 100%;
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
+        .view-wrapper {
+            height: 100%;
+
+            .router-view {
+                padding: 0 24px;
+            }
+        }
+    }
+
+    .full-screen {
+        padding-top: 0;
+        height: 100vh;
+        width: 100vw;
+    }
 </style>
