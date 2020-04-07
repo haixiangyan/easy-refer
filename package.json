@@ -23,7 +23,6 @@
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.5.1",
     "v-charts": "^1.19.0",
-    "vue-class-component": "^7.2.3",
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
