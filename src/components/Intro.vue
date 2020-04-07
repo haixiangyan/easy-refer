@@ -36,10 +36,15 @@
             </router-link>
         </div>
         <div class="link">
-            <router-link :to="`/apply-refer/${user.jobId}`" >
-                <el-link type="primary">我的内推Link</el-link>
-            </router-link>
-            <i class="el-icon-document-copy copy-icon"></i>
+            <el-tooltip effect="dark" :content="`/apply-refer/${user.jobId}`" placement="bottom">
+                <router-link :to="`/apply-refer/${user.jobId}`" >
+                    <el-link type="primary">我的内推Link</el-link>
+                </router-link>
+            </el-tooltip>
+            <el-tooltip effect="dark" :content="copyText" placement="bottom">
+                <i class="el-icon-document-copy copy-icon"
+                   :data-clipboard-text="`/apply-refer/${user.jobId}`"/>
+            </el-tooltip>
         </div>
     </div>
 </template>
@@ -48,15 +53,30 @@
   import Vue from "vue"
   import {Component} from "vue-property-decorator"
   import {USER_MODULE} from '@/store/modules/user'
+  import Clipboard from 'clipboard/src/clipboard'
 
   @Component
   export default class Intro extends Vue {
     @USER_MODULE.State('details') user!: TUser
+
+    copyText = '复制Link'
+
     get referRate() {
       return this.calculateRate(this.user.finishedRefers, this.user.totalRefers)
     }
     get approvedRate() {
       return this.calculateRate(this.user.finishedResumes, this.user.totalResumes)
+    }
+
+    mounted() {
+      this.initClipboard()
+    }
+
+    initClipboard() {
+      const clipboard = new Clipboard('.copy-icon')
+      clipboard.on('success', () => {
+        this.copyText = '已复制'
+      })
     }
 
     calculateRate(current: number, total: number): string {

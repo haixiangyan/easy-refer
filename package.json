@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "clipboard": "^2.0.6",
     "core-js": "^3.6.4",
     "dayjs": "^1.8.23",
     "echarts": "^4.7.0",
