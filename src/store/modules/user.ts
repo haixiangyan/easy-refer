@@ -31,7 +31,8 @@ const initState: TUserState = {
     requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
     source: '',
     createdAt: new Date().toISOString(),
-    updatedAt: dayjs().toISOString()
+    updatedAt: dayjs().toISOString(),
+    finishedChart: []
   },
   resume: {
     resumeId: '',
@@ -56,7 +57,8 @@ const user = {
         referredCount: job.referredCount,
         referTotal: job.referTotal,
         requiredFields: job.requiredFields,
-        source: job.source
+        source: job.source,
+        finishedChart: job.finishedChart
     })
   },
   mutations: {

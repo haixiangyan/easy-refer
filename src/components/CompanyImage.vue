@@ -25,6 +25,7 @@
 <style scoped lang="scss">
 .image {
     width: 80%;
+    max-width: 140px;
     img {
         width: 100%;
     }

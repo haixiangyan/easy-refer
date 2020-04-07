@@ -2,8 +2,10 @@ import Vue from 'vue'
 import router from './router'
 import store from './store'
 import App from './App.vue'
-import './plugins/element'
 import './registerServiceWorker'
+
+// 插件
+import './plugins'
 
 // 基础样式
 import './assets/styles/global.scss'

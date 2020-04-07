@@ -4,7 +4,7 @@
             <JobItem :job-item="jobItem"/>
         </div>
 
-        <el-divider v-if="refer">修改你的信息</el-divider>
+        <el-divider>修改你的信息</el-divider>
 
         <ReferForm
             v-if="refer"
