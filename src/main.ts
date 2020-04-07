@@ -11,7 +11,9 @@ import './plugins'
 import './assets/styles/global.scss'
 
 // 测试使用 mockjs
-import './mock'
+if (process.env.NODE_ENV === 'development') {
+  require('./mocks')
+}
 
 Vue.config.productionTip = false
 
