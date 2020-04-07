@@ -35,7 +35,7 @@
                 </el-button>
             </router-link>
         </div>
-        <div class="link">
+        <div v-if="user.jobId !== ''" class="link">
             <el-tooltip effect="dark" :content="`/apply-refer/${user.jobId}`" placement="bottom">
                 <router-link :to="`/apply-refer/${user.jobId}`" >
                     <el-link type="primary">我的内推Link</el-link>
