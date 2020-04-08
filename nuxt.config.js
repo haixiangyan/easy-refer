@@ -22,12 +22,12 @@ module.exports = {
     ** Global styles
     */
     css: [
+        '@/assets/styles/global.css',
         'element-ui/lib/theme-chalk/index.css',
     ],
     styleResources: {
         scss: [
             '@/assets/styles/variables.scss',
-            '@/assets/styles/global.scss',
         ]
     },
     /*

@@ -37,7 +37,7 @@
   import {AUTH_MODULE} from '~/store/auth'
 
   @Component
-  export default class ReMenu extends Vue {
+  export default class extends Vue {
     @USER_MODULE.State(state => state.details.jobId) jobId!: string
     @AUTH_MODULE.State('isLogin') isLogin!: boolean
   }

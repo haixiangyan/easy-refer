@@ -26,7 +26,7 @@
                    查看内推状态
                 </el-button>
             </nuxt-link>
-            <nuxt-link :to="user.jobId ? `/edit-job` : '/add-job'" tag="div">
+            <nuxt-link :to="user.jobId ? `/job/edit` : '/job/add'" tag="div">
                 <el-button class="button"
                            type="primary"
                            :icon="user.jobId ? 'el-icon-edit' : 'el-icon-plus'"
@@ -36,7 +36,7 @@
             </nuxt-link>
         </div>
         <div v-if="user.jobId !== ''" class="link">
-            <el-tooltip effect="dark" :content="`/apply-refer/${user.jobId}`" placement="bottom">
+            <el-tooltip effect="dark" :content="`/refer/apply/${user.jobId}`" placement="bottom">
                 <nuxt-link :to="`/apply-refer/${user.jobId}`" >
                     <el-link type="primary">我的内推Link</el-link>
                 </nuxt-link>

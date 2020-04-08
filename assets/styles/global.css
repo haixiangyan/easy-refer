@@ -4,11 +4,10 @@
   box-sizing: border-box;
 }
 
-html, body {
+html, body, #__nuxt, #__layout {
   height: 100%;
 }
 
-// Iconfont 样式
 .icon {
   width: 1.5em;
   height: 1.5em;
