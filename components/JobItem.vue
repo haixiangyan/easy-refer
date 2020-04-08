@@ -1,7 +1,7 @@
 <template>
     <el-row class="job-item">
         <el-col :span="4">
-            <nuxt-link class="avatar" :to="`/apply-refer/${jobItem.jobId}`">
+            <nuxt-link class="avatar" :to="`/refer/apply/${jobItem.jobId}`">
                 <CompanyImage :src="jobItem.referer.avatarUrl"/>
             </nuxt-link>
         </el-col>
@@ -25,7 +25,7 @@
         </el-col>
         <el-col class="refer-status" :span="6">
             <div class="apply-refer" v-if="showApply">
-                <nuxt-link :to="`/apply-refer/${jobItem.jobId}`" tag="span">
+                <nuxt-link :to="`/refer/apply/${jobItem.jobId}`" tag="span">
                     <el-button size="small" type="primary">申请内推</el-button>
                 </nuxt-link>
             </div>

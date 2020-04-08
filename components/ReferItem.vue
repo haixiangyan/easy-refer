@@ -15,7 +15,7 @@
             <div class="referer">{{refer.referer.name}}正在处理</div>
         </el-col>
         <el-col :span="4">
-            <nuxt-link :to="`/edit-refer/${refer.referId}`" tag="span">
+            <nuxt-link :to="`/refer/edit/${refer.referId}`" tag="span">
                 <el-link class="edit-button" type="primary" icon="el-icon-edit">修改</el-link>
             </nuxt-link>
             <el-link @click="withdraw" type="danger" icon="el-icon-close">撤销</el-link>

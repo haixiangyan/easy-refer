@@ -17,7 +17,7 @@
             </el-table-column>
         </el-table>
         <div class="user-edit">
-            <nuxt-link to="/edit-user" tag="span">
+            <nuxt-link to="/user/edit" tag="span">
                 <el-button type="primary" round>修改信息</el-button>
             </nuxt-link>
         </div>
@@ -37,10 +37,6 @@
     @USER_MODULE.State('resume') resume!: TResume
 
     fields = ['email', 'name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro']
-
-    get level() {
-      return LEVEL_MAPPER[this.user.experience]
-    }
 
     get userTable() {
       return [

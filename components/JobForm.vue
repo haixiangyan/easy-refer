@@ -51,7 +51,7 @@
             <el-button class="publish-button" @click="submit" type="primary" round>
                 {{user.jobId ? '修改内推' : '发布内推'}}
             </el-button>
-            <nuxt-link to="/job-list" tag="span">
+            <nuxt-link to="/job/list" tag="span">
                 <el-button type="danger" round>放弃编辑</el-button>
             </nuxt-link>
         </div>

@@ -22,7 +22,7 @@
 
       this.$message.success('已修改该职位')
 
-      await this.$router.push('/job-list')
+      await this.$router.push('/job/list')
     }
   }
 </script>

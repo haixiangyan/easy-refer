@@ -37,7 +37,7 @@
         </div>
         <div v-if="user.jobId !== ''" class="link">
             <el-tooltip effect="dark" :content="`/refer/apply/${user.jobId}`" placement="bottom">
-                <nuxt-link :to="`/apply-refer/${user.jobId}`" >
+                <nuxt-link :to="`/refer/apply/${user.jobId}`" >
                     <el-link type="primary">我的内推Link</el-link>
                 </nuxt-link>
             </el-tooltip>

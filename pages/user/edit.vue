@@ -22,7 +22,6 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import {EDIT_USER_RULES} from '~/constants/rules'
   import UserForm from '~/components/UserForm.vue'
   import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '~/constants/file'
   import UserService from '~/service/UserService'
@@ -39,7 +38,6 @@
     @Mutation('setLoading') setLoading!: Function
 
     form: TUserForm | null = null
-    rules = EDIT_USER_RULES
 
     uploaded(response: IAvatar) {
       this.setAvatarUrl(response.avatarUrl)
