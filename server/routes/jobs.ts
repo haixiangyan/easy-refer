@@ -1,6 +1,6 @@
 import express from 'express'
 import Mock from 'mockjs'
-import {Job, JobItem} from '../mocks/MockObject'
+import {Job, JobItem} from '../mocks/objects'
 
 // '/jobs'
 const JobsRouter = express.Router()

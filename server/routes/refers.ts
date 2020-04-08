@@ -1,6 +1,6 @@
 import express from 'express'
 import Mock from 'mockjs'
-import {MyRefer, OtherRefer, Refer} from '~/server/mocks/MockObject'
+import {MyRefer, OtherRefer, Refer} from '~/server/mocks/objects'
 
 // '/refers'
 const RefersRouter = express.Router()

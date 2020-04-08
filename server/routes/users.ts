@@ -1,7 +1,7 @@
 import express from 'express'
 import Mock from 'mockjs'
 
-import {User} from '../mocks/MockObject'
+import {User} from '../mocks/objects'
 
 // '/users'
 const UsersRouter = express.Router()
