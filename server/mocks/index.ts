@@ -1,6 +1,0 @@
-import '~/server/mocks/MockAuthService'
-import '@/server/mocks/MockUserService'
-import '@/server/mocks/MockJobService'
-import '@/server/mocks/MockReferService'
-import '@/server/mocks/MockResumeService'
-import '@/server/mocks/MockUploadService'

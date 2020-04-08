@@ -19,7 +19,6 @@
   import {Component} from 'nuxt-property-decorator'
   import JobItem from '~/components/JobItem.vue'
   import ReferForm from '~/components/ReferForm.vue'
-  import JobService from '~/service/JobService'
   import ReferService from '~/service/ReferService'
 
   @Component({
@@ -37,9 +36,7 @@
     }
 
     async loadJob() {
-      const {data} = await JobService.getJobItemById(this.jobId)
-
-      this.jobItem = data
+      this.jobItem = await this.$axios.$get(`/jobs/item/${this.jobId}`)
     }
 
     async apply(form: TReferForm) {

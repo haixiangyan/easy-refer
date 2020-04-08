@@ -13,9 +13,6 @@ const JobService = {
   async getJobById(jobId: string): Promise<AxiosResponse<IJob>> {
     return await service.get(`/jobs/${jobId}`)
   },
-  async addJob(jobForm: TJobForm): Promise<AxiosResponse<IJob>> {
-    return await service.post('/jobs', jobForm)
-  },
   async editJob(jobId: string, jobForm: TJobForm): Promise<AxiosResponse<IJob>> {
     return await service.put(`/jobs/${jobId}`, jobForm)
   }

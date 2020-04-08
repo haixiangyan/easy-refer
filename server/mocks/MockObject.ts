@@ -20,7 +20,7 @@ export const User = {
   leetCodeUrl: '@URL',
   thirdPersonIntro: '@PARAGRAPH',
   resumeId: '@ID',
-  avatarUrl: `@IMAGE('100x100', '#fb0a2a', '用户')`,
+  avatarUrl: `@IMAGE('100x100', '#fb0a2a')`,
   finishedRefers: '@NATURAL(10, 100)',
   totalRefers: '@NATURAL(100, 300)',
   finishedResumes: '@NATURAL(10, 100)',
@@ -52,7 +52,7 @@ export const JobItem = {
   jobId: '@ID',
   referer: {
     name: '@CNAME',
-    avatarUrl: `@IMAGE('100x100', '#fb0a2a', '内推人')`,
+    avatarUrl: `@IMAGE('100x100', '#fb0a2a')`,
   },
   'company|1': companies,
   referredCount: '@INTEGER(30, 100)',
