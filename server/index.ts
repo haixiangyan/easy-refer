@@ -2,7 +2,12 @@ import express from 'express'
 import consola from 'consola'
 import history from 'connect-history-api-fallback'
 // 路由
-import JobsRoute from './routes/jobs'
+import JobsRouter from './routes/jobs'
+import RefersRouter from './routes/refers'
+import AuthRouter from '~/server/routes/auth'
+import ResumesRouter from '~/server/routes/resumes'
+import UploadRouter from '~/server/routes/upload'
+import UsersRouter from '~/server/routes/users'
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config')
@@ -13,7 +18,12 @@ config.dev = process.env.NODE_ENV !== 'production'
 const app = express()
 
 app.use(history())
-app.use('/jobs', JobsRoute)
+app.use('/auth', AuthRouter)
+app.use('/jobs', JobsRouter)
+app.use('/refers', RefersRouter)
+app.use('/resumes', ResumesRouter)
+app.use('/upload', UploadRouter)
+app.use('/users', UsersRouter)
 
 async function start () {
   // Init Nuxt.js

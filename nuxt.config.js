@@ -18,12 +18,6 @@ module.exports = {
     ** Customize the progress-bar color
     */
     loading: {color: '#fff'},
-    /**
-     * 设置服务端的中间件
-     */
-    // serverMiddleware: [
-    //     '@/api/index.js'
-    // ],
     /*
     ** Global styles
     */
@@ -75,9 +69,9 @@ module.exports = {
         strategies: {
             local: {
                 endpoints: {
-                    login: { url: '/login', method: 'post', propertyName: 'token' },
-                    logout: { url: '/logout', method: 'post' },
-                    user: { url: '/user', method: 'get', propertyName: 'user' }
+                    login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+                    logout: { url: '/auth/logout', method: 'post' },
+                    user: { url: '/auth/user', method: 'get', propertyName: 'user' }
                 },
                 // tokenRequired: true,
                 // tokenType: 'bearer',

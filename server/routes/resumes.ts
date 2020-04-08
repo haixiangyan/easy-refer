@@ -12,3 +12,5 @@ ResumesRouter.get('/', (req, res) => {
     name: '@URl'
   }))
 })
+
+export default ResumesRouter

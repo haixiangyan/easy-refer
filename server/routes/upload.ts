@@ -16,3 +16,5 @@ UploadRouter.post('/avatar', (req, res) => {
     avatarUrl: Mock.Random.image('100x100', '#fff')
   }))
 })
+
+export default UploadRouter

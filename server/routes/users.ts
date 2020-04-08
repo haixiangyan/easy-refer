@@ -10,3 +10,5 @@ const UsersRouter = express.Router()
 UsersRouter.put('/', (req, res) => {
   res.json(Mock.mock(User))
 })
+
+export default UsersRouter

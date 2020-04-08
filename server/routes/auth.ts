@@ -18,3 +18,10 @@ AuthRouter.post('/login', (req, res) => {
 AuthRouter.post('/register', (req, res) => {
   res.json(Mock.mock(User))
 })
+
+// 获取个人信息
+AuthRouter.get('/user', (req, res) => {
+  res.json(Mock.mock(User))
+})
+
+export default AuthRouter

@@ -34,3 +34,5 @@ RefersRouter.patch('/:referId', (req, res) => {
 RefersRouter.delete('/:referId', (req, res) => {
   res.json({})
 })
+
+export default RefersRouter
