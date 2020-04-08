@@ -7,9 +7,9 @@
             :router="true"
             class="menu">
             <el-menu-item class="logo-menu-item" index="/">
-                <img src="../assets/img/logo.png" alt="logo">
+                <img src="@/assets/img/logo.png" alt="logo">
             </el-menu-item>
-            <el-menu-item index="/job-list">
+            <el-menu-item index="/job/list">
                 <i class="el-icon-s-home"></i>
                 <span slot="title">内推广场</span>
             </el-menu-item>
@@ -22,7 +22,7 @@
                 <span slot="title">处理内推</span>
             </el-menu-item>
         </el-menu>
-        <nuxt-link to="/user" tag="span">
+        <nuxt-link :to="isLogin ? '/user' : '/login'" tag="span">
             <el-link icon="el-icon-user">
                 {{isLogin ? '我' : '登录'}}
             </el-link>

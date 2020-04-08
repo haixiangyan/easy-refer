@@ -26,7 +26,9 @@
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
+    "@nuxt/types": "^0.7.1",
     "@nuxt/typescript-build": "^0.6.2",
+    "@nuxt/typescript-runtime": "^0.4.2",
     "@nuxtjs/style-resources": "^1.0.0",
     "@types/jest": "^25.2.1",
     "@types/mockjs": "^1.0.2",

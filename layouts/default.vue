@@ -25,10 +25,10 @@
   })
   export default class App extends Vue {
     get screenClass(): string {
-      return this.$route.name === "index.vue" ? "full-screen" : "normal-screen"
+      return this.$route.name === "login" ? "full-screen" : "normal-screen"
     }
     get isLoginPage(): boolean {
-      return this.$route.name === "index.vue"
+      return this.$route.name === "login"
     }
     get showIntro() {
       return !this.isLoginPage && this.$store.state.auth.isLogin
