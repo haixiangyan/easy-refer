@@ -31,7 +31,7 @@
       return this.$route.name === "login"
     }
     get showIntro() {
-      return !this.isLoginPage && this.$store.state.auth.isLogin
+      return !this.isLoginPage && this.$auth.loggedIn
     }
   }
 </script>

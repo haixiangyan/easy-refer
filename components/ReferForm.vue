@@ -5,10 +5,10 @@
              label-position="left"
              :rules="rules">
         <el-form-item required prop="name" :label="field('name')">
-            <el-input :disabled="isLogin" v-model="form.name"></el-input>
+            <el-input :disabled="$auth.loggedIn" v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item required prop="email" :label="field('email')">
-            <el-input type="email" :disabled="isLogin" v-model="form.email"></el-input>
+            <el-input type="email" :disabled="$auth.loggedIn" v-model="form.email"></el-input>
         </el-form-item>
         <el-form-item v-if="isShowField('phone')" required prop="phone" :label="field('phone')">
             <el-input type="tel" v-model="form.phone"></el-input>
@@ -64,7 +64,6 @@
   import {getFieldName} from '@/constants/referFields'
   import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
   import {USER_MODULE} from '@/store/user'
-  import {AUTH_MODULE} from '@/store/auth'
 
   @Component({
     components: {JobItem}
@@ -75,7 +74,6 @@
 
     @USER_MODULE.State('details') user!: TUser & TMapper
     @Mutation('setLoading') setLoading!: Function
-    @AUTH_MODULE.State('isLogin') isLogin!: boolean
 
     form: TReferForm = {
       email: '',
@@ -145,7 +143,7 @@
         })
       }
       // 已经 login，自动填写表单
-      if (this.isLogin) {
+      if (this.$auth.loggedIn) {
         return Object.keys(this.form).forEach((key: string) => {
           if (key in this.user!) {
             this.form[key] = this.user![key]

@@ -17,14 +17,14 @@
                 <i class="el-icon-s-order"></i>
                 <span slot="title">内推进度</span>
             </el-menu-item>
-            <el-menu-item :disabled="isLogin && jobId === ''" index="/other/refer-list">
+            <el-menu-item :disabled="$auth.loggedIn && jobId === ''" index="/other/refer-list">
                 <i class="el-icon-s-cooperation"></i>
                 <span slot="title">处理内推</span>
             </el-menu-item>
         </el-menu>
-        <nuxt-link :to="isLogin ? '/user' : '/login'" tag="span">
+        <nuxt-link :to="$auth.loggedIn ? '/user' : '/login'" tag="span">
             <el-link icon="el-icon-user">
-                {{isLogin ? '我' : '登录'}}
+                {{$auth.loggedIn ? '我' : '登录'}}
             </el-link>
         </nuxt-link>
     </nav>
@@ -34,12 +34,10 @@
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
   import {USER_MODULE} from '~/store/user'
-  import {AUTH_MODULE} from '~/store/auth'
 
   @Component
   export default class extends Vue {
     @USER_MODULE.State(state => state.details.jobId) jobId!: string
-    @AUTH_MODULE.State('isLogin') isLogin!: boolean
   }
 </script>
 

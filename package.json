@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@nuxtjs/auth": "^4.9.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
     "clipboard": "^2.0.6",
@@ -29,9 +30,11 @@
     "@nuxt/types": "^0.7.1",
     "@nuxt/typescript-build": "^0.6.2",
     "@nuxt/typescript-runtime": "^0.4.2",
+    "@nuxt/vue-app": "^2.12.2",
     "@nuxtjs/style-resources": "^1.0.0",
     "@types/jest": "^25.2.1",
     "@types/mockjs": "^1.0.2",
+    "@types/nuxtjs__auth": "^4.8.4",
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-jest": "^24.1.0",
     "coveralls": "^3.0.11",

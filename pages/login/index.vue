@@ -35,11 +35,9 @@
   import {LOGIN_RULES} from '@/constants/rules'
   import AuthService from '@/service/AuthService'
   import {USER_MODULE} from '@/store/user'
-  import {AUTH_MODULE} from '@/store/auth'
 
   @Component
   export default class Login extends Vue {
-    @AUTH_MODULE.Mutation('setAuth') setAuth!: Function
     @USER_MODULE.Mutation('setUser') setUser!: Function
     @USER_MODULE.Mutation('setJob') setJob!: Function
     @USER_MODULE.Mutation('setResume') setResume!: Function
@@ -66,7 +64,10 @@
 
         const {data} = await AuthService.login(this.loginForm)
 
-        this.setAuth(true)
+        // TODO
+        await this.$auth.loginWith('local', {
+          data: this.loginForm
+        })
         this.setUser(data.user)
         data.job && this.setJob(data.job)
         data.resume && this.setResume(data.resume)

@@ -29,6 +29,9 @@
     "types": [
       "@types",
       "@nuxt/types",
+      "@nuxt/vue-app",
+      "@nuxtjs/axios",
+      "@types/nuxtjs__auth",
       "jest"
     ]
   },

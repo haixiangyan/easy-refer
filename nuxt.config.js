@@ -36,7 +36,8 @@ module.exports = {
     plugins: [
         '@/plugins/element-ui',
         '@/plugins/v-charts',
-        '@/plugins/mockjs'
+        '@/plugins/mockjs',
+        '@/plugins/axios'
     ],
     /*
     ** Nuxt.js dev-modules
@@ -50,6 +51,7 @@ module.exports = {
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
+        '@nuxtjs/auth',
         '@nuxtjs/pwa',
         '@nuxtjs/style-resources'
     ],
@@ -57,7 +59,27 @@ module.exports = {
     ** Axios module configuration
     ** See https://axios.nuxtjs.org/options
     */
-    axios: {},
+    axios: {
+        baseUrl: '/'
+    },
+    /**
+     * Auth 模块
+     * 参考: https://auth.nuxtjs.org/
+     */
+    auth: {
+        strategies: {
+            local: {
+                endpoints: {
+                    login: { url: '/login', method: 'post', propertyName: 'token' },
+                    logout: { url: '/logout', method: 'post' },
+                    user: { url: '/user', method: 'get', propertyName: 'user' }
+                },
+                // tokenRequired: true,
+                // tokenType: 'bearer',
+                // autoFetchUser: true
+            }
+        }
+    },
     /*
     ** Build configuration
     */
