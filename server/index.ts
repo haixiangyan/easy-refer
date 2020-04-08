@@ -1,11 +1,19 @@
-const express = require('express')
-const consola = require('consola')
-const { Nuxt, Builder } = require('nuxt')
-const app = express()
+import express from 'express'
+import consola from 'consola'
+import history from 'connect-history-api-fallback'
+// 路由
+import JobsRoute from './routes/jobs'
 
 // Import and Set Nuxt.js options
-const config = require('../nuxt.config.js')
+const config = require('../nuxt.config')
+const {Nuxt, Builder} = require('nuxt')
+
 config.dev = process.env.NODE_ENV !== 'production'
+
+const app = express()
+
+app.use(history())
+app.use('/jobs', JobsRoute)
 
 async function start () {
   // Init Nuxt.js
@@ -30,4 +38,5 @@ async function start () {
     badge: true
   })
 }
+
 start()

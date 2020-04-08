@@ -65,9 +65,10 @@
         const {data} = await AuthService.login(this.loginForm)
 
         // TODO
-        await this.$auth.loginWith('local', {
-          data: this.loginForm
-        })
+        // await this.$auth.loginWith('local', {
+        //   data: this.loginForm
+        // })
+        // this.$auth.loggedIn = true
         this.setUser(data.user)
         data.job && this.setJob(data.job)
         data.resume && this.setResume(data.resume)

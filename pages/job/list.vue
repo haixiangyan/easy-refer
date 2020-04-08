@@ -19,7 +19,6 @@
   import Vue from 'vue'
   import {Component, Watch} from 'nuxt-property-decorator'
   import JobItem from '@/components/JobItem.vue'
-  import JobService from '~/service/JobService'
 
   @Component({
     components: {JobItem}
@@ -35,7 +34,13 @@
     }
 
     async loadJobs(page: number) {
-      const {data} = await JobService.getJobItemList(page, this.limit)
+      const data = await this.$axios.$get('/jobs/item', {
+        params: {
+          page,
+          limit: this.limit
+        }
+      })
+      console.log(data)
 
       this.publicJobs = data.jobItemList
       this.totalPages = data.totalPages

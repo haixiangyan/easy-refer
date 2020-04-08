@@ -18,6 +18,12 @@ module.exports = {
     ** Customize the progress-bar color
     */
     loading: {color: '#fff'},
+    /**
+     * 设置服务端的中间件
+     */
+    // serverMiddleware: [
+    //     '@/api/index.js'
+    // ],
     /*
     ** Global styles
     */
@@ -36,7 +42,6 @@ module.exports = {
     plugins: [
         '@/plugins/element-ui',
         '@/plugins/v-charts',
-        '@/plugins/mockjs',
         '@/plugins/axios'
     ],
     /*
@@ -60,7 +65,7 @@ module.exports = {
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
-        baseUrl: '/'
+        baseUrl: 'http:localhost:5000/api'
     },
     /**
      * Auth 模块

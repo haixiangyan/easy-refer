@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import {Job, Resume, User} from '@/mocks/MockObject'
+import {Job, Resume, User} from '~/server/mocks/MockObject'
 
 // 登录
 Mock.mock('/login', 'post', {

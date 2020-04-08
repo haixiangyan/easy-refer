@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import {MyRefer, OtherRefer, Refer} from '@/mocks/MockObject'
+import {MyRefer, OtherRefer, Refer} from '~/server/mocks/MockObject'
 
 // 获取 My Refer / Other Refer
 Mock.mock(/\/refers\?.*/, 'get', (options: any) => {
