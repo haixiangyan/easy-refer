@@ -1,7 +1,10 @@
 <template>
     <div>
         <el-row type="flex" align="middle">
-            <el-avatar class="avatar" :src="$auth.user.info.avatarUrl" :size="100"/>
+            <el-avatar v-if="$auth.loggedIn"
+                       class="avatar"
+                       :src="$auth.user.info.avatarUrl"
+                       :size="100"/>
         </el-row>
         <el-table
             :data="userTable"
@@ -36,7 +39,7 @@
     fields = ['email', 'name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro']
 
     get userTable() {
-      return [
+      return !this.$auth.loggedIn ? [] : [
         ...Object.entries(this.$auth.user.info)
           .filter(([key, _]) => this.fields.includes(key))
           .map(([key, value]) => ({
