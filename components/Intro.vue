@@ -9,14 +9,14 @@
             </nuxt-link>
         </div>
         <el-row class="analysis">
-            <el-col :span="12" class="refer">
+            <el-col :span="12" class="approved">
                 <p class="number">{{user.finishedRefers}} / {{user.totalRefers}}</p>
                 <p class="description">已完成的内推</p>
                 <p class="rate">{{approvedRate}}%</p>
             </el-col>
-            <div :span="12" class="resume">
+            <div :span="12" class="refer">
                 <p class="number">{{user.finishedResumes}} / {{user.totalResumes}}</p>
-                <p class="description">要处理的简历</p>
+                <p class="description">已处理的简历</p>
                 <p class="rate">{{referRate}}%</p>
             </div>
         </el-row>
@@ -52,11 +52,12 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "nuxt-property-decorator"
-  import Clipboard from 'clipboard/src/clipboard'
+  import Clipboard from 'clipboard'
 
   @Component
   export default class Intro extends Vue {
     copyText = '复制Link'
+    clipboard: Clipboard | null = new Clipboard('.copy-icon')
 
     get user() {
       return this.$auth.user.info
@@ -73,10 +74,14 @@
     }
 
     initClipboard() {
-      const clipboard = new Clipboard('.copy-icon')
-      clipboard.on('success', () => {
+      this.clipboard!.on('success', () => {
         this.copyText = '已复制'
       })
+    }
+
+    beforeDestroy() {
+      this.clipboard!.destroy()
+      this.clipboard = null
     }
 
     calculateRate(current: number, total: number): string {
@@ -105,7 +110,7 @@
         .analysis {
             margin-top: 16px;
 
-            .refer, .resume {
+            .approved, .refer {
                 text-align: center;
 
                 .number {
@@ -123,7 +128,7 @@
                 }
             }
 
-            .refer {
+            .approved {
                 border-right: 1px solid $border-color;
 
                 .number {

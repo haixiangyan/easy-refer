@@ -1,5 +1,5 @@
-const dayjs = require('dayjs')
-const Mock = require('mockjs')
+import dayjs from 'dayjs'
+import Mock from 'mockjs'
 
 const expiration = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']

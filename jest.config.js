@@ -18,7 +18,7 @@ module.exports = {
     collectCoverage: true,
     collectCoverageFrom: [
         // 暂时不测试 components 和 pages 里的组件
-        // '<rootDir>/components/**/*.vue',
+        '<rootDir>/components/**/*.vue',
         // '<rootDir>/pages/**/*.vue',
         '<rootDir>/constants/**/*.ts',
         '<rootDir>/utils/**/*.ts',
