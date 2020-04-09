@@ -30,7 +30,7 @@ describe('JobItem', () => {
   it('显示0%和不显示内推按钮', () => {
     const wrapper = shallowMount(JobItemVue, {
       localVue,
-      propsData: {jobItem: {...jobItem, referredCount: 0}},
+      propsData: {jobItem: {...jobItem, referTotal: 0}},
       mocks: {
         $route: {name: 'my-refer-list'}
       },
