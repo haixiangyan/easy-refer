@@ -21,6 +21,7 @@
   import JobItem from '@/components/JobItem.vue'
 
   @Component({
+    auth: false,
     components: {JobItem}
   })
   export default class extends Vue {

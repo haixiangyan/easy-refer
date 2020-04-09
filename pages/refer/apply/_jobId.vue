@@ -22,6 +22,7 @@
   import {Context} from '@nuxt/types'
 
   @Component({
+    auth: false,
     components: {JobItem, ReferForm}
   })
   export default class extends Vue {

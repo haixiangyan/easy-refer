@@ -20,6 +20,7 @@
             <nuxt-link to="/user/edit" tag="span">
                 <el-button type="primary" round>修改信息</el-button>
             </nuxt-link>
+            <el-button type="danger" @click="$auth.logout()" round>退出登录</el-button>
         </div>
     </div>
 </template>
