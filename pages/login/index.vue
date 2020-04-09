@@ -33,7 +33,6 @@
   import {Component} from 'nuxt-property-decorator'
   import {ElForm} from 'element-ui/types/form'
   import {LOGIN_RULES} from '@/constants/rules'
-  import AuthService from '@/service/AuthService'
   import {USER_MODULE} from '@/store/user'
 
   @Component
@@ -52,7 +51,7 @@
       (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
-        await AuthService.register(this.loginForm)
+        await this.$axios.$post('/auth/register', this.loginForm)
 
         this.login()
       })
@@ -62,13 +61,9 @@
       (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
-        const {data} = await AuthService.login(this.loginForm)
-
-        // TODO
-        // await this.$auth.loginWith('local', {
-        //   data: this.loginForm
-        // })
-        // this.$auth.loggedIn = true
+        const data: {user: TUser, job: TJob, resume: TResume} = await this.$auth.loginWith('local', {
+          data: this.loginForm
+        })
         this.setUser(data.user)
         data.job && this.setJob(data.job)
         data.resume && this.setResume(data.resume)

@@ -24,7 +24,6 @@
   import {Component} from 'nuxt-property-decorator'
   import UserForm from '~/components/UserForm.vue'
   import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '~/constants/file'
-  import UserService from '~/service/UserService'
   import {USER_MODULE} from '~/store/user'
   import {Mutation} from 'vuex-class'
 
@@ -66,7 +65,7 @@
     }
 
     async onSubmit(form: TUserForm) {
-      const {data: user} = await UserService.editUser(form)
+      const user = await this.$axios.$put('/users', form)
 
       this.setUser(user)
 

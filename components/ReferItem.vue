@@ -29,7 +29,6 @@
   import {Component, Prop} from 'nuxt-property-decorator'
   import {STATUS_NAMES_MAPPER} from '@/constants/status'
   import {DATETIME_FORMAT} from '@/constants/format'
-  import ReferService from '@/service/ReferService'
 
   @Component
   export default class ReferItem extends Vue {
@@ -44,7 +43,7 @@
     }
 
     async withdraw() {
-      this.$alert('确定撤回该内推？', '撤回内推', {
+      await this.$alert('确定撤回该内推？', '撤回内推', {
         type: 'warning',
         showCancelButton: true,
         confirmButtonText: '撤回吧',
@@ -58,7 +57,7 @@
     }
 
     async confirmWithdraw() {
-      await ReferService.deleteRefer(this.refer.referId)
+      await this.$axios.$delete(`/refers/${this.refer.referId}`)
 
       this.$message.success('已撤回')
     }

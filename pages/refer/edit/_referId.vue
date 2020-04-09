@@ -20,8 +20,6 @@
   import {Component} from 'nuxt-property-decorator'
   import JobItem from '~/components/JobItem.vue'
   import ReferForm from '~/components/ReferForm.vue'
-  import JobService from '~/service/JobService'
-  import ReferService from '~/service/ReferService'
 
   @Component({
     components: {JobItem, ReferForm}
@@ -39,15 +37,12 @@
     }
 
     async load() {
-      const {data: refer} = await ReferService.getReferById(this.referId)
-      const {data: jobItem} = await JobService.getJobItemById(refer.jobId)
-
-      this.refer = refer
-      this.jobItem = jobItem
+      this.refer = await this.$axios.$get(`/refers${this.referId}`)
+      this.jobItem = await this.$axios.$get(`/jobs/${this.refer!.jobId}`)
     }
 
     async edit(form: TReferForm) {
-      await ReferService.editRefer(this.referId, form)
+      await this.$axios.$put(`/refers/${this.referId}`, form)
 
       this.$message.success('已修改内推信息')
 

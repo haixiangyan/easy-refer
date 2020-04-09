@@ -17,7 +17,7 @@
     @USER_MODULE.State(state => state.job.jobId) jobId!: string
 
     async onSubmit(form: TJobForm) {
-      await this.$axios.$put(`/jobs/${htis.jobId}`, form)
+      await this.$axios.$put(`/jobs/${this.jobId}`, form)
 
       this.$message.success('已修改该职位')
 

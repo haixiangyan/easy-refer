@@ -4,10 +4,10 @@ import history from 'connect-history-api-fallback'
 // 路由
 import JobsRouter from './routes/jobs'
 import RefersRouter from './routes/refers'
-import AuthRouter from '~/server/routes/auth'
-import ResumesRouter from '~/server/routes/resumes'
-import UploadRouter from '~/server/routes/upload'
-import UsersRouter from '~/server/routes/users'
+import AuthRouter from './routes/auth'
+import ResumesRouter from './routes/resumes'
+import UploadRouter from './routes/upload'
+import UsersRouter from './routes/users'
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config')

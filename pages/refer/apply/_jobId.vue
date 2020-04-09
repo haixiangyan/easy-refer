@@ -19,7 +19,6 @@
   import {Component} from 'nuxt-property-decorator'
   import JobItem from '~/components/JobItem.vue'
   import ReferForm from '~/components/ReferForm.vue'
-  import ReferService from '~/service/ReferService'
 
   @Component({
     components: {JobItem, ReferForm}
@@ -40,7 +39,7 @@
     }
 
     async apply(form: TReferForm) {
-      await ReferService.applyRefer(this.jobId, form)
+      await this.$axios.$post(`/refers/${this.jobId}`, form)
 
       this.$message.success('已提交内推信息')
 

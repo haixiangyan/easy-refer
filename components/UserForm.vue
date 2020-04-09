@@ -58,7 +58,6 @@
   import {ElForm} from 'element-ui/types/form'
   import {getFieldName} from '@/constants/referFields'
   import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
-  import ResumeService from '@/service/ResumeService'
   import {USER_MODULE} from '~/store/user'
   import {Mutation} from 'vuex-class'
 
@@ -102,8 +101,7 @@
     }
 
     async loadResume() {
-      const {data: resume} = await ResumeService.getResumeById(this.user.resumeId)
-      this.resume = resume
+      this.resume = await this.$axios.$get(`/resumes/${this.user.resumeId}`)
     }
 
     uploaded(resume: IUploadResume) {

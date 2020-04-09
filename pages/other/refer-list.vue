@@ -38,7 +38,6 @@
   import {LEVEL_MAPPER} from '~/constants/level'
   import dayjs from 'dayjs'
   import {DATETIME_FORMAT} from '~/constants/format'
-  import ReferService from '~/service/ReferService'
 
   @Component
   export default class extends Vue {
@@ -59,7 +58,13 @@
     }
 
     async loadOtherReferList(page: number) {
-      const {data} = await ReferService.getReferList('other', page)
+      const data = await this.$axios.$get('/refers', {
+        params: {
+          role: 'other',
+          page,
+          limit: 10
+        }
+      })
 
       this.refers = data.referList as TOtherRefer[]
       this.totalPages = data.totalPages

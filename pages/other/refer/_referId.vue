@@ -24,7 +24,6 @@
   import JobItem from '~/components/JobItem.vue'
   import {REFER_FIELDS_MAPPER} from '~/constants/referFields'
   import {LEVEL_MAPPER} from '~/constants/level'
-  import ReferService from '~/service/ReferService'
   import {USER_MODULE} from '~/store/user'
 
   @Component({
@@ -66,14 +65,14 @@
     }
 
     async loadRefer() {
-      const {data: refer} = await ReferService.getReferById(this.referId)
+      const refer = await this.$axios.$get(`/refers/${this.referId}`)
       Object.keys(this.referForm).forEach((key: string) => {
         this.referForm[key] = refer[key]
       })
     }
 
     async updateStatus(status: TStatus) {
-      await ReferService.patchRefer(this.referId, {status})
+      await this.$axios.$patch(`/refers/${this.referId}`, {status})
 
       this.$message.success(status === 'rejected' ? '不推此简历' : '已推此简历')
 

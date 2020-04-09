@@ -19,7 +19,6 @@
   import Vue from 'vue'
   import {Component, Watch} from 'nuxt-property-decorator'
   import ReferItem from '~/components/ReferItem.vue'
-  import ReferService from '~/service/ReferService'
 
   @Component({
     components: {ReferItem}
@@ -34,7 +33,13 @@
     }
 
     async loadRefers(page: number) {
-      const {data} = await ReferService.getReferList('my', page)
+      const data = await this.$axios.$get('/refers', {
+        params: {
+          role: 'my',
+          page,
+          limit: 10
+        }
+      })
 
       this.refers = data.referList as TMyRefer[]
       this.totalPages = data.totalPages

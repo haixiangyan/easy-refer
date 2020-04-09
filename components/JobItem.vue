@@ -50,7 +50,7 @@
     @Prop({required: true}) jobItem!: TJobItem
 
     get showApply() {
-      return this.$route.name === 'index.vue'
+      return this.$route.name === 'job-list'
     }
 
     get deadline() {
