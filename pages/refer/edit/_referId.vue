@@ -20,6 +20,7 @@
   import {Component} from 'nuxt-property-decorator'
   import JobItem from '~/components/JobItem.vue'
   import ReferForm from '~/components/ReferForm.vue'
+  import {Context} from '@nuxt/types'
 
   @Component({
     components: {JobItem, ReferForm}
@@ -27,18 +28,19 @@
   export default class extends Vue {
     jobItem: TJobItem | null = null
     refer: TRefer | null = null
+    referId: string | null = null
 
-    get referId() {
-      return this.$route.params.referId
-    }
+    async asyncData({$axios, route}: Context) {
+      const referId = route.params.referId
 
-    mounted() {
-      this.load()
-    }
+      const refer = await $axios.$get(`/refers/${referId}`)
+      const jobItem = await $axios.$get(`/jobs/item/${refer!.jobId}`)
 
-    async load() {
-      this.refer = await this.$axios.$get(`/refers/${this.referId}`)
-      this.jobItem = await this.$axios.$get(`/jobs/item/${this.refer!.jobId}`)
+      return {
+        referId,
+        refer,
+        jobItem
+      }
     }
 
     async edit(form: TReferForm) {

@@ -134,7 +134,7 @@
       return isPdf && isValidSize
     }
 
-    async initForm() {
+    initForm() {
       // 当修改 refer 时初始化
       if (this.refer) {
         return Object.keys(this.form).forEach((key: string) => {
