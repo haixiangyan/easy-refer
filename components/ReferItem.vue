@@ -18,7 +18,7 @@
             <nuxt-link :to="`/refer/edit/${refer.referId}`" tag="span">
                 <el-link class="edit-button" type="primary" icon="el-icon-edit">修改</el-link>
             </nuxt-link>
-            <el-link @click="withdraw" type="danger" icon="el-icon-close">撤销</el-link>
+            <el-link @click="withdraw" type="danger" icon="el-icon-close" class="withdraw-icon">撤销</el-link>
         </el-col>
     </el-row>
 </template>
@@ -48,6 +48,8 @@
         showCancelButton: true,
         confirmButtonText: '撤回吧',
         cancelButtonText: '再想想',
+        cancelButtonClass: 'cancel-withdraw',
+        confirmButtonClass: 'confirm-withdraw',
         callback: action => {
           if (action === 'confirm') {
             this.confirmWithdraw()
