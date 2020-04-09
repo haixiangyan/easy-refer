@@ -8,9 +8,7 @@ const AuthRouter = express.Router()
 // 登录
 AuthRouter.post('/login', (req, res) => {
   res.json(Mock.mock({
-    user: User,
-    job: Job,
-    resume: Resume
+    token: '@ID'
   }))
 })
 
@@ -21,7 +19,11 @@ AuthRouter.post('/register', (req, res) => {
 
 // 获取个人信息
 AuthRouter.get('/user', (req, res) => {
-  res.json(Mock.mock(User))
+  res.json(Mock.mock({
+    info: User,
+    job: Job,
+    resume: Resume
+  }))
 })
 
 export default AuthRouter

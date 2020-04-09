@@ -63,7 +63,6 @@
   import {RESUME_RULES} from '@/constants/rules'
   import {getFieldName} from '@/constants/referFields'
   import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
-  import {USER_MODULE} from '@/store/user'
 
   @Component({
     components: {JobItem}
@@ -72,7 +71,6 @@
     @Prop() refer: TRefer | undefined
     @Prop({required: true}) requiredFields!: string[]
 
-    @USER_MODULE.State('details') user!: TUser & TMapper
     @Mutation('setLoading') setLoading!: Function
 
     form: TReferForm = {
@@ -98,6 +96,9 @@
       this.initForm()
     }
 
+    get user() {
+      return this.$auth.user.info
+    }
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }

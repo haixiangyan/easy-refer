@@ -59,7 +59,8 @@ module.exports = {
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
-        baseUrl: 'http:localhost:5000/api'
+        baseUrl: 'http:localhost:5000/api',
+        credential: true
     },
     /**
      * Auth 模块
@@ -71,10 +72,10 @@ module.exports = {
                 endpoints: {
                     login: { url: '/auth/login', method: 'post', propertyName: 'token' },
                     logout: { url: '/auth/logout', method: 'post' },
-                    user: { url: '/auth/user', method: 'get', propertyName: 'user' }
+                    user: { url: '/auth/user', method: 'get', propertyName: false }
                 },
                 // tokenRequired: true,
-                // tokenType: 'bearer',
+                tokenType: 'bearer',
                 // autoFetchUser: true
             }
         }

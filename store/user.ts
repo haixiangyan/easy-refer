@@ -44,21 +44,6 @@ export const state = (): TUserState => ({
 })
 
 export const getters = {
-  jobItem: ({job, details}: TUserState) => ({
-    jobId: job.jobId,
-    company: job.company,
-    referer: {
-      name: details.name,
-      avatarUrl: details.avatarUrl
-    },
-    deadline: job.deadline,
-    expiration: job.expiration,
-    referredCount: job.referredCount,
-    referTotal: job.referTotal,
-    requiredFields: job.requiredFields,
-    source: job.source,
-    finishedChart: job.finishedChart
-  })
 }
 
 export const mutations = {

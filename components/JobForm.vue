@@ -65,13 +65,9 @@
   import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '@/constants/referFields'
   import {JOB_RULES} from "@/constants/rules"
   import {ElForm} from "element-ui/types/form"
-  import {USER_MODULE} from '~/store/user'
 
   @Component
   export default class JobForm extends Vue {
-    @USER_MODULE.State('details') user!: TUser
-    @USER_MODULE.State('job') job!: TJob & TMapper
-
     form: TJobForm = {
       company: '',
       createdAt: new Date().toISOString(),
@@ -94,6 +90,12 @@
     }
     rules = JOB_RULES
 
+    get user() {
+      return this.$auth.user.info
+    }
+    get job() {
+      return this.$auth.user.job
+    }
     get referFields() {
       return Object.entries(REFER_FIELDS_MAPPER).map(([value, label]) => ({value, label}))
     }

@@ -7,7 +7,7 @@
         <el-divider>修改你的信息</el-divider>
 
         <ReferForm
-            v-if="refer"
+            v-if="refer && jobItem"
             @submit="edit"
             :refer="refer"
             @back="$router.push('/my/refer-list')"
@@ -37,8 +37,8 @@
     }
 
     async load() {
-      this.refer = await this.$axios.$get(`/refers${this.referId}`)
-      this.jobItem = await this.$axios.$get(`/jobs/${this.refer!.jobId}`)
+      this.refer = await this.$axios.$get(`/refers/${this.referId}`)
+      this.jobItem = await this.$axios.$get(`/jobs/item/${this.refer!.jobId}`)
     }
 
     async edit(form: TReferForm) {

@@ -33,13 +33,9 @@
   import {Component} from 'nuxt-property-decorator'
   import {ElForm} from 'element-ui/types/form'
   import {LOGIN_RULES} from '@/constants/rules'
-  import {USER_MODULE} from '@/store/user'
 
   @Component
   export default class Login extends Vue {
-    @USER_MODULE.Mutation('setUser') setUser!: Function
-    @USER_MODULE.Mutation('setJob') setJob!: Function
-    @USER_MODULE.Mutation('setResume') setResume!: Function
 
     loginForm: TLoginForm = {
       email: '',
@@ -61,12 +57,10 @@
       (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
-        const data: {user: TUser, job: TJob, resume: TResume} = await this.$auth.loginWith('local', {
+        // 登录成功后，自动获取用户
+        await this.$auth.loginWith('local', {
           data: this.loginForm
         })
-        this.setUser(data.user)
-        data.job && this.setJob(data.job)
-        data.resume && this.setResume(data.resume)
 
         this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
 

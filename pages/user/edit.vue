@@ -2,7 +2,7 @@
     <div>
         <el-row class="avatar" type="flex" align="middle">
             <el-col :span="6">
-                <el-avatar :src="avatarUrl" :size="100"/>
+                <el-avatar :src="$auth.user.avatarUrl" :size="100"/>
             </el-col>
             <el-col>
                 <el-upload
@@ -24,22 +24,18 @@
   import {Component} from 'nuxt-property-decorator'
   import UserForm from '~/components/UserForm.vue'
   import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '~/constants/file'
-  import {USER_MODULE} from '~/store/user'
   import {Mutation} from 'vuex-class'
 
   @Component({
     components: {UserForm}
   })
   export default class extends Vue {
-    @USER_MODULE.State(state => state.details.avatarUrl) avatarUrl!: string
-    @USER_MODULE.Mutation('setUser') setUser!: Function
-    @USER_MODULE.Mutation('setAvatarUrl') setAvatarUrl!: Function
     @Mutation('setLoading') setLoading!: Function
 
     form: TUserForm | null = null
 
-    uploaded(response: IAvatar) {
-      this.setAvatarUrl(response.avatarUrl)
+    async uploaded() {
+      await this.$auth.fetchUser()
 
       this.$message.success('修改成功')
     }
@@ -65,9 +61,9 @@
     }
 
     async onSubmit(form: TUserForm) {
-      const user = await this.$axios.$put('/users', form)
+      await this.$axios.$put('/users', form)
 
-      this.setUser(user)
+      await this.$auth.fetchUser()
 
       this.$message.success('已更新用户信息')
 

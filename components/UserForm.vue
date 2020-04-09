@@ -58,12 +58,10 @@
   import {ElForm} from 'element-ui/types/form'
   import {getFieldName} from '@/constants/referFields'
   import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
-  import {USER_MODULE} from '~/store/user'
   import {Mutation} from 'vuex-class'
 
   @Component
   export default class UserForm extends Vue {
-    @USER_MODULE.State('details') user!: TUser & TMapper
     @Mutation('setLoading') setLoading!: Function
 
     form: TUserForm = {
@@ -85,6 +83,9 @@
     rules = EDIT_USER_RULES
     field = getFieldName
 
+    get user() {
+      return this.$auth.user.info
+    }
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }

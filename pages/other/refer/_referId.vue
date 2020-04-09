@@ -24,17 +24,11 @@
   import JobItem from '~/components/JobItem.vue'
   import {REFER_FIELDS_MAPPER} from '~/constants/referFields'
   import {LEVEL_MAPPER} from '~/constants/level'
-  import {USER_MODULE} from '~/store/user'
 
   @Component({
     components: {JobItem}
   })
   export default class extends Vue {
-    @USER_MODULE.State('job') job!: TJob
-    @USER_MODULE.State('details') user!: TUser
-    @USER_MODULE.State('resume') resume!: TResume
-    @USER_MODULE.Getter('jobItem') jobItem!: TJobItem
-
     referForm: TReferForm = {
       email: '',
       experience: 0,
@@ -45,6 +39,25 @@
       referLinks: '',
       resumeId: '',
       thirdPersonIntro: ''
+    }
+
+    get jobItem() {
+      const {info, job} = this.$auth.user
+      return {
+          jobId: job.jobId,
+          company: job.company,
+          referer: {
+            name: info.name,
+            avatarUrl: info.avatarUrl
+          },
+          deadline: job.deadline,
+          expiration: job.expiration,
+          referredCount: job.referredCount,
+          referTotal: job.referTotal,
+          requiredFields: job.requiredFields,
+          source: job.source,
+          finishedChart: job.finishedChart
+      }
     }
 
     get referId() {

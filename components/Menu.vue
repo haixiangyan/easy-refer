@@ -17,7 +17,7 @@
                 <i class="el-icon-s-order"></i>
                 <span slot="title">内推进度</span>
             </el-menu-item>
-            <el-menu-item :disabled="$auth.loggedIn && jobId === ''" index="/other/refer-list">
+            <el-menu-item :disabled="$auth.loggedIn && $auth.user.job.jobId === ''" index="/other/refer-list">
                 <i class="el-icon-s-cooperation"></i>
                 <span slot="title">处理内推</span>
             </el-menu-item>
@@ -33,11 +33,9 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import {USER_MODULE} from '~/store/user'
 
   @Component
   export default class extends Vue {
-    @USER_MODULE.State(state => state.details.jobId) jobId!: string
   }
 </script>
 

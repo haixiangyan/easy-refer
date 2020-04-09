@@ -52,15 +52,15 @@
 <script lang="ts">
   import Vue from "vue"
   import {Component} from "nuxt-property-decorator"
-  import {USER_MODULE} from '~/store/user'
   import Clipboard from 'clipboard/src/clipboard'
 
   @Component
   export default class Intro extends Vue {
-    @USER_MODULE.State('details') user!: TUser
-
     copyText = '复制Link'
 
+    get user() {
+      return this.$auth.user.info
+    }
     get referRate() {
       return this.calculateRate(this.user.finishedRefers, this.user.totalRefers)
     }

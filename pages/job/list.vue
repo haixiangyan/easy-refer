@@ -40,7 +40,6 @@
           limit: this.limit
         }
       })
-      console.log(data)
 
       this.publicJobs = data.jobItemList
       this.totalPages = data.totalPages

@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-row type="flex" align="middle">
-            <el-avatar class="avatar" :src="user.avatarUrl" :size="100"/>
+            <el-avatar class="avatar" :src="$auth.user.info.avatarUrl" :size="100"/>
         </el-row>
         <el-table
             :data="userTable"
@@ -29,24 +29,20 @@
   import {Component} from 'nuxt-property-decorator'
   import {LEVEL_MAPPER} from '~/constants/level'
   import {REFER_FIELDS_MAPPER} from '~/constants/referFields'
-  import {USER_MODULE} from '~/store/user'
 
   @Component
   export default class extends Vue {
-    @USER_MODULE.State('details') user!: TUser
-    @USER_MODULE.State('resume') resume!: TResume
-
     fields = ['email', 'name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro']
 
     get userTable() {
       return [
-        ...Object.entries(this.user)
+        ...Object.entries(this.$auth.user.info)
           .filter(([key, _]) => this.fields.includes(key))
           .map(([key, value]) => ({
             key: REFER_FIELDS_MAPPER[key],
             value: key === 'experience' ? LEVEL_MAPPER[value as number] : value
           })),
-        {key: REFER_FIELDS_MAPPER.resumeUrl, value: this.resume.url}
+        {key: REFER_FIELDS_MAPPER.resumeUrl, value: this.$auth.user.resume.url}
       ]
     }
   }

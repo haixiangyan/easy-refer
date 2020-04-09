@@ -8,15 +8,11 @@
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
   import JobForm from '~/components/JobForm.vue'
-  import {USER_MODULE} from '~/store/user'
 
   @Component({
     components: {JobForm}
   })
   export default class extends Vue {
-    @USER_MODULE.Mutation('setJob') setJob!: Function
-    @USER_MODULE.Mutation('setUser') setUser!: Function
-
     async onSubmit(form: TJobForm) {
       const {data: job} = await this.$axios.$post('/jobs', form)
 
@@ -27,8 +23,7 @@
           confirmButtonText: '确定',
           dangerouslyUseHTMLString: true,
           callback: () => {
-            this.setJob(job)
-            this.setUser({jobId: job.jobId})
+            this.$auth.fetchUser()
             this.$router.push('/job-list')
           }
         })
