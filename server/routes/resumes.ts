@@ -5,7 +5,7 @@ import Mock from 'mockjs'
 const ResumesRouter = express.Router()
 
 // 获取一个 Resume
-ResumesRouter.get('/', (req, res) => {
+ResumesRouter.get('/:resumeId', (req, res) => {
   res.json(Mock.mock({
     resumeId: '@ID',
     url: '@URL',
