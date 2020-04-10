@@ -6,9 +6,7 @@
 
 一个方便北美内推的网站应用。
 
-## 网站链接
-
-[点击这里看看现在有哪些内推吧](https://haixiang6123.github.io/refer-me)
+[网站地址](https://github.com/Haixiang6123/refer-me)
 
 ## 快速上手
 
