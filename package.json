@@ -10,7 +10,8 @@
     "start": "cross-env NODE_ENV=production ts-node server/index.ts",
     "generate": "nuxt generate",
     "test": "jest",
-    "coveralls": "coveralls < coverage/lcov.info"
+    "coveralls": "coveralls < coverage/lcov.info",
+    "heroku-postbuild": "yarn build"
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.9.0",
