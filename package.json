@@ -9,7 +9,8 @@
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production ts-node server/index.ts",
     "generate": "nuxt generate",
-    "test": "jest"
+    "test": "jest",
+    "coveralls": "coveralls < coverage/lcov.info"
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.9.0",
