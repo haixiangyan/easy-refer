@@ -18,12 +18,12 @@ config.dev = process.env.NODE_ENV !== 'production'
 const app = express()
 
 app.use(history())
-app.use('/auth', AuthRouter)
-app.use('/jobs', JobsRouter)
-app.use('/refers', RefersRouter)
-app.use('/resumes', ResumesRouter)
-app.use('/upload', UploadRouter)
-app.use('/users', UsersRouter)
+app.use('/api/auth', AuthRouter)
+app.use('/api/jobs', JobsRouter)
+app.use('/api/refers', RefersRouter)
+app.use('/api/resumes', ResumesRouter)
+app.use('/api/upload', UploadRouter)
+app.use('/api/users', UsersRouter)
 
 async function start () {
   // Init Nuxt.js
