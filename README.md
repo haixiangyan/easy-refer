@@ -1,5 +1,9 @@
 # refer-me
 
+[![Build Status](https://travis-ci.org/Haixiang6123/refer-me.svg?branch=dev)](https://travis-ci.org/Haixiang6123/refer-me)
+[![Coverage Status](https://coveralls.io/repos/github/Haixiang6123/refer-me/badge.svg)](https://coveralls.io/github/Haixiang6123/refer-me)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 一个方便北美内推的网站应用。
 
 ## 网站链接
