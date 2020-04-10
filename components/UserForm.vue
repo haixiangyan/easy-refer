@@ -29,6 +29,7 @@
         </el-form-item>
         <el-form-item :label="field('resumeUrl')">
             <el-upload
+                class="upload-resume"
                 action="/user-resume"
                 :on-success="uploaded"
                 :on-change="uploading"
@@ -103,6 +104,7 @@
 
     async loadResume() {
       this.resume = await this.$axios.$get(`/resumes/${this.user.resumeId}`)
+      console.log(this.resume)
     }
 
     uploaded(resume: IUploadResume) {

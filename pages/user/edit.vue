@@ -2,7 +2,7 @@
     <div>
         <el-row class="avatar" type="flex" align="middle">
             <el-col :span="6">
-                <el-avatar :src="$auth.user.avatarUrl" :size="100"/>
+                <el-avatar :src="$auth.user.info.avatarUrl" :size="100"/>
             </el-col>
             <el-col>
                 <el-upload
