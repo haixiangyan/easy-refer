@@ -32,8 +32,8 @@
       return this.$route.params.jobId
     }
 
-    async asyncData({$axios}: Context) {
-      const jobItem = await $axios.$get(`/jobs/item/${this.jobId}`)
+    async asyncData({$axios, route}: Context) {
+      const jobItem = await $axios.$get(`/jobs/item/${route.params.jobId}`)
       return {jobItem}
     }
 

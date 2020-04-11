@@ -24,12 +24,12 @@ JobsRouter.get('/:jobId', (req, res) => {
 })
 
 // 创建一个 Job
-JobsRouter.post('/jobs', (req, res) => {
+JobsRouter.post('/', (req, res) => {
   res.json(Mock.mock(Job))
 })
 
 // 修改一个 Job
-JobsRouter.put('/jobs/:jobId', (req, res) => {
+JobsRouter.put('/:jobId', (req, res) => {
   res.json(Mock.mock(Job))
 })
 

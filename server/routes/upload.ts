@@ -6,8 +6,8 @@ const UploadRouter = express.Router()
 UploadRouter.post('/resume', (req, res) => {
   res.json(Mock.mock({
     resumeId: '@ID',
-    resumeUrl: '@URL',
-    resumeName: '@URL',
+    url: '@URL',
+    name: '@URL',
   }))
 })
 
