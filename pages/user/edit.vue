@@ -6,7 +6,7 @@
             </el-col>
             <el-col>
                 <el-upload
-                    action="/avatar"
+                    action="/api/upload/avatar"
                     :show-file-list="false"
                     :on-success="uploaded"
                     :on-change="uploading"

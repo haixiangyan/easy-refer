@@ -29,7 +29,7 @@
         </el-form-item>
         <el-form-item :label="field('resumeUrl')">
             <el-upload
-                action="/user-resume"
+                action="/api/upload/resume"
                 :on-success="uploaded"
                 :on-change="uploading"
                 :on-error="() => this.$message.error('上传失败')"

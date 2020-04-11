@@ -33,7 +33,7 @@
         </el-form-item>
         <el-form-item :label="field('resumeUrl')">
             <el-upload
-                action="/refer-resume"
+                action="/api/upload/resume"
                 :data="{resumeId: form.resumeId}"
                 :on-success="uploaded"
                 :on-change="uploading"
