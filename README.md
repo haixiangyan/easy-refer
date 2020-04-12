@@ -1,21 +1,23 @@
-# refer-me
+# easy-refer
+
+[![Build Status](https://travis-ci.org/Haixiang6123/easy-refer.svg?branch=dev)](https://travis-ci.org/Haixiang6123/easy-refer)
+[![Coverage Status](https://coveralls.io/repos/github/Haixiang6123/easy-refer/badge.svg)](https://coveralls.io/github/Haixiang6123/easy-refer)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 一个方便北美内推的网站应用。
 
-## 网站链接
-
-[点击这里看看现在有哪些内推吧](https://haixiang6123.github.io/refer-me)
+[网站地址](https://easy-refer.herokuapp.com/job/list)
 
 ## 快速上手
 
 ### 找内推
-1. [点击这里](https://haixiang6123.github.io/refer-me) 可以看到目前有哪些人发布了可以内推的消息
+1. [点击这里](https://easy-refer.herokuapp.com/job/list) 可以看到目前有哪些人发布了可以内推的消息
 2. 进去找到对应职位点击"开始内推"
 3. 填好信息
 4. OK!
 
 ### 发内推
-1. [点击这里](https://haixiang6123.github.io/refer-me) 先登录
+1. [点击这里](https://easy-refer.herokuapp.com/job/list) 先登录
 2. 点击"发布一个职位"
 3. 将生成的表单链接放到一亩三分地，或者别的帖子里，让别人填信息去吧
 4. OK!

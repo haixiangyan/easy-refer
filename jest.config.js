@@ -1,10 +1,28 @@
 module.exports = {
-    preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
+    moduleNameMapper: {
+        '^@/(.*)$': '<rootDir>/$1',
+        '^~/(.*)$': '<rootDir>/$1',
+        '^vue$': 'vue/dist/vue.common.js'
+    },
+    moduleFileExtensions: [
+        'ts',
+        'js',
+        'vue',
+        'json'
+    ],
+    transform: {
+        "^.+\\.ts$": "ts-jest",
+        '^.+\\.js$': 'babel-jest',
+        '.*\\.(vue)$': 'vue-jest'
+    },
     collectCoverage: true,
     collectCoverageFrom: [
-        "src/constants/*.{ts,vue}",
-        "src/utils/*.{ts,vue}",
+        // 暂时不测试 components 和 pages 里的组件
+        '<rootDir>/components/**/*.vue',
+        // '<rootDir>/pages/**/*.vue',
+        '<rootDir>/constants/**/*.ts',
+        '<rootDir>/utils/**/*.ts',
         "!**/node_modules/**"
     ],
-    coverageReporters: ["html", "text-summary", "lcov"]
+    coverageReporters: ["html", "text-summary", "lcov"],
 }
