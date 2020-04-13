@@ -1,49 +1,48 @@
-import {InitOptions, Model, ModelAttributes} from 'sequelize'
-import {Sequelize} from 'sequelize/types/lib/sequelize'
-import {UserModel} from '~/server/models/UserModel'
-import {ReferModel} from '~/server/models/ReferModel'
+import {DataTypes} from 'sequelize'
+import UserModel from './UserModel'
+import ReferModel from './ReferModel'
+import {AllowNull, BelongsTo, Column, ForeignKey, HasMany, Model, PrimaryKey, Table, Unique} from 'sequelize-typescript'
 
-export class JobModel extends Model {
+@Table
+class JobModel extends Model<JobModel> {
+  // 字段
+  @Unique
+  @AllowNull(false)
+  @PrimaryKey
+  @Column(DataTypes.UUID)
   public jobId!: string
+
+  @Column(DataTypes.STRING)
   public company!: string | null
+
+  @Column(DataTypes.STRING)
   public requiredFields!: string | null
+
+  @Column(DataTypes.STRING)
   public deadline!: string | null
+
+  @Column(DataTypes.INTEGER)
   public expiration!: number | null
+
+  @Column(DataTypes.INTEGER)
   public referTotal!: number | null
+
+  @Column(DataTypes.STRING)
   public source!: string | null
 
+  // 外键
+  @ForeignKey(() => UserModel)
+  public readonly refererId!: string
+
+  @ForeignKey(() => ReferModel)
+  public readonly referId!: string
+
+  // 关系
+  @BelongsTo(() => UserModel)
   public readonly referer?: UserModel
+
+  @HasMany(() => ReferModel)
   public readonly referList?: ReferModel[]
-
-  public static associate(models: any) {
-    models.Job.belongsTo(models.User, {as: 'referer'})
-    models.Job.hasMany(models.Refer)
-  }
 }
 
-export default function (sequelize: Sequelize, DataTypes: any) {
-  const options: InitOptions = {
-    sequelize,
-    modelName: 'Job',
-    tableName: 'jobs'
-  }
-
-  const attributes: ModelAttributes = {
-    jobId: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      allowNull: false,
-      unique: true
-    },
-    company: DataTypes.STRING,
-    requiredFields: DataTypes.STRING,
-    deadline: DataTypes.DATE,
-    expiration: DataTypes.INTEGER,
-    referTotal: DataTypes.INTEGER,
-    source: DataTypes.STRING
-  }
-
-  JobModel.init(attributes, options)
-
-  return JobModel
-}
+export default JobModel

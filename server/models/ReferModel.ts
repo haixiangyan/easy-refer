@@ -1,60 +1,70 @@
-import {InitOptions, Model, ModelAttributes} from 'sequelize'
-import {Sequelize} from 'sequelize/types/lib/sequelize'
-import {ResumeModel} from '~/server/models/ResumeModel'
-import {JobModel} from '~/server/models/JobModel'
-import {UserModel} from '~/server/models/UserModel'
+import {DataTypes} from 'sequelize'
+import {AllowNull, BelongsTo, Column, ForeignKey, HasOne, Model, PrimaryKey, Table, Unique} from 'sequelize-typescript'
+import ResumeModel from './ResumeModel'
+import JobModel from './JobModel'
+import UserModel from './UserModel'
 
-export class ReferModel extends Model {
+@Table
+class ReferModel extends Model<ReferModel> {
+  // 字段
+  @Unique
+  @AllowNull(false)
+  @PrimaryKey
+  @Column(DataTypes.UUID)
   public referId!: string
+
+  @Column(DataTypes.STRING)
   public name!: string | null
+
+  @Column(DataTypes.STRING)
   public email!: string | null
+
+  @Column(DataTypes.STRING)
   public phone!: string | null
+
+  @Column(DataTypes.INTEGER)
   public experience!: number | null
+
+  @Column(DataTypes.TEXT)
   public intro!: string | null
+
+  @Column(DataTypes.STRING)
   public leetCodeUrl!: string | null
+
+  @Column(DataTypes.TEXT)
   public thirdPersonIntro!: string | null
+
+  @Column(DataTypes.TEXT)
   public referLinks!: string | null
+
+  @Column(DataTypes.STRING)
   public status!: string | null
 
+  // 外键
+  @ForeignKey(() => ResumeModel)
+  public readonly resumeId!: string
+
+  @ForeignKey(() => JobModel)
+  public readonly jobId!: string
+
+  @ForeignKey(() => UserModel)
+  public readonly refererId!: string
+
+  @ForeignKey(() => UserModel)
+  public readonly refereeId!: string
+
+  // 关系
+  @HasOne(() => ResumeModel)
   public readonly resume?: ResumeModel
+
+  @BelongsTo(() => JobModel)
   public readonly job?: JobModel
+
+  @BelongsTo(() => UserModel)
   public readonly referer?: UserModel
+
+  @BelongsTo(() => UserModel)
   public readonly referee?: UserModel
-
-  public static associate(db: any) {
-    db.Refer.hasOne(db.Resume)
-    db.Refer.belongsTo(db.Job)
-    db.Refer.belongsTo(db.User, {as: 'referer'})
-    db.Refer.belongsTo(db.User, {as: 'referee'})
-  }
 }
 
-export default function (sequelize: Sequelize, DataTypes: any) {
-  const options: InitOptions = {
-    sequelize,
-    modelName: 'Refer',
-    tableName: 'refers'
-  }
-
-  const attributes: ModelAttributes = {
-    referId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      unique: true,
-      primaryKey: true
-    },
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    experience: DataTypes.INTEGER,
-    intro: DataTypes.TEXT,
-    leetCodeUrl: DataTypes.STRING,
-    thirdPersonIntro: DataTypes.TEXT,
-    referLinks: DataTypes.TEXT,
-    status: DataTypes.STRING
-  }
-
-  ReferModel.init(attributes, options)
-
-  return ReferModel
-}
+export default ReferModel

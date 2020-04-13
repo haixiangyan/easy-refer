@@ -1,7 +1,10 @@
 import dotenv from 'dotenv'
-import fs from 'fs'
 import path from 'path'
-import {Sequelize} from 'sequelize'
+import {Sequelize} from 'sequelize-typescript'
+import UserModel from './UserModel'
+import JobModel from './JobModel'
+import ReferModel from './ReferModel'
+import ResumeModel from './ResumeModel'
 // 解析 .env 文件
 const parseEnv = () => {
   const envPath = path.resolve(__dirname, '../../.env')
@@ -22,10 +25,15 @@ const initSeque = () => {
     throw new Error('环境变量不存在')
   }
 
-  const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  const sequelize = new Sequelize({
+    database: DB_NAME,
+    dialect: 'mysql',
     host: DB_HOST,
     port: parseInt(DB_PORT),
-    dialect: 'mysql'
+    username: DB_USER,
+    password: DB_PASSWORD,
+    storage: ':memory:',
+    models: [UserModel, JobModel, ReferModel, ResumeModel],
   })
 
   // Test connection
@@ -34,32 +42,6 @@ const initSeque = () => {
     .catch((error) => console.log('无法连接数据库: ', error))
 
   return sequelize
-}
-
-const parseModels = (sequelize: Sequelize) => {
-  const basename = path.basename(__filename)
-  const db: any = {}
-
-  fs
-    .readdirSync(__dirname)
-    .filter(file => {
-      return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.ts')
-    })
-    .forEach(file => {
-      const model = sequelize['import'](path.join(__dirname, file))
-      db[model.name] = model
-    })
-
-  Object.keys(db).forEach(modelName => {
-    if (db[modelName].associate) {
-      db[modelName].associate(db)
-    }
-  })
-
-  db.sequelize = sequelize
-  db.Sequelize = Sequelize
-
-  return db
 }
 
 // 同步 users 表
@@ -71,7 +53,6 @@ const syncDB = async (sequelize: Sequelize) => {
 // 开始读入 Model
 parseEnv()
 const sequelize = initSeque()
-const db = parseModels(sequelize)
 syncDB(sequelize).then(() => console.log('成功同步数据库'))
 
-export default db
+export default sequelize

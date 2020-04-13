@@ -29,7 +29,9 @@
     "mysql2": "^2.1.0",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.5.1",
+    "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.6",
+    "sequelize-typescript": "^1.1.0",
     "v-charts": "^1.19.0",
     "vuex-class": "^0.3.2"
   },

@@ -1,32 +1,36 @@
-import {InitOptions, Model, ModelAttributes} from 'sequelize'
-import {Sequelize} from 'sequelize/types/lib/sequelize'
+import {DataTypes} from 'sequelize'
+import {AllowNull, BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table, Unique} from 'sequelize-typescript'
+import UserModel from './UserModel'
+import ReferModel from './ReferModel'
 
-export class ResumeModel extends Model {
-  public static associate(db: any) {
-    db.Resume.belongsTo(db.User)
-    db.Resume.belongsTo(db.Refer)
-  }
+@Table
+class ResumeModel extends Model<ResumeModel> {
+  // 字段
+  @Unique
+  @AllowNull(false)
+  @PrimaryKey
+  @Column(DataTypes.UUID)
+  public resumeId!: string
+
+  @Column(DataTypes.STRING)
+  public name!: string | null
+
+  @Column(DataTypes.STRING)
+  public url!: string | null
+
+  // 外键
+  @ForeignKey(() => UserModel)
+  public readonly refereeId!: string
+
+  @ForeignKey(() => ReferModel)
+  public readonly referId!: string
+
+  // 关系
+  @BelongsTo(() => UserModel)
+  public readonly referee?: UserModel
+
+  @BelongsTo(() => ReferModel)
+  public readonly refer?: ReferModel
 }
 
-export default function (sequelize: Sequelize, DataTypes: any) {
-  const options: InitOptions = {
-    sequelize,
-    modelName: 'Resume',
-    tableName: 'resumes'
-  }
-
-  const attributes: ModelAttributes = {
-    resumeId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      unique: true,
-      primaryKey: true
-    },
-    name: DataTypes.STRING,
-    url: DataTypes.STRING
-  }
-
-  ResumeModel.init(attributes, options)
-
-  return ResumeModel
-}
+export default ResumeModel
