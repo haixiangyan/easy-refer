@@ -1,5 +1,16 @@
 import {DataTypes} from 'sequelize'
-import {AllowNull, BelongsTo, Column, ForeignKey, HasOne, Model, PrimaryKey, Table, Unique} from 'sequelize-typescript'
+import {
+  AllowNull,
+  BelongsTo,
+  Column,
+  Default,
+  ForeignKey,
+  HasOne,
+  Model,
+  PrimaryKey,
+  Table,
+  Unique
+} from 'sequelize-typescript'
 import ResumeModel from './ResumeModel'
 import JobModel from './JobModel'
 import UserModel from './UserModel'
@@ -39,6 +50,10 @@ class ReferModel extends Model<ReferModel> {
 
   @Column(DataTypes.STRING)
   public status!: string | null
+
+  @Default(new Date())
+  @Column(DataTypes.DATE)
+  public updateOn!: Date | null
 
   // 外键
   @ForeignKey(() => ResumeModel)

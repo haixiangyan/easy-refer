@@ -18,8 +18,8 @@ class JobModel extends Model<JobModel> {
   @Column(DataTypes.STRING)
   public requiredFields!: string | null
 
-  @Column(DataTypes.STRING)
-  public deadline!: string | null
+  @Column(DataTypes.DATE)
+  public deadline!: Date | null
 
   @Column(DataTypes.INTEGER)
   public expiration!: number | null
