@@ -1,16 +1,16 @@
 import {InitOptions, Model, ModelAttributes} from 'sequelize'
 import {Sequelize} from 'sequelize/types/lib/sequelize'
 
-export default function (sequelize: Sequelize, DataTypes: any) {
-  class ReferModel extends Model {
-    public static associate(models: any) {
-      models.Refer.hasOne(models.Resume)
-      models.Refer.belongsTo(models.Job)
-      models.Refer.belongsTo(models.User, {as: 'referer'})
-      models.Refer.belongsTo(models.User, {as: 'referee'})
-    }
+export class ReferModel extends Model {
+  public static associate(db: any) {
+    db.Refer.hasOne(db.Resume)
+    db.Refer.belongsTo(db.Job)
+    db.Refer.belongsTo(db.User, {as: 'referer'})
+    db.Refer.belongsTo(db.User, {as: 'referee'})
   }
+}
 
+export default function (sequelize: Sequelize, DataTypes: any) {
   const options: InitOptions = {
     sequelize,
     modelName: 'Refer',

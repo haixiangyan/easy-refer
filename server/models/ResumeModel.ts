@@ -1,14 +1,14 @@
 import {InitOptions, Model, ModelAttributes} from 'sequelize'
 import {Sequelize} from 'sequelize/types/lib/sequelize'
 
-export default function (sequelize: Sequelize, DataTypes: any) {
-  class ResumeModel extends Model {
-    public static associate(models: any) {
-      models.Resume.belongsTo(models.User)
-      models.Resume.belongsTo(models.Refer)
-    }
+export class ResumeModel extends Model {
+  public static associate(db: any) {
+    db.Resume.belongsTo(db.User)
+    db.Resume.belongsTo(db.Refer)
   }
+}
 
+export default function (sequelize: Sequelize, DataTypes: any) {
   const options: InitOptions = {
     sequelize,
     modelName: 'Resume',
