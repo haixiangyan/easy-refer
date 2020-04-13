@@ -18,7 +18,7 @@ const parseEnv = () => {
 }
 
 // 创建连接实例
-const initSeque = () => {
+const initDB = () => {
   const {DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD} = process.env
 
   if (!DB_HOST || !DB_PORT || !DB_NAME || !DB_USER || !DB_PASSWORD) {
@@ -52,7 +52,7 @@ const syncDB = async (sequelize: Sequelize) => {
 
 // 开始读入 Model
 parseEnv()
-const sequelize = initSeque()
-syncDB(sequelize).then(() => console.log('成功同步数据库'))
+const db = initDB()
+syncDB(db).then(() => console.log('成功同步数据库'))
 
-export default sequelize
+export default db
