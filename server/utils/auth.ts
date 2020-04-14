@@ -11,8 +11,7 @@ export const generateJWT = (userId: string) => {
   return jwt.sign({
     userId
   }, JWT_SECRET, {
-    expiresIn: '1m',
-
-    algorithm: 'HS256'
+    algorithm: 'HS256',
+    expiresIn: '1m'
   })
 }

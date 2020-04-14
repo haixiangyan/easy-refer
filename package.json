@@ -17,6 +17,7 @@
     "@nuxtjs/auth": "^4.9.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "body-parser": "^1.19.0",
     "clipboard": "^2.0.6",
     "connect-history-api-fallback": "^1.6.0",
     "consola": "^2.11.3",

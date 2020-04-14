@@ -1,6 +1,7 @@
 import express from 'express'
 import consola from 'consola'
 import history from 'connect-history-api-fallback'
+import bodyParser from 'body-parser'
 // 路由
 import JobsRouter from './routes/jobs'
 import RefersRouter from './routes/refers'
@@ -18,10 +19,14 @@ const {Nuxt, Builder} = require('nuxt')
 
 config.dev = process.env.NODE_ENV !== 'production'
 
+// Body parser
+const jsonParser = bodyParser.json()
+
 const app = express()
 
 app.use(history())
-app.use('/api/auth', AuthRouter)
+
+app.use('/api/auth', jsonParser, AuthRouter)
 app.use('/api/jobs', JobsRouter)
 app.use('/api/refers', RefersRouter)
 app.use('/api/resumes', ResumesRouter)
