@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import path from 'path'
+import winston, {Logger} from 'winston'
 import {Sequelize} from 'sequelize-typescript'
 import UserModel from './UserModel'
 import JobModel from './JobModel'
@@ -17,8 +18,29 @@ const parseEnv = () => {
   }
 }
 
+// 创建 Winston Logger
+const initLogger = () => {
+  const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    defaultMeta: {service: 'user-service'},
+    transports: [
+      new winston.transports.File({filename: 'error.log', level: 'error'}),
+      new winston.transports.File({filename: 'combined.log'})
+    ]
+  })
+
+  if (process.env.NODE_ENV !== 'production') {
+    logger.add(new winston.transports.Console({
+      format: winston.format.simple()
+    }))
+  }
+
+  return logger
+}
+
 // 创建连接实例
-const initDB = () => {
+const initDB = (logger: Logger) => {
   const {DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD} = process.env
 
   if (!DB_HOST || !DB_PORT || !DB_NAME || !DB_USER || !DB_PASSWORD) {
@@ -34,6 +56,7 @@ const initDB = () => {
     password: DB_PASSWORD,
     storage: ':memory:',
     models: [UserModel, JobModel, ReferModel, ResumeModel],
+    logging: msg => logger.info(msg),
   })
 
   // Test connection
@@ -46,7 +69,8 @@ const initDB = () => {
 
 // 开始读入 Model
 parseEnv()
-const db = initDB()
+const logger = initLogger()
+const db = initDB(logger)
 db.sync({force: true}).then(() => console.log('成功同步数据库'))
 
 export default db
