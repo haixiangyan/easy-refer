@@ -44,15 +44,9 @@ const initDB = () => {
   return sequelize
 }
 
-// 同步 users 表
-const syncDB = async (sequelize: Sequelize) => {
-  await sequelize.sync({force: true})
-  await sequelize.close()
-}
-
 // 开始读入 Model
 parseEnv()
 const db = initDB()
-syncDB(db).then(() => console.log('成功同步数据库'))
+db.sync({force: true}).then(() => console.log('成功同步数据库'))
 
 export default db

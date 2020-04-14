@@ -3,7 +3,7 @@ import UserModel from './UserModel'
 import ReferModel from './ReferModel'
 import {AllowNull, BelongsTo, Column, ForeignKey, HasMany, Model, PrimaryKey, Table, Unique} from 'sequelize-typescript'
 
-@Table
+@Table({tableName: 'jobs'})
 class JobModel extends Model<JobModel> {
   // 字段
   @Unique
@@ -32,10 +32,7 @@ class JobModel extends Model<JobModel> {
 
   // 外键
   @ForeignKey(() => UserModel)
-  public readonly refererId!: string
-
-  @ForeignKey(() => ReferModel)
-  public readonly referId!: string
+  public readonly refererId!: string | null
 
   // 关系
   @BelongsTo(() => UserModel)

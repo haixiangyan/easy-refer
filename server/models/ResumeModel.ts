@@ -3,7 +3,7 @@ import {AllowNull, BelongsTo, Column, ForeignKey, Model, PrimaryKey, Table, Uniq
 import UserModel from './UserModel'
 import ReferModel from './ReferModel'
 
-@Table
+@Table({tableName: 'resumes'})
 class ResumeModel extends Model<ResumeModel> {
   // 字段
   @Unique
@@ -20,10 +20,10 @@ class ResumeModel extends Model<ResumeModel> {
 
   // 外键
   @ForeignKey(() => UserModel)
-  public readonly refereeId!: string
+  public readonly refereeId!: string | null
 
   @ForeignKey(() => ReferModel)
-  public readonly referId!: string
+  public readonly referId!: string | null
 
   // 关系
   @BelongsTo(() => UserModel)

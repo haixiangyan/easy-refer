@@ -15,7 +15,7 @@ import ResumeModel from './ResumeModel'
 import JobModel from './JobModel'
 import UserModel from './UserModel'
 
-@Table
+@Table({tableName: 'refers'})
 class ReferModel extends Model<ReferModel> {
   // 字段
   @Unique
@@ -57,7 +57,7 @@ class ReferModel extends Model<ReferModel> {
 
   // 外键
   @ForeignKey(() => ResumeModel)
-  public readonly resumeId!: string
+  public readonly resumeId!: string | null
 
   @ForeignKey(() => JobModel)
   public readonly jobId!: string

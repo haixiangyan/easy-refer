@@ -15,7 +15,7 @@ import JobModel from './JobModel'
 import ReferModel from './ReferModel'
 import ResumeModel from './ResumeModel'
 
-@Table
+@Table({tableName: 'users'})
 class UserModel extends Model<UserModel> {
   // 字段
   @Unique
@@ -53,15 +53,7 @@ class UserModel extends Model<UserModel> {
   // 外键
   @ForeignKey(() => JobModel)
   @Column(DataTypes.UUID)
-  public readonly jobId!: string
-
-  @ForeignKey(() => ReferModel)
-  @Column(DataTypes.UUID)
-  public readonly referId!: string
-
-  @ForeignKey(() => ResumeModel)
-  @Column(DataTypes.UUID)
-  public readonly resumeId!: string
+  public readonly jobId!: string | null
 
   // 关系
   @HasOne(() => JobModel)
