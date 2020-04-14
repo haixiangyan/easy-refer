@@ -1,22 +1,10 @@
-import dotenv from 'dotenv'
-import path from 'path'
 import winston, {Logger} from 'winston'
 import {Sequelize} from 'sequelize-typescript'
 import UserModel from './UserModel'
 import JobModel from './JobModel'
 import ReferModel from './ReferModel'
 import ResumeModel from './ResumeModel'
-// 解析 .env 文件
-const parseEnv = () => {
-  const envPath = path.resolve(__dirname, '../../.env')
-  const result = dotenv.config({
-    path: envPath
-  })
-
-  if (result.error) {
-    throw result.error
-  }
-}
+import {parseEnv} from '../../utils/config'
 
 // 创建 Winston Logger
 const initLogger = () => {
