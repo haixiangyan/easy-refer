@@ -53,7 +53,7 @@ class ReferModel extends Model<ReferModel> {
 
   @Default(new Date())
   @Column(DataTypes.DATE)
-  public updateOn!: Date | null
+  public updatedOn!: Date | null
 
   // 外键
   @ForeignKey(() => ResumeModel)

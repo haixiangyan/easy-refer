@@ -71,6 +71,5 @@ const initDB = (logger: Logger) => {
 parseEnv()
 const logger = initLogger()
 const db = initDB(logger)
-db.sync({force: true}).then(() => console.log('成功同步数据库'))
 
 export default db

@@ -24,6 +24,9 @@ class UserModel extends Model<UserModel> {
   @Column(DataTypes.UUID)
   public userId!: string
 
+  @Column(DataTypes.STRING)
+  public password!: string
+
   @Unique
   @Column(DataTypes.STRING)
   public email!: string

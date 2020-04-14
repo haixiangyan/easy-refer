@@ -8,6 +8,9 @@ import AuthRouter from './routes/auth'
 import ResumesRouter from './routes/resumes'
 import UploadRouter from './routes/upload'
 import UsersRouter from './routes/users'
+// 数据库
+import db from './models/db'
+import {initMockDB} from './mocks/dbObjects'
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config')
@@ -25,11 +28,11 @@ app.use('/api/resumes', ResumesRouter)
 app.use('/api/upload', UploadRouter)
 app.use('/api/users', UsersRouter)
 
-async function start () {
-  // Init Nuxt.js
+async function start() {
+  // 初始化 Nuxt
   const nuxt = new Nuxt(config)
 
-  const { host, port } = nuxt.options.server
+  const {host, port} = nuxt.options.server
 
   await nuxt.ready()
   // Build only in dev mode
@@ -37,6 +40,10 @@ async function start () {
     const builder = new Builder(nuxt)
     await builder.build()
   }
+
+  // 重置数据库
+  await db.sync({force: config.dev})
+  config.dev && await initMockDB()
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
