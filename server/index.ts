@@ -29,6 +29,10 @@ app.use('/api/upload', UploadRouter)
 app.use('/api/users', UsersRouter)
 
 async function start() {
+  // 重置数据库
+  await db.sync({force: config.dev})
+  config.dev && await initMockDB()
+
   // 初始化 Nuxt
   const nuxt = new Nuxt(config)
 
@@ -40,10 +44,6 @@ async function start() {
     const builder = new Builder(nuxt)
     await builder.build()
   }
-
-  // 重置数据库
-  await db.sync({force: config.dev})
-  config.dev && await initMockDB()
 
   // Give nuxt middleware to express
   app.use(nuxt.render)

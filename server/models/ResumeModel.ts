@@ -23,7 +23,7 @@ class ResumeModel extends Model<ResumeModel> {
   public readonly refereeId!: string | null
 
   @ForeignKey(() => ReferModel)
-  public readonly referId!: string | null
+  public referId!: string | null
 
   // 关系
   @BelongsTo(() => UserModel)

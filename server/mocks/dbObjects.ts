@@ -71,13 +71,25 @@ export const resumes = [
     name: '李四的简历.pdf',
     url: 'https://user-2.pdf',
     refereeId: 'user-2',
-    referId: 'refer-2'
+    referId: null
   }
 ]
 
 export const initMockDB = async () => {
-  users.forEach(user => UserModel.create(user))
-  jobs.forEach(job => JobModel.create(job))
-  resumes.forEach(resume => ResumeModel.create(resume))
-  refers.forEach(refer => ReferModel.create(refer))
+  const [user1, user2] = users
+  await UserModel.create(user1)
+  await UserModel.create(user2)
+
+  const [job1] = jobs
+  await JobModel.create(job1)
+
+  const [resume2] = resumes
+  const memoryResume = await ResumeModel.create(resume2)
+
+  const [refer2] = refers
+  await ReferModel.create(refer2)
+
+  memoryResume.referId = 'refer-2'
+
+  console.log('成功将假数据存入数据库')
 }
