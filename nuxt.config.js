@@ -58,8 +58,13 @@ module.exports = {
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         '@nuxtjs/pwa',
-        '@nuxtjs/style-resources'
+        '@nuxtjs/style-resources',
+        '@nuxtjs/proxy',
     ],
+    /**
+     * 配置代理
+     */
+    proxy: ['http://localhost:4000/api'],
     /*
     ** Axios module configuration
     ** See https://axios.nuxtjs.org/options

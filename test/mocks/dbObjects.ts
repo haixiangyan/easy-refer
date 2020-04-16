@@ -1,8 +1,4 @@
 import dayjs from 'dayjs'
-import UserModel from '../models/UserModel'
-import JobModel from '../models/JobModel'
-import ReferModel from '../models/ReferModel'
-import ResumeModel from '../models/ResumeModel'
 
 export const users = [
   {
@@ -74,22 +70,3 @@ export const resumes = [
     referId: null
   }
 ]
-
-export const initMockDB = async () => {
-  const [user1, user2] = users
-  await UserModel.create(user1)
-  await UserModel.create(user2)
-
-  const [job1] = jobs
-  await JobModel.create(job1)
-
-  const [resume2] = resumes
-  const memoryResume = await ResumeModel.create(resume2)
-
-  const [refer2] = refers
-  await ReferModel.create(refer2)
-
-  memoryResume.referId = 'refer-2'
-
-  console.log('成功将假数据存入数据库')
-}

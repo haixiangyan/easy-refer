@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 import Element from 'element-ui'
 import {shallowMount, createLocalVue} from '@vue/test-utils'
 import Intro from '@/components/Intro.vue'
-import {User} from '@/server/mocks/objects'
+import {User} from '@/test/mocks/objects'
 
 // 创建 $auth.user
 const localVue = createLocalVue()
