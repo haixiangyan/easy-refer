@@ -24,6 +24,5 @@ type TUserForm = TMapper & {
   phone: string
   leetCodeUrl: string
   thirdPersonIntro: string
-  resumeId: string
   avatarUrl: string
 }

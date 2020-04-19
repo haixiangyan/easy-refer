@@ -72,7 +72,6 @@
       leetCodeUrl: '',
       name: '',
       phone: '',
-      resumeId: '',
       thirdPersonIntro: ''
     }
     resume: TResume = {
@@ -102,8 +101,7 @@
     }
 
     async loadResume() {
-      const {resumeId} = this.userInfo.resume
-      this.resume = await this.$axios.$get(`/resumes/${resumeId}`)
+      this.resume = {...this.$auth.user.resume}
     }
 
     uploaded(resume: IUploadResume) {
