@@ -83,7 +83,7 @@
     rules = EDIT_USER_RULES
     field = getFieldName
 
-    get user() {
+    get userInfo() {
       return this.$auth.user.info
     }
     get levels() {
@@ -97,12 +97,13 @@
 
     initForm() {
       Object.keys(this.form).forEach((key: string) => {
-        this.form[key] = this.user[key]
+        this.form[key] = this.userInfo[key]
       })
     }
 
     async loadResume() {
-      this.resume = await this.$axios.$get(`/resumes/${this.user.resumeId}`)
+      const {resumeId} = this.userInfo.resume
+      this.resume = await this.$axios.$get(`/resumes/${resumeId}`)
     }
 
     uploaded(resume: IUploadResume) {

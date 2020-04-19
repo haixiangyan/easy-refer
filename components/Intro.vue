@@ -2,20 +2,20 @@
     <div class="intro">
         <div class="avatar">
             <nuxt-link to="/user">
-                <el-avatar :src="user.avatarUrl" :size="100"/>
+                <el-avatar :src="userInfo.avatarUrl" :size="100"/>
             </nuxt-link>
             <nuxt-link to="/user" tag="p">
-                <el-link class="name">{{user.name}}</el-link>
+                <el-link class="name">{{userInfo.name}}</el-link>
             </nuxt-link>
         </div>
         <el-row class="analysis">
             <el-col :span="12" class="approved">
-                <p class="number">{{user.approvedMyReferCount}} / {{user.myReferTotal}}</p>
+                <p class="number">{{userInfo.approvedMyReferCount}} / {{userInfo.myReferTotal}}</p>
                 <p class="description">已完成的内推</p>
                 <p class="rate">{{approvedRate}}%</p>
             </el-col>
             <div :span="12" class="refer">
-                <p class="number">{{user.approvedOtherReferCount}} / {{user.otherReferTotal}}</p>
+                <p class="number">{{userInfo.approvedOtherReferCount}} / {{userInfo.otherReferTotal}}</p>
                 <p class="description">已处理的简历</p>
                 <p class="rate">{{referRate}}%</p>
             </div>
@@ -26,24 +26,24 @@
                    查看内推状态
                 </el-button>
             </nuxt-link>
-            <nuxt-link :to="user.jobId ? `/job/edit` : '/job/add'" tag="div">
+            <nuxt-link :to="userInfo.jobId ? `/job/edit` : '/job/add'" tag="div">
                 <el-button class="button"
                            type="primary"
-                           :icon="user.jobId ? 'el-icon-edit' : 'el-icon-plus'"
+                           :icon="userInfo.jobId ? 'el-icon-edit' : 'el-icon-plus'"
                            :round="true">
-                    {{user.jobId ? '修改' : '发布'}}内推职位
+                    {{userInfo.jobId ? '修改' : '发布'}}内推职位
                 </el-button>
             </nuxt-link>
         </div>
-        <div v-if="user.jobId !== ''" class="link">
-            <el-tooltip effect="dark" :content="`/refer/apply/${user.jobId}`" placement="bottom">
-                <nuxt-link :to="`/refer/apply/${user.jobId}`" >
+        <div v-if="userInfo.jobId !== ''" class="link">
+            <el-tooltip effect="dark" :content="`/refer/apply/${userInfo.jobId}`" placement="bottom">
+                <nuxt-link :to="`/refer/apply/${userInfo.jobId}`" >
                     <el-link type="primary">我的内推Link</el-link>
                 </nuxt-link>
             </el-tooltip>
             <el-tooltip effect="dark" :content="copyText" placement="bottom">
                 <i class="el-icon-document-copy copy-icon"
-                   :data-clipboard-text="`/apply-refer/${user.jobId}`"/>
+                   :data-clipboard-text="`/apply-refer/${userInfo.jobId}`"/>
             </el-tooltip>
         </div>
     </div>
@@ -59,14 +59,14 @@
     copyText = '复制Link'
     clipboard: Clipboard | null = new Clipboard('.copy-icon')
 
-    get user(): TUser {
+    get userInfo(): TUser {
       return this.$auth.user.info
     }
     get approvedRate() {
-      return this.calculateRate(this.user.approvedMyReferCount, this.user.myReferTotal)
+      return this.calculateRate(this.userInfo.approvedMyReferCount, this.userInfo.myReferTotal)
     }
     get referRate() {
-      return this.calculateRate(this.user.approvedOtherReferCount, this.user.otherReferTotal)
+      return this.calculateRate(this.userInfo.approvedOtherReferCount, this.userInfo.otherReferTotal)
     }
 
     mounted() {

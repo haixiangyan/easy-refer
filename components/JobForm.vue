@@ -9,7 +9,7 @@
             <el-input v-model="form.company" placeholder="内推的公司"></el-input>
         </el-form-item>
         <el-form-item required label="内推人">
-            <el-input disabled :value="user.name" placeholder="请输入你的名字"></el-input>
+            <el-input disabled :value="userInfo.name" placeholder="请输入你的名字"></el-input>
         </el-form-item>
         <el-form-item required label="必填内容">
             <el-select
@@ -49,7 +49,7 @@
 
         <div class="publish">
             <el-button class="publish-button" @click="submit" type="primary" round>
-                {{user.jobId ? '修改内推' : '发布内推'}}
+                {{job.jobId ? '修改内推' : '发布内推'}}
             </el-button>
             <nuxt-link to="/job/list" tag="span">
                 <el-button type="danger" round>放弃编辑</el-button>
@@ -90,7 +90,7 @@
     }
     rules = JOB_RULES
 
-    get user() {
+    get userInfo() {
       return this.$auth.user.info
     }
     get job() {
@@ -101,7 +101,7 @@
     }
 
     mounted() {
-      this.user.jobId && this.loadJob()
+      this.job.jobId && this.loadJob()
     }
 
     async loadJob() {

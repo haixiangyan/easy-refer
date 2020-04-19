@@ -96,7 +96,7 @@
       this.initForm()
     }
 
-    get user() {
+    get userInfo() {
       return this.$auth.user.info
     }
     get levels() {
@@ -147,8 +147,8 @@
       if (this.$auth.loggedIn) {
         this.resume = {...this.$auth.user.resume}
         return Object.keys(this.form).forEach((key: string) => {
-          if (key in this.user!) {
-            this.form[key] = this.user![key]
+          if (key in this.userInfo!) {
+            this.form[key] = this.userInfo![key]
           }
         })
       }
