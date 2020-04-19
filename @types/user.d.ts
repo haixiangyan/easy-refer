@@ -10,10 +10,10 @@ type TUser = {
   thirdPersonIntro: string
   resumeId: string
   avatarUrl: string
-  finishedRefers: number,
-  totalRefers: number,
-  finishedResumes: number,
-  totalResumes: number
+  myReferTotal: number,
+  approvedMyReferCount: number,
+  otherReferTotal: number,
+  approvedOtherReferCount: number
 }
 
 type TUserForm = TMapper & {

@@ -81,12 +81,12 @@ module.exports = {
         strategies: {
             local: {
                 endpoints: {
-                    login: { url: '/auth/login', method: 'post', propertyName: 'token' },
-                    logout: { url: '/auth/logout', method: 'post' },
-                    user: { url: '/auth/user', method: 'get', propertyName: false }
+                    login: {url: '/auth/login', method: 'post', propertyName: 'token'},
+                    logout: false,
+                    user: {url: '/auth/user', method: 'get', propertyName: false}
                 },
-                // tokenRequired: true,
-                tokenType: 'bearer',
+                tokenRequired: true,
+                tokenType: '',
                 // autoFetchUser: true
             }
         }

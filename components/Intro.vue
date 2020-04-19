@@ -10,12 +10,12 @@
         </div>
         <el-row class="analysis">
             <el-col :span="12" class="approved">
-                <p class="number">{{user.finishedRefers}} / {{user.totalRefers}}</p>
+                <p class="number">{{user.approvedMyReferCount}} / {{user.myReferTotal}}</p>
                 <p class="description">已完成的内推</p>
                 <p class="rate">{{approvedRate}}%</p>
             </el-col>
             <div :span="12" class="refer">
-                <p class="number">{{user.finishedResumes}} / {{user.totalResumes}}</p>
+                <p class="number">{{user.approvedOtherReferCount}} / {{user.otherReferTotal}}</p>
                 <p class="description">已处理的简历</p>
                 <p class="rate">{{referRate}}%</p>
             </div>
@@ -59,14 +59,14 @@
     copyText = '复制Link'
     clipboard: Clipboard | null = new Clipboard('.copy-icon')
 
-    get user() {
+    get user(): TUser {
       return this.$auth.user.info
     }
-    get referRate() {
-      return this.calculateRate(this.user.finishedRefers, this.user.totalRefers)
-    }
     get approvedRate() {
-      return this.calculateRate(this.user.finishedResumes, this.user.totalResumes)
+      return this.calculateRate(this.user.approvedMyReferCount, this.user.myReferTotal)
+    }
+    get referRate() {
+      return this.calculateRate(this.user.approvedOtherReferCount, this.user.otherReferTotal)
     }
 
     mounted() {
@@ -85,7 +85,7 @@
     }
 
     calculateRate(current: number, total: number): string {
-      return total === 0 ? "0" : (current / total * 100).toFixed(2)
+      return total === 0 ? "0.00" : (current / total * 100).toFixed(2)
     }
   }
 </script>

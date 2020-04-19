@@ -39,14 +39,16 @@
     fields = ['email', 'name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro']
 
     get userTable() {
-      return !this.$auth.loggedIn ? [] : [
-        ...Object.entries(this.$auth.user.info)
+      const {loggedIn, user} = this.$auth
+      const resumeUrl = user.resume === null ? '' : user.resume.url
+      return !loggedIn ? [] : [
+        ...Object.entries(user.info)
           .filter(([key, _]) => this.fields.includes(key))
           .map(([key, value]) => ({
             key: REFER_FIELDS_MAPPER[key],
             value: key === 'experience' ? LEVEL_MAPPER[value as number] : value
           })),
-        {key: REFER_FIELDS_MAPPER.resumeUrl, value: this.$auth.user.resume.url}
+        {key: REFER_FIELDS_MAPPER.resumeUrl, value: resumeUrl}
       ]
     }
   }

@@ -84,23 +84,23 @@ describe('Intro', () => {
       stubs: ['nuxt-link']
     })
 
-    const referRate = (user.finishedRefers / user.totalRefers * 100).toFixed(2) + '%'
-    const approvedRate = (user.finishedResumes / user.totalResumes * 100).toFixed(2) + '%'
+    const referRate = (user.approvedOtherReferCount / user.otherReferTotal * 100).toFixed(2) + '%'
+    const approvedRate = (user.approvedMyReferCount / user.myReferTotal * 100).toFixed(2) + '%'
     expect(wrapper.findAll('.refer p').at(2).text()).toEqual(referRate)
     expect(wrapper.findAll('.approved p').at(2).text()).toEqual(approvedRate)
   })
-  it('总数为0返回0', () => {
+  it('总数为0返回0.00%', () => {
     const wrapper = shallowMount(Intro, {
       localVue,
       mocks: {
         $auth: {
           loggedIn: true,
-          user: {info: {...user, totalRefers: 0}}
+          user: {info: {...user, otherReferTotal: 0}}
         }
       },
       stubs: ['nuxt-link']
     })
 
-    expect(wrapper.findAll('.refer p').at(2).text()).toEqual('0%')
+    expect(wrapper.findAll('.refer p').at(2).text()).toEqual('0.00%')
   })
 })
