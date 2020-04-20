@@ -18,6 +18,8 @@
 
       this.$message.success('已修改该职位')
 
+      await this.$auth.fetchUser()
+
       await this.$router.push('/job/list')
     }
   }

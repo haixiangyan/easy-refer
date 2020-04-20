@@ -29,7 +29,7 @@
                     <el-button size="small" type="primary">申请内推</el-button>
                 </nuxt-link>
             </div>
-            <ReferredLineChart class="chart" v-if="jobItem" :data-source="finishedChartData"/>
+            <ReferredLineChart class="chart" v-if="jobItem" :data-source="jobItem.finishedChart"/>
         </el-col>
     </el-row>
 </template>
@@ -57,17 +57,9 @@
       return dayjs(this.jobItem.deadline).format(DATETIME_FORMAT)
     }
 
-    get finishedChartData() {
-      return this.jobItem.finishedChart
-        .map(({date, count}) => ({
-          date: dayjs(date).format(DATETIME_FORMAT),
-          count
-        }))
-    }
-
     get referredPercentage() {
       const {referredCount, referTotal} = this.jobItem
-      return referTotal === 0 ? 0 : parseFloat((referredCount / referTotal * 100).toFixed(2))
+      return referTotal === 0 ? 0.00 : parseFloat((referredCount / referTotal * 100).toFixed(2))
     }
 
     get referredProgress() {
@@ -120,6 +112,7 @@
 
         .refer-status {
             text-align: right;
+
             .apply-refer {
                 margin-bottom: 8px;
             }
