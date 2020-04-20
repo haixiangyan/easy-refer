@@ -44,7 +44,7 @@
     }
 
     async edit(form: TReferForm) {
-      await this.$axios.$put(`/refers/${this.referId}`, form)
+      await this.$axios.$patch(`/refers/${this.referId}`, form)
 
       this.$message.success('已修改内推信息')
 

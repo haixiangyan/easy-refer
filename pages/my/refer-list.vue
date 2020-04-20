@@ -5,11 +5,11 @@
         </div>
         <div class="pages">
             <el-pagination
-                v-show="totalPages !== 0"
+                v-show="total !== 0"
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
-                :total="totalPages">
+                :total="total">
             </el-pagination>
         </div>
     </div>
@@ -26,7 +26,8 @@
   export default class extends Vue {
     refers: TMyRefer[] = []
     page: number = 0
-    totalPages: number = 0
+    limit: number = 10
+    total: number = 0
 
     mounted() {
       this.loadRefers(this.page)
@@ -34,15 +35,11 @@
 
     async loadRefers(page: number) {
       const data = await this.$axios.$get('/refers', {
-        params: {
-          role: 'my',
-          page,
-          limit: 10
-        }
+        params: {role: 'my', page, limit: this.limit}
       })
 
       this.refers = data.referList as TMyRefer[]
-      this.totalPages = data.totalPages
+      this.total = data.total
     }
 
     @Watch('page')

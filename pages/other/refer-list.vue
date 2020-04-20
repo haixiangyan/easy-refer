@@ -1,7 +1,7 @@
 <template>
     <div>
         <el-table :data="refers" style="width: 100%">
-            <el-table-column prop="referer.name" label="姓名" width="180"/>
+            <el-table-column prop="name" label="姓名" width="180"/>
             <el-table-column prop="createdAt" label="提交日期" width="180">
                 <template slot-scope="scope">
                     {{getCreatedAt(scope.row.createdAt)}}
@@ -22,11 +22,11 @@
         </el-table>
         <div class="pages">
             <el-pagination
-                v-show="totalPages !== 0"
+                v-show="total !== 0"
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
-                :total="totalPages">
+                :total="total">
             </el-pagination>
         </div>
     </div>
@@ -43,7 +43,8 @@
   export default class extends Vue {
     refers: TOtherRefer[] = []
     page: number = 1
-    totalPages: number = 0
+    limit: number = 10
+    total: number = 0
 
     mounted() {
       this.loadOtherReferList(this.page)
@@ -59,15 +60,12 @@
 
     async loadOtherReferList(page: number) {
       const data = await this.$axios.$get('/refers', {
-        params: {
-          role: 'other',
-          page,
-          limit: 10
-        }
+        params: {role: 'other', page, limit: this.limit}
       })
 
       this.refers = data.referList as TOtherRefer[]
-      this.totalPages = data.totalPages
+      console.log(this.refers)
+      this.total = data.total
     }
 
     @Watch('page')
