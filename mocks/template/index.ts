@@ -31,6 +31,7 @@ export const Resume = {
   url: '@URL',
   name: '@URL'
 }
+
 export const Job = {
   jobId: '@ID',
   refererId: '@ID',
