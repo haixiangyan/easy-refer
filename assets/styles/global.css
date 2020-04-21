@@ -15,3 +15,7 @@ html, body, #__nuxt, #__layout {
   fill: currentColor;
   overflow: hidden;
 }
+
+.el-upload.el-upload--text {
+    text-align: left;
+}
