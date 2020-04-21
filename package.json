@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.ts --watch server",
+    "mock-server": "ts-node mocks/server.ts",
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production ts-node server/index.ts",
     "generate": "nuxt generate",
