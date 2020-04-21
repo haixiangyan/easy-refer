@@ -30,6 +30,7 @@
         <el-form-item :label="field('resumeUrl')">
             <el-upload
                 action="/api/upload/resume"
+                :headers="{Authorization: $auth.getToken('local')}"
                 :on-success="uploaded"
                 :on-change="uploading"
                 :on-error="() => this.$message.error('上传失败')"
