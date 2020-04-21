@@ -1,6 +1,6 @@
 import express from 'express'
 import Mock from 'mockjs'
-import {User, Job, Resume} from '../mocks/objects'
+import {User, Job, Resume} from '../template'
 
 // '/auth'
 const AuthRouter = express.Router()

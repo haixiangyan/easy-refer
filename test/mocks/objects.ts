@@ -21,10 +21,10 @@ export const User = {
   thirdPersonIntro: '@PARAGRAPH',
   resumeId: '@ID',
   avatarUrl: `@IMAGE('100x100', '#ffbbaa', 'Avatar')`,
-  finishedRefers: '@NATURAL(10, 100)',
-  totalRefers: '@NATURAL(100, 300)',
-  finishedResumes: '@NATURAL(10, 100)',
-  totalResumes: '@NATURAL(100, 300)',
+  approvedMyReferCount: '@NATURAL(10, 100)',
+  myReferTotal: '@NATURAL(100, 300)',
+  approvedOtherReferCount: '@NATURAL(10, 100)',
+  otherReferTotal: '@NATURAL(100, 300)',
 }
 export const Resume = {
   resumeId: '@ID',

@@ -58,8 +58,13 @@ module.exports = {
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         '@nuxtjs/pwa',
-        '@nuxtjs/style-resources'
+        '@nuxtjs/style-resources',
+        '@nuxtjs/proxy',
     ],
+    /**
+     * 配置代理
+     */
+    proxy: ['http://localhost:4000/api'],
     /*
     ** Axios module configuration
     ** See https://axios.nuxtjs.org/options
@@ -76,12 +81,12 @@ module.exports = {
         strategies: {
             local: {
                 endpoints: {
-                    login: { url: '/auth/login', method: 'post', propertyName: 'token' },
-                    logout: { url: '/auth/logout', method: 'post' },
-                    user: { url: '/auth/user', method: 'get', propertyName: false }
+                    login: {url: '/auth/login', method: 'post', propertyName: 'token'},
+                    logout: false,
+                    user: {url: '/auth/user', method: 'get', propertyName: false}
                 },
-                // tokenRequired: true,
-                tokenType: 'bearer',
+                tokenRequired: true,
+                tokenType: '',
                 // autoFetchUser: true
             }
         }

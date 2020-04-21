@@ -17,7 +17,7 @@
                 <i class="el-icon-s-order"></i>
                 <span slot="title">内推进度</span>
             </el-menu-item>
-            <el-menu-item :disabled="$auth.loggedIn && $auth.user.job.jobId === ''" index="/other/refer-list">
+            <el-menu-item :disabled="$auth.loggedIn && $auth.user.job === null" index="/other/refer-list">
                 <i class="el-icon-s-cooperation"></i>
                 <span slot="title">处理内推</span>
             </el-menu-item>

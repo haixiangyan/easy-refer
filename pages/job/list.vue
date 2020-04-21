@@ -5,11 +5,11 @@
         </div>
         <div class="pages">
             <el-pagination
-                v-show="totalPages !== 0"
+                v-show="total !== 0"
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
-                :total="totalPages">
+                :total="total">
             </el-pagination>
         </div>
     </div>
@@ -28,7 +28,7 @@
     publicJobs: TJobItem[] = []
     page: number = 1
     limit: number = 10
-    totalPages: number = 0
+    total: number = 0
 
     mounted() {
       this.loadJobs(this.page)
@@ -36,14 +36,11 @@
 
     async loadJobs(page: number) {
       const data = await this.$axios.$get('/jobs/item', {
-        params: {
-          page,
-          limit: this.limit
-        }
+        params: {page, limit: this.limit}
       })
 
       this.publicJobs = data.jobItemList
-      this.totalPages = data.totalPages
+      this.total = data.total
     }
 
     @Watch('page')

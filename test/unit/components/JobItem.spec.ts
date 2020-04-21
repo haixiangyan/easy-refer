@@ -4,7 +4,7 @@ import Element from 'element-ui'
 
 import JobItemVue from '@/components/JobItem.vue'
 
-import {JobItem} from '@/server/mocks/objects'
+import {JobItem} from '@/test/mocks/objects'
 
 const localVue = createLocalVue()
 localVue.use(Element)

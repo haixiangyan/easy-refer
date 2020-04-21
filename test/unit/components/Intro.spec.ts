@@ -2,20 +2,21 @@ import Mock from 'mockjs'
 import Element from 'element-ui'
 import {shallowMount, createLocalVue} from '@vue/test-utils'
 import Intro from '@/components/Intro.vue'
-import {User} from '@/server/mocks/objects'
+import {Job, User} from '@/test/mocks/objects'
 
 // 创建 $auth.user
 const localVue = createLocalVue()
 localVue.use(Element)
 
 const user = Mock.mock(User)
+const job = Mock.mock(Job)
 
 describe('Intro', () => {
   it('正常显示', () => {
     const wrapper = shallowMount(Intro, {
       localVue,
       mocks: {
-        $auth: {user: {info: user}}
+        $auth: {user: {info: user, job}}
       },
       stubs: ['nuxt-link']
     })
@@ -28,7 +29,7 @@ describe('Intro', () => {
       mocks: {
         $auth: {
           loggedIn: true,
-          user: {info: {...user, jobId: ''}}
+          user: {info: {...user}, job: null}
         }
       },
       stubs: ['nuxt-link']
@@ -49,7 +50,7 @@ describe('Intro', () => {
       mocks: {
         $auth: {
           loggedIn: true,
-          user: {info: {...user}}
+          user: {info: {...user}, job}
         }
       },
       stubs: ['nuxt-link']
@@ -64,7 +65,7 @@ describe('Intro', () => {
     expect(linkDiv.exists()).toBe(true)
 
     const link = linkDiv.find('nuxt-link-stub').attributes('to')
-    expect(link).toEqual(`/refer/apply/${user.jobId}`)
+    expect(link).toEqual(`/refer/apply/${job.jobId}`)
 
     // @ts-ignore
     expect(wrapper.vm.clipboard).toBeTruthy()
@@ -78,29 +79,29 @@ describe('Intro', () => {
       mocks: {
         $auth: {
           loggedIn: true,
-          user: {info: {...user}}
+          user: {info: {...user}, job}
         }
       },
       stubs: ['nuxt-link']
     })
 
-    const referRate = (user.finishedRefers / user.totalRefers * 100).toFixed(2) + '%'
-    const approvedRate = (user.finishedResumes / user.totalResumes * 100).toFixed(2) + '%'
+    const referRate = (user.approvedOtherReferCount / user.otherReferTotal * 100).toFixed(2) + '%'
+    const approvedRate = (user.approvedMyReferCount / user.myReferTotal * 100).toFixed(2) + '%'
     expect(wrapper.findAll('.refer p').at(2).text()).toEqual(referRate)
     expect(wrapper.findAll('.approved p').at(2).text()).toEqual(approvedRate)
   })
-  it('总数为0返回0', () => {
+  it('总数为0返回0.00%', () => {
     const wrapper = shallowMount(Intro, {
       localVue,
       mocks: {
         $auth: {
           loggedIn: true,
-          user: {info: {...user, totalRefers: 0}}
+          user: {info: {...user, otherReferTotal: 0}, job}
         }
       },
       stubs: ['nuxt-link']
     })
 
-    expect(wrapper.findAll('.refer p').at(2).text()).toEqual('0%')
+    expect(wrapper.findAll('.refer p').at(2).text()).toEqual('0.00%')
   })
 })

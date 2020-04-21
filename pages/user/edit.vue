@@ -7,6 +7,7 @@
             <el-col>
                 <el-upload
                     action="/api/upload/avatar"
+                    :headers="{Authorization: $auth.getToken('local')}"
                     :show-file-list="false"
                     :on-success="uploaded"
                     :on-change="uploading"

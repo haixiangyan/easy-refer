@@ -30,6 +30,7 @@
         <el-form-item :label="field('resumeUrl')">
             <el-upload
                 action="/api/upload/resume"
+                :headers="{Authorization: $auth.getToken('local')}"
                 :on-success="uploaded"
                 :on-change="uploading"
                 :on-error="() => this.$message.error('上传失败')"
@@ -72,7 +73,6 @@
       leetCodeUrl: '',
       name: '',
       phone: '',
-      resumeId: '',
       thirdPersonIntro: ''
     }
     resume: TResume = {
@@ -83,7 +83,7 @@
     rules = EDIT_USER_RULES
     field = getFieldName
 
-    get user() {
+    get userInfo() {
       return this.$auth.user.info
     }
     get levels() {
@@ -97,12 +97,12 @@
 
     initForm() {
       Object.keys(this.form).forEach((key: string) => {
-        this.form[key] = this.user[key]
+        this.form[key] = this.userInfo[key]
       })
     }
 
     async loadResume() {
-      this.resume = await this.$axios.$get(`/resumes/${this.user.resumeId}`)
+      this.resume = {...this.$auth.user.resume}
     }
 
     uploaded(resume: IUploadResume) {
