@@ -64,7 +64,6 @@
       })
 
       this.refers = data.referList as TOtherRefer[]
-      console.log(this.refers)
       this.total = data.total
     }
 

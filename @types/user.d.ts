@@ -11,9 +11,9 @@ type TUser = {
   resumeId: string
   avatarUrl: string
   myReferTotal: number,
-  approvedMyReferCount: number,
+  processedMyReferCount: number,
   otherReferTotal: number,
-  approvedOtherReferCount: number
+  processedOtherReferCount: number
 }
 
 type TUserForm = TMapper & {

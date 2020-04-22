@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 import Element from 'element-ui'
 import {shallowMount, createLocalVue} from '@vue/test-utils'
 import Intro from '@/components/Intro.vue'
-import {Job, User} from '@/test/mocks/objects'
+import {Job, User} from '@/mocks/template'
 
 // 创建 $auth.user
 const localVue = createLocalVue()
@@ -85,8 +85,8 @@ describe('Intro', () => {
       stubs: ['nuxt-link']
     })
 
-    const referRate = (user.approvedOtherReferCount / user.otherReferTotal * 100).toFixed(2) + '%'
-    const approvedRate = (user.approvedMyReferCount / user.myReferTotal * 100).toFixed(2) + '%'
+    const referRate = (user.processedOtherReferCount / user.otherReferTotal * 100).toFixed(2) + '%'
+    const approvedRate = (user.processedMyReferCount / user.myReferTotal * 100).toFixed(2) + '%'
     expect(wrapper.findAll('.refer p').at(2).text()).toEqual(referRate)
     expect(wrapper.findAll('.approved p').at(2).text()).toEqual(approvedRate)
   })

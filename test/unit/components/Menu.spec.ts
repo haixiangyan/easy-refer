@@ -3,7 +3,7 @@ import Mock from 'mockjs'
 import Element from 'element-ui'
 
 import Menu from '@/components/Menu.vue'
-import {User, Job} from '@/test/mocks/objects'
+import {User, Job} from '@//mocks/template'
 
 const localVue = createLocalVue()
 localVue.use(Element)
