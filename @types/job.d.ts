@@ -10,7 +10,7 @@ type TJob = {
   source: string
   createdAt: string
   updatedAt: string
-  finishedChart: TFinishedChartItem[]
+  processedChart: TProcessedChartItem[]
 }
 
 type TJobItem = {
@@ -26,10 +26,10 @@ type TJobItem = {
   expiration: 3 | 5 | 7
   requiredFields: string[]
   source: string,
-  finishedChart: TFinishedChartItem[]
+  processedChart: TProcessedChartItem[]
 }
 
-type TFinishedChartItem = {
+type TProcessedChartItem = {
   date: string
   count: number
 }

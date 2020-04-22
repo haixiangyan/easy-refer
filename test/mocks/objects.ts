@@ -43,7 +43,7 @@ export const Job = {
   source: '@URL',
   createdAt: dateRange(),
   updatedAt: dateRange(),
-  'finishedChart|12': [{
+  'processedChart|12': [{
     date: `@DATE('yyyy-MM-dd')`,
     count: '@NATURAL(50, 100)'
   }]
@@ -61,7 +61,7 @@ export const JobItem = {
   'expiration|1': expiration,
   requiredFields,
   source: '@URL',
-  'finishedChart|12': [{
+  'processedChart|12': [{
     date: `@DATE('yyyy-MM-dd')`,
     count: '@NATURAL(50, 100)'
   }]

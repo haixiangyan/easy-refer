@@ -56,7 +56,7 @@
           referTotal: job.referTotal,
           requiredFields: job.requiredFields,
           source: job.source,
-          finishedChart: job.finishedChart
+          processedChart: job.processedChart
       }
     }
 

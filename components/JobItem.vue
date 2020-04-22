@@ -29,7 +29,7 @@
                     <el-button size="small" type="primary">申请内推</el-button>
                 </nuxt-link>
             </div>
-            <ReferredLineChart class="chart" v-if="jobItem" :data-source="jobItem.finishedChart"/>
+            <ReferredLineChart class="chart" v-if="jobItem" :data-source="jobItem.processedChart"/>
         </el-col>
     </el-row>
 </template>
