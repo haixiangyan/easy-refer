@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="total !== 0">
         <el-table :data="refers" style="width: 100%">
             <el-table-column prop="name" label="姓名" width="180"/>
             <el-table-column prop="createdAt" label="提交日期" width="180">
@@ -22,7 +22,6 @@
         </el-table>
         <div class="pages">
             <el-pagination
-                v-show="total !== 0"
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
@@ -30,16 +29,20 @@
             </el-pagination>
         </div>
     </div>
+    <Empty v-else empty-text="还没有人申请内推哦"/>
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
   import {Component, Watch} from 'nuxt-property-decorator'
-  import {LEVEL_MAPPER} from '~/constants/level'
   import dayjs from 'dayjs'
+  import {LEVEL_MAPPER} from '~/constants/level'
   import {DATETIME_FORMAT} from '~/constants/format'
+  import Empty from '~/components/Empty.vue'
 
-  @Component
+  @Component({
+    components: {Empty}
+  })
   export default class extends Vue {
     refers: TOtherRefer[] = []
     page: number = 1

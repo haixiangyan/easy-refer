@@ -1,11 +1,10 @@
 <template>
-    <div>
+    <div v-if="total !== 0">
         <div class="job-list">
             <JobItem v-for="jobItem in publicJobs" :job-item="jobItem" :key="jobItem.jobId"></JobItem>
         </div>
         <div class="pages">
             <el-pagination
-                v-show="total !== 0"
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
@@ -13,16 +12,18 @@
             </el-pagination>
         </div>
     </div>
+    <Empty v-else empty-text="目前还没有内推职位哦"/>
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
   import {Component, Watch} from 'nuxt-property-decorator'
   import JobItem from '@/components/JobItem.vue'
+  import Empty from '~/components/Empty.vue'
 
   @Component({
     auth: false,
-    components: {JobItem}
+    components: {JobItem, Empty}
   })
   export default class extends Vue {
     publicJobs: TJobItem[] = []
