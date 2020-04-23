@@ -4,12 +4,13 @@ import Element from 'element-ui'
 
 import JobItemVue from '@/components/JobItem.vue'
 
-import {JobItem} from '@/mocks/template'
+import {JobItem, User} from '@/mocks/template'
 
 const localVue = createLocalVue()
 localVue.use(Element)
 
 const jobItem = Mock.mock(JobItem)
+const userInfo = Mock.mock(User)
 
 const jobListRouteName = 'job-list'
 
@@ -19,6 +20,7 @@ describe('JobItem', () => {
       localVue,
       propsData: {jobItem},
       mocks: {
+        $auth: {user: {info: userInfo}},
         $route: {name: jobListRouteName}
       },
       stubs: ['nuxt-link']

@@ -65,7 +65,8 @@ export const JobItem = {
   'processedChart|12': [{
     date: `@DATE('yyyy-MM-dd')`,
     count: '@NATURAL(50, 100)'
-  }]
+  }],
+  refererId: '@ID'
 }
 export const Refer = {
   referId: '@ID',
