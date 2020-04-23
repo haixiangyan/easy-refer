@@ -51,7 +51,7 @@
             avatarUrl: info.avatarUrl
           },
           deadline: job.deadline,
-          expiration: job.expiration,
+          expiration: job.autoRejectDay,
           referredCount: job.referredCount,
           referTotal: job.referTotal,
           requiredFields: job.requiredFields,

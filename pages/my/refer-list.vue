@@ -26,7 +26,7 @@
   })
   export default class extends Vue {
     refers: TMyRefer[] = []
-    page: number = 0
+    page: number = 1
     limit: number = 10
     total: number = 0
 
@@ -36,7 +36,7 @@
 
     async loadRefers(page: number) {
       const data = await this.$axios.$get('/refers', {
-        params: {role: 'my', page, limit: this.limit}
+        params: {role: 'my', page: page, limit: this.limit}
       })
 
       this.refers = data.referList as TMyRefer[]

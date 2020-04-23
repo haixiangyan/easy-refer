@@ -38,7 +38,7 @@ type TJobForm = TMapper & {
   company: string
   requiredFields: string[]
   deadline: string
-  expiration: 3 | 5 | 7
+  autoRejectDay: 3 | 5 | 7
   referTotal: number
   source: string
   createdAt: string
