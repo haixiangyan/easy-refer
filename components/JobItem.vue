@@ -50,7 +50,7 @@
     @Prop({required: true}) jobItem!: TJobItem
 
     get showApply() {
-      return this.$route.name === 'job-list'
+      return this.$route.name === 'job-list' && this.jobItem.refererId !== this.$auth.user.info.userId
     }
 
     get deadline() {

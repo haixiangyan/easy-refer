@@ -27,6 +27,7 @@ type TJobItem = {
   requiredFields: string[]
   source: string,
   processedChart: TProcessedChartItem[]
+  refererId?: string
 }
 
 type TProcessedChartItem = {
