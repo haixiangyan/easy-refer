@@ -35,7 +35,7 @@
     }
 
     async loadJobs(page: number) {
-      const data = await this.$axios.$get('/jobs/item', {
+      const data = await this.$axios.$get('/jobs/items', {
         params: {page, limit: this.limit}
       })
 

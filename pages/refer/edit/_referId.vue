@@ -34,7 +34,7 @@
       const referId = route.params.referId
 
       const refer = await $axios.$get(`/refers/${referId}`)
-      const jobItem = await $axios.$get(`/jobs/item/${refer!.jobId}`)
+      const jobItem = await $axios.$get(`/jobs/items/${refer!.jobId}`)
 
       return {
         referId,
