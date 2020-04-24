@@ -14,25 +14,6 @@ type TReferForm = TMapper & {
   referLinks: string
 }
 
-type TReferPatch = {
-  referId?: string
-  jobId?: string
-  refererId?: string
-  refereeId?: string
-  name?: string
-  email?: string
-  phone?: string
-  experience?: number
-  intro?: string
-  leetCodeUrl?: string
-  thirdPersonIntro?: string
-  resumeId?: string
-  referLinks?: string
-  status?: TStatus
-  updatedAt?: string
-  createdAt?: string
-}
-
 type TRefer = TMapper & {
   referId: string
   jobId: string

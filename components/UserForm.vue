@@ -27,20 +27,6 @@
         <el-form-item prop="leetCodeUrl" :label="field('leetCodeUrl')">
             <el-input type="url" v-model="form.leetCodeUrl"></el-input>
         </el-form-item>
-        <el-form-item :label="field('resumeUrl')">
-            <el-upload
-                action="/api/upload/resume"
-                :headers="{Authorization: $auth.getToken('local')}"
-                :on-success="uploaded"
-                :on-change="uploading"
-                :on-error="() => this.$message.error('上传失败')"
-                :before-upload="beforeUpload"
-                :show-file-list="false">
-                <el-button size="small" type="primary">上传简历</el-button>
-                <span style="margin-left: 12px">{{resume.name}}</span>
-                <div slot="tip" class="el-upload__tip">只能上传 <strong>pdf</strong> 文件，且不超过5MB</div>
-            </el-upload>
-        </el-form-item>
 
         <el-form-item class="user-form-submit">
             <el-button class="submit-button" round type="primary" @click="saveChange">保存</el-button>
@@ -58,7 +44,6 @@
   import {EDIT_USER_RULES} from '@/constants/rules'
   import {ElForm} from 'element-ui/types/form'
   import {getFieldName} from '@/constants/referFields'
-  import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
   import {Mutation} from 'vuex-class'
 
   @Component
@@ -75,11 +60,6 @@
       phone: '',
       thirdPersonIntro: ''
     }
-    resume: TResume = {
-      resumeId: '',
-      url: '',
-      name: ''
-    }
     rules = EDIT_USER_RULES
     field = getFieldName
 
@@ -92,44 +72,12 @@
 
     mounted() {
       this.initForm()
-      this.loadResume()
     }
 
     initForm() {
       Object.keys(this.form).forEach((key: string) => {
         this.form[key] = this.userInfo[key]
       })
-    }
-
-    async loadResume() {
-      this.resume = {...this.$auth.user.resume}
-    }
-
-    uploaded(resume: IUploadResume) {
-      this.form.resumeId = resume.resumeId
-      this.resume = resume
-      this.setLoading(false)
-      this.$message.success('上传成功')
-    }
-
-    uploading({status}: {status: string}) {
-      this.setLoading(!(status === 'success' || status === 'fail'))
-    }
-
-    beforeUpload(file: File) {
-      const isPdf = RESUME_MIME_TYPES.includes(file.type)
-      const isValidSize = file.size <= RESUME_SIZE
-
-      if (!isPdf) {
-        this.$message.error('上传简历只能是 PDF 格式')
-        this.setLoading(false)
-      }
-      if (!isValidSize) {
-        this.$message.error('上传简历大小不能超过 5MB')
-        this.setLoading(false)
-      }
-
-      return isPdf && isValidSize
     }
 
     saveChange() {

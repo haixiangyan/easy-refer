@@ -145,7 +145,6 @@
       }
       // 已经 login，自动填写表单
       if (this.$auth.loggedIn) {
-        this.resume = {...this.$auth.user.resume}
         return Object.keys(this.form).forEach((key: string) => {
           if (key in this.userInfo!) {
             this.form[key] = this.userInfo![key]
