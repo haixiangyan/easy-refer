@@ -19,7 +19,7 @@
                 <template slot-scope="scope">
                     <el-link :href="scope.row.source">
                         原贴
-                        <i class="el-icon-paperclip"></i>
+                        <i class="el-icon-top-right"></i>
                     </el-link>
                 </template>
             </el-table-column>
