@@ -24,8 +24,9 @@
             </div>
         </el-col>
         <el-col class="refer-status" :span="6">
-            <div class="apply-refer" v-if="showApply">
-                <el-button size="small" type="primary" @click="$router.push(`/refer/apply/${job.jobId}`)">
+            <div class="apply-refer">
+                <el-button :disabled="!canApply" size="small" type="primary"
+                           @click="$router.push(`/refer/apply/${job.jobId}`)">
                     申请内推
                 </el-button>
             </div>
@@ -49,7 +50,7 @@
   export default class JobItem extends Vue {
     @Prop({required: true}) job!: TJob
 
-    get showApply() {
+    get canApply() {
       return this.$route.name === 'job-list' &&
         this.job.refererId !== this.$auth.user.info.userId // 自己不能内推自己
     }
