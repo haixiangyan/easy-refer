@@ -71,13 +71,11 @@
     form: TJobForm = {
       company: '',
       name: this.userInfo.name,
-      createdAt: new Date().toISOString(),
       deadline: dayjs().add(1, 'month').toISOString(),
       autoRejectDay: 5,
       referTotal: 0,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
       source: '',
-      updatedAt: dayjs().toISOString()
     }
     requiredReferFieldValues = REQUIRED_REFER_FIELD_VALUES
     deadlineOptions = {
