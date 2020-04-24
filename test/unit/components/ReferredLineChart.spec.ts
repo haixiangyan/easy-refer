@@ -1,5 +1,5 @@
 import {mount} from '@vue/test-utils'
-import ReferredLineChart from '@/components/ReferredLineChart.vue'
+import ReferredLineChart from '~/components/StatusChart.vue'
 
 describe('ReferredLineChart', () => {
   it('正常显示', () => {

@@ -29,7 +29,7 @@
                     申请内推
                 </el-button>
             </div>
-            <ReferredLineChart class="chart" v-if="job" :data-source="job.processedChart"/>
+            <StatusChart class="chart" v-if="job" :data-source="job.processedChart"/>
         </el-col>
     </el-row>
 </template>
@@ -39,12 +39,12 @@
   import dayjs from 'dayjs'
   import {Component, Prop} from 'nuxt-property-decorator'
   import CompanyImage from '@/components/CompanyImage.vue'
-  import ReferredLineChart from '@/components/ReferredLineChart.vue'
+  import StatusChart from '@/components/StatusChart.vue'
   import {getReferProgress} from '@/utils/refer'
   import {DATETIME_FORMAT} from '@/constants/format'
 
   @Component({
-    components: {CompanyImage, ReferredLineChart}
+    components: {CompanyImage, StatusChart}
   })
   export default class JobItem extends Vue {
     @Prop({required: true}) job!: TJob
@@ -72,7 +72,7 @@
 <style scoped lang="scss">
     .job-item {
         display: flex;
-        padding: 20px 0;
+        padding: 16px 0;
         border-bottom: 1px solid $border-color;
 
         &:last-child {
@@ -115,7 +115,7 @@
             text-align: right;
 
             .apply-refer {
-                margin-bottom: 8px;
+                margin-bottom: 16px;
             }
         }
     }
