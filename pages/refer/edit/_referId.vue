@@ -26,7 +26,7 @@
     components: {JobItem, ReferForm}
   })
   export default class extends Vue {
-    jobItem: TJobItem | null = null
+    jobItem: TJob | null = null
     refer: TRefer | null = null
     referId: string | null = null
 
@@ -34,7 +34,7 @@
       const referId = route.params.referId
 
       const refer = await $axios.$get(`/refers/${referId}`)
-      const jobItem = await $axios.$get(`/jobs/items/${refer!.jobId}`)
+      const jobItem = await $axios.$get(`/jobs/${refer!.jobId}`)
 
       return {
         referId,

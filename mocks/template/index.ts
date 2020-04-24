@@ -35,6 +35,10 @@ export const Resume = {
 export const Job = {
   jobId: '@ID',
   refererId: '@ID',
+  referer: {
+    name: '@CNAME',
+    avatarUrl: `@IMAGE('100x100', '#aabbff', 'Referer')`,
+  },
   'company|1': companies,
   requiredFields,
   deadline: dateRange(),
@@ -49,25 +53,7 @@ export const Job = {
     count: '@NATURAL(50, 100)'
   }]
 }
-export const JobItem = {
-  jobId: '@ID',
-  referer: {
-    name: '@CNAME',
-    avatarUrl: `@IMAGE('100x100', '#aabbff', 'Referer')`,
-  },
-  'company|1': companies,
-  referredCount: '@INTEGER(30, 100)',
-  referTotal: '@INTEGER(100, 300)',
-  deadline: dateRange(),
-  'expiration|1': expiration,
-  requiredFields,
-  source: '@URL',
-  'processedChart|12': [{
-    date: `@DATE('yyyy-MM-dd')`,
-    count: '@NATURAL(50, 100)'
-  }],
-  refererId: '@ID'
-}
+
 export const Refer = {
   referId: '@ID',
   jobId: '@ID',

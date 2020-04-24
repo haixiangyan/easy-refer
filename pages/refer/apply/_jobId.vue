@@ -33,7 +33,7 @@
     }
 
     async asyncData({$axios, route}: Context) {
-      const jobItem = await $axios.$get(`/jobs/items/${route.params.jobId}`)
+      const jobItem = await $axios.$get(`/jobs/${route.params.jobId}`)
       return {jobItem}
     }
 
