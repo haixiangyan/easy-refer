@@ -11,7 +11,7 @@ RefersRouter.get('/', (req, res) => {
   const referTemplate = req.url.includes('my') ? MyRefer : OtherRefer
   res.json(Mock.mock({
     'referList|10': [referTemplate],
-    totalPages: 100
+    total: 100
   }))
 })
 

@@ -1,7 +1,7 @@
 <template>
-    <div v-if="jobItem">
+    <div v-if="job">
         <div>
-            <JobItem :job-item="jobItem"/>
+            <JobItem :job="job"/>
         </div>
 
         <el-divider>填写你的信息</el-divider>
@@ -9,7 +9,7 @@
         <ReferForm
             @submit="apply"
             @back="$router.push('/job-list')"
-            :required-fields="jobItem.requiredFields"
+            :required-fields="job.requiredFields"
         />
     </div>
 </template>
@@ -26,15 +26,15 @@
     components: {JobItem, ReferForm}
   })
   export default class extends Vue {
-    jobItem: TJobItem | null = null
+    job: TJob | null = null
 
     get jobId() {
       return this.$route.params.jobId
     }
 
     async asyncData({$axios, route}: Context) {
-      const jobItem = await $axios.$get(`/jobs/${route.params.jobId}`)
-      return {jobItem}
+      const job = await $axios.$get(`/jobs/${route.params.jobId}`)
+      return {job}
     }
 
     async apply(form: TReferForm) {

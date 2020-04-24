@@ -1,23 +1,23 @@
 <template>
     <el-row class="job-item">
         <el-col :span="4">
-            <nuxt-link class="avatar" :to="`/refer/apply/${jobItem.jobId}`">
-                <CompanyImage :src="jobItem.referer.avatarUrl"/>
+            <nuxt-link class="avatar" :to="`/refer/apply/${job.jobId}`">
+                <CompanyImage :src="job.referer.avatarUrl"/>
             </nuxt-link>
         </el-col>
         <el-col class="content" :span="14">
             <p class="title">
-                {{jobItem.company}}
+                {{job.company}}
                 <el-divider direction="vertical"></el-divider>
-                {{jobItem.referer.name}}内推
+                {{job.referer.name}}内推
             </p>
             <div class="tags">
                 <el-tag size="mini" type="primary">{{deadline}}截止</el-tag>
-                <el-tag size="mini" type="danger">{{jobItem.expiration}}天必推</el-tag>
+                <el-tag size="mini" type="danger">{{job.expiration}}天必推</el-tag>
             </div>
             <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
             <div>
-                <el-link v-if="jobItem.source" :href="jobItem.source">
+                <el-link v-if="job.source" :href="job.source">
                     原贴
                     <i class="el-icon-top-right"></i>
                 </el-link>
@@ -25,11 +25,11 @@
         </el-col>
         <el-col class="refer-status" :span="6">
             <div class="apply-refer" v-if="showApply">
-                <nuxt-link :to="`/refer/apply/${jobItem.jobId}`" tag="span">
+                <nuxt-link :to="`/refer/apply/${job.jobId}`" tag="span">
                     <el-button size="small" type="primary">申请内推</el-button>
                 </nuxt-link>
             </div>
-            <ReferredLineChart class="chart" v-if="jobItem" :data-source="jobItem.processedChart"/>
+            <ReferredLineChart class="chart" v-if="job" :data-source="job.processedChart"/>
         </el-col>
     </el-row>
 </template>
@@ -47,18 +47,18 @@
     components: {CompanyImage, ReferredLineChart}
   })
   export default class JobItem extends Vue {
-    @Prop({required: true}) jobItem!: TJobItem
+    @Prop({required: true}) job!: TJob
 
     get showApply() {
-      return this.$route.name === 'job-list' && this.jobItem.refererId !== this.$auth.user.info.userId
+      return this.$route.name === 'job-list' && this.job.refererId !== this.$auth.user.info.userId
     }
 
     get deadline() {
-      return dayjs(this.jobItem.deadline).format(DATETIME_FORMAT)
+      return dayjs(this.job.deadline).format(DATETIME_FORMAT)
     }
 
     get referredPercentage() {
-      const {referredCount, referTotal} = this.jobItem
+      const {referredCount, referTotal} = this.job
       return referTotal === 0 ? 0.00 : parseFloat((referredCount / referTotal * 100).toFixed(2))
     }
 

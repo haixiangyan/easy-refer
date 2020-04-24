@@ -1,7 +1,7 @@
 <template>
     <div v-if="total !== 0">
         <div class="job-list">
-            <JobItem v-for="jobItem in publicJobs" :job-item="jobItem" :key="jobItem.jobId"></JobItem>
+            <JobItem v-for="job in publicJobs" :job="job" :key="job.jobId"></JobItem>
         </div>
         <div class="pages">
             <el-pagination
@@ -26,7 +26,7 @@
     components: {JobItem, Empty}
   })
   export default class extends Vue {
-    publicJobs: TJobItem[] = []
+    publicJobs: TJob[] = []
     page: number = 1
     limit: number = 10
     total: number = 0

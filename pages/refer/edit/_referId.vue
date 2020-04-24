@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div v-if="jobItem">
-            <JobItem :job-item="jobItem"/>
+        <div v-if="job">
+            <JobItem :job="job"/>
         </div>
 
         <el-divider>修改你的信息</el-divider>
 
         <ReferForm
-            v-if="refer && jobItem"
+            v-if="refer && job"
             @submit="edit"
             :refer="refer"
             @back="$router.push('/my/refer-list')"
-            :required-fields="jobItem.requiredFields"/>
+            :required-fields="job.requiredFields"/>
     </div>
 </template>
 
@@ -26,7 +26,7 @@
     components: {JobItem, ReferForm}
   })
   export default class extends Vue {
-    jobItem: TJob | null = null
+    job: TJob | null = null
     refer: TRefer | null = null
     referId: string | null = null
 
@@ -34,12 +34,12 @@
       const referId = route.params.referId
 
       const refer = await $axios.$get(`/refers/${referId}`)
-      const jobItem = await $axios.$get(`/jobs/${refer!.jobId}`)
+      const job = await $axios.$get(`/jobs/${refer!.jobId}`)
 
       return {
         referId,
         refer,
-        jobItem
+        job
       }
     }
 
