@@ -4,12 +4,13 @@ import Element from 'element-ui'
 
 import JobItemVue from '@/components/JobItem.vue'
 
-import {JobItem} from '@/test/mocks/objects'
+import {User, Job} from '@/mocks/template'
 
 const localVue = createLocalVue()
 localVue.use(Element)
 
-const jobItem = Mock.mock(JobItem)
+const job = Mock.mock(Job)
+const userInfo = Mock.mock(User)
 
 const jobListRouteName = 'job-list'
 
@@ -17,8 +18,9 @@ describe('JobItem', () => {
   it('正常显示', () => {
     const wrapper = shallowMount(JobItemVue, {
       localVue,
-      propsData: {jobItem},
+      propsData: {job},
       mocks: {
+        $auth: {user: {info: userInfo}},
         $route: {name: jobListRouteName}
       },
       stubs: ['nuxt-link']
@@ -30,7 +32,7 @@ describe('JobItem', () => {
   it('显示0%和不显示内推按钮', () => {
     const wrapper = shallowMount(JobItemVue, {
       localVue,
-      propsData: {jobItem: {...jobItem, referTotal: 0}},
+      propsData: {job: {...job, referTotal: 0}},
       mocks: {
         $route: {name: 'my-refer-list'}
       },

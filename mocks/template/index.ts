@@ -21,9 +21,9 @@ export const User = {
   thirdPersonIntro: '@PARAGRAPH',
   resumeId: '@ID',
   avatarUrl: `@IMAGE('100x100', '#ffbbaa', 'Avatar')`,
-  approvedMyReferCount: '@NATURAL(10, 100)',
+  processedMyReferCount: '@NATURAL(10, 100)',
   myReferTotal: '@NATURAL(100, 300)',
-  approvedOtherReferCount: '@NATURAL(10, 100)',
+  processedOtherReferCount: '@NATURAL(10, 100)',
   otherReferTotal: '@NATURAL(100, 300)',
 }
 export const Resume = {
@@ -35,6 +35,10 @@ export const Resume = {
 export const Job = {
   jobId: '@ID',
   refererId: '@ID',
+  referer: {
+    name: '@CNAME',
+    avatarUrl: `@IMAGE('100x100', '#aabbff', 'Referer')`,
+  },
   'company|1': companies,
   requiredFields,
   deadline: dateRange(),
@@ -44,29 +48,12 @@ export const Job = {
   source: '@URL',
   createdAt: dateRange(),
   updatedAt: dateRange(),
-  'finishedChart|12': [{
+  'processedChart|12': [{
     date: `@DATE('yyyy-MM-dd')`,
     count: '@NATURAL(50, 100)'
   }]
 }
-export const JobItem = {
-  jobId: '@ID',
-  referer: {
-    name: '@CNAME',
-    avatarUrl: `@IMAGE('100x100', '#aabbff', 'Referer')`,
-  },
-  'company|1': companies,
-  referredCount: '@INTEGER(30, 100)',
-  referTotal: '@INTEGER(100, 300)',
-  deadline: dateRange(),
-  'expiration|1': expiration,
-  requiredFields,
-  source: '@URL',
-  'finishedChart|12': [{
-    date: `@DATE('yyyy-MM-dd')`,
-    count: '@NATURAL(50, 100)'
-  }]
-}
+
 export const Refer = {
   referId: '@ID',
   jobId: '@ID',

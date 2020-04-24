@@ -10,12 +10,12 @@
         </div>
         <el-row class="analysis">
             <el-col :span="12" class="approved">
-                <p class="number">{{userInfo.approvedMyReferCount}} / {{userInfo.myReferTotal}}</p>
+                <p class="number">{{userInfo.processedMyReferCount}} / {{userInfo.myReferTotal}}</p>
                 <p class="description">已完成的内推</p>
                 <p class="rate">{{approvedRate}}%</p>
             </el-col>
             <div :span="12" class="refer">
-                <p class="number">{{userInfo.approvedOtherReferCount}} / {{userInfo.otherReferTotal}}</p>
+                <p class="number">{{userInfo.processedOtherReferCount}} / {{userInfo.otherReferTotal}}</p>
                 <p class="description">已处理的简历</p>
                 <p class="rate">{{referRate}}%</p>
             </div>
@@ -66,10 +66,10 @@
       return this.$auth.user.job
     }
     get approvedRate() {
-      return this.calculateRate(this.userInfo.approvedMyReferCount, this.userInfo.myReferTotal)
+      return this.calculateRate(this.userInfo.processedMyReferCount, this.userInfo.myReferTotal)
     }
     get referRate() {
-      return this.calculateRate(this.userInfo.approvedOtherReferCount, this.userInfo.otherReferTotal)
+      return this.calculateRate(this.userInfo.processedOtherReferCount, this.userInfo.otherReferTotal)
     }
 
     mounted() {

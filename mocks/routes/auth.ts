@@ -1,6 +1,6 @@
 import express from 'express'
 import Mock from 'mockjs'
-import {User, Job, Resume} from '../template'
+import {User} from '../template'
 
 // '/auth'
 const AuthRouter = express.Router()
@@ -15,15 +15,6 @@ AuthRouter.post('/login', (req, res) => {
 // 注册
 AuthRouter.post('/register', (req, res) => {
   res.json(Mock.mock(User))
-})
-
-// 获取个人信息
-AuthRouter.get('/user', (req, res) => {
-  res.json(Mock.mock({
-    info: User,
-    job: Job,
-    resume: Resume
-  }))
 })
 
 export default AuthRouter

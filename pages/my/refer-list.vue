@@ -1,11 +1,10 @@
 <template>
-    <div>
+    <div v-if="total !== 0">
         <div>
             <ReferItem v-for="refer in refers" :key="refer.id" :refer="refer"/>
         </div>
         <div class="pages">
             <el-pagination
-                v-show="total !== 0"
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
@@ -13,19 +12,21 @@
             </el-pagination>
         </div>
     </div>
+    <Empty v-else empty-text="你还没有申请任何内推哦"/>
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
   import {Component, Watch} from 'nuxt-property-decorator'
   import ReferItem from '~/components/ReferItem.vue'
+  import Empty from '~/components/Empty.vue'
 
   @Component({
-    components: {ReferItem}
+    components: {ReferItem, Empty}
   })
   export default class extends Vue {
     refers: TMyRefer[] = []
-    page: number = 0
+    page: number = 1
     limit: number = 10
     total: number = 0
 
@@ -35,7 +36,7 @@
 
     async loadRefers(page: number) {
       const data = await this.$axios.$get('/refers', {
-        params: {role: 'my', page, limit: this.limit}
+        params: {role: 'my', page: page, limit: this.limit}
       })
 
       this.refers = data.referList as TMyRefer[]

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <JobItem :job-item="jobItem"/>
+            <JobItem :job="job"/>
         </div>
 
         <el-divider>申请信息</el-divider>
@@ -41,23 +41,8 @@
       thirdPersonIntro: ''
     }
 
-    get jobItem() {
-      const {info, job} = this.$auth.user
-      return {
-          jobId: job.jobId,
-          company: job.company,
-          referer: {
-            name: info.name,
-            avatarUrl: info.avatarUrl
-          },
-          deadline: job.deadline,
-          expiration: job.expiration,
-          referredCount: job.referredCount,
-          referTotal: job.referTotal,
-          requiredFields: job.requiredFields,
-          source: job.source,
-          finishedChart: job.finishedChart
-      }
+    get job() {
+      return this.$auth.user.job
     }
 
     get referId() {
@@ -66,7 +51,7 @@
 
     get referTable() {
       return Object.entries(this.referForm)
-        .filter(([key, _]) => this.jobItem.requiredFields.includes(key))
+        .filter(([key, _]) => this.job.requiredFields.includes(key))
         .map(([key, value]) => ({
           key: REFER_FIELDS_MAPPER[key],
           value: key === 'experience' ? LEVEL_MAPPER[value as number] : value

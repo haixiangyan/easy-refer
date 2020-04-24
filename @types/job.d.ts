@@ -1,6 +1,7 @@
 type TJob = {
   jobId: string
   refererId: string
+  refereeId: string
   company: string
   requiredFields: string[]
   deadline: string
@@ -10,26 +11,14 @@ type TJob = {
   source: string
   createdAt: string
   updatedAt: string
-  finishedChart: TFinishedChartItem[]
-}
-
-type TJobItem = {
-  jobId: string
+  processedChart: TProcessedChartItem[]
   referer: {
     name: string
     avatarUrl: string
   }
-  company: string
-  referredCount: number
-  referTotal: number
-  deadline: string
-  expiration: 3 | 5 | 7
-  requiredFields: string[]
-  source: string,
-  finishedChart: TFinishedChartItem[]
 }
 
-type TFinishedChartItem = {
+type TProcessedChartItem = {
   date: string
   count: number
 }
@@ -38,7 +27,7 @@ type TJobForm = TMapper & {
   company: string
   requiredFields: string[]
   deadline: string
-  expiration: 3 | 5 | 7
+  autoRejectDay: 3 | 5 | 7
   referTotal: number
   source: string
   createdAt: string

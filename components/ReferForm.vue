@@ -5,7 +5,7 @@
              label-position="left"
              :rules="rules">
         <el-form-item required prop="name" :label="field('name')">
-            <el-input :disabled="$auth.loggedIn" v-model="form.name"></el-input>
+            <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item required prop="email" :label="field('email')">
             <el-input type="email" :disabled="$auth.loggedIn" v-model="form.email"></el-input>

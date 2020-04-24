@@ -16,7 +16,7 @@
 
   @Component
   export default class ReferredLineChart extends Vue {
-    @Prop({required: true}) dataSource!: TFinishedChartItem[]
+    @Prop({required: true}) dataSource!: TProcessedChartItem[]
     settings = {
       labelMap: { // 别名
         date: '日期',
