@@ -1,8 +1,11 @@
 <template>
-    <div>
-        <div class="empty">
-            <i class="el-icon-document-delete"></i>
+    <div class="empty">
+        <div class="hint">
+            <i class="el-icon-warning"></i>
             <span class="text">{{emptyText}}</span>
+        </div>
+        <div class="action">
+            <slot/>
         </div>
     </div>
 </template>
@@ -20,10 +23,13 @@
 
 <style scoped lang="scss">
     .empty {
-        padding: 24px;
         text-align: center;
-        font-size: 1.2em;
-        line-height: 1.2em;
-        color: $danger-color;
+        .hint {
+            padding: 24px;
+            font-size: 1.2em;
+            line-height: 1.2em;
+            color: $warning-color;
+        }
+        .action {}
     }
 </style>

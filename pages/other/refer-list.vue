@@ -29,7 +29,12 @@
             </el-pagination>
         </div>
     </div>
-    <Empty v-else empty-text="还没有人申请内推哦"/>
+    <Empty v-else :empty-text="emptyText">
+        {{this.$auth.user.job}}
+        <nuxt-link v-if="!this.$auth.user.job" to="/job/add">
+            <el-button type="primary" size="small">发布内推职位</el-button>
+        </nuxt-link>
+    </Empty>
 </template>
 
 <script lang="ts">
@@ -48,6 +53,10 @@
     page: number = 1
     limit: number = 10
     total: number = 0
+
+    get emptyText() {
+      return !this.$auth.user.job ? '还没有发布内推职位哦~' : '还没有人申请内推哦~'
+    }
 
     mounted() {
       this.loadOtherReferList(this.page)
