@@ -32,10 +32,4 @@ describe('Menu', () => {
       expect(menuItems.at(index).attributes('index')).toEqual(route)
     })
   })
-  it('显示没有登录的样式', () => {
-
-  })
-  it('显示登录但是没有发布内推的样式', () => {
-
-  })
 })

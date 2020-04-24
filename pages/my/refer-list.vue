@@ -43,7 +43,7 @@
     </div>
     <Empty v-else empty-text="还没有申请任何内推哦~">
         <nuxt-link to="/job/list">
-            <el-button type="primary" size="small">申请内推</el-button>
+            <el-button type="primary" size="small" round>申请内推</el-button>
         </nuxt-link>
     </Empty>
 </template>

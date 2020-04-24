@@ -28,12 +28,10 @@
             <el-input type="url" v-model="form.leetCodeUrl"></el-input>
         </el-form-item>
 
-        <el-form-item class="user-form-submit">
+        <div class="user-form-submit">
             <el-button class="submit-button" round type="primary" @click="saveChange">保存</el-button>
-            <nuxt-link tag="span" to="/user">
-                <el-button round>返回</el-button>
-            </nuxt-link>
-        </el-form-item>
+            <el-button round @click="$router.push('/user')">返回</el-button>
+        </div>
     </el-form>
 </template>
 
@@ -66,6 +64,7 @@
     get userInfo() {
       return this.$auth.user.info
     }
+
     get levels() {
       return Object.entries(LEVEL_MAPPER).map(([value, label]) => [parseInt(value), label])
     }
@@ -93,11 +92,11 @@
 <style scoped lang="scss">
     .user-form {
         &-submit {
-            text-align: right;
+            text-align: center;
+        }
 
-            .submit-button {
-                margin-right: 8px;
-            }
+        .submit-button {
+            margin-right: 8px;
         }
     }
 </style>

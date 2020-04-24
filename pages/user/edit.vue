@@ -1,19 +1,29 @@
 <template>
     <div>
         <el-row class="avatar" type="flex" align="middle">
-            <el-col :span="6">
+            <el-col :span="4">
                 <el-avatar :src="$auth.user.info.avatarUrl" :size="100"/>
             </el-col>
             <el-col>
-                <el-upload
-                    action="/api/upload/avatar"
-                    :headers="{Authorization: $auth.getToken('local')}"
-                    :show-file-list="false"
-                    :on-success="uploaded"
-                    :on-change="uploading"
-                    :before-upload="beforeUpload">
-                    <el-button size="small" type="success" plain round>修改头像</el-button>
-                </el-upload>
+                <div class="upload-avatar">
+                    <el-upload
+                        action="/api/upload/avatar"
+                        :headers="{Authorization: $auth.getToken('local')}"
+                        :show-file-list="false"
+                        :on-success="uploaded"
+                        :on-change="uploading"
+                        :before-upload="beforeUpload">
+                        <el-button size="small" type="success" plain round>修改头像</el-button>
+                    </el-upload>
+                </div>
+                <div class="job">
+                    <el-button v-if="job" type="primary" size="small" round plain @click="$router.push('/job/edit')">
+                        修改内推职位
+                    </el-button>
+                    <el-button v-else type="primary" size="small" round plain @click="$router.push('/job/add')">
+                        添加内推职位
+                    </el-button>
+                </div>
             </el-col>
         </el-row>
         <UserForm @submit="onSubmit"/>
@@ -34,6 +44,10 @@
     @Mutation('setLoading') setLoading!: Function
 
     form: TUserForm | null = null
+
+    get job() {
+      return this.$auth.user.job
+    }
 
     async uploaded() {
       await this.$auth.fetchUser()
@@ -76,5 +90,9 @@
 <style scoped lang="scss">
     .avatar {
         margin-bottom: 24px;
+    }
+
+    .job {
+        margin-top: 8px;
     }
 </style>

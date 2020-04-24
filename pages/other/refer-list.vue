@@ -30,9 +30,8 @@
         </div>
     </div>
     <Empty v-else :empty-text="emptyText">
-        {{this.$auth.user.job}}
         <nuxt-link v-if="!this.$auth.user.job" to="/job/add">
-            <el-button type="primary" size="small">发布内推职位</el-button>
+            <el-button type="primary" size="small" round>发布内推职位</el-button>
         </nuxt-link>
     </Empty>
 </template>

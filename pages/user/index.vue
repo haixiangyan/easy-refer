@@ -1,10 +1,17 @@
 <template>
     <div>
         <el-row type="flex" align="middle">
-            <el-avatar v-if="$auth.loggedIn"
-                       class="avatar"
-                       :src="$auth.user.info.avatarUrl"
-                       :size="100"/>
+            <el-col :span="4">
+                <el-avatar v-if="$auth.loggedIn" class="avatar" :src="$auth.user.info.avatarUrl" :size="100"/>
+            </el-col>
+            <el-col>
+                <el-button v-if="job" type="primary" size="small" round plain @click="$router.push('/job/edit')">
+                    修改内推职位
+                </el-button>
+                <el-button v-else type="primary" size="small" round plain @click="$router.push('/job/add')">
+                    添加内推职位
+                </el-button>
+            </el-col>
         </el-row>
         <el-table
             :data="userTable"
@@ -12,7 +19,7 @@
             <el-table-column
                 prop="key"
                 label=""
-                width="180">
+                width="140">
             </el-table-column>
             <el-table-column
                 prop="value"
@@ -20,9 +27,7 @@
             </el-table-column>
         </el-table>
         <div class="user-edit">
-            <nuxt-link to="/user/edit" tag="span">
-                <el-button type="primary" round>修改信息</el-button>
-            </nuxt-link>
+            <el-button type="primary" round @click="$router.push('/user/edit')">修改信息</el-button>
             <el-button type="danger" @click="$auth.logout()" round>退出登录</el-button>
         </div>
     </div>
@@ -37,6 +42,10 @@
   @Component
   export default class extends Vue {
     fields = ['email', 'name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro']
+
+    get job() {
+      return this.$auth.user.job
+    }
 
     get userTable() {
       const {loggedIn, user} = this.$auth
