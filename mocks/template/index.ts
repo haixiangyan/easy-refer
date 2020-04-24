@@ -22,6 +22,7 @@ export const User = {
   resumeId: '@ID',
   avatarUrl: `@IMAGE('100x100', '#ffbbaa', 'Avatar')`
 }
+
 export const Resume = {
   resumeId: '@ID',
   url: '@URL',
@@ -31,10 +32,7 @@ export const Resume = {
 export const Job = {
   jobId: '@ID',
   refererId: '@ID',
-  referer: {
-    name: '@CNAME',
-    avatarUrl: `@IMAGE('100x100', '#aabbff', 'Referer')`,
-  },
+  referer: User,
   'company|1': companies,
   requiredFields,
   deadline: dateRange(),
@@ -70,41 +68,6 @@ export const Refer = {
   createdAt: now(),
   job: Job,
   referer: User,
-  referee: User
+  referee: User,
+  resume: Resume
 }
-// 查看 Refer 状态的 Item，以后需要扩展
-export const MyRefer = {
-  referId: '@ID',
-  referer: {
-    name: '@CNAME',
-  },
-  job: {
-    jobId: '@ID',
-    'company|1': companies
-  },
-  'status|1': status,
-  updatedAt: dateRange(),
-  source: '@URL'
-}
-// Refer 表中的一行，以后需要扩展
-export const OtherRefer = {
-  referId: '@ID',
-  name: '@CNAME',
-  resume: {
-    resumeId: '@ID',
-    url: '@URL',
-    name: '@CNAME'
-  },
-  job: {
-    jobId: '@ID'
-  },
-  referer: {
-    name: '@CNAME'
-  },
-  referee: {
-    name: '@CNAME'
-  },
-  experience: '@NATURAL(0, 7)',
-  createdAt: now()
-}
-

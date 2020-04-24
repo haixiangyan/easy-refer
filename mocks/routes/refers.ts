@@ -1,16 +1,14 @@
 import express from 'express'
 import Mock from 'mockjs'
-import {MyRefer, OtherRefer, Refer} from '../template'
+import {Refer} from '../template'
 
 // '/refers'
 const RefersRouter = express.Router()
 
-// 获取 My Refer / Other Refer
+// 获取 Refer List
 RefersRouter.get('/', (req, res) => {
-  // TODO: 检测 role
-  const referTemplate = req.url.includes('my') ? MyRefer : OtherRefer
   res.json(Mock.mock({
-    'referList|10': [referTemplate],
+    'referList|10': [Refer],
     total: 100
   }))
 })

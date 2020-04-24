@@ -7,6 +7,7 @@
                     {{getCreatedAt(scope.row.createdAt)}}
                 </template>
             </el-table-column>
+            <el-table-column prop="email" label="邮箱"/>
             <el-table-column label="经验">
                 <template slot-scope="scope">
                     <span>{{getLevel(scope.row.experience)}}</span>
