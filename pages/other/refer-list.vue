@@ -20,7 +20,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="pages">
+        <div class="pages" v-if="limit < total">
             <el-pagination
                 :current-page.sync="page"
                 background
