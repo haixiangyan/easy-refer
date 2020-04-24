@@ -1,11 +1,11 @@
 <template>
     <el-row class="job-item">
-        <el-col :span="4">
+        <el-col :span="3">
             <nuxt-link class="avatar" :to="`/refer/apply/${job.jobId}`">
                 <CompanyImage :src="job.referer.avatarUrl"/>
             </nuxt-link>
         </el-col>
-        <el-col class="content" :span="14">
+        <el-col class="content" :span="15">
             <p class="title">
                 {{job.company}}
                 <el-divider direction="vertical"></el-divider>
