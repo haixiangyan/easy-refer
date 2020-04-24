@@ -8,7 +8,7 @@
 
         <ReferForm
             @submit="apply"
-            @back="$router.push('/job-list')"
+            @back="$router.push('/job/list')"
             :required-fields="job.requiredFields"
         />
     </div>

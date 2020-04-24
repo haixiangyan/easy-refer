@@ -25,9 +25,9 @@
         </el-col>
         <el-col class="refer-status" :span="6">
             <div class="apply-refer" v-if="showApply">
-                <nuxt-link :to="`/refer/apply/${job.jobId}`" tag="span">
-                    <el-button size="small" type="primary">申请内推</el-button>
-                </nuxt-link>
+                <el-button size="small" type="primary" @click="$router.push(`/refer/apply/${job.jobId}`)">
+                    申请内推
+                </el-button>
             </div>
             <ReferredLineChart class="chart" v-if="job" :data-source="job.processedChart"/>
         </el-col>
@@ -50,7 +50,8 @@
     @Prop({required: true}) job!: TJob
 
     get showApply() {
-      return this.$route.name === 'job-list' && this.job.refererId !== this.$auth.user.info.userId
+      return this.$route.name === 'job-list' &&
+        this.job.refererId !== this.$auth.user.info.userId // 自己不能内推自己
     }
 
     get deadline() {
