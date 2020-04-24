@@ -65,8 +65,12 @@ export const Refer = {
   referLinks: '@URL',
   resumeId: '@ID',
   'status|1': status,
+  updatedOn: dateRange(),
   updatedAt: dateRange(),
-  createdAt: now()
+  createdAt: now(),
+  job: Job,
+  referer: User,
+  referee: User
 }
 // 查看 Refer 状态的 Item，以后需要扩展
 export const MyRefer = {

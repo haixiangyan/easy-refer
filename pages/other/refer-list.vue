@@ -44,7 +44,7 @@
     components: {Empty}
   })
   export default class extends Vue {
-    refers: TOtherRefer[] = []
+    refers: TRefer[] = []
     page: number = 1
     limit: number = 10
     total: number = 0
@@ -66,7 +66,7 @@
         params: {role: 'other', page, limit: this.limit}
       })
 
-      this.refers = data.referList as TOtherRefer[]
+      this.refers = data.referList as TRefer[]
       this.total = data.total
     }
 
