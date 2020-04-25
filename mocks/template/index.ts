@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import Mock from 'mockjs'
 
-const expiration = [3, 5, 7]
+const autoRejectDay = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
 const status = ['processing', 'rejected', 'referred']
 const requiredFields = ['name', 'email', 'phone', 'experience', 'referLinks', 'resumeUrl', 'intro', 'thirdPersonIntro', 'leetCodeUrl']
@@ -36,7 +36,7 @@ export const Job = {
   'company|1': companies,
   requiredFields,
   deadline: dateRange(),
-  'expiration|1': expiration,
+  'autoRejectDay|1': autoRejectDay,
   referredCount: '@NATURAL(30, 100)',
   referTotal: '@NATURAL(100, 300)',
   source: '@URL',
