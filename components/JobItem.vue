@@ -13,7 +13,7 @@
             </p>
             <div class="tags">
                 <el-tag size="mini" type="primary">{{deadline}}截止</el-tag>
-                <el-tag size="mini" type="danger">{{job.expiration}}天必推</el-tag>
+                <el-tag size="mini" type="danger">{{job.autoRejectDay}}天必推</el-tag>
             </div>
             <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
             <div>

@@ -4,7 +4,7 @@ type TJob = {
   company: string
   requiredFields: string[]
   deadline: string
-  expiration: 3 | 5 | 7
+  autoRejectDay: 3 | 5 | 7
   referredCount: number
   referTotal: number
   source?: string
