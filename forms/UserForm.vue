@@ -38,10 +38,10 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import {LEVEL_MAPPER} from '@/constants/level'
-  import {EDIT_USER_RULES} from '@/constants/rules'
+  import {LEVEL_MAPPER} from '~/constants/level'
+  import {EDIT_USER_RULES} from '~/constants/rules'
   import {ElForm} from 'element-ui/types/form'
-  import {getFieldName} from '@/constants/referFields'
+  import {getFieldName} from '~/constants/referFields'
   import {Mutation} from 'vuex-class'
 
   @Component

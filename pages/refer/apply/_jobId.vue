@@ -18,7 +18,7 @@
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
   import JobItem from '~/components/JobItem.vue'
-  import ReferForm from '~/components/ReferForm.vue'
+  import ReferForm from '~/forms/ReferForm.vue'
   import {Context} from '@nuxt/types'
 
   @Component({

@@ -1,14 +1,14 @@
 import {mount} from '@vue/test-utils'
-import ReferredLineChart from '~/components/StatusChart.vue'
+import StatusChart from '~/components/StatusChart.vue'
 
-describe('ReferredLineChart', () => {
+describe('StatusChart', () => {
   it('正常显示', () => {
     const dataSource = [{
         date: '2019-01-01',
         count: 100
       }]
 
-    const wrapper = mount(ReferredLineChart, {
+    const wrapper = mount(StatusChart, {
       propsData: {dataSource},
       stubs: ['ve-line']
     })

@@ -23,7 +23,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import UserForm from '~/components/UserForm.vue'
+  import UserForm from '~/forms/UserForm.vue'
   import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '~/constants/file'
   import {Mutation} from 'vuex-class'
 

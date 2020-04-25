@@ -7,7 +7,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import JobForm from '~/components/JobForm.vue'
+  import JobForm from '~/forms/JobForm.vue'
 
   @Component({
     components: {JobForm}
