@@ -1,6 +1,5 @@
 import express from 'express'
 import consola from 'consola'
-// import history from 'connect-history-api-fallback'
 // 路由
 import JobsRouter from './routes/jobs'
 import RefersRouter from './routes/refers'
@@ -11,7 +10,6 @@ import UsersRouter from './routes/users'
 
 const app = express()
 
-// app.use(history())
 app.use('/api/auth', AuthRouter)
 app.use('/api/jobs', JobsRouter)
 app.use('/api/refers', RefersRouter)
