@@ -19,7 +19,7 @@ RefersRouter.get('/:referId', (req, res) => {
 })
 
 // 创建 Refer
-RefersRouter.post('/', (req, res) => {
+RefersRouter.post('/:jobId', (req, res) => {
   res.json(Mock.mock(Refer))
 })
 
