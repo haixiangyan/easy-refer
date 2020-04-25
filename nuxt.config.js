@@ -15,6 +15,12 @@ module.exports = {
         ]
     },
     /**
+     * 配置 env
+     */
+    env: {
+        baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    },
+    /**
      * 配置 Router
      */
     router: {
@@ -42,7 +48,8 @@ module.exports = {
     plugins: [
         '@/plugins/element-ui',
         '@/plugins/v-charts',
-        '@/plugins/axios'
+        '@/plugins/axios',
+        '@/plugins/v-clipboard'
     ],
     /*
     ** Nuxt.js dev-modules

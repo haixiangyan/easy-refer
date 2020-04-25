@@ -5,12 +5,24 @@
                 <el-avatar v-if="$auth.loggedIn" class="avatar" :src="$auth.user.info.avatarUrl" :size="100"/>
             </el-col>
             <el-col>
-                <el-button v-if="job" type="primary" size="small" round plain @click="$router.push('/job/edit')">
-                    修改内推职位
-                </el-button>
-                <el-button v-else type="primary" size="small" round plain @click="$router.push('/job/add')">
-                    添加内推职位
-                </el-button>
+                <div class="job">
+                    <el-button v-if="job" type="primary" size="small" round plain @click="$router.push('/job/edit')">
+                        修改内推职位
+                    </el-button>
+                    <el-button v-else type="primary" size="small" round plain @click="$router.push('/job/add')">
+                        添加内推职位
+                    </el-button>
+                </div>
+                <div v-if="job" class="job-link">
+                    <span>内推链接: </span>
+                    <el-link type="primary" :href="`/refer/apply/${job.jobId}`">
+                        {{jobLink}}
+                    </el-link>
+                    <el-tooltip effect="dark" :content="copyText" placement="bottom">
+                        <i v-clipboard:copy="jobLink" v-clipboard:success="() => copyText = '已复制'"
+                           class="el-icon-document-copy"/>
+                    </el-tooltip>
+                </div>
             </el-col>
         </el-row>
         <el-table
@@ -42,6 +54,11 @@
   @Component
   export default class extends Vue {
     fields = ['email', 'name', 'experience', 'intro', 'phone', 'leetCodeUrl', 'thirdPersonIntro']
+    copyText = '复制'
+
+    get jobLink() {
+      return `${process.env.baseUrl}/refer/apply/${this.job.jobId}`
+    }
 
     get job() {
       return this.$auth.user.job
@@ -63,5 +80,12 @@
     .user-edit {
         padding: 20px 0;
         text-align: center;
+    }
+
+    .job-link {
+        margin-top: 16px;
+        .el-icon-document-copy {
+            cursor: pointer;
+        }
     }
 </style>
