@@ -29,7 +29,7 @@ describe('JobItem', () => {
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.find('.apply-refer').exists()).toBe(true)
   })
-  it('显示0%和不显示内推按钮', () => {
+  it('显示0%和显示禁用内推按钮', () => {
     const wrapper = shallowMount(JobItemVue, {
       localVue,
       propsData: {job: {...job, referTotal: 0}},
@@ -40,7 +40,7 @@ describe('JobItem', () => {
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.find('.apply-refer').exists()).toBe(false)
+    expect(wrapper.find('.apply-refer el-button-stub').attributes('disabled')).toBe('true')
     expect(wrapper.find('el-progress-stub').attributes('percentage')).toEqual('0')
   })
 })
