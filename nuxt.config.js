@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
     mode: 'spa',
     /*
@@ -13,12 +15,6 @@ module.exports = {
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
         ]
-    },
-    /**
-     * 配置 env
-     */
-    env: {
-        baseUrl: process.env.BASE_URL || 'http://localhost:3000'
     },
     /**
      * 配置 Router
@@ -55,13 +51,13 @@ module.exports = {
     ** Nuxt.js dev-modules
     */
     buildModules: [
-        '@nuxt/typescript-build'
+        '@nuxt/typescript-build',
+        '@nuxtjs/dotenv'
     ],
     /*
     ** Nuxt.js modules
     */
     modules: [
-        // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         '@nuxtjs/pwa',
@@ -71,7 +67,7 @@ module.exports = {
     /**
      * 配置代理
      */
-    proxy: ['http://localhost:4000/api'],
+    proxy: [`${process.env.PROXY_BASE_URL}/api`],
     /*
     ** Axios module configuration
     ** See https://axios.nuxtjs.org/options

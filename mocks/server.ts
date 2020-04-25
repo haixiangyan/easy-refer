@@ -1,6 +1,5 @@
 import express from 'express'
 import consola from 'consola'
-// import history from 'connect-history-api-fallback'
 // 路由
 import JobsRouter from './routes/jobs'
 import RefersRouter from './routes/refers'

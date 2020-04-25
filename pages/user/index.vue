@@ -57,7 +57,7 @@
     copyText = '复制'
 
     get jobLink() {
-      return `${process.env.baseUrl}/refer/apply/${this.job.jobId}`
+      return `${process.env.BASE_URL}/refer/apply/${this.job.jobId}`
     }
 
     get job() {
