@@ -57,12 +57,12 @@
   import Vue from 'vue'
   import {Component, Prop} from 'nuxt-property-decorator'
   import {Mutation} from 'vuex-class'
-  import JobItem from '@/components/JobItem.vue'
-  import {LEVEL_MAPPER} from '@/constants/level'
+  import JobItem from '~/components/JobItem.vue'
+  import {LEVEL_MAPPER} from '~/constants/level'
   import {ElForm} from 'element-ui/types/form'
-  import {RESUME_RULES} from '@/constants/rules'
-  import {getFieldName} from '@/constants/referFields'
-  import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
+  import {RESUME_RULES} from '~/constants/rules'
+  import {getFieldName} from '~/constants/referFields'
+  import {RESUME_MIME_TYPES, RESUME_SIZE} from '~/constants/file'
 
   @Component({
     components: {JobItem}
@@ -145,7 +145,6 @@
       }
       // 已经 login，自动填写表单
       if (this.$auth.loggedIn) {
-        this.resume = {...this.$auth.user.resume}
         return Object.keys(this.form).forEach((key: string) => {
           if (key in this.userInfo!) {
             this.form[key] = this.userInfo![key]

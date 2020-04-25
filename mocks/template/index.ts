@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import Mock from 'mockjs'
 
-const expiration = [3, 5, 7]
+const autoRejectDay = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
 const status = ['processing', 'rejected', 'referred']
 const requiredFields = ['name', 'email', 'phone', 'experience', 'referLinks', 'resumeUrl', 'intro', 'thirdPersonIntro', 'leetCodeUrl']
@@ -20,12 +20,9 @@ export const User = {
   leetCodeUrl: '@URL',
   thirdPersonIntro: '@PARAGRAPH',
   resumeId: '@ID',
-  avatarUrl: `@IMAGE('100x100', '#ffbbaa', 'Avatar')`,
-  processedMyReferCount: '@NATURAL(10, 100)',
-  myReferTotal: '@NATURAL(100, 300)',
-  processedOtherReferCount: '@NATURAL(10, 100)',
-  otherReferTotal: '@NATURAL(100, 300)',
+  avatarUrl: `@IMAGE('100x100', '#ffbbaa', 'Avatar')`
 }
+
 export const Resume = {
   resumeId: '@ID',
   url: '@URL',
@@ -35,14 +32,11 @@ export const Resume = {
 export const Job = {
   jobId: '@ID',
   refererId: '@ID',
-  referer: {
-    name: '@CNAME',
-    avatarUrl: `@IMAGE('100x100', '#aabbff', 'Referer')`,
-  },
+  referer: User,
   'company|1': companies,
   requiredFields,
   deadline: dateRange(),
-  'expiration|1': expiration,
+  'autoRejectDay|1': autoRejectDay,
   referredCount: '@NATURAL(30, 100)',
   referTotal: '@NATURAL(100, 300)',
   source: '@URL',
@@ -69,42 +63,11 @@ export const Refer = {
   referLinks: '@URL',
   resumeId: '@ID',
   'status|1': status,
+  updatedOn: dateRange(),
   updatedAt: dateRange(),
-  createdAt: now()
+  createdAt: now(),
+  job: Job,
+  referer: User,
+  referee: User,
+  resume: Resume
 }
-// 查看 Refer 状态的 Item，以后需要扩展
-export const MyRefer = {
-  referId: '@ID',
-  referer: {
-    name: '@CNAME',
-  },
-  job: {
-    jobId: '@ID',
-    'company|1': companies
-  },
-  'status|1': status,
-  updatedAt: dateRange(),
-  source: '@URL'
-}
-// Refer 表中的一行，以后需要扩展
-export const OtherRefer = {
-  referId: '@ID',
-  name: '@CNAME',
-  resume: {
-    resumeId: '@ID',
-    url: '@URL',
-    name: '@CNAME'
-  },
-  job: {
-    jobId: '@ID'
-  },
-  referer: {
-    name: '@CNAME'
-  },
-  referee: {
-    name: '@CNAME'
-  },
-  experience: '@NATURAL(0, 7)',
-  createdAt: now()
-}
-

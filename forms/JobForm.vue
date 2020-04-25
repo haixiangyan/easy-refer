@@ -62,8 +62,8 @@
   import Vue from "vue"
   import {Component} from "nuxt-property-decorator"
   import dayjs from "dayjs"
-  import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '@/constants/referFields'
-  import {JOB_RULES} from "@/constants/rules"
+  import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '~/constants/referFields'
+  import {JOB_RULES} from "~/constants/rules"
   import {ElForm} from "element-ui/types/form"
 
   @Component
@@ -71,13 +71,11 @@
     form: TJobForm = {
       company: '',
       name: this.userInfo.name,
-      createdAt: new Date().toISOString(),
       deadline: dayjs().add(1, 'month').toISOString(),
       autoRejectDay: 5,
       referTotal: 0,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
       source: '',
-      updatedAt: dayjs().toISOString()
     }
     requiredReferFieldValues = REQUIRED_REFER_FIELD_VALUES
     deadlineOptions = {

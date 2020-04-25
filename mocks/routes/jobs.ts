@@ -5,10 +5,10 @@ import {Job} from '../template'
 // '/jobs'
 const JobsRouter = express.Router()
 
-// 获取 Job item list
+// 获取 Job list
 JobsRouter.get('/', (req, res) => {
   res.json(Mock.mock({
-    'jobItemList|10': [Job],
+    'jobList|10': [Job],
     total: 100
   }))
 })

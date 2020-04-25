@@ -40,7 +40,7 @@
         params: {page, limit: this.limit}
       })
 
-      this.publicJobs = data.jobItemList
+      this.publicJobs = data.jobList
       this.total = data.total
     }
 

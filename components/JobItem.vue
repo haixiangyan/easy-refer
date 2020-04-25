@@ -1,11 +1,11 @@
 <template>
     <el-row class="job-item">
-        <el-col :span="4">
+        <el-col :span="3">
             <nuxt-link class="avatar" :to="`/refer/apply/${job.jobId}`">
                 <CompanyImage :src="job.referer.avatarUrl"/>
             </nuxt-link>
         </el-col>
-        <el-col class="content" :span="14">
+        <el-col class="content" :span="15">
             <p class="title">
                 {{job.company}}
                 <el-divider direction="vertical"></el-divider>
@@ -13,7 +13,7 @@
             </p>
             <div class="tags">
                 <el-tag size="mini" type="primary">{{deadline}}截止</el-tag>
-                <el-tag size="mini" type="danger">{{job.expiration}}天必推</el-tag>
+                <el-tag size="mini" type="danger">{{job.autoRejectDay}}天必推</el-tag>
             </div>
             <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
             <div>
@@ -24,12 +24,13 @@
             </div>
         </el-col>
         <el-col class="refer-status" :span="6">
-            <div class="apply-refer" v-if="showApply">
-                <nuxt-link :to="`/refer/apply/${job.jobId}`" tag="span">
-                    <el-button size="small" type="primary">申请内推</el-button>
-                </nuxt-link>
+            <div class="apply-refer" :class="{'show-apply': showApply}">
+                <el-button :disabled="!canApply" size="small" type="primary"
+                           @click="$router.push(`/refer/apply/${job.jobId}`)">
+                    申请内推
+                </el-button>
             </div>
-            <ReferredLineChart class="chart" v-if="job" :data-source="job.processedChart"/>
+            <StatusChart class="chart" v-if="job" :data-source="job.processedChart"/>
         </el-col>
     </el-row>
 </template>
@@ -39,18 +40,23 @@
   import dayjs from 'dayjs'
   import {Component, Prop} from 'nuxt-property-decorator'
   import CompanyImage from '@/components/CompanyImage.vue'
-  import ReferredLineChart from '@/components/ReferredLineChart.vue'
+  import StatusChart from '@/components/StatusChart.vue'
   import {getReferProgress} from '@/utils/refer'
   import {DATETIME_FORMAT} from '@/constants/format'
 
   @Component({
-    components: {CompanyImage, ReferredLineChart}
+    components: {CompanyImage, StatusChart}
   })
   export default class JobItem extends Vue {
     @Prop({required: true}) job!: TJob
 
     get showApply() {
-      return this.$route.name === 'job-list' && this.job.refererId !== this.$auth.user.info.userId
+      return this.$route.name === 'job-list'
+    }
+
+    get canApply() {
+      // 没有 Login 时，或自己不能内推自己
+      return !this.$auth.loggedIn || this.job.refererId !== this.$auth.user.info.userId
     }
 
     get deadline() {
@@ -71,7 +77,7 @@
 <style scoped lang="scss">
     .job-item {
         display: flex;
-        padding: 20px 0;
+        padding: 16px 0;
         border-bottom: 1px solid $border-color;
 
         &:last-child {
@@ -114,7 +120,11 @@
             text-align: right;
 
             .apply-refer {
-                margin-bottom: 8px;
+                margin-bottom: 16px;
+                visibility: hidden;
+                &.show-apply {
+                    visibility: visible;
+                }
             }
         }
     }

@@ -29,18 +29,46 @@ describe('JobItem', () => {
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.find('.apply-refer').exists()).toBe(true)
   })
-  it('显示0%和不显示内推按钮', () => {
+  it('禁止用户自己内推自己', () => {
     const wrapper = shallowMount(JobItemVue, {
       localVue,
-      propsData: {job: {...job, referTotal: 0}},
+      propsData: {job: {...job, refererId: userInfo.userId}},
       mocks: {
-        $route: {name: 'my-refer-list'}
+        $route: {name: 'job-list'},
+        $auth: {loggedIn: true, user: {info: userInfo}}
       },
       stubs: ['nuxt-link']
     })
 
     expect(wrapper.exists()).toBe(true)
-    expect(wrapper.find('.apply-refer').exists()).toBe(false)
+    expect(wrapper.find('.apply-refer el-button-stub').attributes('disabled')).toBe('true')
+  })
+  it('不是 Job List 的路由，不显示内推按钮', () => {
+    const wrapper = shallowMount(JobItemVue, {
+      localVue,
+      propsData: {job},
+      mocks: {
+        $route: {name: 'my-refer-list'},
+        $auth: {loggedIn: false}
+      },
+      stubs: ['nuxt-link']
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.find('.apply-refer').classes('show-apply')).toBe(false)
+  })
+  it('显示 0% 处理率', () => {
+    const wrapper = shallowMount(JobItemVue, {
+      localVue,
+      propsData: {job: {...job, referTotal: 0}},
+      mocks: {
+        $route: {name: 'job-list'},
+        $auth: {loggedIn: false}
+      },
+      stubs: ['nuxt-link']
+    })
+
+    expect(wrapper.exists()).toBe(true)
     expect(wrapper.find('el-progress-stub').attributes('percentage')).toEqual('0')
   })
 })

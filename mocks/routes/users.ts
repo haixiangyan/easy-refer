@@ -1,7 +1,7 @@
 import express from 'express'
 import Mock from 'mockjs'
 
-import {Job, Resume, User} from '../template'
+import {Job, User} from '../template'
 
 // '/users'
 const UsersRouter = express.Router()
@@ -15,8 +15,7 @@ UsersRouter.put('/', (req, res) => {
 UsersRouter.get('/', (req, res) => {
   res.json(Mock.mock({
     info: User,
-    job: Job,
-    resume: Resume
+    job: Job
   }))
 })
 
