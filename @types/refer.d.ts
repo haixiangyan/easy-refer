@@ -26,4 +26,5 @@ type TRefer = TMapper & TReferForm & {
   job: TJob
   referer: TUser
   referee: TUser
+  resume?: TResume
 }

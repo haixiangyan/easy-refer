@@ -4,7 +4,7 @@ import Mock from 'mockjs'
 const autoRejectDay = [3, 5, 7]
 const companies = ['Facebook', 'Google', 'Linkedin', 'Amazon', 'Databricks', 'BrixLabs']
 const status = ['processing', 'rejected', 'referred']
-const requiredFields = ['name', 'email', 'phone', 'experience', 'referLinks', 'resumeUrl', 'intro', 'thirdPersonIntro', 'leetCodeUrl']
+const requiredFields = ['name', 'email', 'phone', 'experience', 'referLinks', 'resumeId', 'intro', 'thirdPersonIntro', 'leetCodeUrl']
 
 const dateRange = () => dayjs(Mock.Random.date()).toISOString()
 const now = () => dayjs().toISOString()

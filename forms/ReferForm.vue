@@ -31,7 +31,7 @@
         <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" :label="field('leetCodeUrl')">
             <el-input type="url" v-model="form.leetCodeUrl"></el-input>
         </el-form-item>
-        <el-form-item :label="field('resumeUrl')">
+        <el-form-item v-if="isShowField('resumeId')" required :label="field('resumeId')">
             <el-upload
                 action="/api/upload/resume"
                 :data="{resumeId: form.resumeId}"
