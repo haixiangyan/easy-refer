@@ -57,4 +57,18 @@ describe('JobItem', () => {
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.find('.apply-refer').classes('show-apply')).toBe(false)
   })
+  it('显示 0% 处理率', () => {
+    const wrapper = shallowMount(JobItemVue, {
+      localVue,
+      propsData: {job: {...job, referTotal: 0}},
+      mocks: {
+        $route: {name: 'job-list'},
+        $auth: {loggedIn: false}
+      },
+      stubs: ['nuxt-link']
+    })
+
+    expect(wrapper.exists()).toBe(true)
+    expect(wrapper.find('el-progress-stub').attributes('percentage')).toEqual('0')
+  })
 })
