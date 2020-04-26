@@ -12,6 +12,13 @@ AuthRouter.post('/login', (req, res) => {
   }))
 })
 
+// 激活
+AuthRouter.post('/activate', (req, res) => {
+  res.json(Mock.mock({
+    token: '@ID'
+  }))
+})
+
 // 注册
 AuthRouter.post('/register', (req, res) => {
   res.json(Mock.mock(User))

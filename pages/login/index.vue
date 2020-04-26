@@ -19,10 +19,14 @@
                         </template>
                     </el-input>
                 </el-form-item>
-                <el-form-item class="login-form-footer">
-                    <el-button @click="register" class="register-button" type="text">创建账号</el-button>
+                <div class="login-form-footer">
+                    <div>
+                        <el-button @click="register" class="register-button" type="text">创建账号</el-button>
+                        <el-divider direction="vertical"></el-divider>
+                        <el-button @click="activate" class="register-button" type="text">激活账号</el-button>
+                    </div>
                     <el-button type="primary" @click="login">登录</el-button>
-                </el-form-item>
+                </div>
             </el-form>
         </el-card>
     </div>
@@ -48,6 +52,20 @@
         if (!valid) return this.$message.error('填写不正确')
 
         await this.$axios.$post('/auth/register', this.loginForm)
+
+        this.$message.success('注册成功')
+
+        this.login()
+      })
+    }
+
+    activate() {
+      (<ElForm>this.$refs.loginForm).validate(async valid => {
+        if (!valid) return this.$message.error('填写不正确')
+
+        await this.$axios.$post('/auth/activate', this.loginForm)
+
+        this.$message.success('激活成功')
 
         this.login()
       })
@@ -96,15 +114,9 @@
             }
 
             &-footer {
-                width: 100%;
-                position: relative;
-                text-align: right;
-
-                .register-button {
-                    padding-left: 0;
-                    position: absolute;
-                    left: 0;
-                }
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
             }
         }
     }
