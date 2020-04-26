@@ -18,7 +18,7 @@
   export default class StatusChart extends Vue {
     @Prop({required: true})
     dataSource!: TProcessedChartItem[]
-    @Prop({type: String, default: 1000})
+    @Prop({type: Number, default: 1000})
     max!: number
 
     settings = {
