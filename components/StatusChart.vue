@@ -16,7 +16,11 @@
 
   @Component
   export default class StatusChart extends Vue {
-    @Prop({required: true}) dataSource!: TProcessedChartItem[]
+    @Prop({required: true})
+    dataSource!: TProcessedChartItem[]
+    @Prop({type: String, default: 1000})
+    max!: number
+
     settings = {
       labelMap: { // 别名
         date: '日期',
@@ -27,7 +31,7 @@
 
     options = {
       xAxis: {show: false},
-      yAxis: {show: false,},
+      yAxis: {show: false, max: this.max},
       // Canvas 对于容器的位置
       grid: {left: '-16%', top: 0, bottom: 0, right: 0},
       // 配置 y 轴方向的渐变色

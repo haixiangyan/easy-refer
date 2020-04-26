@@ -30,7 +30,7 @@
                     申请内推
                 </el-button>
             </div>
-            <StatusChart class="chart" v-if="job" :data-source="job.processedChart"/>
+            <StatusChart class="chart" v-if="job" :data-source="job.processedChart" :max="job.referTotal"/>
         </el-col>
     </el-row>
 </template>
