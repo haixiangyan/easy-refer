@@ -1,7 +1,7 @@
 # easy-refer
 
 [![Build Status](https://travis-ci.org/Haixiang6123/easy-refer.svg?branch=dev)](https://travis-ci.org/Haixiang6123/easy-refer)
-[![Coverage Status](https://coveralls.io/repos/github/Haixiang6123/easy-refer/badge.svg)](https://coveralls.io/github/Haixiang6123/easy-refer)
+[![Coverage Status](https://coveralls.io/repos/github/Haixiang6123/easy-refer/badge.svg?branch=dev)](https://coveralls.io/github/Haixiang6123/easy-refer?branch=dev)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 一个方便北美内推的网站应用。
@@ -38,3 +38,25 @@
 5. X 天内内推，到底现在是距离那天多少天了？不知道
 
 OK，如果你也有以上的问题，那么希望我的应用可以帮到你~
+
+## 功能
+
+### Referee
+
+- [x] 追踪自己的内推状态
+- [x] 撤回，修改内推状态
+
+### Referer
+
+- [x] 生成内推职位表单
+- [x] X 天后自动放弃内推
+- [x] 显示目前内推情况
+
+## 未来
+当时在一亩三分地找内推的时候真是受尽了煎熬，等内推人等得焦虑得不行，所以就有了这个做 easy-refer 系统的想法。
+刚好疫情被困在美国，而且也想最后回深圳腾讯了，所以无聊就写了这个系统。
+功能其实并不多，但是自己写的时候会想特别多的东西，框架，架构之类的，尽量向企业级去思考。
+但是，有时候真的觉得目前到了天花板了，想的很多解决方案可能都是一时兴起或者无可奈何的做法。
+感觉在架构方面缺乏太多的知识，如安全，并发，边界，性能，运维，设计等等。
+
+感觉这个项目应该也是个 Toy Project，如果你也喜欢这个项目，可以在这里给点建议或一个 Star :)
