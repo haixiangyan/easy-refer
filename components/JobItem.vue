@@ -1,35 +1,36 @@
 <template>
     <el-row class="job-item">
-        <el-col :span="4">
-            <nuxt-link class="avatar" :to="`/refer/apply/${jobItem.jobId}`">
-                <CompanyImage :src="jobItem.referer.avatarUrl"/>
+        <el-col :span="3">
+            <nuxt-link class="avatar" :to="`/refer/apply/${job.jobId}`">
+                <CompanyImage :src="job.referer.avatarUrl"/>
             </nuxt-link>
         </el-col>
-        <el-col class="content" :span="14">
+        <el-col class="content" :span="15">
             <p class="title">
-                {{jobItem.company}}
+                {{job.company}}
                 <el-divider direction="vertical"></el-divider>
-                {{jobItem.referer.name}}内推
+                {{job.referer.name}}内推
             </p>
             <div class="tags">
                 <el-tag size="mini" type="primary">{{deadline}}截止</el-tag>
-                <el-tag size="mini" type="danger">{{jobItem.expiration}}天必推</el-tag>
+                <el-tag size="mini" type="danger">{{job.autoRejectDay}}天必推</el-tag>
             </div>
             <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
             <div>
-                <el-link v-if="jobItem.source" :href="jobItem.source">
+                <el-link v-if="job.source" :href="job.source">
                     原贴
                     <i class="el-icon-top-right"></i>
                 </el-link>
             </div>
         </el-col>
         <el-col class="refer-status" :span="6">
-            <div class="apply-refer" v-if="showApply">
-                <nuxt-link :to="`/refer/apply/${jobItem.jobId}`" tag="span">
-                    <el-button size="small" type="primary">申请内推</el-button>
-                </nuxt-link>
+            <div class="apply-refer" :class="{'show-apply': showApply}">
+                <el-button :disabled="!canApply" size="small" type="primary"
+                           @click="$router.push(`/refer/apply/${job.jobId}`)">
+                    申请内推
+                </el-button>
             </div>
-            <ReferredLineChart class="chart" v-if="jobItem" :data-source="finishedChartData"/>
+            <StatusChart class="chart" v-if="job" :data-source="job.processedChart" :max="yMax"/>
         </el-col>
     </el-row>
 </template>
@@ -39,35 +40,36 @@
   import dayjs from 'dayjs'
   import {Component, Prop} from 'nuxt-property-decorator'
   import CompanyImage from '@/components/CompanyImage.vue'
-  import ReferredLineChart from '@/components/ReferredLineChart.vue'
+  import StatusChart from '@/components/StatusChart.vue'
   import {getReferProgress} from '@/utils/refer'
   import {DATETIME_FORMAT} from '@/constants/format'
 
   @Component({
-    components: {CompanyImage, ReferredLineChart}
+    components: {CompanyImage, StatusChart}
   })
   export default class JobItem extends Vue {
-    @Prop({required: true}) jobItem!: TJobItem
+    @Prop({required: true}) job!: TJob
 
     get showApply() {
       return this.$route.name === 'job-list'
     }
 
-    get deadline() {
-      return dayjs(this.jobItem.deadline).format(DATETIME_FORMAT)
+    get yMax() {
+      return this.job.processedChart.reduce((prev, {count}) => count > prev ? count : prev, 0)
     }
 
-    get finishedChartData() {
-      return this.jobItem.finishedChart
-        .map(({date, count}) => ({
-          date: dayjs(date).format(DATETIME_FORMAT),
-          count
-        }))
+    get canApply() {
+      // 没有 Login 时，或自己不能内推自己
+      return !this.$auth.loggedIn || this.job.refererId !== this.$auth.user.info.userId
+    }
+
+    get deadline() {
+      return dayjs(this.job.deadline).format(DATETIME_FORMAT)
     }
 
     get referredPercentage() {
-      const {referredCount, referTotal} = this.jobItem
-      return referTotal === 0 ? 0 : parseFloat((referredCount / referTotal * 100).toFixed(2))
+      const {referredCount, referTotal} = this.job
+      return referTotal === 0 ? 0.00 : parseFloat((referredCount / referTotal * 100).toFixed(2))
     }
 
     get referredProgress() {
@@ -79,7 +81,7 @@
 <style scoped lang="scss">
     .job-item {
         display: flex;
-        padding: 20px 0;
+        padding: 16px 0;
         border-bottom: 1px solid $border-color;
 
         &:last-child {
@@ -120,8 +122,13 @@
 
         .refer-status {
             text-align: right;
+
             .apply-refer {
-                margin-bottom: 8px;
+                margin-bottom: 16px;
+                visibility: hidden;
+                &.show-apply {
+                    visibility: visible;
+                }
             }
         }
     }

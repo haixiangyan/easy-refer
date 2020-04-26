@@ -1,21 +1,16 @@
 import express from 'express'
 import Mock from 'mockjs'
-import {Job, JobItem} from '../mocks/objects'
+import {Job} from '../template'
 
 // '/jobs'
 const JobsRouter = express.Router()
 
-// 获取 Job item list
-JobsRouter.get('/item', (req, res) => {
+// 获取 Job list
+JobsRouter.get('/', (req, res) => {
   res.json(Mock.mock({
-    'jobItemList|10': [JobItem],
-    totalPages: 100
+    'jobList|10': [Job],
+    total: 100
   }))
-})
-
-// 获取一个 Job item
-JobsRouter.get('/item/:jobId', (req, res) => {
-  res.json(Mock.mock(JobItem))
 })
 
 // 获取一个 Job

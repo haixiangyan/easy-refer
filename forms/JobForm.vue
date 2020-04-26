@@ -9,7 +9,7 @@
             <el-input v-model="form.company" placeholder="内推的公司"></el-input>
         </el-form-item>
         <el-form-item required label="内推人">
-            <el-input disabled :value="user.name" placeholder="请输入你的名字"></el-input>
+            <el-input v-model="form.name" placeholder="请输入你的名字"></el-input>
         </el-form-item>
         <el-form-item required label="必填内容">
             <el-select
@@ -35,9 +35,9 @@
             </el-date-picker>
         </el-form-item>
         <el-form-item required label="X天默拒">
-            <el-radio v-model="form.expiration" :label="3">3 天</el-radio>
-            <el-radio v-model="form.expiration" :label="5">5 天</el-radio>
-            <el-radio v-model="form.expiration" :label="7">7 天</el-radio>
+            <el-radio v-model="form.autoRejectDay" :label="3">3 天</el-radio>
+            <el-radio v-model="form.autoRejectDay" :label="5">5 天</el-radio>
+            <el-radio v-model="form.autoRejectDay" :label="7">7 天</el-radio>
         </el-form-item>
         <el-form-item required label="内推上限">
             <el-input-number v-model="form.referTotal" :min="20" :max="1000" :step="100" label="描述文字"/>
@@ -49,7 +49,7 @@
 
         <div class="publish">
             <el-button class="publish-button" @click="submit" type="primary" round>
-                {{user.jobId ? '修改内推' : '发布内推'}}
+                {{job !== null ? '修改内推' : '发布内推'}}
             </el-button>
             <nuxt-link to="/job/list" tag="span">
                 <el-button type="danger" round>放弃编辑</el-button>
@@ -62,21 +62,20 @@
   import Vue from "vue"
   import {Component} from "nuxt-property-decorator"
   import dayjs from "dayjs"
-  import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '@/constants/referFields'
-  import {JOB_RULES} from "@/constants/rules"
+  import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '~/constants/referFields'
+  import {JOB_RULES} from "~/constants/rules"
   import {ElForm} from "element-ui/types/form"
 
   @Component
   export default class JobForm extends Vue {
     form: TJobForm = {
       company: '',
-      createdAt: new Date().toISOString(),
+      name: this.userInfo.name,
       deadline: dayjs().add(1, 'month').toISOString(),
-      expiration: 5,
+      autoRejectDay: 5,
       referTotal: 0,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
       source: '',
-      updatedAt: dayjs().toISOString()
     }
     requiredReferFieldValues = REQUIRED_REFER_FIELD_VALUES
     deadlineOptions = {
@@ -90,7 +89,7 @@
     }
     rules = JOB_RULES
 
-    get user() {
+    get userInfo() {
       return this.$auth.user.info
     }
     get job() {
@@ -101,7 +100,7 @@
     }
 
     mounted() {
-      this.user.jobId && this.loadJob()
+      this.job !== null && this.loadJob()
     }
 
     async loadJob() {

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <JobItem :job-item="jobItem"/>
+            <JobItem :job="job"/>
         </div>
 
         <el-divider>申请信息</el-divider>
@@ -29,35 +29,10 @@
     components: {JobItem}
   })
   export default class extends Vue {
-    referForm: TReferForm = {
-      email: '',
-      experience: 0,
-      intro: '',
-      leetCodeUrl: '',
-      name: '',
-      phone: '',
-      referLinks: '',
-      resumeId: '',
-      thirdPersonIntro: ''
-    }
+    refer: TRefer | null = null
 
-    get jobItem() {
-      const {info, job} = this.$auth.user
-      return {
-          jobId: job.jobId,
-          company: job.company,
-          referer: {
-            name: info.name,
-            avatarUrl: info.avatarUrl
-          },
-          deadline: job.deadline,
-          expiration: job.expiration,
-          referredCount: job.referredCount,
-          referTotal: job.referTotal,
-          requiredFields: job.requiredFields,
-          source: job.source,
-          finishedChart: job.finishedChart
-      }
+    get job() {
+      return this.$auth.user.job
     }
 
     get referId() {
@@ -65,12 +40,24 @@
     }
 
     get referTable() {
-      return Object.entries(this.referForm)
-        .filter(([key, _]) => this.jobItem.requiredFields.includes(key))
-        .map(([key, value]) => ({
-          key: REFER_FIELDS_MAPPER[key],
-          value: key === 'experience' ? LEVEL_MAPPER[value as number] : value
-        }))
+      if (!this.refer) return []
+
+      return Object.entries(this.refer)
+        .filter(([key, _]) => this.job.requiredFields.includes(key)) // 只需要必填内容
+        .map(([rawKey, rawValue]) => {
+          let key = REFER_FIELDS_MAPPER[rawKey]
+          let value = rawValue
+
+          // 特殊处理某些字段
+          if (key === 'experience') {
+            value = LEVEL_MAPPER[value as number]
+          }
+          if (key === 'resumeId') {
+            value = rawValue!.resumeUrl
+          }
+
+          return {key, value}
+        })
     }
 
     mounted() {
@@ -78,10 +65,7 @@
     }
 
     async loadRefer() {
-      const refer = await this.$axios.$get(`/refers/${this.referId}`)
-      Object.keys(this.referForm).forEach((key: string) => {
-        this.referForm[key] = refer[key]
-      })
+      this.refer = await this.$axios.$get(`/refers/${this.referId}`)
     }
 
     async updateStatus(status: TStatus) {

@@ -5,7 +5,7 @@
              label-position="left"
              :rules="rules">
         <el-form-item required prop="name" :label="field('name')">
-            <el-input :disabled="$auth.loggedIn" v-model="form.name"></el-input>
+            <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item required prop="email" :label="field('email')">
             <el-input type="email" :disabled="$auth.loggedIn" v-model="form.email"></el-input>
@@ -31,7 +31,7 @@
         <el-form-item v-if="isShowField('leetCodeUrl')" required prop="leetCodeUrl" :label="field('leetCodeUrl')">
             <el-input type="url" v-model="form.leetCodeUrl"></el-input>
         </el-form-item>
-        <el-form-item :label="field('resumeUrl')">
+        <el-form-item v-if="isShowField('resumeId')" required :label="field('resumeId')">
             <el-upload
                 action="/api/upload/resume"
                 :data="{resumeId: form.resumeId}"
@@ -57,12 +57,12 @@
   import Vue from 'vue'
   import {Component, Prop} from 'nuxt-property-decorator'
   import {Mutation} from 'vuex-class'
-  import JobItem from '@/components/JobItem.vue'
-  import {LEVEL_MAPPER} from '@/constants/level'
+  import JobItem from '~/components/JobItem.vue'
+  import {LEVEL_MAPPER} from '~/constants/level'
   import {ElForm} from 'element-ui/types/form'
-  import {RESUME_RULES} from '@/constants/rules'
-  import {getFieldName} from '@/constants/referFields'
-  import {RESUME_MIME_TYPES, RESUME_SIZE} from '@/constants/file'
+  import {RESUME_RULES} from '~/constants/rules'
+  import {getFieldName} from '~/constants/referFields'
+  import {RESUME_MIME_TYPES, RESUME_SIZE} from '~/constants/file'
 
   @Component({
     components: {JobItem}
@@ -96,7 +96,7 @@
       this.initForm()
     }
 
-    get user() {
+    get userInfo() {
       return this.$auth.user.info
     }
     get levels() {
@@ -146,8 +146,8 @@
       // 已经 login，自动填写表单
       if (this.$auth.loggedIn) {
         return Object.keys(this.form).forEach((key: string) => {
-          if (key in this.user!) {
-            this.form[key] = this.user![key]
+          if (key in this.userInfo!) {
+            this.form[key] = this.userInfo![key]
           }
         })
       }

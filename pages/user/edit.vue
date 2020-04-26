@@ -1,12 +1,13 @@
 <template>
     <div>
         <el-row class="avatar" type="flex" align="middle">
-            <el-col :span="6">
+            <el-col :span="4">
                 <el-avatar :src="$auth.user.info.avatarUrl" :size="100"/>
             </el-col>
             <el-col>
                 <el-upload
                     action="/api/upload/avatar"
+                    :headers="{Authorization: $auth.getToken('local')}"
                     :show-file-list="false"
                     :on-success="uploaded"
                     :on-change="uploading"
@@ -22,7 +23,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
-  import UserForm from '~/components/UserForm.vue'
+  import UserForm from '~/forms/UserForm.vue'
   import {IMAGE_MIME_TYPES, IMAGE_SIZE} from '~/constants/file'
   import {Mutation} from 'vuex-class'
 
@@ -33,6 +34,10 @@
     @Mutation('setLoading') setLoading!: Function
 
     form: TUserForm | null = null
+
+    get job() {
+      return this.$auth.user.job
+    }
 
     async uploaded() {
       await this.$auth.fetchUser()

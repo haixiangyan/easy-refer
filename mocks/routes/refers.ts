@@ -1,17 +1,15 @@
 import express from 'express'
 import Mock from 'mockjs'
-import {MyRefer, OtherRefer, Refer} from '../mocks/objects'
+import {Refer} from '../template'
 
 // '/refers'
 const RefersRouter = express.Router()
 
-// 获取 My Refer / Other Refer
+// 获取 Refer List
 RefersRouter.get('/', (req, res) => {
-  // TODO: 检测 role
-  const referTemplate = req.url.includes('my') ? MyRefer : OtherRefer
   res.json(Mock.mock({
-    'referList|10': [referTemplate],
-    totalPages: 100
+    'referList|10': [Refer],
+    total: 100
   }))
 })
 
@@ -21,7 +19,7 @@ RefersRouter.get('/:referId', (req, res) => {
 })
 
 // 创建 Refer
-RefersRouter.post('/', (req, res) => {
+RefersRouter.post('/:jobId', (req, res) => {
   res.json(Mock.mock(Refer))
 })
 

@@ -15,8 +15,12 @@
   import {Component, Prop} from 'nuxt-property-decorator'
 
   @Component
-  export default class ReferredLineChart extends Vue {
-    @Prop({required: true}) dataSource!: TFinishedChartItem[]
+  export default class StatusChart extends Vue {
+    @Prop({required: true})
+    dataSource!: TProcessedChartItem[]
+    @Prop({type: Number, default: 1000})
+    max!: number
+
     settings = {
       labelMap: { // 别名
         date: '日期',
@@ -27,9 +31,9 @@
 
     options = {
       xAxis: {show: false},
-      yAxis: {show: false,},
+      yAxis: {show: false, max: this.max},
       // Canvas 对于容器的位置
-      grid: {left: '-16%', top: 0, bottom: -80, right: 0},
+      grid: {left: '-16%', top: 0, bottom: 0, right: 0},
       // 配置 y 轴方向的渐变色
       color: {
         type: 'linear',
@@ -51,7 +55,6 @@
         rows: JSON.parse(JSON.stringify(this.dataSource))
       }
     }
-
   }
 </script>
 

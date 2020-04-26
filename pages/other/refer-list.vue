@@ -1,12 +1,13 @@
 <template>
-    <div>
+    <div v-if="total !== 0">
         <el-table :data="refers" style="width: 100%">
-            <el-table-column prop="referer.name" label="姓名" width="180"/>
+            <el-table-column prop="name" label="姓名" width="180"/>
             <el-table-column prop="createdAt" label="提交日期" width="180">
                 <template slot-scope="scope">
                     {{getCreatedAt(scope.row.createdAt)}}
                 </template>
             </el-table-column>
+            <el-table-column prop="email" label="邮箱"/>
             <el-table-column label="经验">
                 <template slot-scope="scope">
                     <span>{{getLevel(scope.row.experience)}}</span>
@@ -20,30 +21,42 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="pages">
+        <div class="pages" v-if="limit < total">
             <el-pagination
-                v-show="totalPages !== 0"
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
-                :total="totalPages">
+                :total="total">
             </el-pagination>
         </div>
     </div>
+    <Empty v-else :empty-text="emptyText">
+        <nuxt-link v-if="!this.$auth.user.job" to="/job/add">
+            <el-button type="primary" size="small" round>发布内推职位</el-button>
+        </nuxt-link>
+    </Empty>
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
   import {Component, Watch} from 'nuxt-property-decorator'
-  import {LEVEL_MAPPER} from '~/constants/level'
   import dayjs from 'dayjs'
+  import {LEVEL_MAPPER} from '~/constants/level'
   import {DATETIME_FORMAT} from '~/constants/format'
+  import Empty from '~/components/Empty.vue'
 
-  @Component
+  @Component({
+    components: {Empty}
+  })
   export default class extends Vue {
-    refers: TOtherRefer[] = []
+    refers: TRefer[] = []
     page: number = 1
-    totalPages: number = 0
+    limit: number = 10
+    total: number = 0
+
+    get emptyText() {
+      return !this.$auth.user.job ? '还没有发布内推职位哦~' : '还没有人申请内推哦~'
+    }
 
     mounted() {
       this.loadOtherReferList(this.page)
@@ -59,15 +72,11 @@
 
     async loadOtherReferList(page: number) {
       const data = await this.$axios.$get('/refers', {
-        params: {
-          role: 'other',
-          page,
-          limit: 10
-        }
+        params: {role: 'other', page, limit: this.limit}
       })
 
-      this.refers = data.referList as TOtherRefer[]
-      this.totalPages = data.totalPages
+      this.refers = data.referList as TRefer[]
+      this.total = data.total
     }
 
     @Watch('page')

@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
     mode: 'spa',
     /*
@@ -42,24 +44,30 @@ module.exports = {
     plugins: [
         '@/plugins/element-ui',
         '@/plugins/v-charts',
-        '@/plugins/axios'
+        '@/plugins/axios',
+        '@/plugins/v-clipboard'
     ],
     /*
     ** Nuxt.js dev-modules
     */
     buildModules: [
-        '@nuxt/typescript-build'
+        '@nuxt/typescript-build',
+        '@nuxtjs/dotenv'
     ],
     /*
     ** Nuxt.js modules
     */
     modules: [
-        // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         '@nuxtjs/pwa',
-        '@nuxtjs/style-resources'
+        '@nuxtjs/style-resources',
+        '@nuxtjs/proxy',
     ],
+    /**
+     * 配置代理
+     */
+    proxy: [`${process.env.PROXY_BASE_URL}/api`],
     /*
     ** Axios module configuration
     ** See https://axios.nuxtjs.org/options
@@ -76,12 +84,12 @@ module.exports = {
         strategies: {
             local: {
                 endpoints: {
-                    login: { url: '/auth/login', method: 'post', propertyName: 'token' },
-                    logout: { url: '/auth/logout', method: 'post' },
-                    user: { url: '/auth/user', method: 'get', propertyName: false }
+                    login: {url: '/auth/login', method: 'post', propertyName: 'accessToken'},
+                    logout: false,
+                    user: {url: '/users', method: 'get', propertyName: false}
                 },
-                // tokenRequired: true,
-                tokenType: 'bearer',
+                tokenRequired: true,
+                tokenType: '',
                 // autoFetchUser: true
             }
         }

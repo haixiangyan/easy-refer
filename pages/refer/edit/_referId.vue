@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div v-if="jobItem">
-            <JobItem :job-item="jobItem"/>
+        <div v-if="job">
+            <JobItem :job="job"/>
         </div>
 
         <el-divider>修改你的信息</el-divider>
 
         <ReferForm
-            v-if="refer && jobItem"
+            v-if="refer && job"
             @submit="edit"
             :refer="refer"
             @back="$router.push('/my/refer-list')"
-            :required-fields="jobItem.requiredFields"/>
+            :required-fields="job.requiredFields"/>
     </div>
 </template>
 
@@ -19,14 +19,14 @@
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
   import JobItem from '~/components/JobItem.vue'
-  import ReferForm from '~/components/ReferForm.vue'
+  import ReferForm from '~/forms/ReferForm.vue'
   import {Context} from '@nuxt/types'
 
   @Component({
     components: {JobItem, ReferForm}
   })
   export default class extends Vue {
-    jobItem: TJobItem | null = null
+    job: TJob | null = null
     refer: TRefer | null = null
     referId: string | null = null
 
@@ -34,17 +34,17 @@
       const referId = route.params.referId
 
       const refer = await $axios.$get(`/refers/${referId}`)
-      const jobItem = await $axios.$get(`/jobs/item/${refer!.jobId}`)
+      const job = await $axios.$get(`/jobs/${refer!.jobId}`)
 
       return {
         referId,
         refer,
-        jobItem
+        job
       }
     }
 
     async edit(form: TReferForm) {
-      await this.$axios.$put(`/refers/${this.referId}`, form)
+      await this.$axios.$patch(`/refers/${this.referId}`, form)
 
       this.$message.success('已修改内推信息')
 
