@@ -30,7 +30,7 @@
                     申请内推
                 </el-button>
             </div>
-            <StatusChart class="chart" v-if="job" :data-source="job.processedChart" :max="job.referTotal"/>
+            <StatusChart class="chart" v-if="job" :data-source="job.processedChart" :max="yMax"/>
         </el-col>
     </el-row>
 </template>
@@ -52,6 +52,10 @@
 
     get showApply() {
       return this.$route.name === 'job-list'
+    }
+
+    get yMax() {
+      return this.job.processedChart.reduce((prev, {count}) => count > prev ? count : prev, 0)
     }
 
     get canApply() {
