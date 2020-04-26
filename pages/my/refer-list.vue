@@ -105,6 +105,8 @@
     async confirmWithdraw(refer: TRefer) {
       await this.$axios.$delete(`/refers/${refer.referId}`)
 
+      await this.loadRefers(this.page)
+
       this.$message.success('已撤回')
     }
 
