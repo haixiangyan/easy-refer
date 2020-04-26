@@ -15,9 +15,11 @@
                 </div>
                 <div v-if="job" class="job-link">
                     <span>内推链接: </span>
-                    <el-link type="primary" :href="`/refer/apply/${job.jobId}`">
-                        {{jobLink}}
-                    </el-link>
+                    <nuxt-link :to="`/refer/apply/${job.jobId}`" tag="span">
+                        <el-link type="primary">
+                            {{jobLink}}
+                        </el-link>
+                    </nuxt-link>
                     <el-tooltip effect="dark" :content="copyText" placement="bottom">
                         <i v-clipboard:copy="jobLink" v-clipboard:success="() => copyText = '已复制'"
                            class="el-icon-document-copy"/>
