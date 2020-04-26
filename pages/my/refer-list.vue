@@ -17,7 +17,7 @@
             </el-table-column>
             <el-table-column prop="source" label="原贴">
                 <template slot-scope="scope">
-                    <el-link :href="scope.row.source">
+                    <el-link v-if="scope.row.job.source" :href="scope.row.job.source">
                         原贴
                         <i class="el-icon-top-right"></i>
                     </el-link>
