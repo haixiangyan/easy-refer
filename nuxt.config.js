@@ -54,6 +54,10 @@ module.exports = {
         '@nuxt/typescript-build',
         '@nuxtjs/dotenv'
     ],
+    /**
+     * 打包输出路径
+     */
+    buildDir: '../easy-refer-server/fe',
     /*
     ** Nuxt.js modules
     */
