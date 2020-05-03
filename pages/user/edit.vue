@@ -33,8 +33,6 @@
   export default class extends Vue {
     @Mutation('setLoading') setLoading!: Function
 
-    form: TUserForm | null = null
-
     get job() {
       return this.$auth.user.job
     }
@@ -66,7 +64,11 @@
     }
 
     async onSubmit(form: TUserForm) {
-      await this.$axios.$put('/users', form)
+      // 添加 resume 和 avatarUrl
+      await this.$axios.$put('/users', {
+        ...form,
+        avatarUrl: this.$auth.user.info.avatarUrl
+      })
 
       await this.$auth.fetchUser()
 
