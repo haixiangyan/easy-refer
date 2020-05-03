@@ -3,7 +3,7 @@
         <div class="job-list">
             <JobItem v-for="job in publicJobs" :job="job" :key="job.jobId"></JobItem>
         </div>
-        <div class="pages">
+        <div class="pages" v-if="limit < total">
             <el-pagination
                 :current-page.sync="page"
                 background
