@@ -59,7 +59,7 @@
     copyText = '复制'
 
     get jobLink() {
-      return `${process.env.BASE_URL}/refer/apply/${this.job.jobId}`
+      return `${process.env.PROXY_BASE_URL}/refer/apply/${this.job.jobId}`
     }
 
     get job() {
