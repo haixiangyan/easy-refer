@@ -23,7 +23,7 @@
             </el-menu-item>
         </el-menu>
 
-        <el-dropdown v-if="$auth.loggedIn" @command="onCommand">
+        <el-dropdown v-if="$auth.loggedIn" @command="onCommand" trigger="click">
             <span class="user-drop">
                 我<i class="el-icon-arrow-down el-icon--right"/>
             </span>
@@ -32,6 +32,7 @@
                 <el-dropdown-item v-if="!jobId" command="/job/add">发布内推职位</el-dropdown-item>
                 <el-dropdown-item v-if="jobId" command="/job/edit">修改内推职位</el-dropdown-item>
                 <el-dropdown-item v-if="jobId" :command="`/refer/edit/${jobId}`">我的内推职位</el-dropdown-item>
+                <el-dropdown-item style="color: #F56C6C;" command="logout">登出</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
         <nuxt-link v-else to="/login" tag="span">
@@ -51,7 +52,10 @@
     }
 
     onCommand(command: string) {
-      console.log(command)
+      if (command === 'logout') {
+        return this.$auth.logout()
+      }
+
       this.$router.push(command)
     }
   }
