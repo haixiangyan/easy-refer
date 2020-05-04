@@ -31,7 +31,7 @@
                 <el-dropdown-item command="/user">个人信息</el-dropdown-item>
                 <el-dropdown-item v-if="!jobId" command="/job/add">发布内推职位</el-dropdown-item>
                 <el-dropdown-item v-if="jobId" command="/job/edit">修改内推职位</el-dropdown-item>
-                <el-dropdown-item v-if="jobId" :command="`/refer/edit/${jobId}`">我的内推职位</el-dropdown-item>
+                <el-dropdown-item v-if="jobId" :command="`/refer/apply/${jobId}`">我的内推职位</el-dropdown-item>
                 <el-dropdown-item style="color: #F56C6C;" command="logout">登出</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
