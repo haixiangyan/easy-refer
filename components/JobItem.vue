@@ -101,7 +101,7 @@
         .content {
             .title {
                 color: #303133;
-                font-size: 1.4em;
+                font-size: 20px;
                 font-weight: bold;
                 a {
                     text-decoration: none;
@@ -114,6 +114,7 @@
             }
 
             .info, .status {
+                font-size: 14px;
                 color: #606266;
                 margin-top: 8px;
             }
