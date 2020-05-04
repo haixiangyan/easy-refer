@@ -1,11 +1,12 @@
 <template>
     <el-row class="job-item">
-        <el-col :span="3">
-            <nuxt-link class="avatar" :to="`/refer/apply/${job.jobId}`">
-                <CompanyImage :src="job.referer.avatarUrl"/>
-            </nuxt-link>
+        <el-col :span="4">
+            <el-progress type="circle"
+                         :percentage="postedDayRatio"
+                         :format="dateLeft"
+                         :color="referredProgress"/>
         </el-col>
-        <el-col class="content" :span="15">
+        <el-col class="content" :span="14">
             <p class="title">
                 {{job.company}}
                 <el-divider direction="vertical"></el-divider>
@@ -43,6 +44,7 @@
   import StatusChart from '@/components/StatusChart.vue'
   import {getReferProgress} from '@/utils/refer'
   import {DATETIME_FORMAT} from '@/constants/format'
+  import {dateLeft} from '~/utils/date'
 
   @Component({
     components: {CompanyImage, StatusChart}
@@ -65,6 +67,17 @@
 
     get deadline() {
       return dayjs(this.job.deadline).format(DATETIME_FORMAT)
+    }
+
+    get postedDayRatio() {
+      const {deadline, createdAt} = this.job
+      const postedDays = dayjs().diff(createdAt, 'day')
+      const totalDays = dayjs(deadline).diff(createdAt, 'day')
+      return totalDays / postedDays
+    }
+
+    dateLeft() {
+      return dateLeft(this.job.deadline)
     }
 
     get referredPercentage() {
