@@ -103,7 +103,7 @@
                 a {
                     text-decoration: none;
                     font-size: .9em;
-                    color: $info-color;
+                    color: $primary-color;
                     &:hover {
                         text-decoration: underline;
                     }
