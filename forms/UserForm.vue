@@ -30,7 +30,6 @@
 
         <div class="user-form-submit">
             <el-button class="submit-button" round type="primary" @click="saveChange">保存</el-button>
-            <el-button round @click="$router.push('/user')">返回</el-button>
         </div>
     </el-form>
 </template>
@@ -93,10 +92,6 @@
     .user-form {
         &-submit {
             text-align: center;
-        }
-
-        .submit-button {
-            margin-right: 8px;
         }
     }
 </style>

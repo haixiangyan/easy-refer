@@ -45,7 +45,6 @@ module.exports = {
         '@/plugins/element-ui',
         '@/plugins/v-charts',
         '@/plugins/axios',
-        '@/plugins/v-clipboard'
     ],
     /*
     ** Nuxt.js dev-modules

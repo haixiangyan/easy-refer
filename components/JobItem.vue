@@ -1,33 +1,39 @@
 <template>
     <el-row class="job-item">
-        <el-col :span="3">
-            <nuxt-link class="avatar" :to="`/refer/apply/${job.jobId}`">
-                <CompanyImage :src="job.referer.avatarUrl"/>
-            </nuxt-link>
+        <el-col :span="4">
+            <el-progress type="circle"
+                         :percentage="postedDayRatio"
+                         :format="dateLeft"
+                         :color="getProgressColor(postedDayRatio)"/>
         </el-col>
-        <el-col class="content" :span="15">
-            <p class="title">
-                {{job.company}}
+        <el-col class="content" :span="14">
+            <section class="title">
+                <span>{{job.company}}</span>
                 <el-divider direction="vertical"></el-divider>
-                {{job.referer.name}}内推
-            </p>
-            <div class="tags">
-                <el-tag size="mini" type="primary">{{deadline}}截止</el-tag>
-                <el-tag size="mini" type="danger">{{job.autoRejectDay}}天必推</el-tag>
-            </div>
-            <el-progress class="progress" :percentage="referredPercentage" :color="referredProgress"/>
-            <div>
-                <el-link v-if="job.source" :href="job.source">
+                <a v-if="job.source" :href="job.source">
                     原贴
                     <i class="el-icon-top-right"></i>
-                </el-link>
-            </div>
+                </a>
+            </section>
+            <section class="info">
+                <span>{{job.autoRejectDay}}天默拒</span>
+                <el-divider direction="vertical"></el-divider>
+                <span>{{deadline}}截止</span>
+            </section>
+            <section class="status">
+                <span>已处理 {{job.referredCount}} / {{job.referTotal}}</span>
+            </section>
         </el-col>
+
         <el-col class="refer-status" :span="6">
             <div class="apply-refer" :class="{'show-apply': showApply}">
-                <el-button :disabled="!canApply" size="small" type="primary"
+                <el-button v-if="!isMyJob" size="small" type="primary"
                            @click="$router.push(`/refer/apply/${job.jobId}`)">
                     申请内推
+                </el-button>
+                <el-button v-else size="small" type="primary"
+                           @click="$router.push('/job/edit')">
+                    修改内推
                 </el-button>
             </div>
             <StatusChart class="chart" v-if="job" :data-source="job.processedChart" :max="yMax"/>
@@ -41,14 +47,17 @@
   import {Component, Prop} from 'nuxt-property-decorator'
   import CompanyImage from '@/components/CompanyImage.vue'
   import StatusChart from '@/components/StatusChart.vue'
-  import {getReferProgress} from '@/utils/refer'
+  import {getProgressColor} from '@/utils/math'
   import {DATETIME_FORMAT} from '@/constants/format'
+  import {dateLeft} from '@/utils/date'
 
   @Component({
     components: {CompanyImage, StatusChart}
   })
   export default class JobItem extends Vue {
     @Prop({required: true}) job!: TJob
+
+    getProgressColor = getProgressColor
 
     get showApply() {
       return this.$route.name === 'job-list'
@@ -58,22 +67,23 @@
       return this.job.processedChart.reduce((prev, {count}) => count > prev ? count : prev, 0)
     }
 
-    get canApply() {
-      // 没有 Login 时，或自己不能内推自己
-      return !this.$auth.loggedIn || this.job.refererId !== this.$auth.user.info.userId
+    get isMyJob() {
+      return this.$auth.loggedIn && this.job.refererId === this.$auth.user.info.userId
     }
 
     get deadline() {
       return dayjs(this.job.deadline).format(DATETIME_FORMAT)
     }
 
-    get referredPercentage() {
-      const {referredCount, referTotal} = this.job
-      return referTotal === 0 ? 0.00 : parseFloat((referredCount / referTotal * 100).toFixed(2))
+    get postedDayRatio() {
+      const {deadline, createdAt} = this.job
+      const postedDays = dayjs().diff(createdAt, 'day')
+      const totalDays = dayjs(deadline).diff(createdAt, 'day')
+      return totalDays / postedDays
     }
 
-    get referredProgress() {
-      return getReferProgress(this.referredPercentage)
+    dateLeft() {
+      return dateLeft(this.job.deadline)
     }
   }
 </script>
@@ -88,35 +98,25 @@
             border-bottom: none;
         }
 
-        .avatar {
-            margin-right: 24px;
-
-            img {
-                width: 80%;
-            }
-        }
-
         .content {
-            line-height: 24px;
-
             .title {
-                margin-bottom: 8px;
-                font-size: 1.1em;
+                color: #303133;
+                font-size: 20px;
                 font-weight: bold;
-            }
-
-            .tags {
-                margin-bottom: 8px;
-
-                > span {
-                    margin-right: 8px;
+                a {
+                    text-decoration: none;
+                    font-size: .9em;
+                    color: $primary-color;
+                    &:hover {
+                        text-decoration: underline;
+                    }
                 }
             }
 
-            .progress {
-                max-width: 240px;
-                display: flex;
-                align-items: center;
+            .info, .status {
+                font-size: 14px;
+                color: #606266;
+                margin-top: 8px;
             }
         }
 
