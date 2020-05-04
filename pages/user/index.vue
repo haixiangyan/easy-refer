@@ -22,11 +22,7 @@
     }
 
     async onSubmit(form: TUserForm) {
-      // 添加 resume 和 avatarUrl
-      await this.$axios.$put('/users', {
-        ...form,
-        avatarUrl: this.$auth.user.info.avatarUrl
-      })
+      await this.$axios.$put('/users', form)
 
       await this.$auth.fetchUser()
 
@@ -38,7 +34,4 @@
 </script>
 
 <style scoped lang="scss">
-    .avatar {
-        margin-bottom: 24px;
-    }
 </style>

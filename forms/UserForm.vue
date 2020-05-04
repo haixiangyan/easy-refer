@@ -48,7 +48,6 @@
     @Mutation('setLoading') setLoading!: Function
 
     form: TUserForm = {
-      avatarUrl: '',
       email: '',
       experience: 0,
       intro: '',
