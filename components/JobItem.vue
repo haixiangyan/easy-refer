@@ -27,9 +27,13 @@
 
         <el-col class="refer-status" :span="6">
             <div class="apply-refer" :class="{'show-apply': showApply}">
-                <el-button :disabled="!canApply" size="small" type="primary"
+                <el-button v-if="!isMyJob" size="small" type="primary"
                            @click="$router.push(`/refer/apply/${job.jobId}`)">
                     申请内推
+                </el-button>
+                <el-button v-else size="small" type="primary"
+                           @click="$router.push('/job/edit')">
+                    修改内推
                 </el-button>
             </div>
             <StatusChart class="chart" v-if="job" :data-source="job.processedChart" :max="yMax"/>
@@ -63,9 +67,8 @@
       return this.job.processedChart.reduce((prev, {count}) => count > prev ? count : prev, 0)
     }
 
-    get canApply() {
-      // 没有 Login 时，或自己不能内推自己
-      return !this.$auth.loggedIn || this.job.refererId !== this.$auth.user.info.userId
+    get isMyJob() {
+      return this.$auth.loggedIn && this.job.refererId === this.$auth.user.info.userId
     }
 
     get deadline() {
