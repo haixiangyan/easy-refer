@@ -111,6 +111,7 @@
             }
 
             .info, .status {
+                color: #606266;
                 margin-top: 8px;
             }
         }
