@@ -30,4 +30,11 @@ describe('dateLeft', () => {
 
     expect(left).toEqual('还剩2天')
   })
+  it('负数情况', () => {
+    const date = dayjs().subtract(1, 'month').toISOString()
+
+    const left = dateLeft(date)
+
+    expect(left).toEqual('还剩0天')
+  })
 })

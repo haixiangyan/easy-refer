@@ -1,4 +1,4 @@
-import {getProgressColor} from '~/utils/math'
+import {getProgressColor, getRatio} from '~/utils/math'
 import {ELEMENT_COLORS} from '@/constants/color'
 
 describe('getReferColor', () => {
@@ -15,5 +15,18 @@ describe('getReferColor', () => {
     const invalidPercentage = -1
 
     expect(getProgressColor(invalidPercentage)).toEqual(ELEMENT_COLORS.info)
+  })
+})
+
+describe('getRatio', () => {
+  it('正常计算比率', () => {
+    const ratio = getRatio(1, 2)
+
+    expect(ratio).toEqual(50)
+  })
+  it('计算0比率', () => {
+    const ratio = getRatio(1, 0)
+
+    expect(ratio).toEqual(0.0)
   })
 })
