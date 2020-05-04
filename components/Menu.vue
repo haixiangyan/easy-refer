@@ -48,7 +48,7 @@
   @Component
   export default class extends Vue {
     get jobId() {
-      return this.$auth.user.job.jobId
+      return this.$auth.user.job && this.$auth.user.job.jobId
     }
 
     onCommand(command: string) {
