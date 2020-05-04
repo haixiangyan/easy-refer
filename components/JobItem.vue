@@ -47,7 +47,7 @@
   import {Component, Prop} from 'nuxt-property-decorator'
   import CompanyImage from '@/components/CompanyImage.vue'
   import StatusChart from '@/components/StatusChart.vue'
-  import {getProgressColor} from '@/utils/math'
+  import {getProgressColor, getRatio} from '@/utils/math'
   import {DATETIME_FORMAT} from '@/constants/format'
   import {dateLeft} from '@/utils/date'
 
@@ -79,7 +79,7 @@
       const {deadline, createdAt} = this.job
       const postedDays = dayjs().diff(createdAt, 'day')
       const totalDays = dayjs(deadline).diff(createdAt, 'day')
-      return totalDays / postedDays
+      return getRatio(postedDays, totalDays)
     }
 
     dateLeft() {
