@@ -20,7 +20,6 @@ export const User = {
   leetCodeUrl: '@URL',
   thirdPersonIntro: '@PARAGRAPH',
   resumeId: '@ID',
-  avatarUrl: `@IMAGE('100x100', '#ffbbaa', 'Avatar')`
 }
 
 export const Resume = {

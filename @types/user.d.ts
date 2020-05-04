@@ -8,7 +8,6 @@ type TUser = {
   phone?: string
   leetCodeUrl?: string
   thirdPersonIntro?: string
-  avatarUrl?: string
 }
 
 type TUserForm = TMapper & {
@@ -19,5 +18,4 @@ type TUserForm = TMapper & {
   phone: string
   leetCodeUrl: string
   thirdPersonIntro: string
-  avatarUrl: string
 }
