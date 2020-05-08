@@ -40,7 +40,7 @@
             <el-radio v-model="form.autoRejectDay" :label="7">7 天</el-radio>
         </el-form-item>
         <el-form-item required label="内推上限">
-            <el-input-number v-model="form.referTotal" :min="20" :max="1000" :step="100" label="描述文字"/>
+            <el-input-number v-model="form.applyTotal" :min="20" :max="1000" :step="100" label="描述文字"/>
             <p class="limit-hint">上限范围：20~1000 请合理安排你的内推计划</p>
         </el-form-item>
         <el-form-item label="一亩三分地原贴">
@@ -73,7 +73,7 @@
       name: this.userInfo.name,
       deadline: dayjs().add(1, 'month').toISOString(),
       autoRejectDay: 5,
-      referTotal: 0,
+      applyTotal: 0,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
       source: '',
     }
