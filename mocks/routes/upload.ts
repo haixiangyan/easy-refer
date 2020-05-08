@@ -11,10 +11,4 @@ UploadRouter.post('/resume', (req, res) => {
   }))
 })
 
-UploadRouter.post('/avatar', (req, res) => {
-  res.json(Mock.mock({
-    avatarUrl: Mock.Random.image('100x100', '#fff')
-  }))
-})
-
 export default UploadRouter

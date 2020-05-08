@@ -45,7 +45,6 @@ module.exports = {
         '@/plugins/element-ui',
         '@/plugins/v-charts',
         '@/plugins/axios',
-        '@/plugins/v-clipboard'
     ],
     /*
     ** Nuxt.js dev-modules
@@ -104,5 +103,8 @@ module.exports = {
         */
         extend(config, ctx) {
         }
-    }
+    },
+    generate: {
+      dir: process.env.GENERATE_DIR || 'fe'
+    },
 }

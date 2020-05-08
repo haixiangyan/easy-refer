@@ -22,10 +22,21 @@
                 <span slot="title">处理内推</span>
             </el-menu-item>
         </el-menu>
-        <nuxt-link :to="$auth.loggedIn ? '/user' : '/login'" tag="span">
-            <el-link icon="el-icon-user">
-                {{$auth.loggedIn ? '我' : '登录'}}
-            </el-link>
+
+        <el-dropdown v-if="$auth.loggedIn" @command="onCommand" trigger="click">
+            <span class="user-drop">
+                我<i class="el-icon-arrow-down el-icon--right"/>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="/user">个人信息</el-dropdown-item>
+                <el-dropdown-item v-if="!jobId" command="/job/add">发布内推职位</el-dropdown-item>
+                <el-dropdown-item v-if="jobId" command="/job/edit">修改内推职位</el-dropdown-item>
+                <el-dropdown-item v-if="jobId" :command="`/refer/apply/${jobId}`">我的内推职位</el-dropdown-item>
+                <el-dropdown-item style="color: #F56C6C;" command="logout">登出</el-dropdown-item>
+            </el-dropdown-menu>
+        </el-dropdown>
+        <nuxt-link v-else to="/login" tag="span">
+            <el-link icon="el-icon-user">登录</el-link>
         </nuxt-link>
     </nav>
 </template>
@@ -36,6 +47,17 @@
 
   @Component
   export default class extends Vue {
+    get jobId() {
+      return this.$auth.user.job && this.$auth.user.job.jobId
+    }
+
+    onCommand(command: string) {
+      if (command === 'logout') {
+        return this.$auth.logout()
+      }
+
+      this.$router.push(command)
+    }
   }
 </script>
 
@@ -64,6 +86,9 @@
                     height: 4em;
                 }
             }
+        }
+        .user-drop {
+            cursor: pointer;
         }
     }
 </style>
