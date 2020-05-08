@@ -36,12 +36,12 @@ export const Job = {
   requiredFields,
   deadline: dayjs().add(10, 'month').toISOString(),
   'autoRejectDay|1': autoRejectDay,
-  referredCount: '@NATURAL(30, 100)',
-  referTotal: '@NATURAL(100, 300)',
+  appliedCount: '@NATURAL(30, 100)',
+  applyTotal: '@NATURAL(100, 300)',
   source: '@URL',
   createdAt: dayjs().subtract(10, 'day').toISOString(),
   updatedAt: dayjs().add(4, 'month').toISOString(),
-  'processedChart|12': [{
+  'logs|12': [{
     date: `@DATE('yyyy-MM-dd')`,
     count: '@NATURAL(50, 100)'
   }]

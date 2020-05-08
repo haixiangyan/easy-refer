@@ -21,7 +21,7 @@
                 <span>{{deadline}}截止</span>
             </section>
             <section class="status">
-                <span>已处理 {{job.referredCount}} / {{job.referTotal}}</span>
+                <span>已申请 {{job.appliedCount}} / {{job.applyTotal}}</span>
             </section>
         </el-col>
 
@@ -36,7 +36,7 @@
                     修改内推
                 </el-button>
             </div>
-            <StatusChart class="chart" v-if="job" :data-source="job.processedChart" :max="yMax"/>
+            <StatusChart class="chart" v-if="job" :data-source="job.logs" :max="yMax"/>
         </el-col>
     </el-row>
 </template>
@@ -64,7 +64,7 @@
     }
 
     get yMax() {
-      return this.job.processedChart.reduce((prev, {count}) => count > prev ? count : prev, 0)
+      return this.job.logs.reduce((prev, {count}) => count > prev ? count : prev, 0)
     }
 
     get isMyJob() {

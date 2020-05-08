@@ -5,16 +5,16 @@ type TJob = {
   requiredFields: string[]
   deadline: string
   autoRejectDay: 3 | 5 | 7
-  referredCount: number
-  referTotal: number
+  appliedCount: number
+  applyTotal: number
   source?: string
   createdAt: string
   updatedAt: string
-  processedChart: TProcessedChartItem[]
+  logs: TLog[]
   referer: TUser
 }
 
-type TProcessedChartItem = {
+type TLog = {
   date: string
   count: number
 }
@@ -24,6 +24,6 @@ type TJobForm = TMapper & {
   requiredFields: string[]
   deadline: string
   autoRejectDay: 3 | 5 | 7
-  referTotal: number
+  applyTotal: number
   source: string
 }
