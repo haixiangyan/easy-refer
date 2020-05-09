@@ -43,6 +43,7 @@
     "@types/nuxtjs__auth": "^4.8.4",
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-jest": "^24.1.0",
+    "body-parser": "^1.19.0",
     "coveralls": "^3.0.11",
     "jest": "^24.1.0",
     "mockjs": "^1.1.0",
