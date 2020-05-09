@@ -69,7 +69,7 @@
     }
 
     async updateStatus(status: TStatus) {
-      await this.$axios.$patch(`/refers/${this.referId}`, {status})
+      await this.$axios.$patch(`/refers/status/${this.referId}`, {status})
 
       this.$message.success(status === 'rejected' ? '不推此简历' : '已推此简历')
 

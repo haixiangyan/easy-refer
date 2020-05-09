@@ -28,6 +28,15 @@ RefersRouter.patch('/:referId', (req, res) => {
   res.json(Mock.mock(Refer))
 })
 
+// 修改 Refer 状态
+RefersRouter.patch('/status/:referId', (req, res) => {
+  const mockRefer = Mock.mock(Refer)
+  res.json({
+    ...mockRefer,
+    status: req.body.status
+  })
+})
+
 // 删除 Refer
 RefersRouter.delete('/:referId', (req, res) => {
   res.json({})
