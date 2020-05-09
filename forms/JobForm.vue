@@ -49,22 +49,22 @@
 
         <div class="publish">
             <el-button class="publish-button" @click="submit" type="primary" round>
-                {{job !== null ? '修改内推' : '发布内推'}}
+                {{job !== null ? '修改' : '发布'}}
             </el-button>
-            <nuxt-link to="/job/list" tag="span">
-                <el-button type="danger" round>放弃编辑</el-button>
-            </nuxt-link>
+            <el-button v-if="job" @click="withdraw" type="danger" round>
+                撤回
+            </el-button>
         </div>
     </el-form>
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "nuxt-property-decorator"
-  import dayjs from "dayjs"
+  import Vue from 'vue'
+  import {Component} from 'nuxt-property-decorator'
+  import dayjs from 'dayjs'
   import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '~/constants/referFields'
-  import {JOB_RULES} from "~/constants/rules"
-  import {ElForm} from "element-ui/types/form"
+  import {JOB_RULES} from '~/constants/rules'
+  import {ElForm} from 'element-ui/types/form'
 
   @Component
   export default class JobForm extends Vue {
@@ -82,7 +82,7 @@
       disabledDate(date: Date) {
         const today = dayjs()
         const cellDate = dayjs(date)
-        const afterOneYear = today.add(1, "year")
+        const afterOneYear = today.add(1, 'year')
 
         return cellDate.isBefore(today) || cellDate.isAfter(afterOneYear)
       }
@@ -92,9 +92,11 @@
     get userInfo() {
       return this.$auth.user.info
     }
+
     get job() {
       return this.$auth.user.job
     }
+
     get referFields() {
       return Object.entries(REFER_FIELDS_MAPPER).map(([value, label]) => ({value, label}))
     }
@@ -106,14 +108,40 @@
     async loadJob() {
       Object.keys(this.form).forEach((key: string) => {
         this.form[key] = this.job[key]
-        })
+      })
     }
 
     submit() {
       (<ElForm>this.$refs.form).validate(async valid => {
-        if (!valid) return this.$message.error("填写不正确")
+        if (!valid) return this.$message.error('填写不正确')
 
         this.$emit('submit', this.form)
+      })
+    }
+
+    async confirmWithdraw() {
+      await this.$axios.$delete(`/jobs/${this.job.jobId}`)
+
+      await this.$auth.fetchUser()
+
+      await this.$router.push('/')
+
+      this.$message.success('已移除')
+    }
+
+    async withdraw() {
+      await this.$alert('确定撤回该职位？', '撤回职位', {
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '撤回吧',
+        cancelButtonText: '再想想',
+        cancelButtonClass: 'cancel-withdraw',
+        confirmButtonClass: 'confirm-withdraw',
+        callback: action => {
+          if (action === 'confirm') {
+            this.confirmWithdraw()
+          }
+        }
       })
     }
   }
@@ -122,7 +150,7 @@
 <style lang="scss">
     .job-form {
         .el-tag__close.el-icon-close {
-            display: none!important;
+            display: none !important;
         }
     }
 </style>
@@ -139,10 +167,6 @@
 
         .publish {
             text-align: center;
-
-            &-button {
-                margin-right: 8px;
-            }
         }
     }
 </style>

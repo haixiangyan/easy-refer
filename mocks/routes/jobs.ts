@@ -28,4 +28,9 @@ JobsRouter.put('/:jobId', (req, res) => {
   res.json(Mock.mock(Job))
 })
 
+// 删除一个 Job
+JobsRouter.delete('/:jobId', (req, res) => {
+  res.json()
+})
+
 export default JobsRouter
