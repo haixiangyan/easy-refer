@@ -26,12 +26,12 @@
         </el-col>
 
         <el-col class="refer-status" :span="6">
-            <div class="apply-refer" :class="{'show-apply': showApply}">
+            <div class="apply-refer">
                 <el-button v-if="!isMyJob" size="small" type="primary"
                            @click="$router.push(`/refer/apply/${job.jobId}`)">
                     申请内推
                 </el-button>
-                <el-button v-else size="small" type="primary"
+                <el-button v-else size="small" type="primary" plain
                            @click="$router.push('/job/edit')">
                     修改内推
                 </el-button>
@@ -58,10 +58,6 @@
     @Prop({required: true}) job!: TJob
 
     getProgressColor = getProgressColor
-
-    get showApply() {
-      return this.$route.name === 'job-list'
-    }
 
     get yMax() {
       return this.job.logs.reduce((prev, {count}) => count > prev ? count : prev, 0)
@@ -125,10 +121,6 @@
 
             .apply-refer {
                 margin-bottom: 16px;
-                visibility: hidden;
-                &.show-apply {
-                    visibility: visible;
-                }
             }
         }
     }
