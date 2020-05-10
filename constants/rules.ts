@@ -1,6 +1,18 @@
 export const JOB_RULES = {
   company: [
     {required: true, message: '请输入公司名', trigger: 'blur'},
+  ],
+  deadline: [
+    {required: true}
+  ],
+  autoRejectDay: [
+    {required: true}
+  ],
+  applyTotal: [
+    {required: true}
+  ],
+  requiredFields: [
+    {required: true}
   ]
 }
 

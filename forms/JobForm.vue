@@ -5,11 +5,11 @@
              class="job-form"
              :rules="rules">
         <el-divider>内推职位信息</el-divider>
+        <el-form-item label="内推人">
+            <el-input v-model="form.name" placeholder="请输入你的名字"></el-input>
+        </el-form-item>
         <el-form-item prop="company" required label="内推公司">
             <el-input v-model="form.company" placeholder="内推的公司"></el-input>
-        </el-form-item>
-        <el-form-item required label="内推人">
-            <el-input v-model="form.name" placeholder="请输入你的名字"></el-input>
         </el-form-item>
         <el-form-item required label="必填内容">
             <el-select

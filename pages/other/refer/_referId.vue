@@ -53,7 +53,7 @@
             value = LEVEL_MAPPER[value as number]
           }
           if (key === 'resumeId') {
-            value = rawValue!.resumeUrl
+            value = rawValue!.resumeId
           }
 
           return {key, value}
