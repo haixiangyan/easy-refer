@@ -24,11 +24,12 @@
                 </template>
             </el-table-column>
             <el-table-column fixed="right" label="操作">
-                <template slot-scope="scope">
+                <template slot-scope="scope" v-if="scope.row.status === 'processing'">
                     <nuxt-link :to="`/refer/edit/${scope.row.referId}`" tag="span">
                         <el-link class="edit-button" type="primary" icon="el-icon-edit">修改</el-link>
                     </nuxt-link>
-                    <el-link @click="withdraw(scope.row)" type="danger" icon="el-icon-close" class="withdraw-icon">撤销</el-link>
+                    <el-link @click="withdraw(scope.row)" type="danger" icon="el-icon-close" class="withdraw-icon">撤销
+                    </el-link>
                 </template>
             </el-table-column>
         </el-table>
@@ -122,6 +123,7 @@
         padding: 20px 0;
         text-align: center;
     }
+
     .status {
         font-weight: bold;
         font-size: 1.1em;
