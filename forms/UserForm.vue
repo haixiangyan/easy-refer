@@ -4,7 +4,7 @@
              label-width="120px"
              label-position="left"
              :rules="rules">
-        <el-form-item required prop="name" :label="field('name')">
+        <el-form-item prop="name" :label="field('name')">
             <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item prop="email" required :label="field('email')">
@@ -13,7 +13,7 @@
         <el-form-item prop="phone" :label="field('phone')">
             <el-input type="tel" v-model="form.phone"></el-input>
         </el-form-item>
-        <el-form-item prop="experience" required :label="field('experience')">
+        <el-form-item prop="experience" :label="field('experience')">
             <el-select v-model="form.experience" placeholder="请选择">
                 <el-option v-for="[value, label] in levels" :key="value" :label="label" :value="value"></el-option>
             </el-select>
