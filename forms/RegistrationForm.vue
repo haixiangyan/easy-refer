@@ -1,5 +1,5 @@
 <template>
-    <el-form class="registration-form" ref="registrationForm" :model="form" :rules="rules">
+    <el-form class="registration-form" ref="form" :model="form" :rules="rules">
         <el-form-item prop="email">
             <el-input type="email" v-model="form.email" placeholder="输入邮箱">
                 <template slot="prepend">
@@ -48,7 +48,7 @@
     rules = REGISTER_RULES
 
     register() {
-      (<ElForm>this.$refs.registrationForm).validate(async valid => {
+      (<ElForm>this.$refs.form).validate(async valid => {
         if (this.form.password !== this.form.confirmPassword) return this.$message.error('两次密码输入不匹配')
         if (!valid) return this.$message.error('填写不正确')
 

@@ -1,5 +1,5 @@
 <template>
-    <el-form class="registration-form" ref="activateForm" :model="form" :rules="rules">
+    <el-form class="registration-form" ref="form" :model="form" :rules="rules">
         <el-form-item prop="email">
             <el-input type="email" v-model="form.email" placeholder="输入邮箱">
                 <template slot="prepend">
@@ -48,7 +48,7 @@
     }
 
     activate() {
-      (<ElForm>this.$refs.activateForm).validate(async valid => {
+      (<ElForm>this.$refs.form).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
         await this.$axios.$post('/auth/activate', this.form)

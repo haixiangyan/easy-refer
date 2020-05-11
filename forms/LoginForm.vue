@@ -1,14 +1,14 @@
 <template>
-    <el-form class="login-form" ref="loginForm" :model="loginForm" :rules="rules">
+    <el-form class="login-form" ref="form" :model="form" :rules="rules">
         <el-form-item prop="email">
-            <el-input type="email" v-model="loginForm.email" placeholder="输入邮箱">
+            <el-input type="email" v-model="form.email" placeholder="输入邮箱">
                 <template slot="prepend">
                     <i class="el-icon-message"></i>
                 </template>
             </el-input>
         </el-form-item>
         <el-form-item prop="password">
-            <el-input type="password" v-model="loginForm.password" placeholder="输入密码">
+            <el-input type="password" v-model="form.password" placeholder="输入密码">
                 <template slot="prepend">
                     <i class="el-icon-key"></i>
                 </template>
@@ -33,17 +33,17 @@
 
   @Component
   export default class LoginForm extends Vue {
-    loginForm: TLoginForm = {
+    form: TLoginForm = {
       email: '',
       password: ''
     }
     rules = LOGIN_RULES
 
     register() {
-      (<ElForm>this.$refs.loginForm).validate(async valid => {
+      (<ElForm>this.$refs.form).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
-        await this.$axios.$post('/auth/register', this.loginForm)
+        await this.$axios.$post('/auth/register', this.form)
 
         this.$message.success('注册成功')
 
@@ -55,7 +55,7 @@
       (<ElForm>this.$refs.loginForm).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
-        await this.$axios.$post('/auth/activate', this.loginForm)
+        await this.$axios.$post('/auth/activate', this.form)
 
         this.$message.success('激活成功')
 
@@ -69,7 +69,7 @@
 
         // 登录成功后，自动获取用户
         await this.$auth.loginWith('local', {
-          data: this.loginForm
+          data: this.form
         })
 
         this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
