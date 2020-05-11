@@ -4,7 +4,8 @@
             <div class="header">
                 <img class="logo" src="@/assets/img/logo.png" alt="logo">
             </div>
-            <login-form></login-form>
+<!--            <login-form></login-form>-->
+            <registration-form></registration-form>
         </el-card>
     </div>
 </template>
@@ -13,9 +14,13 @@
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
   import LoginForm from '~/forms/LoginForm.vue'
+  import RegistrationForm from '~/forms/RegistrationForm.vue'
 
   @Component({
-    components: {LoginForm}
+    components: {
+      LoginForm,
+      RegistrationForm
+    }
   })
   export default class Login extends Vue {
 
@@ -41,7 +46,6 @@
 
         .card {
             width: 448px;
-            height: 500px;
             padding: 40px;
         }
     }
