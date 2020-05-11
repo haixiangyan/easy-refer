@@ -14,3 +14,8 @@ type TRegistrationForm = {
   password: string
   confirmPassword: string
 }
+
+type TActivationForm = {
+  email: string
+  password: string
+}

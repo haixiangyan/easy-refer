@@ -5,7 +5,8 @@
                 <img class="logo" src="@/assets/img/logo.png" alt="logo">
             </div>
 <!--            <login-form></login-form>-->
-            <registration-form></registration-form>
+<!--            <registration-form></registration-form>-->
+            <activation-form></activation-form>
         </el-card>
     </div>
 </template>
@@ -15,11 +16,13 @@
   import {Component} from 'nuxt-property-decorator'
   import LoginForm from '~/forms/LoginForm.vue'
   import RegistrationForm from '~/forms/RegistrationForm.vue'
+  import ActivationForm from '~/forms/ActivationForm.vue'
 
   @Component({
     components: {
       LoginForm,
-      RegistrationForm
+      RegistrationForm,
+      ActivationForm
     }
   })
   export default class Login extends Vue {

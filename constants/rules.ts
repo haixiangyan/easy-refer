@@ -27,6 +27,8 @@ export const LOGIN_RULES = {
   ]
 }
 
+export const ACTIVATE_RULES = LOGIN_RULES
+
 export const REGISTER_RULES = {
   ...LOGIN_RULES,
   confirmPassword: [
