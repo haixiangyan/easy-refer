@@ -27,6 +27,16 @@ export const LOGIN_RULES = {
   ]
 }
 
+export const ACTIVATE_RULES = LOGIN_RULES
+
+export const REGISTER_RULES = {
+  ...LOGIN_RULES,
+  confirmPassword: [
+    {required: true, message: '请确认密码', trigger: 'blur'},
+    {type: 'string', min: 6, message: '密码至少6位以上', trigger: 'blur'}
+  ]
+}
+
 export const RESUME_RULES = {
   email: [
     {required: true, message: '请输入邮箱', trigger: 'blur'},
@@ -35,17 +45,6 @@ export const RESUME_RULES = {
   phone: [
     {required: true, message: "请输入姓名", trigger: "blur"},
     {pattern: /[\d\-]{9,11}/, message: '电话格式不正确', trigger: 'blur'}
-  ]
-}
-
-export const REGISTER_RULES = {
-  email: [
-    {required: true, message: '请输入邮箱', trigger: 'blur'},
-    {type: 'email', message: '邮箱格式不正确', trigger: 'blur'}
-  ],
-  password: [
-    {required: true, message: '请输入密码', trigger: 'blur'},
-    {type: 'string', min: 6, message: '密码至少6位以上', trigger: 'blur'}
   ]
 }
 

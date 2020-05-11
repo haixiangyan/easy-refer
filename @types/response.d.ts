@@ -3,8 +3,3 @@ interface IUploadResume {
   url: string
   name: string
 }
-
-type TLoginForm = {
-  email: string
-  password: string
-}
