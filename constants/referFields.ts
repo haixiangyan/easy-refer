@@ -17,6 +17,4 @@ export const getFieldName = (key: string) => {
   return REFER_FIELDS_MAPPER[key]
 }
 
-export const REQUIRED_REFER_FIELD_VALUES = [
-  'name', 'email', 'experience', 'referLinks'
-]
+export const REQUIRED_REFER_FIELD_VALUES = ['email']

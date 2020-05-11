@@ -1,4 +1,5 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 import consola from 'consola'
 // 路由
 import JobsRouter from './routes/jobs'
@@ -9,6 +10,8 @@ import UploadRouter from './routes/upload'
 import UsersRouter from './routes/users'
 
 const app = express()
+
+app.use(bodyParser.json())
 
 app.use('/api/auth', AuthRouter)
 app.use('/api/jobs', JobsRouter)

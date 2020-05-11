@@ -17,7 +17,7 @@
   @Component
   export default class StatusChart extends Vue {
     @Prop({required: true})
-    dataSource!: TProcessedChartItem[]
+    dataSource!: TLog[]
     @Prop({type: Number, default: 1000})
     max!: number
 
@@ -33,7 +33,7 @@
       xAxis: {show: false},
       yAxis: {show: false, max: this.max},
       // Canvas 对于容器的位置
-      grid: {left: '-16%', top: 0, bottom: 0, right: 0},
+      grid: {left: '-16%', top: '10%', bottom: 0, right: 0},
       // 配置 y 轴方向的渐变色
       color: {
         type: 'linear',

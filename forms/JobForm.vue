@@ -5,11 +5,11 @@
              class="job-form"
              :rules="rules">
         <el-divider>内推职位信息</el-divider>
+        <el-form-item label="内推人">
+            <el-input v-model="form.name" placeholder="请输入你的名字"></el-input>
+        </el-form-item>
         <el-form-item prop="company" required label="内推公司">
             <el-input v-model="form.company" placeholder="内推的公司"></el-input>
-        </el-form-item>
-        <el-form-item required label="内推人">
-            <el-input v-model="form.name" placeholder="请输入你的名字"></el-input>
         </el-form-item>
         <el-form-item required label="必填内容">
             <el-select
@@ -40,7 +40,7 @@
             <el-radio v-model="form.autoRejectDay" :label="7">7 天</el-radio>
         </el-form-item>
         <el-form-item required label="内推上限">
-            <el-input-number v-model="form.referTotal" :min="20" :max="1000" :step="100" label="描述文字"/>
+            <el-input-number v-model="form.applyTotal" :min="20" :max="1000" :step="100" label="描述文字"/>
             <p class="limit-hint">上限范围：20~1000 请合理安排你的内推计划</p>
         </el-form-item>
         <el-form-item label="一亩三分地原贴">
@@ -49,22 +49,22 @@
 
         <div class="publish">
             <el-button class="publish-button" @click="submit" type="primary" round>
-                {{job !== null ? '修改内推' : '发布内推'}}
+                {{job !== null ? '修改' : '发布'}}
             </el-button>
-            <nuxt-link to="/job/list" tag="span">
-                <el-button type="danger" round>放弃编辑</el-button>
-            </nuxt-link>
+            <el-button v-if="job" @click="withdraw" type="danger" round>
+                撤回
+            </el-button>
         </div>
     </el-form>
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  import {Component} from "nuxt-property-decorator"
-  import dayjs from "dayjs"
+  import Vue from 'vue'
+  import {Component} from 'nuxt-property-decorator'
+  import dayjs from 'dayjs'
   import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '~/constants/referFields'
-  import {JOB_RULES} from "~/constants/rules"
-  import {ElForm} from "element-ui/types/form"
+  import {JOB_RULES} from '~/constants/rules'
+  import {ElForm} from 'element-ui/types/form'
 
   @Component
   export default class JobForm extends Vue {
@@ -73,7 +73,7 @@
       name: this.userInfo.name,
       deadline: dayjs().add(1, 'month').toISOString(),
       autoRejectDay: 5,
-      referTotal: 0,
+      applyTotal: 0,
       requiredFields: [...REQUIRED_REFER_FIELD_VALUES],
       source: '',
     }
@@ -82,7 +82,7 @@
       disabledDate(date: Date) {
         const today = dayjs()
         const cellDate = dayjs(date)
-        const afterOneYear = today.add(1, "year")
+        const afterOneYear = today.add(1, 'year')
 
         return cellDate.isBefore(today) || cellDate.isAfter(afterOneYear)
       }
@@ -92,9 +92,11 @@
     get userInfo() {
       return this.$auth.user.info
     }
+
     get job() {
       return this.$auth.user.job
     }
+
     get referFields() {
       return Object.entries(REFER_FIELDS_MAPPER).map(([value, label]) => ({value, label}))
     }
@@ -106,14 +108,40 @@
     async loadJob() {
       Object.keys(this.form).forEach((key: string) => {
         this.form[key] = this.job[key]
-        })
+      })
     }
 
     submit() {
       (<ElForm>this.$refs.form).validate(async valid => {
-        if (!valid) return this.$message.error("填写不正确")
+        if (!valid) return this.$message.error('填写不正确')
 
         this.$emit('submit', this.form)
+      })
+    }
+
+    async confirmWithdraw() {
+      await this.$axios.$delete(`/jobs/${this.job.jobId}`)
+
+      await this.$auth.fetchUser()
+
+      await this.$router.push('/')
+
+      this.$message.success('已移除')
+    }
+
+    async withdraw() {
+      await this.$alert('确定撤回该职位？', '撤回职位', {
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '撤回吧',
+        cancelButtonText: '再想想',
+        cancelButtonClass: 'cancel-withdraw',
+        confirmButtonClass: 'confirm-withdraw',
+        callback: action => {
+          if (action === 'confirm') {
+            this.confirmWithdraw()
+          }
+        }
       })
     }
   }
@@ -122,7 +150,7 @@
 <style lang="scss">
     .job-form {
         .el-tag__close.el-icon-close {
-            display: none!important;
+            display: none !important;
         }
     }
 </style>
@@ -139,10 +167,6 @@
 
         .publish {
             text-align: center;
-
-            &-button {
-                margin-right: 8px;
-            }
         }
     }
 </style>
