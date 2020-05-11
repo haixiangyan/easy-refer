@@ -4,9 +4,9 @@
             <div class="header">
                 <img class="logo" src="@/assets/img/logo.png" alt="logo">
             </div>
-<!--            <login-form></login-form>-->
-<!--            <registration-form></registration-form>-->
-            <activation-form></activation-form>
+            <login-form v-if="formType === 'login'" @action="onAction"/>
+            <registration-form v-if="formType === 'register'" @action="onAction"/>
+            <activation-form v-if="formType === 'activate'" @action="onAction"/>
         </el-card>
     </div>
 </template>
@@ -18,6 +18,8 @@
   import RegistrationForm from '~/forms/RegistrationForm.vue'
   import ActivationForm from '~/forms/ActivationForm.vue'
 
+  type TFormType = 'login' | 'register' | 'activate'
+
   @Component({
     components: {
       LoginForm,
@@ -26,7 +28,11 @@
     }
   })
   export default class Login extends Vue {
+    formType: TFormType = 'login'
 
+    onAction(formType: TFormType) {
+      this.formType = formType
+    }
   }
 </script>
 

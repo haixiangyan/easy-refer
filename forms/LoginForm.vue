@@ -40,27 +40,11 @@
     rules = LOGIN_RULES
 
     register() {
-      (<ElForm>this.$refs.form).validate(async valid => {
-        if (!valid) return this.$message.error('填写不正确')
-
-        await this.$axios.$post('/auth/register', this.form)
-
-        this.$message.success('注册成功')
-
-        this.login()
-      })
+      this.$emit('action', 'register')
     }
 
     activate() {
-      (<ElForm>this.$refs.loginForm).validate(async valid => {
-        if (!valid) return this.$message.error('填写不正确')
-
-        await this.$axios.$post('/auth/activate', this.form)
-
-        this.$message.success('激活成功')
-
-        this.login()
-      })
+      this.$emit('action', 'activate')
     }
 
     login() {

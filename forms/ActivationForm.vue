@@ -1,14 +1,14 @@
 <template>
     <el-form class="registration-form" ref="form" :model="form" :rules="rules">
         <el-form-item prop="email">
-            <el-input type="email" v-model="form.email" placeholder="输入邮箱">
+            <el-input type="email" v-model="form.email" placeholder="输入邮箱以激活账号">
                 <template slot="prepend">
                     <i class="el-icon-message"></i>
                 </template>
             </el-input>
         </el-form-item>
         <el-form-item prop="password">
-            <el-input type="password" v-model="form.password" placeholder="输入密码">
+            <el-input type="password" v-model="form.password" placeholder="输入密码以激活账号">
                 <template slot="prepend">
                     <i class="el-icon-key"></i>
                 </template>
