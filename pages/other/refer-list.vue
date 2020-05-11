@@ -21,8 +21,9 @@
                 </template>
             </el-table-column>
         </el-table>
-        <div class="pages" v-if="limit < total">
+        <div class="pages">
             <el-pagination
+                hide-on-single-page
                 :current-page.sync="page"
                 background
                 layout="prev, pager, next"
