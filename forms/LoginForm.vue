@@ -48,7 +48,7 @@
     }
 
     login() {
-      (<ElForm>this.$refs.loginForm).validate(async valid => {
+      (<ElForm>this.$refs.form).validate(async valid => {
         if (!valid) return this.$message.error('填写不正确')
 
         // 登录成功后，自动获取用户
