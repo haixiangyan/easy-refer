@@ -82,8 +82,7 @@
                 text-align: center;
 
                 > img {
-                    width: 4em;
-                    height: 4em;
+                    width: 5em;
                 }
             }
         }
