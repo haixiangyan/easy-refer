@@ -20,7 +20,7 @@
                 <el-divider direction="vertical"></el-divider>
                 <el-button @click="login" class="register-button" type="text">已有账号</el-button>
             </div>
-            <el-button type="primary" @click="activate">激活</el-button>
+            <el-button type="primary" @click="activate" :loading="submitting">激活</el-button>
         </div>
     </el-form>
 </template>
@@ -37,6 +37,7 @@
       email: '',
       password: '',
     }
+    submitting = false
     rules = ACTIVATE_RULES
 
     register() {
@@ -49,10 +50,13 @@
 
     activate() {
       (<ElForm>this.$refs.form).validate(async valid => {
+        this.submitting = true
+
         if (!valid) return this.$message.error('填写不正确')
 
         await this.$axios.$post('/auth/activate', this.form)
 
+        this.submitting = false
         this.$message.success('激活成功')
 
         this.login()
