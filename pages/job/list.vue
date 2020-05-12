@@ -1,5 +1,5 @@
 <template>
-    <div v-if="total !== 0">
+    <div v-if="!loading && total !== 0" v-loading="loading">
         <div class="job-list">
             <JobItem v-for="job in publicJobs" :job="job" :key="job.jobId"></JobItem>
         </div>
@@ -31,15 +31,18 @@
     page: number = 1
     limit: number = 10
     total: number = 0
+    loading = true
 
     mounted() {
       this.loadJobs(this.page)
     }
 
     async loadJobs(page: number) {
+      this.loading = true
       const data = await this.$axios.$get('/jobs', {
         params: {page, limit: this.limit}
       })
+      this.loading = false
 
       this.publicJobs = data.jobList
       this.total = data.total

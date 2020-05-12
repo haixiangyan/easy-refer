@@ -1,6 +1,6 @@
 <template>
-    <div v-if="total !== 0">
-        <el-table :data="refers" style="width: 100%">
+    <div v-if="!loading && total !== 0">
+        <el-table :data="refers" style="width: 100%" v-loading="loading">
             <el-table-column prop="name" label="姓名" width="180"/>
             <el-table-column prop="createdAt" label="提交日期" width="180">
                 <template slot-scope="scope">
@@ -54,6 +54,7 @@
     page: number = 1
     limit: number = 10
     total: number = 0
+    loading = true
 
     get emptyText() {
       return !this.$auth.user.job ? '还没有发布内推职位哦~' : '还没有人申请内推哦~'
@@ -72,9 +73,11 @@
     }
 
     async loadOtherReferList(page: number) {
+      this.loading = true
       const data = await this.$axios.$get('/refers', {
         params: {role: 'other', page, limit: this.limit}
       })
+      this.loading = false
 
       this.refers = data.referList as TRefer[]
       this.total = data.total

@@ -1,6 +1,6 @@
 <template>
-    <div v-if="total !== 0">
-        <el-table :data="refers" style="width: 100%">
+    <div v-if="!loading && total !== 0">
+        <el-table :data="refers" style="width: 100%" v-loading="loading">
             <el-table-column prop="job.company" label="公司"/>
             <el-table-column prop="referer.name" label="内推人"/>
             <el-table-column prop="status" label="状态">
@@ -66,6 +66,7 @@
     page: number = 1
     limit: number = 10
     total: number = 0
+    loading = true
 
     mounted() {
       this.loadRefers(this.page)
@@ -80,9 +81,11 @@
     }
 
     async loadRefers(page: number) {
+      this.loading = true
       const data = await this.$axios.$get('/refers', {
         params: {role: 'my', page: page, limit: this.limit}
       })
+      this.loading = false
 
       this.refers = data.referList as TRefer[]
       this.total = data.total
