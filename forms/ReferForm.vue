@@ -110,9 +110,8 @@
     onUploaded(resume: IUploadResume) {
       this.form.resumeId = resume.resumeId
       this.resume = resume
-      this.setLoading(false)
-      this.$message.success('上传成功')
       this.uploading = false
+      this.$message.success('上传成功')
     }
 
     onUploading({status}: { status: string }) {
@@ -127,11 +126,11 @@
 
       if (!isPdf) {
         this.$message.error('上传简历只能是 PDF 格式')
-        this.setLoading(false)
+        this.uploading = false
       }
       if (!isValidSize) {
         this.$message.error('上传简历大小不能超过 5MB')
-        this.setLoading(false)
+        this.uploading = false
       }
 
       return isPdf && isValidSize
