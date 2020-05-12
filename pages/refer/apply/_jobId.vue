@@ -10,6 +10,7 @@
             @submit="apply"
             @back="$router.push('/job/list')"
             :required-fields="job.requiredFields"
+            :submitting="submitting"
         />
     </div>
 </template>
@@ -27,6 +28,7 @@
   })
   export default class extends Vue {
     job: TJob | null = null
+    submitting = false
 
     get jobId() {
       return this.$route.params.jobId
@@ -38,7 +40,9 @@
     }
 
     async apply(form: TReferForm) {
+      this.submitting = true
       await this.$axios.$post(`/refers/${this.jobId}`, form)
+      this.submitting = false
 
       this.$message.success('已提交内推信息')
 

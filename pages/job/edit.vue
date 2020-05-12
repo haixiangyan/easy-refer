@@ -1,6 +1,6 @@
 <template>
     <div>
-        <JobForm @submit="onSubmit"/>
+        <JobForm @submit="onSubmit" :submitting="submitting"/>
     </div>
 </template>
 
@@ -13,8 +13,12 @@
     components: {JobForm}
   })
   export default class extends Vue {
+    submitting = false
+
     async onSubmit(form: TJobForm) {
+      this.submitting = true
       await this.$axios.$put(`/jobs/${this.$auth.user.job.jobId}`, form)
+      this.submitting = false
 
       this.$message.success('已修改该职位')
 

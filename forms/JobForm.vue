@@ -48,7 +48,7 @@
         </el-form-item>
 
         <div class="publish">
-            <el-button class="publish-button" @click="submit" type="primary" round :loading="editing">
+            <el-button class="publish-button" @click="submit" type="primary" round :loading="submitting">
                 {{job !== null ? '修改' : '发布'}}
             </el-button>
             <el-button v-if="job" @click="withdraw" type="danger" round :loading="deleting">
@@ -60,7 +60,7 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import {Component} from 'nuxt-property-decorator'
+  import {Component, Prop} from 'nuxt-property-decorator'
   import dayjs from 'dayjs'
   import {REFER_FIELDS_MAPPER, REQUIRED_REFER_FIELD_VALUES} from '~/constants/referFields'
   import {JOB_RULES} from '~/constants/rules'
@@ -68,6 +68,9 @@
 
   @Component
   export default class JobForm extends Vue {
+    @Prop({type: Boolean, default: false})
+    submitting!: boolean
+
     form: TJobForm = {
       company: '',
       name: this.userInfo.name,

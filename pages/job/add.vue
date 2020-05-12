@@ -1,6 +1,6 @@
 <template>
     <div class="add-job">
-        <JobForm @submit="onSubmit"/>
+        <JobForm @submit="onSubmit" :submitting="submitting"/>
     </div>
 </template>
 
@@ -13,8 +13,12 @@
     components: {JobForm}
   })
   export default class extends Vue {
+    submitting = false
+
     async onSubmit(form: TJobForm) {
+      this.submitting = true
       const {data: job} = await this.$axios.$post('/jobs', form)
+      this.submitting = false
 
       await this.$router.push('/job/list')
 

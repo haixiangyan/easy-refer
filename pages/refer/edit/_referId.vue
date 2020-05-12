@@ -11,6 +11,7 @@
             @submit="edit"
             :refer="refer"
             @back="$router.push('/my/refer-list')"
+            :submitting="submitting"
             :required-fields="job.requiredFields"/>
     </div>
 </template>
@@ -29,6 +30,7 @@
     job: TJob | null = null
     refer: TRefer | null = null
     referId: string | null = null
+    submitting = false
 
     async asyncData({$axios, route}: Context) {
       const referId = route.params.referId
@@ -44,7 +46,9 @@
     }
 
     async edit(form: TReferForm) {
+      this.submitting = true
       await this.$axios.$patch(`/refers/${this.referId}`, form)
+      this.submitting = false
 
       this.$message.success('已修改内推信息')
 

@@ -47,7 +47,7 @@
         </el-form-item>
 
         <div class="submit">
-            <el-button @click="submit" type="primary" round>提交</el-button>
+            <el-button @click="submit" type="primary" round :loading="submitting">提交</el-button>
             <el-button @click="back" round>返回</el-button>
         </div>
     </el-form>
@@ -68,6 +68,7 @@
     components: {JobItem}
   })
   export default class ReferForm extends Vue {
+    @Prop({type: Boolean, default: false}) submitting!: boolean
     @Prop() refer: TRefer | undefined
     @Prop({required: true}) requiredFields!: string[]
 
