@@ -35,12 +35,13 @@
             <el-upload
                 action="/api/upload/resume"
                 :data="{resumeId: form.resumeId}"
-                :on-success="uploaded"
-                :on-change="uploading"
+                :on-success="onUploaded"
+                :on-change="onUploading"
+                :disabled="uploading"
                 :on-error="() => this.$message.error('上传失败')"
                 :before-upload="beforeUpload"
                 :show-file-list="false">
-                <el-button size="small" type="primary">上传简历</el-button>
+                <el-button size="small" type="primary" :loading="uploading">上传简历</el-button>
                 <span style="margin-left: 12px">{{resume.name}}</span>
                 <div slot="tip" class="el-upload__tip">只能上传 <strong>pdf</strong> 文件，且不超过5MB</div>
             </el-upload>
@@ -92,6 +93,7 @@
     }
     rules = RESUME_RULES
     field = getFieldName
+    uploading = false
 
     mounted() {
       this.initForm()
@@ -108,15 +110,18 @@
       return this.requiredFields.includes(fieldName)
     }
 
-    uploaded(resume: IUploadResume) {
+    onUploaded(resume: IUploadResume) {
       this.form.resumeId = resume.resumeId
       this.resume = resume
       this.setLoading(false)
       this.$message.success('上传成功')
+      this.uploading = false
     }
 
-    uploading({status}: { status: string }) {
-      this.setLoading(!(status === 'success' || status === 'fail'))
+    onUploading({status}: { status: string }) {
+      if (!(status === 'success' || status === 'fail')) {
+        this.uploading = true
+      }
     }
 
     beforeUpload(file: File) {
