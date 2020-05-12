@@ -20,7 +20,7 @@
                 <el-divider direction="vertical"></el-divider>
                 <el-button @click="activate" class="register-button" type="text">激活账号</el-button>
             </div>
-            <el-button type="primary" @click="login">登录</el-button>
+            <el-button type="primary" @click="login" :loading="submitting">登录</el-button>
         </div>
     </el-form>
 </template>
@@ -38,6 +38,7 @@
       password: ''
     }
     rules = LOGIN_RULES
+    submitting = false
 
     register() {
       this.$emit('action', 'register')
@@ -52,9 +53,11 @@
         if (!valid) return this.$message.error('填写不正确')
 
         // 登录成功后，自动获取用户
+        this.submitting = true
         await this.$auth.loginWith('local', {
           data: this.form
         })
+        this.submitting = false
 
         this.$notify({title: '登录成功', message: '欢迎回来', type: 'success'})
 

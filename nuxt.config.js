@@ -22,10 +22,18 @@ module.exports = {
     router: {
         middleware: ['auth']
     },
-    /*
-    ** Customize the progress-bar color
-    */
-    loading: {color: '#fff'},
+    /**
+     * 进度条
+     */
+    loading: {color: '#409EFF'},
+    /**
+     * Spinner
+     */
+    loadingIndicator: {
+      name: 'chasing-dots',
+      color: '#409EFF',
+      background: '#fff'
+    },
     /*
     ** Global styles
     */

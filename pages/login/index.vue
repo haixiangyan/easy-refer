@@ -2,7 +2,7 @@
     <div class="login">
         <el-card class="card">
             <div class="header">
-                <img class="logo" src="@/assets/img/logo.png" alt="logo">
+                <img class="logo" src="@/assets/img/single_logo.png" alt="logo">
             </div>
             <login-form v-if="formType === 'login'" @action="onAction"/>
             <registration-form v-if="formType === 'register'" @action="onAction"/>
@@ -49,7 +49,6 @@
             text-align: center;
             .logo {
                 width: 200px;
-                height: 200px;
             }
         }
 

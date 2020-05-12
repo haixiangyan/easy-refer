@@ -1,6 +1,11 @@
 <template>
-    <div v-if="total !== 0">
-        <el-table :data="refers" style="width: 100%">
+    <Empty v-if="showEmpty" empty-text="还没有申请任何内推哦~">
+        <nuxt-link to="/job/list">
+            <el-button type="primary" size="small" round>申请内推</el-button>
+        </nuxt-link>
+    </Empty>
+    <div v-else>
+        <el-table :data="refers" style="width: 100%" v-loading="loading">
             <el-table-column prop="job.company" label="公司"/>
             <el-table-column prop="referer.name" label="内推人"/>
             <el-table-column prop="status" label="状态">
@@ -43,11 +48,6 @@
             </el-pagination>
         </div>
     </div>
-    <Empty v-else empty-text="还没有申请任何内推哦~">
-        <nuxt-link to="/job/list">
-            <el-button type="primary" size="small" round>申请内推</el-button>
-        </nuxt-link>
-    </Empty>
 </template>
 
 <script lang="ts">
@@ -66,6 +66,8 @@
     page: number = 1
     limit: number = 10
     total: number = 0
+    loading = true
+    showEmpty = false
 
     mounted() {
       this.loadRefers(this.page)
@@ -80,12 +82,16 @@
     }
 
     async loadRefers(page: number) {
+      this.loading = true
       const data = await this.$axios.$get('/refers', {
         params: {role: 'my', page: page, limit: this.limit}
       })
+      this.loading = false
 
       this.refers = data.referList as TRefer[]
       this.total = data.total
+
+      this.showEmpty = (this.total === 0)
     }
 
     async withdraw(refer: TRefer) {

@@ -1,5 +1,6 @@
 <template>
-    <div v-if="total !== 0">
+    <Empty v-if="showEmpty" empty-text="目前还没有内推职位哦"/>
+    <div v-else v-loading="loading">
         <div class="job-list">
             <JobItem v-for="job in publicJobs" :job="job" :key="job.jobId"></JobItem>
         </div>
@@ -13,7 +14,6 @@
             </el-pagination>
         </div>
     </div>
-    <Empty v-else empty-text="目前还没有内推职位哦"/>
 </template>
 
 <script lang="ts">
@@ -31,18 +31,24 @@
     page: number = 1
     limit: number = 10
     total: number = 0
+    loading = true
+    showEmpty = false
 
     mounted() {
       this.loadJobs(this.page)
     }
 
     async loadJobs(page: number) {
+      this.loading = true
       const data = await this.$axios.$get('/jobs', {
         params: {page, limit: this.limit}
       })
+      this.loading = false
 
       this.publicJobs = data.jobList
       this.total = data.total
+
+      this.showEmpty = (this.total === 0)
     }
 
     @Watch('page')

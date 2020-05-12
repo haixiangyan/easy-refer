@@ -41,12 +41,9 @@
   import {EDIT_USER_RULES} from '~/constants/rules'
   import {ElForm} from 'element-ui/types/form'
   import {getFieldName} from '~/constants/referFields'
-  import {Mutation} from 'vuex-class'
 
   @Component
   export default class UserForm extends Vue {
-    @Mutation('setLoading') setLoading!: Function
-
     form: TUserForm = {
       email: '',
       experience: 0,
