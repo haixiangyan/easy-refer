@@ -57,7 +57,6 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component, Prop} from 'nuxt-property-decorator'
-  import {Mutation} from 'vuex-class'
   import JobItem from '~/components/JobItem.vue'
   import {LEVEL_MAPPER} from '~/constants/level'
   import {ElForm} from 'element-ui/types/form'
@@ -72,8 +71,6 @@
     @Prop({type: Boolean, default: false}) submitting!: boolean
     @Prop() refer: TRefer | undefined
     @Prop({required: true}) requiredFields!: string[]
-
-    @Mutation('setLoading') setLoading!: Function
 
     form: TReferForm = {
       email: '',
@@ -113,9 +110,8 @@
     onUploaded(resume: IUploadResume) {
       this.form.resumeId = resume.resumeId
       this.resume = resume
-      this.setLoading(false)
-      this.$message.success('上传成功')
       this.uploading = false
+      this.$message.success('上传成功')
     }
 
     onUploading({status}: { status: string }) {
@@ -130,11 +126,11 @@
 
       if (!isPdf) {
         this.$message.error('上传简历只能是 PDF 格式')
-        this.setLoading(false)
+        this.uploading = false
       }
       if (!isValidSize) {
         this.$message.error('上传简历大小不能超过 5MB')
-        this.setLoading(false)
+        this.uploading = false
       }
 
       return isPdf && isValidSize
