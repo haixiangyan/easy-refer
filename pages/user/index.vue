@@ -9,14 +9,11 @@
   import Vue from 'vue'
   import {Component} from 'nuxt-property-decorator'
   import UserForm from '~/forms/UserForm.vue'
-  import {Mutation} from 'vuex-class'
 
   @Component({
     components: {UserForm}
   })
   export default class extends Vue {
-    @Mutation('setLoading') setLoading!: Function
-
     get job() {
       return this.$auth.user.job
     }

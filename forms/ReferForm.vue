@@ -57,7 +57,6 @@
 <script lang="ts">
   import Vue from 'vue'
   import {Component, Prop} from 'nuxt-property-decorator'
-  import {Mutation} from 'vuex-class'
   import JobItem from '~/components/JobItem.vue'
   import {LEVEL_MAPPER} from '~/constants/level'
   import {ElForm} from 'element-ui/types/form'
@@ -72,8 +71,6 @@
     @Prop({type: Boolean, default: false}) submitting!: boolean
     @Prop() refer: TRefer | undefined
     @Prop({required: true}) requiredFields!: string[]
-
-    @Mutation('setLoading') setLoading!: Function
 
     form: TReferForm = {
       email: '',
