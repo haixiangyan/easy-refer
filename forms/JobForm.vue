@@ -48,10 +48,10 @@
         </el-form-item>
 
         <div class="publish">
-            <el-button class="publish-button" @click="submit" type="primary" round>
+            <el-button class="publish-button" @click="submit" type="primary" round :loading="editing">
                 {{job !== null ? '修改' : '发布'}}
             </el-button>
-            <el-button v-if="job" @click="withdraw" type="danger" round>
+            <el-button v-if="job" @click="withdraw" type="danger" round :loading="deleting">
                 撤回
             </el-button>
         </div>
@@ -88,6 +88,7 @@
       }
     }
     rules = JOB_RULES
+    deleting = false
 
     get userInfo() {
       return this.$auth.user.info
@@ -120,7 +121,9 @@
     }
 
     async confirmWithdraw() {
+      this.deleting = true
       await this.$axios.$delete(`/jobs/${this.job.jobId}`)
+      this.deleting = false
 
       await this.$auth.fetchUser()
 

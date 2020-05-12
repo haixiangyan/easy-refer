@@ -50,13 +50,12 @@
 
     activate() {
       (<ElForm>this.$refs.form).validate(async valid => {
-        this.submitting = true
-
         if (!valid) return this.$message.error('填写不正确')
 
+        this.submitting = true
         await this.$axios.$post('/auth/activate', this.form)
-
         this.submitting = false
+
         this.$message.success('激活成功')
 
         this.login()

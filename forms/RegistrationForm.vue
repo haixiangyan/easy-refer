@@ -27,7 +27,7 @@
                 <el-divider direction="vertical"></el-divider>
                 <el-button @click="activate" class="register-button" type="text">激活账号</el-button>
             </div>
-            <el-button type="primary" @click="register">注册</el-button>
+            <el-button type="primary" @click="register" :loading="submitting">注册</el-button>
         </div>
     </el-form>
 </template>
@@ -46,13 +46,16 @@
       confirmPassword: ''
     }
     rules = REGISTER_RULES
+    submitting = false
 
     register() {
       (<ElForm>this.$refs.form).validate(async valid => {
         if (this.form.password !== this.form.confirmPassword) return this.$message.error('两次密码输入不匹配')
         if (!valid) return this.$message.error('填写不正确')
 
+        this.submitting = true
         await this.$axios.$post('/auth/register', this.form)
+        this.submitting = false
 
         this.$message.success('注册成功')
 
