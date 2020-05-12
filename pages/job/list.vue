@@ -1,5 +1,6 @@
 <template>
-    <div v-if="!loading && total !== 0" v-loading="loading">
+    <Empty v-if="showEmpty" empty-text="目前还没有内推职位哦"/>
+    <div v-else v-loading="loading">
         <div class="job-list">
             <JobItem v-for="job in publicJobs" :job="job" :key="job.jobId"></JobItem>
         </div>
@@ -13,7 +14,6 @@
             </el-pagination>
         </div>
     </div>
-    <Empty v-else empty-text="目前还没有内推职位哦"/>
 </template>
 
 <script lang="ts">
@@ -32,6 +32,7 @@
     limit: number = 10
     total: number = 0
     loading = true
+    showEmpty = false
 
     mounted() {
       this.loadJobs(this.page)
@@ -46,6 +47,8 @@
 
       this.publicJobs = data.jobList
       this.total = data.total
+
+      this.showEmpty = (this.total === 0)
     }
 
     @Watch('page')

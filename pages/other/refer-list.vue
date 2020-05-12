@@ -1,5 +1,10 @@
 <template>
-    <div v-if="!loading && total !== 0">
+    <Empty v-if="showEmpty" :empty-text="emptyText">
+        <nuxt-link v-if="!this.$auth.user.job" to="/job/add">
+            <el-button type="primary" size="small" round>发布内推职位</el-button>
+        </nuxt-link>
+    </Empty>
+    <div v-else>
         <el-table :data="refers" style="width: 100%" v-loading="loading">
             <el-table-column prop="name" label="姓名" width="180"/>
             <el-table-column prop="createdAt" label="提交日期" width="180">
@@ -31,11 +36,6 @@
             </el-pagination>
         </div>
     </div>
-    <Empty v-else :empty-text="emptyText">
-        <nuxt-link v-if="!this.$auth.user.job" to="/job/add">
-            <el-button type="primary" size="small" round>发布内推职位</el-button>
-        </nuxt-link>
-    </Empty>
 </template>
 
 <script lang="ts">
@@ -55,6 +55,7 @@
     limit: number = 10
     total: number = 0
     loading = true
+    showEmpty = false
 
     get emptyText() {
       return !this.$auth.user.job ? '还没有发布内推职位哦~' : '还没有人申请内推哦~'
@@ -81,6 +82,8 @@
 
       this.refers = data.referList as TRefer[]
       this.total = data.total
+
+      this.showEmpty = (this.total === 0)
     }
 
     @Watch('page')
