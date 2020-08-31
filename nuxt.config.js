@@ -74,7 +74,9 @@ module.exports = {
     /**
      * 配置代理
      */
-    proxy: [`${process.env.PROXY_BASE_URL}/api`],
+    proxy: {
+        target: `${process.env.PROXY_BASE_URL}/api`
+    },
     /*
     ** Axios module configuration
     ** See https://axios.nuxtjs.org/options
