@@ -24,7 +24,7 @@
     "dayjs": "^1.8.23",
     "echarts": "^4.7.0",
     "element-ui": "^2.4.11",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.5.1",
     "v-charts": "^1.19.0",
